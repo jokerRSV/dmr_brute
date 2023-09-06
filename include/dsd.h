@@ -56,8 +56,6 @@
 #include <mbelib.h>
 #include <sndfile.h>
 
-#include "p25p1_heuristics.h"
-
 //OSS support
 #include <sys/soundcard.h>
 
@@ -505,12 +503,6 @@ typedef struct
   // Last dibit read
   int last_dibit;
 
-  // Heuristics state data for +P25 signals
-  P25Heuristics p25_heuristics;
-
-  // Heuristics state data for -P25 signals
-  P25Heuristics inv_p25_heuristics;
-
   //input sample buffer for monitoring Input
   short input_sample_buffer; //HERE HERE
   short pulse_raw_out_buffer; //HERE HERE
@@ -864,18 +856,6 @@ void resumeScan (dsd_opts * opts, dsd_state * state);
 int getSymbol (dsd_opts * opts, dsd_state * state, int have_sync);
 void upsample (dsd_state * state, float invalue);
 
-//new p25lcw
-void p25_lcw (dsd_opts * opts, dsd_state * state, uint8_t LCW_bits[], uint8_t irrecoverable_errors);
-
-void processHDU (dsd_opts * opts, dsd_state * state);
-void processLDU1 (dsd_opts * opts, dsd_state * state);
-void processLDU2 (dsd_opts * opts, dsd_state * state);
-void processTDU (dsd_opts * opts, dsd_state * state);
-void processTDULC (dsd_opts * opts, dsd_state * state);
-void processYSF(dsd_opts * opts, dsd_state * state); //YSF
-void processP2(dsd_opts * opts, dsd_state * state); //P2
-void processTSBK(dsd_opts * opts, dsd_state * state); //P25 Trunking Single Block
-void processMPDU(dsd_opts * opts, dsd_state * state); //P25 Multi Block PDU (SAP 0x61 FMT 0x15 or 0x17 for Trunking Blocks)
 short dmr_filter(short sample);
 short nxdn_filter(short sample);
 short dpmr_filter(short sample);
@@ -886,56 +866,6 @@ uint64_t ConvertBitIntoBytes(uint8_t * BufferIn, uint32_t BitLength);
 void ncursesOpen (dsd_opts * opts, dsd_state * state);
 void ncursesPrinter (dsd_opts * opts, dsd_state * state);
 void ncursesClose ();
-
-//new NXDN Functions start here!
-void nxdn_frame (dsd_opts * opts, dsd_state * state);
-void nxdn_descramble (uint8_t dibits[], int len);
-//nxdn deinterleaving/depuncturing functions
-void nxdn_deperm_facch (dsd_opts * opts, dsd_state * state, uint8_t bits[144]);
-void nxdn_deperm_sacch (dsd_opts * opts, dsd_state * state, uint8_t bits[60]);
-void nxdn_deperm_cac (dsd_opts * opts, dsd_state * state, uint8_t bits[300]);
-void nxdn_deperm_facch2_udch (dsd_opts * opts, dsd_state * state, uint8_t bits[348], uint8_t type);
-//type-d 'idas' deinterleaving/depuncturing functions
-void nxdn_deperm_scch(dsd_opts * opts, dsd_state * state, uint8_t bits[60], uint8_t direction);
-void nxdn_deperm_facch3_udch2(dsd_opts * opts, dsd_state * state, uint8_t bits[288], uint8_t type);
-//end
-void nxdn_message_type (dsd_opts * opts, dsd_state * state, uint8_t MessageType);
-void nxdn_voice (dsd_opts * opts, dsd_state * state, int voice, uint8_t dbuf[182]);
-
-//OP25 NXDN CRC functions
-static inline int load_i(const uint8_t val[], int len);
-static uint8_t crc6(const uint8_t buf[], int len);
-static uint16_t crc12f(const uint8_t buf[], int len);
-static uint16_t crc15(const uint8_t buf[], int len);
-static uint16_t crc16cac(const uint8_t buf[], int len);
-static uint8_t crc7_scch(uint8_t bits[], int len); //converted from op25 crc6
-
-/* NXDN Convolution functions */
-void CNXDNConvolution_start(void);
-void CNXDNConvolution_decode(uint8_t s0, uint8_t s1);
-void CNXDNConvolution_chainback(unsigned char* out, unsigned int nBits);
-void CNXDNConvolution_encode(const unsigned char* in, unsigned char* out, unsigned int nBits);
-
-//keeping these
-void NXDN_SACCH_Full_decode(dsd_opts * opts, dsd_state * state);
-void NXDN_Elements_Content_decode(dsd_opts * opts, dsd_state * state,
-                                  uint8_t CrcCorrect, uint8_t * ElementsContent);
-void NXDN_decode_VCALL(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-void NXDN_decode_VCALL_IV(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-char * NXDN_Call_Type_To_Str(uint8_t CallType);
-void NXDN_Voice_Call_Option_To_Str(uint8_t VoiceCallOption, uint8_t * Duplex, uint8_t * TransmissionMode);
-char * NXDN_Cipher_Type_To_Str(uint8_t CipherType);
-//added these
-void NXDN_decode_Alias(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-void NXDN_decode_VCALL_ASSGN(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-void NXDN_decode_cch_info(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-void NXDN_decode_srv_info(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-void NXDN_decode_site_info(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-void NXDN_decode_adj_site(dsd_opts * opts, dsd_state * state, uint8_t * Message);
-//Type-D SCCH Message Decoder
-void NXDN_decode_scch(dsd_opts * opts, dsd_state * state, uint8_t * Message, uint8_t direction);
-
-void dPMRVoiceFrameProcess(dsd_opts * opts, dsd_state * state);
 
 //dPMR functions
 void ScrambledPMRBit(uint32_t * LfsrValue, uint8_t * BufferIn, uint8_t * BufferOut, uint32_t NbOfBitToScramble);
@@ -1016,9 +946,6 @@ uint8_t crc4(uint8_t bits[], unsigned int len);
 
 //LFSR and LFSRP code courtesy of https://github.com/mattames/LFSR/
 void LFSR(dsd_state * state);
-void LFSRP(dsd_state * state);
-
-void LFSRN (char * BufferIn, char * BufferOut, dsd_state * state);
 void LFSR64(dsd_state * state);
 
 void Hamming_7_4_init();
@@ -1061,19 +988,6 @@ void InitAllFecFunction(void);
 void resetState (dsd_state * state);
 void reset_dibit_buffer(dsd_state * state);
 void dstar_header_decode(dsd_state * state, int radioheaderbuffer[660]);
-
-//P25 PDU Handler
-void process_MAC_VPDU(dsd_opts * opts, dsd_state * state, int type, unsigned long long int MAC[24]);
-
-//P25 xCCH Handlers (SACCH, FACCH, LCCH)
-void process_SACCH_MAC_PDU (dsd_opts * opts, dsd_state * state, int payload[180]);
-void process_FACCH_MAC_PDU (dsd_opts * opts, dsd_state * state, int payload[156]);
-
-//P25 Channel to Frequency
-long int process_channel_to_freq (dsd_opts * opts, dsd_state * state, int channel);
-
-//NXDN Channel to Frequency, Courtesy of IcomIcR20 on RR Forums
-long int nxdn_channel_to_frequency (dsd_opts * opts, dsd_state * state, uint16_t channel);
 
 //rigctl functions and TCP/UDP functions
 void error(char *msg);
@@ -1128,9 +1042,6 @@ int ez_rs28_ess (int payload[96], int parity[168]); //ezpwd bridge for FME
 int ez_rs28_facch (int payload[156], int parity[114]); //ezpwd bridge for FME
 int ez_rs28_sacch (int payload[180], int parity[132]); //ezpwd bridge for FME
 int isch_lookup (uint64_t isch); //isch map lookup
-int bd_bridge (int payload[196], uint8_t decoded[12]); //bridge to Michael Ossmann Block De-interleaver and 1/2 rate trellis decoder
-int crc16_lb_bridge (int payload[190], int len);
-int crc12_xb_bridge (int payload[190], int len);
 
 #ifdef __cplusplus
 }

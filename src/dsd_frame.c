@@ -21,8 +21,6 @@
 #define NULL 0
 #endif
 
-#include "p25p1_check_nid.h"
-
 void
 printFrameInfo(dsd_opts *opts, dsd_state *state) {
 
@@ -79,8 +77,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
 
     //NXDN FSW
     if ((state->synctype == 28) || (state->synctype == 29)) {
-        //MBEout restored, is not handled internally by nxdn_frame.c
-        nxdn_frame(opts, state);
         return;
         //D-Star
     } else if ((state->synctype == 6) || (state->synctype == 7)) {
@@ -193,19 +189,10 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     }
         //ysf
     else if ((state->synctype == 30) || (state->synctype == 31)) {
-        //Do stuff
-        //fprintf(stderr, "YSF Sync! \n");
-        if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) {
-            //openMbeOutFile (opts, state);
-        }
-        //sprintf(state->fsubtype, " VOICE        ");
-        processYSF(opts, state);
         return;
     }
         //P25 P2
     else if ((state->synctype == 35) || (state->synctype == 36)) {
-        //relocate MBEout to inside frame handling
-        processP2(opts, state);
         return;
     }
         //dPMR
@@ -306,7 +293,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         parity = (1 & dibit);     // bit 0
 
         // Check if the NID is correct
-        check_result = check_NID(bch_code, &new_nac, new_duid, parity);
         if (check_result) {
             if (new_nac != state->nac) {
                 // NAC fixed by error correction
@@ -333,142 +319,12 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     }
 
     if (strcmp(duid, "00") == 0) {
-        // Header Data Unit
-        if (opts->errorbars == 1) {
-            printFrameInfo(opts, state);
-            fprintf(stderr, " HDU\n");
-        }
-        if (opts->mbe_out_dir[0] != 0) {
-            if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-            if (opts->mbe_out_f == NULL) openMbeOutFile(opts, state);
-        }
-        mbe_initMbeParms(state->cur_mp, state->prev_mp, state->prev_mp_enhanced);
-        state->lastp25type = 2;
-        state->dmrburstL = 25;
-        state->currentslot = 0;
-        sprintf(state->fsubtype, " HDU          ");
-        processHDU(opts, state);
     } else if (strcmp(duid, "11") == 0) {
-        // Logical Link Data Unit 1
-        if (opts->errorbars == 1) {
-            printFrameInfo(opts, state);
-            fprintf(stderr, " LDU1  ");
-        }
-        if (opts->mbe_out_dir[0] != 0) {
-            if (opts->mbe_out_f == NULL) {
-                openMbeOutFile(opts, state);
-            }
-        }
-        state->lastp25type = 1;
-        state->dmrburstL = 26;
-        state->currentslot = 0;
-        sprintf(state->fsubtype, " LDU1         ");
-        state->numtdulc = 0;
-
-        processLDU1(opts, state);
     } else if (strcmp(duid, "22") == 0) {
-        // Logical Link Data Unit 2
-        state->dmrburstL = 27;
-        state->currentslot = 0;
-        if (state->lastp25type != 1) {
-            if (opts->errorbars == 1) {
-                printFrameInfo(opts, state);
-                fprintf(stderr, "\n Ignoring LDU2 not preceeded by LDU1\n");
-            }
-            state->lastp25type = 0;
-            sprintf(state->fsubtype, "              ");
-        } else {
-            if (opts->errorbars == 1) {
-                printFrameInfo(opts, state);
-                fprintf(stderr, " LDU2  ");
-            }
-            if (opts->mbe_out_dir[0] != 0) {
-                if (opts->mbe_out_f == NULL) {
-                    openMbeOutFile(opts, state);
-                }
-            }
-            state->lastp25type = 2;
-            sprintf(state->fsubtype, " LDU2         ");
-            state->numtdulc = 0;
-            processLDU2(opts, state);
-        }
     } else if (strcmp(duid, "33") == 0) {
-        // Terminator with subsequent Link Control
-        state->dmrburstL = 28;
-        if (opts->errorbars == 1) {
-            printFrameInfo(opts, state);
-            fprintf(stderr, " TDULC\n");
-        }
-        if (opts->mbe_out_dir[0] != 0) {
-            if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-        }
-        mbe_initMbeParms(state->cur_mp, state->prev_mp, state->prev_mp_enhanced);
-        // state->lasttg = 0;
-        // state->lastsrc = 0;
-        state->lastp25type = 0;
-        state->err_str[0] = 0;
-        sprintf(state->fsubtype, " TDULC        ");
-        state->numtdulc++;
-        if ((opts->resume > 0) && (state->numtdulc > opts->resume)) {
-            resumeScan(opts, state);
-        }
-        processTDULC(opts, state);
-        state->err_str[0] = 0;
     } else if (strcmp(duid, "03") == 0) {
-        // Terminator without subsequent Link Control
-        state->dmrburstL = 28;
-        if (opts->errorbars == 1) {
-            printFrameInfo(opts, state);
-            fprintf(stderr, " TDU\n");
-        }
-        if (opts->mbe_out_dir[0] != 0) {
-            if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-        }
-        mbe_initMbeParms(state->cur_mp, state->prev_mp, state->prev_mp_enhanced);
-        state->lasttg = 0;
-        state->lastsrc = 0;
-        state->lastp25type = 0;
-        state->err_str[0] = 0;
-        sprintf(state->fsubtype, " TDU          ");
-
-        processTDU(opts, state);
     } else if (strcmp(duid, "13") == 0) {
-        state->dmrburstL = 29;
-        if (opts->errorbars == 1) {
-            printFrameInfo(opts, state);
-            fprintf(stderr, " TSBK");
-        }
-        if (opts->mbe_out_dir[0] != 0) {
-            if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-            if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
-        }
-        if (opts->resume > 0) {
-            resumeScan(opts, state);
-        }
-        state->lasttg = 0;
-        state->lastsrc = 0;
-        state->lastp25type = 3;
-        sprintf(state->fsubtype, " TSBK         ");
-
-        processTSBK(opts, state);
-
     } else if (strcmp(duid, "30") == 0) {
-        state->dmrburstL = 29;
-        if (opts->errorbars == 1) {
-            printFrameInfo(opts, state);
-            fprintf(stderr, " MBF\n"); //multi block format PDU
-        }
-        if (opts->mbe_out_dir[0] != 0) {
-            if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-            if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
-        }
-        if (opts->resume > 0) {
-            resumeScan(opts, state);
-        }
-        state->lastp25type = 4;
-        sprintf(state->fsubtype, " MBF          ");
-
-        processMPDU(opts, state);
     } else {
         state->lastp25type = 0;
         sprintf(state->fsubtype, "              ");

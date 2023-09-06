@@ -41,100 +41,100 @@ int i = 0;
 char versionstr[25];
 unsigned long long int call_matrix[33][6];
 
-char * FM_bannerN[9] = {
-  "                                                         ",
-  " ██████╗  ██████╗██████╗     ███████╗███╗   ███╗███████╗ ",
-  " ██╔══██╗██╔════╝██╔══██╗    ██╔════╝████╗ ████║██╔════╝ ",
-  " ██║  ██║╚█████╗ ██║  ██║    █████╗  ██╔████╔██║█████╗   ",
-  " ██║  ██║ ╚═══██╗██║  ██║    ██╔══╝  ██║╚██╔╝██║██╔══╝   ",
-  " ██████╔╝██████╔╝██████╔╝    ██║     ██║ ╚═╝ ██║███████╗ ",
-  " ╚═════╝ ╚═════╝ ╚═════╝     ╚═╝     ╚═╝     ╚═╝╚══════╝ ",
-  "                                                         ",
-  "                                                         "
+char *FM_bannerN[9] = {
+        "                                                         ",
+        " ██████╗  ██████╗██████╗     ███████╗███╗   ███╗███████╗ ",
+        " ██╔══██╗██╔════╝██╔══██╗    ██╔════╝████╗ ████║██╔════╝ ",
+        " ██║  ██║╚█████╗ ██║  ██║    █████╗  ██╔████╔██║█████╗   ",
+        " ██║  ██║ ╚═══██╗██║  ██║    ██╔══╝  ██║╚██╔╝██║██╔══╝   ",
+        " ██████╔╝██████╔╝██████╔╝    ██║     ██║ ╚═╝ ██║███████╗ ",
+        " ╚═════╝ ╚═════╝ ╚═════╝     ╚═╝     ╚═╝     ╚═╝╚══════╝ ",
+        "                                                         ",
+        "                                                         "
 };
 
-char * SyncTypes[44] = {
-  "P25P1",
-  "P25P1",
-  "X2TDMA DATA",
-  "X2TDMA DATA",
-  "X2TDMA VOICE",
-  "X2TDMA VOICE",
-  "DSTAR",
-  "DSTAR",
-  "NXDN VOICE",
-  "NXDN VOICE",
-  "DMR", //10
-  "DMR",
-  "DMR",
-  "DMR",
-  "EDACS/PV",
-  "EDACS/PV",
-  "NXDN VOICE", //DATA
-  "NXDN VOICE", //DATA
-  "DSTAR HD",
-  "DSTAR HD",
-  "dPMR", //20
-  "dPMR",
-  "dPMR",
-  "dPMR",
-  "dPMR",
-  "dPMR",
-  "dPMR",
-  "dPMR",
-  "NXDN",
-  "NXDN",
-  "YSF", //30
-  "YSF",
-  "DMR",
-  "DMR",
-  "DMR",
-  "P25P2",
-  "P25P2",
-  "EDACS/PV", //37
-  "EDACS/PV", //38
-  "",
-  ""
+char *SyncTypes[44] = {
+        "P25P1",
+        "P25P1",
+        "X2TDMA DATA",
+        "X2TDMA DATA",
+        "X2TDMA VOICE",
+        "X2TDMA VOICE",
+        "DSTAR",
+        "DSTAR",
+        "NXDN VOICE",
+        "NXDN VOICE",
+        "DMR", //10
+        "DMR",
+        "DMR",
+        "DMR",
+        "EDACS/PV",
+        "EDACS/PV",
+        "NXDN VOICE", //DATA
+        "NXDN VOICE", //DATA
+        "DSTAR HD",
+        "DSTAR HD",
+        "dPMR", //20
+        "dPMR",
+        "dPMR",
+        "dPMR",
+        "dPMR",
+        "dPMR",
+        "dPMR",
+        "dPMR",
+        "NXDN",
+        "NXDN",
+        "YSF", //30
+        "YSF",
+        "DMR",
+        "DMR",
+        "DMR",
+        "P25P2",
+        "P25P2",
+        "EDACS/PV", //37
+        "EDACS/PV", //38
+        "",
+        ""
 };
 
-char * DMRBusrtTypes[32] = {
-  "PI       ",
-  "VLC      ",
-  "TLC      ",
-  "CSBK     ",
-  "MBCH     ",
-  "MBCC     ",
-  "DATA     ",
-  "R12D     ",
-  "R34D     ",
-  "IDLE     ",
-  "R1_D     ",
-  "ERR      ", 
-  "DUID ERR ",
-  "R-S ERR  ",
-  "CRC ERR  ",
-  "NULL     ",
-  "VOICE", 
-  "         ",  
-  "INIT     ",
-  "INIT     ",
-  "PTT",      //20 MAC
-  "VOICE",    //21 MAC_ACTIVE
-  "HANGTIME", //22 MAC
-  "PTT END",  //23 MAC
-  "IDLE",     //24 MAC
-  "HDU",
-  "VOICE",   //26 LDU1
-  "VOICE",   //27 LDU2
-  "TDU/LC",
-  "TSBK",
-  "SIGNAL",  //MAC_SIGNAL
-  "SIGNAL"  //MAC_SIGNAL
+char *DMRBusrtTypes[32] = {
+        "PI       ",
+        "VLC      ",
+        "TLC      ",
+        "CSBK     ",
+        "MBCH     ",
+        "MBCC     ",
+        "DATA     ",
+        "R12D     ",
+        "R34D     ",
+        "IDLE     ",
+        "R1_D     ",
+        "ERR      ",
+        "DUID ERR ",
+        "R-S ERR  ",
+        "CRC ERR  ",
+        "NULL     ",
+        "VOICE",
+        "         ",
+        "INIT     ",
+        "INIT     ",
+        "PTT",      //20 MAC
+        "VOICE",    //21 MAC_ACTIVE
+        "HANGTIME", //22 MAC
+        "PTT END",  //23 MAC
+        "IDLE",     //24 MAC
+        "HDU",
+        "VOICE",   //26 LDU1
+        "VOICE",   //27 LDU2
+        "TDU/LC",
+        "TSBK",
+        "SIGNAL",  //MAC_SIGNAL
+        "SIGNAL"  //MAC_SIGNAL
 
 };
 
 #ifdef TONES //NOTE: This option is purely for the precompiled version that gets distributed, not other user Cygwin builds
-void beeper (dsd_opts * opts, dsd_state * state, int type)
+                                                                                                                        void beeper (dsd_opts * opts, dsd_state * state, int type)
 {
   FILE *beep;
   char wav_name[1024] = {0};
@@ -192,111 +192,106 @@ void beeper (dsd_opts * opts, dsd_state * state, int type)
 }
 
 #else
-void beeper (dsd_opts * opts, dsd_state * state, int type)
-{
-  FILE *beep;
-  char wav_name[1024] = {0};
 
-  if (opts->pulse_digi_rate_out == 8000) strncpy(wav_name, "/usr/share/tone8.wav", 1023);
-  if (opts->pulse_digi_rate_out == 48000) strncpy(wav_name, "/usr/share/tone48.wav", 1023);
-  if (opts->pulse_digi_rate_out == 24000) strncpy(wav_name, "/usr/share/tone24.wav", 1023);
-  if (opts->audio_out_type == 5) strncpy(wav_name, "/usr/share/tone24.wav", 1023);
-  wav_name[1023] = '\0';
-  struct stat stat_buf;
-  if (stat(wav_name, &stat_buf) == 0)
-  {
-    beep = fopen (wav_name, "ro");
-    uint8_t buf[1024];
-    memset (buf, 0, sizeof(buf));
-    short blip = 0;
-    int loop = 1;
-    while (loop == 1)
-    {
-      fread(buf, sizeof(buf), 1, beep);
-      if ( feof (beep) )
-      {
-        loop = 0;
-      }
-      if (loop == 1)
-      {
-        //only beep on R if dmr_stereo is active and slot 2, else beep on L
-        if (type == 0 && opts->dmr_stereo == 1 && opts->audio_out == 1)
-        {
-          pa_simple_write(opts->pulse_digi_dev_out, buf, sizeof(buf), NULL);
-          //fprintf (stderr, "BEEP 0 24\n");
-        }
-        if (type == 1 && opts->dmr_stereo == 1 && opts->audio_out == 1)
-        {
-          pa_simple_write(opts->pulse_digi_dev_outR, buf, sizeof(buf), NULL);
-          //fprintf (stderr, "BEEP 1 24\n");
-        }
-        if (opts->dmr_stereo == 0 && opts->audio_out == 1)
-        {
-          pa_simple_write(opts->pulse_digi_dev_out, buf, sizeof(buf), NULL);
-          //fprintf (stderr, "BEEP 0 8\n");
+void beeper(dsd_opts *opts, dsd_state *state, int type) {
+    FILE *beep;
+    char wav_name[1024] = {0};
+
+    if (opts->pulse_digi_rate_out == 8000) strncpy(wav_name, "/usr/share/tone8.wav", 1023);
+    if (opts->pulse_digi_rate_out == 48000) strncpy(wav_name, "/usr/share/tone48.wav", 1023);
+    if (opts->pulse_digi_rate_out == 24000) strncpy(wav_name, "/usr/share/tone24.wav", 1023);
+    if (opts->audio_out_type == 5) strncpy(wav_name, "/usr/share/tone24.wav", 1023);
+    wav_name[1023] = '\0';
+    struct stat stat_buf;
+    if (stat(wav_name, &stat_buf) == 0) {
+        beep = fopen(wav_name, "ro");
+        uint8_t buf[1024];
+        memset(buf, 0, sizeof(buf));
+        short blip = 0;
+        int loop = 1;
+        while (loop == 1) {
+            fread(buf, sizeof(buf), 1, beep);
+            if (feof(beep)) {
+                loop = 0;
+            }
+            if (loop == 1) {
+                //only beep on R if dmr_stereo is active and slot 2, else beep on L
+                if (type == 0 && opts->dmr_stereo == 1 && opts->audio_out == 1) {
+                    pa_simple_write(opts->pulse_digi_dev_out, buf, sizeof(buf), NULL);
+                    //fprintf (stderr, "BEEP 0 24\n");
+                }
+                if (type == 1 && opts->dmr_stereo == 1 && opts->audio_out == 1) {
+                    pa_simple_write(opts->pulse_digi_dev_outR, buf, sizeof(buf), NULL);
+                    //fprintf (stderr, "BEEP 1 24\n");
+                }
+                if (opts->dmr_stereo == 0 && opts->audio_out == 1) {
+                    pa_simple_write(opts->pulse_digi_dev_out, buf, sizeof(buf), NULL);
+                    //fprintf (stderr, "BEEP 0 8\n");
+                }
+
+
+            }
+
         }
 
-
-      }
-
+        fclose(beep);
     }
 
-    fclose (beep);
-  }
-
 }
+
 #endif
 
-char * getDateN(void) {
-  char datename[80]; //bug in 32-bit Ubuntu when using date in filename, date is garbage text
-  char * curr2;
-  struct tm * to;
-  time_t t;
-  t = time(NULL);
-  to = localtime( & t);
-  strftime(datename, sizeof(datename), "%Y-%m-%d", to);
-  curr2 = strtok(datename, " ");
-  return curr2;
+char *getDateN(void) {
+    char datename[80]; //bug in 32-bit Ubuntu when using date in filename, date is garbage text
+    char *curr2;
+    struct tm *to;
+    time_t t;
+    t = time(NULL);
+    to = localtime(&t);
+    strftime(datename, sizeof(datename), "%Y-%m-%d", to);
+    curr2 = strtok(datename, " ");
+    return curr2;
 }
 
 time_t nowN;
-char * getTimeN(void) //get pretty hh:mm:ss timestamp
+
+char *getTimeN(void) //get pretty hh:mm:ss timestamp
 {
-  time_t t = time(NULL);
+    time_t t = time(NULL);
 
-  char * curr;
-  char * stamp = asctime(localtime( & t));
+    char *curr;
+    char *stamp = asctime(localtime(&t));
 
-  curr = strtok(stamp, " ");
-  curr = strtok(NULL, " ");
-  curr = strtok(NULL, " ");
-  curr = strtok(NULL, " ");
+    curr = strtok(stamp, " ");
+    curr = strtok(NULL, " ");
+    curr = strtok(NULL, " ");
+    curr = strtok(NULL, " ");
 
-  return curr;
+    return curr;
 }
 
-char * getDateC(time_t t) {
-  char datename[99]; //Ubuntu 32-bit, use 80; everything else, use 99
-  char * curr2;
-  struct tm * to;
+char *getDateC(time_t t) {
+    char datename[99]; //Ubuntu 32-bit, use 80; everything else, use 99
+    char *curr2;
+    struct tm *to;
 
-  to = localtime( & t);
-  strftime(datename, sizeof(datename), "%Y-%m-%d", to);
-  curr2 = strtok(datename, " ");
-  return curr2;
+    to = localtime(&t);
+    strftime(datename, sizeof(datename), "%Y-%m-%d", to);
+    curr2 = strtok(datename, " ");
+    return curr2;
 }
 
-char * getTimeC(time_t t) //get pretty hh:mm:ss timestamp
+char *getTimeC(time_t t) //get pretty hh:mm:ss timestamp
 {
-  char * curr;
-  char * stamp = asctime(localtime( & t));
+    char *curr;
+    char *stamp = asctime(localtime(&t));
 
-  curr = strtok(stamp, " ");
-  curr = strtok(NULL, " ");
-  curr = strtok(NULL, " ");
-  curr = strtok(NULL, " ");
+    curr = strtok(stamp, " ");
+    curr = strtok(NULL, " ");
+    curr = strtok(NULL, " ");
+    curr = strtok(NULL, " ");
 
-  return curr;
+    return curr;
 }
 
 //testing a few things, going to put this into ncursesMenu
@@ -307,71 +302,70 @@ int startx = 0;
 int starty = 0;
 
 char *choicesc[] = {
-      "Return",
-      "Save Decoded Audio WAV (Legacy Mode)",
-      "Save Signal to Symbol Capture Bin",
-      "Toggle Muting Encrypted Traffic    ",
-      "Save Per Call Decoded WAV (XDMA and NXDN)",
-      "Setup and Start RTL Input ",
-      "Retune RTL Dongle         ",
-      "Toggle C4FM/QPSK (P2 TDMA CC)",
-      "Toggle C4FM/QPSK (P1 FDMA CC)", 
-      "Start TCP Direct Link Audio",
-      "Configure RIGCTL",
-      "Stop All Decoded WAV Saving",
-      "Read OP25/FME Symbol Capture Bin",
-      "Replay Last Symbol Capture Bin",
-      "Stop & Close Symbol Capture Bin Playback",
-      "Stop & Close Symbol Capture Bin Saving",
-      "Toggle Call Alert Beep     ",
-			"Resume Decoding"
-      };
+        "Return",
+        "Save Decoded Audio WAV (Legacy Mode)",
+        "Save Signal to Symbol Capture Bin",
+        "Toggle Muting Encrypted Traffic    ",
+        "Save Per Call Decoded WAV (XDMA and NXDN)",
+        "Setup and Start RTL Input ",
+        "Retune RTL Dongle         ",
+        "Toggle C4FM/QPSK (P2 TDMA CC)",
+        "Toggle C4FM/QPSK (P1 FDMA CC)",
+        "Start TCP Direct Link Audio",
+        "Configure RIGCTL",
+        "Stop All Decoded WAV Saving",
+        "Read OP25/FME Symbol Capture Bin",
+        "Replay Last Symbol Capture Bin",
+        "Stop & Close Symbol Capture Bin Playback",
+        "Stop & Close Symbol Capture Bin Saving",
+        "Toggle Call Alert Beep     ",
+        "Resume Decoding"
+};
 
 char *choices[] = {
-      "Resume Decoding",
-      "Decode Legacy Auto**",
-			"Decode XDMA (P25 and DMR BS/MS)",
-			"Decode D-STAR*",
-			"Decode P25p1*",
-			"Decode EDACS/PV",
-      "Decode P25p2 ",
-      "Decode dPMR",
-      "Decode NXDN48",
-      "Decode NXDN96",
-      "Decode DMR Stereo", //was X2-TDMA*
-      "Toggle Signal Inversion",
-      "Key Entry",
-      "Reset Call History",
-      "Toggle Payloads to Console",
-      "Manually Set P2 Parameters", //16
-      "Input & Output Options",
-      "LRRP Data to File",
-			"Exit DSD-FME",
-		  };
+        "Resume Decoding",
+        "Decode Legacy Auto**",
+        "Decode XDMA (P25 and DMR BS/MS)",
+        "Decode D-STAR*",
+        "Decode P25p1*",
+        "Decode EDACS/PV",
+        "Decode P25p2 ",
+        "Decode dPMR",
+        "Decode NXDN48",
+        "Decode NXDN96",
+        "Decode DMR Stereo", //was X2-TDMA*
+        "Toggle Signal Inversion",
+        "Key Entry",
+        "Reset Call History",
+        "Toggle Payloads to Console",
+        "Manually Set P2 Parameters", //16
+        "Input & Output Options",
+        "LRRP Data to File",
+        "Exit DSD-FME",
+};
 
 
 int n_choices = sizeof(choices) / sizeof(char *);
 // int n_choicesb = sizeof(choicesb) / sizeof(char *);
 int n_choicesc = sizeof(choicesc) / sizeof(char *);
 
-void print_menu(WINDOW *menu_win, int highlight)
-{
-	int x, y, i;
+void print_menu(WINDOW *menu_win, int highlight) {
+    int x, y, i;
 
-	x = 2;
-	y = 2;
-	box(menu_win, 0, 0);
-	for(i = 0; i < n_choices; ++i)
-	{	if(highlight == i + 1) /* High light the present choice */
-		{	wattron(menu_win, A_REVERSE);
-			mvwprintw(menu_win, y, x, "%s", choices[i]);
-			wattroff(menu_win, A_REVERSE);
-		}
-		else
-			mvwprintw(menu_win, y, x, "%s", choices[i]);
-		++y;
-	}
-	wrefresh(menu_win);
+    x = 2;
+    y = 2;
+    box(menu_win, 0, 0);
+    for (i = 0; i < n_choices; ++i) {
+        if (highlight == i + 1) /* High light the present choice */
+        {
+            wattron(menu_win, A_REVERSE);
+            mvwprintw(menu_win, y, x, "%s", choices[i]);
+            wattroff(menu_win, A_REVERSE);
+        } else
+            mvwprintw(menu_win, y, x, "%s", choices[i]);
+        ++y;
+    }
+    wrefresh(menu_win);
 }
 
 // void print_menub(WINDOW *menu_win, int highlight)
@@ -394,1929 +388,1777 @@ void print_menu(WINDOW *menu_win, int highlight)
 // 	wrefresh(menu_win);
 // }
 
-void print_menuc(WINDOW *menu_win, int highlight)
-{
-	int x, y, i;
+void print_menuc(WINDOW *menu_win, int highlight) {
+    int x, y, i;
 
-	x = 2;
-	y = 2;
-	box(menu_win, 0, 0);
-	for(i = 0; i < n_choicesc; ++i)
-	{	if(highlight == i + 1) /* High light the present choice */
-		{	wattron(menu_win, A_REVERSE);
-			mvwprintw(menu_win, y, x, "%s", choicesc[i]);
-			wattroff(menu_win, A_REVERSE);
-		}
-		else
-			mvwprintw(menu_win, y, x, "%s", choicesc[i]);
-		++y;
-	}
-	wrefresh(menu_win);
+    x = 2;
+    y = 2;
+    box(menu_win, 0, 0);
+    for (i = 0; i < n_choicesc; ++i) {
+        if (highlight == i + 1) /* High light the present choice */
+        {
+            wattron(menu_win, A_REVERSE);
+            mvwprintw(menu_win, y, x, "%s", choicesc[i]);
+            wattroff(menu_win, A_REVERSE);
+        } else
+            mvwprintw(menu_win, y, x, "%s", choicesc[i]);
+        ++y;
+    }
+    wrefresh(menu_win);
 }
 
 //end Testing
 
-void ncursesOpen (dsd_opts * opts, dsd_state * state)
-{
-  // state->menuopen = 1; //flag the menu is open, stop processing getFrameSync
-  mbe_printVersion (versionstr);
-  setlocale(LC_ALL, "");
-  initscr(); //Initialize NCURSES screen window
-  start_color();
+void ncursesOpen(dsd_opts *opts, dsd_state *state) {
+    // state->menuopen = 1; //flag the menu is open, stop processing getFrameSync
+    mbe_printVersion(versionstr);
+    setlocale(LC_ALL, "");
+    initscr(); //Initialize NCURSES screen window
+    start_color();
 
-  #ifdef PRETTY_COLORS
-  init_pair(1, COLOR_YELLOW, COLOR_BLACK);      //Yellow/Amber for frame sync/control channel, NV style
-  init_pair(2, COLOR_RED, COLOR_BLACK);        //Red for Terminated Calls
-  init_pair(3, COLOR_GREEN, COLOR_BLACK);     //Green for Active Calls
-  init_pair(4, COLOR_CYAN, COLOR_BLACK);     //Cyan for Site Extra and Patches
-  init_pair(5, COLOR_MAGENTA, COLOR_BLACK); //Magenta for no frame sync/signal
-  init_pair(6, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
-  #else
-  init_pair(1, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
+#ifdef PRETTY_COLORS
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK);      //Yellow/Amber for frame sync/control channel, NV style
+    init_pair(2, COLOR_RED, COLOR_BLACK);        //Red for Terminated Calls
+    init_pair(3, COLOR_GREEN, COLOR_BLACK);     //Green for Active Calls
+    init_pair(4, COLOR_CYAN, COLOR_BLACK);     //Cyan for Site Extra and Patches
+    init_pair(5, COLOR_MAGENTA, COLOR_BLACK); //Magenta for no frame sync/signal
+    init_pair(6, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
+#else
+                                                                                                                            init_pair(1, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
   init_pair(2, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
   init_pair(3, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
   init_pair(4, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
   init_pair(5, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
   init_pair(6, COLOR_WHITE, COLOR_BLACK);  //White Card Color Scheme
-  #endif
+#endif
 
-  noecho();
-  cbreak();
+    noecho();
+    cbreak();
 
 }
 
 //ncursesMenu
-void ncursesMenu (dsd_opts * opts, dsd_state * state)
-{
+void ncursesMenu(dsd_opts *opts, dsd_state *state) {
 
-  //update sync time on cc sync so we don't immediately go CC hunting when exiting the menu
-  state->last_cc_sync_time = time(NULL);
+    //update sync time on cc sync so we don't immediately go CC hunting when exiting the menu
+    state->last_cc_sync_time = time(NULL);
 
-  //close pulse output if not null output
-  if (opts->audio_out == 1 && opts->audio_out_type == 0)
-  {
-    closePulseOutput (opts);
-  }
-
-  if (opts->audio_in_type == 0) //close pulse input if it is the specified input method
-  {
-    closePulseInput(opts);
-  }
-
-  if (opts->audio_in_type == 3)
-  {
-    #ifdef USE_RTLSDR
-    rtl_clean_queue();
-    #endif
-  }
-
-  if (opts->audio_in_type == 8) //close TCP input SF file so we don't buffer audio while not decoding
-  {
-    sf_close(opts->tcp_file_in);
-  }
-
-  if (opts->audio_in_type == 5) //close UDP input SF file so we don't buffer audio while not decoding
-  {
-    // sf_close(opts->udp_file_in); //disable for testing
-  }
-
-  state->payload_keyid = 0;
-  state->payload_keyidR = 0;
-
-  //zero out to fix call history 'scrolling' bug when changing decoding types
-  state->nxdn_last_tg = 0;
-  state->nxdn_last_ran = -1; //0
-  state->nxdn_last_rid = 0; //0
-
-  WINDOW *menu_win;
-  WINDOW *test_win;
-  WINDOW *entry_win;
-  WINDOW *info_win;
-	int highlight  = 1;
-  int highlightb = 1;
-  int highlightc = 1;
-	int choice  = 0;
-  int choiceb = 0;
-  int choicec = 0;
-	int c;
-  int d;
-  int e;
-
-  startx = 2;
-  starty = 1;
-
-	menu_win = newwin(HEIGHT, WIDTH, starty, startx);
-	keypad(menu_win, TRUE);
-	mvprintw(0, 0, "  Use arrow keys to go up and down, Press ENTER to select a choice.");
-	refresh();
-	print_menu(menu_win, highlight);
-  while(1)
-	{	c = wgetch(menu_win);
-		switch(c)
-		{	case KEY_UP:
-				if(highlight == 1)
-					highlight = n_choices;
-				else
-					--highlight;
-				break;
-			case KEY_DOWN:
-				if(highlight == n_choices)
-					highlight = 1;
-				else
-					++highlight;
-				break;
-			case 10:
-				choice = highlight;
-				break;
-			default:
-				//mvprintw(24, 0, "Character pressed is = %3d Hopefully it can be printed as '%c'", c, c);
-				refresh();
-				break;
-		}
-
-		print_menu(menu_win, highlight);
-
-    //test print info boxes on side of certain options
-    if (highlight == 2)
-    {
-      info_win = newwin(6, WIDTH+18, starty, startx+20);
-      box (info_win, 0, 0);
-      mvwprintw(info_win, 2, 2, " Legacy Auto can only detect the following:");
-      mvwprintw(info_win, 3, 2, " P25-P1, D-STAR, DMR Mono, and X2-TDMA");
-      wrefresh(info_win);
+    //close pulse output if not null output
+    if (opts->audio_out == 1 && opts->audio_out_type == 0) {
+        closePulseOutput(opts);
     }
 
-    if (highlight == 3)
+    if (opts->audio_in_type == 0) //close pulse input if it is the specified input method
     {
-      info_win = newwin(7, WIDTH+18, starty, startx+20);
-      box (info_win, 0, 0);
-      mvwprintw(info_win, 2, 2, " XDMA Decoding Class Supports the following:");
-      mvwprintw(info_win, 3, 2, " P25-P1, P25-P2, and DMR Stereo BS/MS");
-      mvwprintw(info_win, 4, 2, " --C4FM / FSK4 only, and OP25 P2 Capture Bins");
-      wrefresh(info_win);
+        closePulseInput(opts);
     }
 
-    //Input Output Options
-    if (choice == 17)
+    if (opts->audio_in_type == 3) {
+#ifdef USE_RTLSDR
+        rtl_clean_queue();
+#endif
+    }
+
+    if (opts->audio_in_type == 8) //close TCP input SF file so we don't buffer audio while not decoding
     {
-      //test making a new window while other window is open
-      test_win = newwin(HEIGHT-1, WIDTH+9, starty+5, startx+5);
-      keypad(menu_win, FALSE);
-      keypad(test_win, TRUE);
-      mvprintw(0, 0, "Input & Output Options                            ");
-      refresh();
-      print_menuc(test_win, highlightc);
-      while(1)
-    	{	e = wgetch(test_win);
-    		switch(e)
-    		{	case KEY_UP:
-    				if(highlightc == 1)
-    					highlightc = n_choicesc;
-    				else
-    					--highlightc;
-    				break;
-    			case KEY_DOWN:
-    				if(highlightc == n_choicesc)
-    					highlightc = 1;
-    				else
-    					++highlightc;
-    				break;
-    			case 10:
-    				choicec = highlightc;
-    				break;
-    			default:
-    				//mvprintw(24, 0, "Character pressed is = %3d Hopefully it can be printed as '%c'", c, c);
-    				refresh();
-    				break;
-    		}
-        print_menuc(test_win, highlightc);
-        if (choicec == 2)
-        {
-          sprintf (opts->wav_out_file, "%s %s DSD-FME-DECODED.wav", getDateN(), getTimeN());
-          openWavOutFile (opts, state);
-        }
-        if (choicec == 3)
-        {
-          //read in filename for symbol capture bin
-          entry_win = newwin(6, WIDTH+16, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter FME Symbol Capture Bin Filename");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%s", opts->symbol_out_file); //&opts->symbol_out_file
-          noecho();
+        sf_close(opts->tcp_file_in);
+    }
 
-          if (opts->symbol_out_file[0] != 0) //NULL
-          {
-            opts->symbol_out = 1; //set flag to 1
-            openSymbolOutFile (opts, state);
-          }
+    if (opts->audio_in_type == 5) //close UDP input SF file so we don't buffer audio while not decoding
+    {
+        // sf_close(opts->udp_file_in); //disable for testing
+    }
 
-        }
-        if (choicec == 4)
-        {
-          //toggle all mutes
-          if (opts->unmute_encrypted_p25 == 0)
-          {
-            opts->unmute_encrypted_p25 = 1;
-          }
-          else opts->unmute_encrypted_p25 = 0;
+    state->payload_keyid = 0;
+    state->payload_keyidR = 0;
 
-          if (opts->dmr_mute_encL == 0)
-          {
-            opts->dmr_mute_encL = 1;
-          }
-          else opts->dmr_mute_encL = 0;
+    //zero out to fix call history 'scrolling' bug when changing decoding types
+    state->nxdn_last_tg = 0;
+    state->nxdn_last_ran = -1; //0
+    state->nxdn_last_rid = 0; //0
 
-          if (opts->dmr_mute_encR == 0)
-          {
-            opts->dmr_mute_encR = 1;
-          }
-          else opts->dmr_mute_encR = 0;
+    WINDOW *menu_win;
+    WINDOW *test_win;
+    WINDOW *entry_win;
+    WINDOW *info_win;
+    int highlight = 1;
+    int highlightb = 1;
+    int highlightc = 1;
+    int choice = 0;
+    int choiceb = 0;
+    int choicec = 0;
+    int c;
+    int d;
+    int e;
 
-        }
-        if (choicec == 5)
-        {
-          char wav_file_directory[1024];
-          sprintf (wav_file_directory, "./WAV");
-          wav_file_directory[1023] = '\0';
-          if (stat(wav_file_directory, &st_wav) == -1)
-          {
-            fprintf (stderr, "%s wav file directory does not exist\n", wav_file_directory);
-            fprintf (stderr, "Creating directory %s to save decoded wav files\n", wav_file_directory);
-            mkdir(wav_file_directory, 0700);
-          }
-          opts->dmr_stereo_wav = 1;
-          //catch all in case of no file name set, won't crash or something
-          sprintf (opts->wav_out_file, "./WAV/DSD-FME-X1.wav");
-          sprintf (opts->wav_out_fileR, "./WAV/DSD-FME-X2.wav");
-          openWavOutFileL (opts, state);
-          openWavOutFileR (opts, state);
+    startx = 2;
+    starty = 1;
 
+    menu_win = newwin(HEIGHT, WIDTH, starty, startx);
+    keypad(menu_win, TRUE);
+    mvprintw(0, 0, "  Use arrow keys to go up and down, Press ENTER to select a choice.");
+    refresh();
+    print_menu(menu_win, highlight);
+    while (1) {
+        c = wgetch(menu_win);
+        switch (c) {
+            case KEY_UP:
+                if (highlight == 1)
+                    highlight = n_choices;
+                else
+                    --highlight;
+                break;
+            case KEY_DOWN:
+                if (highlight == n_choices)
+                    highlight = 1;
+                else
+                    ++highlight;
+                break;
+            case 10:
+                choice = highlight;
+                break;
+            default:
+                //mvprintw(24, 0, "Character pressed is = %3d Hopefully it can be printed as '%c'", c, c);
+                refresh();
+                break;
         }
 
-        if (choicec == 6)
-        {
-          int confirm = 0;
+        print_menu(menu_win, highlight);
 
-          #ifdef USE_RTLSDR
-
-          entry_win = newwin(6, WIDTH+6, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter RTL Device Index Number");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtl_dev_index);
-          noecho();
-
-          entry_win = newwin(6, WIDTH+6, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter RTL Device PPM Error");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtlsdr_ppm_error);
-          noecho();
-
-          entry_win = newwin(6, WIDTH+18, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter Frequency in Hz (851.8 MHz is 851800000 Hz) ");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtlsdr_center_freq);
-          noecho();
-
-          entry_win = newwin(6, WIDTH+18, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter BW (8, 12, 24, 48)(12 Recommended)");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtl_bandwidth);
-          noecho();
-
-          entry_win = newwin(6, WIDTH+18, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter RTL Gain Value (0-49) (0 = AGC)");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtl_gain_value);
-          noecho();
-
-          entry_win = newwin(6, WIDTH+18, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter RTL UDP Port - Optional (Default = 0)");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtl_udp_port);
-          noecho();
-
-          entry_win = newwin(8, WIDTH+22, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter RTL RMS Squelch Level (NXDN/dPMR only)");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtl_squelch_level);
-          noecho();
-
-          entry_win = newwin(17, WIDTH+20, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Starting RTL Input. Cannot Release/Stop Until Exit.");
-          mvwprintw(entry_win, 4, 2, " RTL Frequency: %d Hz", opts->rtlsdr_center_freq);
-          mvwprintw(entry_win, 5, 2, " RTL Device Index Number: %d", opts->rtl_dev_index);
-          mvwprintw(entry_win, 6, 2, " RTL Device Bandwidth: %d kHz", opts->rtl_bandwidth);
-          mvwprintw(entry_win, 7, 2, " RTL Device Gain: %d", opts->rtl_gain_value);
-          mvwprintw(entry_win, 8, 2, " RTL Device UDP Port: %d", opts->rtl_udp_port);
-          mvwprintw(entry_win, 9, 2, " RTL Device PPM: %d", opts->rtlsdr_ppm_error);
-          mvwprintw(entry_win, 10, 2, " RTL RMS Squelch: %d", opts->rtl_squelch_level);
-          mvwprintw(entry_win, 12, 2, " Are You Sure?");
-          mvwprintw(entry_win, 13, 2, " 1 = Yes, 2 = No ");
-          mvwprintw(entry_win, 14, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &confirm);
-          noecho();
-
-          refresh();
-
-          //works well, but can't release dongle later, so its a one way trip until exit
-          //TODO: Write function to release the dongle -- call cleanup_rtlsdr_stream()
-          if (confirm == 1)
-          {
-            opts->audio_in_type = 3; //RTL input, only set this on confirm
-            choicec = 18; //exit to decoder screen only if confirmed, otherwise, just go back
-          }
-
-          #endif
-
+        //test print info boxes on side of certain options
+        if (highlight == 2) {
+            info_win = newwin(6, WIDTH + 18, starty, startx + 20);
+            box (info_win, 0, 0);
+            mvwprintw(info_win, 2, 2, " Legacy Auto can only detect the following:");
+            mvwprintw(info_win, 3, 2, " P25-P1, D-STAR, DMR Mono, and X2-TDMA");
+            wrefresh(info_win);
         }
 
-        if (choicec == 7) //RTL DEV Retune
-        {
-          //read in new rtl frequency
-          #ifdef USE_RTLSDR
-          entry_win = newwin(6, WIDTH+18, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter Frequency in Hz (851.8 MHz is 851800000 Hz) ");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rtlsdr_center_freq);
-          noecho();
-
-          temp_freq = opts->rtlsdr_center_freq;
-          #endif
-          choicec = 18;
+        if (highlight == 3) {
+            info_win = newwin(7, WIDTH + 18, starty, startx + 20);
+            box (info_win, 0, 0);
+            mvwprintw(info_win, 2, 2, " XDMA Decoding Class Supports the following:");
+            mvwprintw(info_win, 3, 2, " P25-P1, P25-P2, and DMR Stereo BS/MS");
+            mvwprintw(info_win, 4, 2, " --C4FM / FSK4 only, and OP25 P2 Capture Bins");
+            wrefresh(info_win);
         }
 
-        if (choicec == 8)
-        {
-          if (state->rf_mod == 0)
-          {
-            state->rf_mod = 1;
+        //Input Output Options
+        if (choice == 17) {
+            //test making a new window while other window is open
+            test_win = newwin(HEIGHT - 1, WIDTH + 9, starty + 5, startx + 5);
+            keypad(menu_win, FALSE);
+            keypad(test_win, TRUE);
+            mvprintw(0, 0, "Input & Output Options                            ");
+            refresh();
+            print_menuc(test_win, highlightc);
+            while (1) {
+                e = wgetch(test_win);
+                switch (e) {
+                    case KEY_UP:
+                        if (highlightc == 1)
+                            highlightc = n_choicesc;
+                        else
+                            --highlightc;
+                        break;
+                    case KEY_DOWN:
+                        if (highlightc == n_choicesc)
+                            highlightc = 1;
+                        else
+                            ++highlightc;
+                        break;
+                    case 10:
+                        choicec = highlightc;
+                        break;
+                    default:
+                        //mvprintw(24, 0, "Character pressed is = %3d Hopefully it can be printed as '%c'", c, c);
+                        refresh();
+                        break;
+                }
+                print_menuc(test_win, highlightc);
+                if (choicec == 2) {
+                    sprintf(opts->wav_out_file, "%s %s DSD-FME-DECODED.wav", getDateN(), getTimeN());
+                    openWavOutFile(opts, state);
+                }
+                if (choicec == 3) {
+                    //read in filename for symbol capture bin
+                    entry_win = newwin(6, WIDTH + 16, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter FME Symbol Capture Bin Filename");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%s", opts->symbol_out_file); //&opts->symbol_out_file
+                    noecho();
+
+                    if (opts->symbol_out_file[0] != 0) //NULL
+                    {
+                        opts->symbol_out = 1; //set flag to 1
+                        openSymbolOutFile(opts, state);
+                    }
+
+                }
+                if (choicec == 4) {
+                    //toggle all mutes
+                    if (opts->unmute_encrypted_p25 == 0) {
+                        opts->unmute_encrypted_p25 = 1;
+                    } else opts->unmute_encrypted_p25 = 0;
+
+                    if (opts->dmr_mute_encL == 0) {
+                        opts->dmr_mute_encL = 1;
+                    } else opts->dmr_mute_encL = 0;
+
+                    if (opts->dmr_mute_encR == 0) {
+                        opts->dmr_mute_encR = 1;
+                    } else opts->dmr_mute_encR = 0;
+
+                }
+                if (choicec == 5) {
+                    char wav_file_directory[1024];
+                    sprintf(wav_file_directory, "./WAV");
+                    wav_file_directory[1023] = '\0';
+                    if (stat(wav_file_directory, &st_wav) == -1) {
+                        fprintf(stderr, "%s wav file directory does not exist\n", wav_file_directory);
+                        fprintf(stderr, "Creating directory %s to save decoded wav files\n", wav_file_directory);
+                        mkdir(wav_file_directory, 0700);
+                    }
+                    opts->dmr_stereo_wav = 1;
+                    //catch all in case of no file name set, won't crash or something
+                    sprintf(opts->wav_out_file, "./WAV/DSD-FME-X1.wav");
+                    sprintf(opts->wav_out_fileR, "./WAV/DSD-FME-X2.wav");
+                    openWavOutFileL(opts, state);
+                    openWavOutFileR(opts, state);
+
+                }
+
+                if (choicec == 6) {
+                    int confirm = 0;
+
+#ifdef USE_RTLSDR
+
+                    entry_win = newwin(6, WIDTH + 6, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter RTL Device Index Number");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtl_dev_index);
+                    noecho();
+
+                    entry_win = newwin(6, WIDTH + 6, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter RTL Device PPM Error");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtlsdr_ppm_error);
+                    noecho();
+
+                    entry_win = newwin(6, WIDTH + 18, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter Frequency in Hz (851.8 MHz is 851800000 Hz) ");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtlsdr_center_freq);
+                    noecho();
+
+                    entry_win = newwin(6, WIDTH + 18, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter BW (8, 12, 24, 48)(12 Recommended)");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtl_bandwidth);
+                    noecho();
+
+                    entry_win = newwin(6, WIDTH + 18, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter RTL Gain Value (0-49) (0 = AGC)");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtl_gain_value);
+                    noecho();
+
+                    entry_win = newwin(6, WIDTH + 18, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter RTL UDP Port - Optional (Default = 0)");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtl_udp_port);
+                    noecho();
+
+                    entry_win = newwin(8, WIDTH + 22, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter RTL RMS Squelch Level (NXDN/dPMR only)");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtl_squelch_level);
+                    noecho();
+
+                    entry_win = newwin(17, WIDTH + 20, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Starting RTL Input. Cannot Release/Stop Until Exit.");
+                    mvwprintw(entry_win, 4, 2, " RTL Frequency: %d Hz", opts->rtlsdr_center_freq);
+                    mvwprintw(entry_win, 5, 2, " RTL Device Index Number: %d", opts->rtl_dev_index);
+                    mvwprintw(entry_win, 6, 2, " RTL Device Bandwidth: %d kHz", opts->rtl_bandwidth);
+                    mvwprintw(entry_win, 7, 2, " RTL Device Gain: %d", opts->rtl_gain_value);
+                    mvwprintw(entry_win, 8, 2, " RTL Device UDP Port: %d", opts->rtl_udp_port);
+                    mvwprintw(entry_win, 9, 2, " RTL Device PPM: %d", opts->rtlsdr_ppm_error);
+                    mvwprintw(entry_win, 10, 2, " RTL RMS Squelch: %d", opts->rtl_squelch_level);
+                    mvwprintw(entry_win, 12, 2, " Are You Sure?");
+                    mvwprintw(entry_win, 13, 2, " 1 = Yes, 2 = No ");
+                    mvwprintw(entry_win, 14, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &confirm);
+                    noecho();
+
+                    refresh();
+
+                    //works well, but can't release dongle later, so its a one way trip until exit
+                    //TODO: Write function to release the dongle -- call cleanup_rtlsdr_stream()
+                    if (confirm == 1) {
+                        opts->audio_in_type = 3; //RTL input, only set this on confirm
+                        choicec = 18; //exit to decoder screen only if confirmed, otherwise, just go back
+                    }
+
+#endif
+
+                }
+
+                if (choicec == 7) //RTL DEV Retune
+                {
+                    //read in new rtl frequency
+#ifdef USE_RTLSDR
+                    entry_win = newwin(6, WIDTH + 18, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter Frequency in Hz (851.8 MHz is 851800000 Hz) ");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rtlsdr_center_freq);
+                    noecho();
+
+                    temp_freq = opts->rtlsdr_center_freq;
+#endif
+                    choicec = 18;
+                }
+
+                if (choicec == 8) {
+                    if (state->rf_mod == 0) {
+                        state->rf_mod = 1;
+                        state->samplesPerSymbol = 8;
+                        state->symbolCenter = 3;
+                        opts->mod_c4fm = 0;
+                        opts->mod_qpsk = 1;
+                    } else {
+                        state->rf_mod = 0;
+                        state->samplesPerSymbol = 10;
+                        state->symbolCenter = 4;
+                        opts->mod_c4fm = 1;
+                        opts->mod_qpsk = 0;
+                    }
+                }
+
+                if (choicec == 9) {
+                    if (state->rf_mod == 0) {
+                        state->rf_mod = 1;
+                        state->samplesPerSymbol = 10;
+                        state->symbolCenter = 4;
+                        opts->mod_c4fm = 0;
+                        opts->mod_qpsk = 1;
+                    } else {
+                        state->rf_mod = 0;
+                        state->samplesPerSymbol = 10;
+                        state->symbolCenter = 4;
+                        opts->mod_c4fm = 1;
+                        opts->mod_qpsk = 0;
+                    }
+                }
+
+                // if (choicec == 9)
+                // {
+                //   if (opts->audio_out == 0)
+                //   {
+                //     opts->audio_out = 1;
+                //     opts->audio_out_type = 0;
+                //     // state->audio_out_buf_p = 0;
+                //     // state->audio_out_buf_pR = 0;
+                //     state->audio_out_idx = 0;
+                //     state->audio_out_idx2 = 0;
+                //     state->audio_out_idxR = 0;
+                //     state->audio_out_idx2R = 0;
+                //   }
+                //   else
+                //   {
+                //     opts->audio_out = 0;
+                //     opts->audio_out_type = 9;
+                //     // state->audio_out_buf_p = 0;
+                //     // state->audio_out_buf_pR = 0;
+                //     state->audio_out_idx = 0;
+                //     state->audio_out_idx2 = 0;
+                //     state->audio_out_idxR = 0;
+                //     state->audio_out_idx2R = 0;
+                //   }
+                // }
+
+                //TCP Audio Input
+                if (choicec == 10) {
+                    //read in tcp hostname
+                    sprintf(opts->tcp_hostname, "%s", "localhost");
+                    opts->tcp_portno = 7355;
+
+                    entry_win = newwin(8, WIDTH + 16, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter TCP Direct Link Hostname:");
+                    mvwprintw(entry_win, 3, 2, "  (default is localhost)");
+                    mvwprintw(entry_win, 4, 2, "                        ");
+                    mvwprintw(entry_win, 5, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%s", opts->tcp_hostname);
+                    noecho();
+
+                    //read in tcp port number
+                    entry_win = newwin(8, WIDTH + 16, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter TCP Direct Link Port Number:");
+                    mvwprintw(entry_win, 3, 2, "  (default is 7355)");
+                    mvwprintw(entry_win, 4, 2, "                        ");
+                    mvwprintw(entry_win, 5, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->tcp_portno);
+                    noecho();
+
+                    opts->tcp_sockfd = Connect(opts->tcp_hostname, opts->tcp_portno);
+                    if (opts->tcp_sockfd == 0) goto TCP_END;
+                    //successful connection, continue;
+
+                    opts->audio_in_type = 8;
+                    opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
+                    opts->audio_in_file_info->samplerate = opts->wav_sample_rate;
+                    opts->audio_in_file_info->channels = 1;
+                    opts->audio_in_file_info->seekable = 0;
+                    opts->audio_in_file_info->format = SF_FORMAT_RAW | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
+                    opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
+
+                    if (opts->tcp_file_in == NULL) {
+                        fprintf(stderr, "Error, couldn't open TCP with libsndfile: %s\n", sf_strerror(NULL));
+                        if (opts->audio_out_type == 0) {
+                            sprintf(opts->audio_in_dev, "%s", "pulse");
+                            opts->audio_in_type = 0;
+                        } else opts->audio_in_type = 5;
+
+                    }
+
+                    state->audio_smoothing = 0; //disable smoothing to prevent random crackling/buzzing
+
+                    TCP_END:; //do nothing
+
+                }
+
+                //RIGCTL
+                if (choicec == 11) {
+                    //read in tcp hostname
+                    sprintf(opts->rigctlhostname, "%s", "localhost");
+                    opts->rigctlportno = 4532;
+
+                    entry_win = newwin(8, WIDTH + 16, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter RIGCTL Hostname:");
+                    mvwprintw(entry_win, 3, 2, "  (default is localhost)");
+                    mvwprintw(entry_win, 4, 2, "                        ");
+                    mvwprintw(entry_win, 5, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%s", opts->rigctlhostname);
+                    noecho();
+
+                    //read in tcp port number
+                    entry_win = newwin(8, WIDTH + 16, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter RIGCTL Port Number:");
+                    mvwprintw(entry_win, 3, 2, "  (default is 4532)");
+                    mvwprintw(entry_win, 4, 2, "                        ");
+                    mvwprintw(entry_win, 5, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%d", &opts->rigctlportno);
+                    noecho();
+
+                    opts->rigctl_sockfd = Connect(opts->rigctlhostname, opts->rigctlportno);
+                    if (opts->rigctl_sockfd != 0) opts->use_rigctl = 1;
+                    else opts->use_rigctl = 0;
+                }
+
+                // if (choicec == 10)
+                // {
+                //   if (opts->ncurses_compact == 0)
+                //   {
+                //     opts->ncurses_compact = 1;
+                //   }
+                //   else opts->ncurses_compact = 0;
+
+                // }
+
+                // if (choicec == 11)
+                // {
+                //   if (opts->ncurses_history == 0)
+                //   {
+                //     opts->ncurses_history = 1;
+                //   }
+                //   else opts->ncurses_history = 0;
+                // }
+
+                if (choicec == 12) {
+                    //flesh out all closewavs and sprint "" wav filenames
+                    closeWavOutFile(opts, state);
+                    closeWavOutFileL(opts, state);
+                    closeWavOutFileR(opts, state);
+                    //closeWavOutFileRaw (opts, state);
+                    sprintf(opts->wav_out_file, "%s", "");
+                    sprintf(opts->wav_out_fileR, "%s", "");
+                    opts->dmr_stereo_wav = 0;
+                }
+
+                if (choicec == 13) //lucky number 13 for OP25 Symbol Capture Bin Files
+                {
+                    //read in filename for symbol capture bin
+                    entry_win = newwin(6, WIDTH + 16, starty + 10, startx + 10);
+                    box (entry_win, 0, 0);
+                    mvwprintw(entry_win, 2, 2, " Enter OP25 Symbol Capture Bin Filename");
+                    mvwprintw(entry_win, 3, 3, " ");
+                    echo();
+                    refresh();
+                    wscanw(entry_win, "%s", opts->audio_in_dev); //&opts->audio_in_dev
+                    noecho();
+                    //do the thing with the thing
+                    struct stat stat_buf;
+                    if (stat(opts->audio_in_dev, &stat_buf) != 0) {
+                        fprintf(stderr, "Error, couldn't open %s\n", opts->audio_in_dev);
+                        goto SKIP;
+                    }
+                    if (S_ISREG(stat_buf.st_mode)) {
+                        opts->symbolfile = fopen(opts->audio_in_dev, "r");
+                        opts->audio_in_type = 4; //symbol capture bin files
+                    }
+                    SKIP:
+                    choicec = 18;
+                }
+
+                if (choicec == 14) //replay last file
+                {
+                    struct stat stat_buf;
+                    if (stat(opts->audio_in_dev, &stat_buf) != 0) {
+                        fprintf(stderr, "Error, couldn't open %s\n", opts->audio_in_dev);
+                        goto SKIPR;
+                    }
+                    if (S_ISREG(stat_buf.st_mode)) {
+                        opts->symbolfile = fopen(opts->audio_in_dev, "r");
+                        opts->audio_in_type = 4; //symbol capture bin files
+                    }
+                    SKIPR:
+                    choicec = 18; //exit
+                }
+
+                if (choicec == 15) //stop/close last file PLAYBACK
+                {
+                    if (opts->symbolfile != NULL) {
+                        if (opts->audio_in_type == 4) //check first, or issuing a second fclose will crash the SOFTWARE
+                        {
+                            fclose(opts->symbolfile); //free(): double free detected in tcache 2 (this is a new one) happens when closing more than once
+
+                        }
+
+                    }
+                    if (opts->audio_out_type == 0)
+                        opts->audio_in_type = 0; //set after closing to prevent above crash condition
+                    else (opts->audio_in_type = 5);
+
+                    choicec = 18; //exit
+                }
+
+                if (choicec == 16) //stop/close last file RECORDING
+                {
+                    if (opts->symbol_out == 1) {
+                        if (opts->symbol_out_file[0] != 0) //NULL
+                        {
+                            fclose(opts->symbol_out_f); //free(): double free detected in tcache 2 (this is a new one) happens when closing more than once
+                            sprintf(opts->audio_in_dev, "%s",
+                                    opts->symbol_out_file); //swap output bin filename to input for quick replay
+                        }
+
+                        opts->symbol_out = 0; //set flag to 1
+
+                    }
+                    choicec = 18; //exit
+                }
+
+                //toggle call alert beep
+                if (choicec == 17) {
+                    if (opts->call_alert == 0) {
+                        opts->call_alert = 1;
+                    } else opts->call_alert = 0;
+                }
+
+                if (choicec != 0 && choicec != 18) //return to last menu
+                {
+                    //return
+                    choice = 0;
+                    choicec = 0;
+
+                    keypad(test_win, FALSE);
+                    keypad(menu_win, TRUE);
+                    delwin(test_win);
+                    print_menu(menu_win, highlight);
+                    //wrefresh(menu_win);
+                    break;
+                }
+
+                if (choicec == 18) //exit both menus
+                {
+                    //exit
+                    choice = 1;
+                    choicec = 0;
+
+                    keypad(test_win, FALSE);
+                    keypad(menu_win, TRUE);
+                    delwin(test_win);
+                    print_menu(menu_win, highlight);
+                    break;
+                }
+            }
+            clrtoeol(); //clear to end of line?
+            refresh();
+        }
+
+        //Privacy Key Entry
+        if (choice == 13) {
+            state->payload_keyid = 0;
+            state->payload_keyidR = 0;
+            short int option = 0;
+            entry_win = newwin(14, WIDTH + 6, starty + 10, startx + 10);
+            box (entry_win, 0, 0);
+            mvwprintw(entry_win, 2, 2, "Key Type Selection");
+            mvwprintw(entry_win, 3, 2, " ");
+            mvwprintw(entry_win, 4, 2, "1 -  Basic Privacy ");
+            mvwprintw(entry_win, 5, 2, "2 - **tera Privacy ");
+            mvwprintw(entry_win, 6, 2, "3 - NXDN/dPMR Scrambler ");
+            mvwprintw(entry_win, 7, 2, "4 - Force BP/Scr Key Priority ");
+            mvwprintw(entry_win, 8, 3, "-------------------------------- ");
+            mvwprintw(entry_win, 9, 2, "5 - RC4 Key ");
+            mvwprintw(entry_win, 10, 2, "6 - Force DMR RC4 Priority/LE ");
+            mvwprintw(entry_win, 11, 3, " ");
+            echo();
+            refresh();
+            wscanw(entry_win, "%hd", &option); //%d
+            noecho();
+            opts->dmr_mute_encL = 0;
+            opts->dmr_mute_encR = 0;
+            if (option == 1) {
+                state->K = 0;
+                entry_win = newwin(6, WIDTH + 6, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, "Basic Privacy Key Number (DEC):");
+                mvwprintw(entry_win, 3, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%lld", &state->K);
+                noecho();
+                if (state->K > 255) state->K = 255;
+
+                state->keyloader = 0; //turn off keyloader
+            }
+            if (option == 2) {
+                state->K1 = 0;
+                state->K2 = 0;
+                state->K3 = 0;
+                state->K4 = 0;
+                state->H = 0;
+
+                entry_win = newwin(7, WIDTH + 8, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value (HEX) ");
+                mvwprintw(entry_win, 3, 2, " 10 Char or First 16 for 32/64");
+                mvwprintw(entry_win, 4, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%llX", &state->H);
+                noecho();
+                state->K1 = state->H;
+
+                entry_win = newwin(7, WIDTH + 8, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value 2 (HEX) ");
+                mvwprintw(entry_win, 3, 2, " Second 16 Chars or Zero");
+                mvwprintw(entry_win, 4, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%llX", &state->K2);
+                noecho();
+
+                entry_win = newwin(7, WIDTH + 8, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value 3 (HEX) ");
+                mvwprintw(entry_win, 3, 2, " Third 16 Chars or Zero");
+                mvwprintw(entry_win, 4, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%llX", &state->K3);
+                noecho();
+
+                entry_win = newwin(7, WIDTH + 8, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value 4 (HEX) ");
+                mvwprintw(entry_win, 3, 2, " Fourth 16 Chars or Zero");
+                mvwprintw(entry_win, 4, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%llX", &state->K4);
+                noecho();
+
+                state->keyloader = 0; //turn off keyloader
+            }
+            if (option == 3) {
+                state->R = 0;
+                entry_win = newwin(6, WIDTH + 6, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, "NXDN/dPMR Scrambler Key Value (DEC):");
+                mvwprintw(entry_win, 3, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%lld", &state->R);
+                noecho();
+                if (state->R > 0x7FFF) state->R = 0x7FFF;
+
+                state->keyloader = 0; //turn off keyloader
+            }
+            //toggle enforcement of basic privacy key over enc bit set on traffic
+            if (option == 4) {
+                if (state->M == 1 || state->M == 0x21) {
+                    state->M = 0;
+                } else state->M = 1;
+            }
+
+            if (option == 5) {
+                state->R = 0;
+                entry_win = newwin(6, WIDTH + 6, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, "RC4 Key Value (HEX):");
+                mvwprintw(entry_win, 3, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%llX", &state->R);
+                noecho();
+                if (state->R > 0xFFFFFFFFFF) {
+                    state->R = 0xFFFFFFFFFF;
+                }
+                state->RR = state->R; //assign for both slots
+                state->keyloader = 0; //turn off keyloader
+            }
+
+            //toggle enforcement of rc4 key over missing pi header/le on DMR
+            if (option == 6) {
+                if (state->M == 1 || state->M == 0x21) {
+                    state->M = 0;
+                } else state->M = 0x21;
+            }
+
+            if (state->K == 0 && state->K1 == 0 && state->K2 == 0 && state->K3 == 0 && state->K4 == 0) {
+                opts->dmr_mute_encL = 1;
+                opts->dmr_mute_encR = 1;
+            }
+
+            break;
+        }
+
+        if (choice == 2) {
+            //setup Auto parameters--default ones
+            // resetState (state); //use sparingly, may cause memory leak
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+            sprintf(opts->output_name, "Legacy Auto");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 0; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 8000;
+            opts->pulse_digi_out_channels = 1;
+            opts->frame_dstar = 1;
+            opts->frame_x2tdma = 1;
+            opts->frame_p25p1 = 1;
+            opts->frame_p25p2 = 0;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dmr = 1;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            opts->unmute_encrypted_p25 = 0;
+            break;
+
+        }
+        if (choice == 6) {
+            //ProVoice Specifics
+            // resetState (state); //use sparingly, may cause memory leak
+            state->samplesPerSymbol = 5;
+            state->symbolCenter = 2;
+            sprintf(opts->output_name, "EDACS/PV");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 0; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 48000;
+            opts->pulse_digi_out_channels = 1;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 0;
+            opts->frame_p25p2 = 0;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dmr = 0;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 1;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 0;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 1;
+            state->rf_mod = 2;
+            break;
+        }
+        if (choice == 4) {
+            //DSTAR
+            // resetState (state); //use sparingly, may cause memory leak
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+            sprintf(opts->output_name, "D-STAR");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 0; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 48000;
+            opts->pulse_digi_out_channels = 1;
+            opts->frame_dstar = 1;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 0;
+            opts->frame_p25p2 = 0;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dmr = 0;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            // state->rf_mod = 2;
+            opts->unmute_encrypted_p25 = 0;
+            break;
+        }
+        if (choice == 5) {
+            //P25 P1
+            // resetState (state); //use sparingly, may cause memory leak
+            opts->use_heuristics = 1;
+            opts->frame_p25p1 = 1;
+            opts->frame_p25p2 = 0;
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+            state->rf_mod = 0;
+            sprintf(opts->output_name, "P25p1");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 0; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 48000;
+            opts->pulse_digi_out_channels = 1;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            //opts->frame_p25p1 = 0;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dmr = 0;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            // state->rf_mod = 0;
+            opts->unmute_encrypted_p25 = 0;
+            break;
+        }
+
+        if (choice == 3) {
+            //XDMA Stereo P25 1, 2, and DMR
+            // resetState (state); //use sparingly, seems to cause issue when switching back to other formats
+            opts->use_heuristics = 0;
+            opts->frame_dmr = 1;
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+            state->rf_mod = 0;
+            sprintf(opts->output_name, "XDMA");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 1; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 24000;
+            opts->pulse_digi_out_channels = 2;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 1;
+            opts->frame_p25p2 = 1;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            break;
+        }
+        if (choice == 7) {
+            // resetState (state); //use sparingly, seems to cause issue when switching back to other formats
             state->samplesPerSymbol = 8;
             state->symbolCenter = 3;
-            opts->mod_c4fm = 0;
-            opts->mod_qpsk = 1;
-          }
-          else
-          {
-            state->rf_mod = 0;
-            state->samplesPerSymbol = 10;
-            state->symbolCenter = 4;
+            sprintf(opts->output_name, "P25p2");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 1; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 24000;
+            opts->pulse_digi_out_channels = 2;
+            opts->frame_dmr = 0;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 0;
+            opts->frame_p25p2 = 1;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
             opts->mod_c4fm = 1;
             opts->mod_qpsk = 0;
-          }
-        }
-
-        if (choicec == 9)
-        {
-          if (state->rf_mod == 0)
-          {
-            state->rf_mod = 1;
-            state->samplesPerSymbol = 10;
-            state->symbolCenter = 4;
-            opts->mod_c4fm = 0;
-            opts->mod_qpsk = 1;
-          }
-          else
-          {
+            opts->mod_gfsk = 0;
             state->rf_mod = 0;
-            state->samplesPerSymbol = 10;
-            state->symbolCenter = 4;
+            break;
+        }
+        if (choice == 8) {
+            //dPMR
+            // resetState (state); //use sparingly, may cause memory leak
+            state->samplesPerSymbol = 20;
+            state->symbolCenter = 10;
+            sprintf(opts->output_name, "dPMR");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 0; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 48000;
+            opts->pulse_digi_out_channels = 1;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 0;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dmr = 0;
+            opts->frame_dpmr = 1;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
             opts->mod_c4fm = 1;
             opts->mod_qpsk = 0;
-          }
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            //opts->unmute_encrypted_p25 = 0;
+            break;
         }
-
-        // if (choicec == 9)
-        // {
-        //   if (opts->audio_out == 0)
-        //   {
-        //     opts->audio_out = 1;
-        //     opts->audio_out_type = 0; 
-        //     // state->audio_out_buf_p = 0;
-        //     // state->audio_out_buf_pR = 0;
-        //     state->audio_out_idx = 0;
-        //     state->audio_out_idx2 = 0;
-        //     state->audio_out_idxR = 0;
-        //     state->audio_out_idx2R = 0;
-        //   }
-        //   else
-        //   {
-        //     opts->audio_out = 0;
-        //     opts->audio_out_type = 9;
-        //     // state->audio_out_buf_p = 0;
-        //     // state->audio_out_buf_pR = 0;
-        //     state->audio_out_idx = 0;
-        //     state->audio_out_idx2 = 0;
-        //     state->audio_out_idxR = 0;
-        //     state->audio_out_idx2R = 0;
-        //   }
-        // }
-
-        //TCP Audio Input
-        if (choicec == 10)
-        {
-          //read in tcp hostname
-          sprintf (opts->tcp_hostname, "%s", "localhost");
-          opts->tcp_portno = 7355;
-
-          entry_win = newwin(8, WIDTH+16, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter TCP Direct Link Hostname:");
-          mvwprintw(entry_win, 3, 2, "  (default is localhost)");
-          mvwprintw(entry_win, 4, 2, "                        ");
-          mvwprintw(entry_win, 5, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%s", opts->tcp_hostname);
-          noecho();
-
-          //read in tcp port number
-          entry_win = newwin(8, WIDTH+16, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter TCP Direct Link Port Number:");
-          mvwprintw(entry_win, 3, 2, "  (default is 7355)");
-          mvwprintw(entry_win, 4, 2, "                        ");
-          mvwprintw(entry_win, 5, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->tcp_portno);
-          noecho();
-
-          opts->tcp_sockfd = Connect(opts->tcp_hostname, opts->tcp_portno);
-          if (opts->tcp_sockfd == 0) goto TCP_END;
-          //successful connection, continue;
-
-          opts->audio_in_type = 8;
-          opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
-          opts->audio_in_file_info->samplerate=opts->wav_sample_rate;
-          opts->audio_in_file_info->channels=1;
-          opts->audio_in_file_info->seekable=0;
-          opts->audio_in_file_info->format=SF_FORMAT_RAW|SF_FORMAT_PCM_16|SF_ENDIAN_LITTLE;
-          opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
-
-          if(opts->tcp_file_in == NULL)
-          {
-            fprintf(stderr, "Error, couldn't open TCP with libsndfile: %s\n", sf_strerror(NULL));
-            if (opts->audio_out_type == 0)
-            {
-              sprintf (opts->audio_in_dev, "%s", "pulse");
-              opts->audio_in_type = 0;
-            }
-            else opts->audio_in_type = 5;
-            
-          }
-
-          state->audio_smoothing = 0; //disable smoothing to prevent random crackling/buzzing
-
-          TCP_END: ; //do nothing
-
+        if (choice == 9) {
+            //NXDN48
+            // resetState (state); //use sparingly, may cause memory leak
+            opts->frame_nxdn48 = 1;
+            state->samplesPerSymbol = 20;
+            state->symbolCenter = 10;
+            state->rf_mod = 0;
+            sprintf(opts->output_name, "NXDN48");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 0; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 48000;
+            opts->pulse_digi_out_channels = 1;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 0;
+            opts->frame_nxdn48 = 1;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dmr = 0;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 1;
+            //opts->unmute_encrypted_p25 = 0;
+            // opts->mod_qpsk = 0;
+            // opts->mod_gfsk = 0;
+            // state->rf_mod = 0;
         }
-
-        //RIGCTL
-        if (choicec == 11)
-        {
-          //read in tcp hostname
-          sprintf (opts->rigctlhostname, "%s", "localhost");
-          opts->rigctlportno = 4532;
-
-          entry_win = newwin(8, WIDTH+16, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter RIGCTL Hostname:");
-          mvwprintw(entry_win, 3, 2, "  (default is localhost)");
-          mvwprintw(entry_win, 4, 2, "                        ");
-          mvwprintw(entry_win, 5, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%s", opts->rigctlhostname);
-          noecho();
-
-          //read in tcp port number
-          entry_win = newwin(8, WIDTH+16, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter RIGCTL Port Number:");
-          mvwprintw(entry_win, 3, 2, "  (default is 4532)");
-          mvwprintw(entry_win, 4, 2, "                        ");
-          mvwprintw(entry_win, 5, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%d", &opts->rigctlportno);
-          noecho();
-
-          opts->rigctl_sockfd = Connect(opts->rigctlhostname, opts->rigctlportno);
-          if (opts->rigctl_sockfd != 0) opts->use_rigctl = 1;
-          else opts->use_rigctl = 0;
+        if (choice == 10) {
+            //NXDN96
+            // resetState (state); //use sparingly, may cause memory leak
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+            sprintf(opts->output_name, "NXDN96");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 0; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 48000;
+            opts->pulse_digi_out_channels = 1;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 0;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 1;
+            opts->frame_dmr = 0;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            //opts->unmute_encrypted_p25 = 0;
         }
-
-        // if (choicec == 10)
-        // {
-        //   if (opts->ncurses_compact == 0)
-        //   {
-        //     opts->ncurses_compact = 1;
-        //   }
-        //   else opts->ncurses_compact = 0;
-
-        // }
-
-        // if (choicec == 11)
-        // {
-        //   if (opts->ncurses_history == 0)
-        //   {
-        //     opts->ncurses_history = 1;
-        //   }
-        //   else opts->ncurses_history = 0;
-        // }
-
-        if (choicec == 12)
-        {
-          //flesh out all closewavs and sprint "" wav filenames
-          closeWavOutFile (opts, state);
-          closeWavOutFileL (opts, state);
-          closeWavOutFileR (opts, state);
-          //closeWavOutFileRaw (opts, state);
-          sprintf (opts->wav_out_file, "%s", "");
-          sprintf (opts->wav_out_fileR, "%s", "");
-          opts->dmr_stereo_wav = 0;
+        if (choice == 11) {
+            //Decode DMR Stereo (was X2-TDMA)
+            // resetState (state); //use sparingly, may cause memory leak
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+            // sprintf (opts->output_name, "X2-TDMA");
+            sprintf(opts->output_name, "DMR Stereo");
+            opts->dmr_mono = 0;
+            opts->dmr_stereo = 1; //this value is the end user option
+            state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
+            opts->pulse_digi_rate_out = 24000;
+            opts->pulse_digi_out_channels = 2;
+            opts->frame_dstar = 0;
+            opts->frame_x2tdma = 0;
+            opts->frame_p25p1 = 0;
+            opts->frame_nxdn48 = 0;
+            opts->frame_nxdn96 = 0;
+            opts->frame_dmr = 1;
+            opts->frame_dpmr = 0;
+            opts->frame_provoice = 0;
+            opts->frame_ysf = 0;
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            //opts->unmute_encrypted_p25 = 0;
         }
-
-        if (choicec == 13) //lucky number 13 for OP25 Symbol Capture Bin Files
-        {
-          //read in filename for symbol capture bin
-          entry_win = newwin(6, WIDTH+16, starty+10, startx+10);
-          box (entry_win, 0, 0);
-          mvwprintw(entry_win, 2, 2, " Enter OP25 Symbol Capture Bin Filename");
-          mvwprintw(entry_win, 3, 3, " ");
-          echo();
-          refresh();
-          wscanw(entry_win, "%s", opts->audio_in_dev); //&opts->audio_in_dev
-          noecho();
-          //do the thing with the thing
-          struct stat stat_buf;
-          if (stat(opts->audio_in_dev, &stat_buf) != 0)
-          {
-            fprintf (stderr,"Error, couldn't open %s\n", opts->audio_in_dev);
-            goto SKIP;
-          }
-          if (S_ISREG(stat_buf.st_mode))
-          {
-            opts->symbolfile = fopen(opts->audio_in_dev, "r");
-            opts->audio_in_type = 4; //symbol capture bin files
-          }
-          SKIP:
-          choicec = 18;
-        }
-
-        if (choicec == 14) //replay last file
-        {
-          struct stat stat_buf;
-          if (stat(opts->audio_in_dev, &stat_buf) != 0)
-          {
-            fprintf (stderr,"Error, couldn't open %s\n", opts->audio_in_dev);
-            goto SKIPR;
-          }
-          if (S_ISREG(stat_buf.st_mode))
-          {
-            opts->symbolfile = fopen(opts->audio_in_dev, "r");
-            opts->audio_in_type = 4; //symbol capture bin files
-          }
-          SKIPR:
-          choicec = 18; //exit
-        }
-
-        if (choicec == 15) //stop/close last file PLAYBACK
-        {
-          if (opts->symbolfile != NULL)
-          {
-            if (opts->audio_in_type == 4) //check first, or issuing a second fclose will crash the SOFTWARE
-            {
-              fclose(opts->symbolfile); //free(): double free detected in tcache 2 (this is a new one) happens when closing more than once
-
+        if (choice == 12) {
+            //Set all signal for inversion or uninversion
+            if (opts->inverted_dmr == 0) {
+                opts->inverted_dmr = 1;
+                opts->inverted_dpmr = 1;
+                opts->inverted_x2tdma = 1;
+                opts->inverted_ysf = 1;
+            } else {
+                opts->inverted_dmr = 0;
+                opts->inverted_dpmr = 0;
+                opts->inverted_x2tdma = 0;
+                opts->inverted_ysf = 0;
             }
 
-          }
-          if (opts->audio_out_type == 0) opts->audio_in_type = 0; //set after closing to prevent above crash condition
-          else (opts->audio_in_type = 5);
-
-          choicec = 18; //exit
         }
-
-        if (choicec == 16) //stop/close last file RECORDING
+        if (choice == 14) //reset call history (usually if janky output when switching modes)
         {
-          if (opts->symbol_out == 1)
-          {
-            if (opts->symbol_out_file[0] != 0) //NULL
-            {
-              fclose(opts->symbol_out_f); //free(): double free detected in tcache 2 (this is a new one) happens when closing more than once
-              sprintf (opts->audio_in_dev, "%s", opts->symbol_out_file); //swap output bin filename to input for quick replay
+            for (short int k = 0; k <= 9; k++) {
+                call_matrix[k][0] = 0;
+                call_matrix[k][1] = 0;
+                call_matrix[k][2] = 0;
+                call_matrix[k][3] = 0;
+                call_matrix[k][4] = 0;
+                call_matrix[k][5] = 0;
             }
-
-            opts->symbol_out = 0; //set flag to 1
-
-          }
-          choicec = 18; //exit
+            src = 0;
+            rn = 0;
+            tgn = 0;
+            dcc = -1;
+            tg = 0;
+            tgR = 0;
+            rd = 0;
+            rdR = 0;
+            state->lastsrc = 0;
+            state->lastsrcR = 0;
+            state->lasttg = 0;
+            state->lasttgR = 0;
         }
 
-        //toggle call alert beep
-        if (choicec == 17)
+        if (choice == 15) //toggle payload printing
         {
-          if (opts->call_alert == 0)
-          {
-            opts->call_alert = 1;
-          }
-          else opts->call_alert = 0;
+            if (opts->payload == 0) {
+                opts->payload = 1;
+                fprintf(stderr, "Payload on\n");
+            } else {
+                opts->payload = 0;
+                fprintf(stderr, "Payload Off\n");
+            }
+        }
+        if (choice == 16) {
+            //hardset P2 WACN, SYSID, and NAC
+            entry_win = newwin(6, WIDTH + 16, starty + 10, startx + 10);
+            box (entry_win, 0, 0);
+            mvwprintw(entry_win, 2, 2, " Enter Phase 2 WACN (HEX)");
+            mvwprintw(entry_win, 3, 3, " ");
+            echo();
+            refresh();
+            wscanw(entry_win, "%llX", &state->p2_wacn); //%X
+            if (state->p2_wacn > 0xFFFFF) {
+                state->p2_wacn = 0xFFFFF;
+            }
+            noecho();
+
+            entry_win = newwin(6, WIDTH + 16, starty + 10, startx + 10);
+            box (entry_win, 0, 0);
+            mvwprintw(entry_win, 2, 2, " Enter Phase 2 SYSID (HEX)");
+            mvwprintw(entry_win, 3, 3, " ");
+            echo();
+            refresh();
+            wscanw(entry_win, "%llX", &state->p2_sysid); //%X
+            if (state->p2_sysid > 0xFFF) {
+                state->p2_sysid = 0xFFF;
+            }
+            noecho();
+
+            entry_win = newwin(6, WIDTH + 16, starty + 10, startx + 10);
+            box (entry_win, 0, 0);
+            mvwprintw(entry_win, 2, 2, " Enter Phase 2 NAC/CC (HEX)");
+            mvwprintw(entry_win, 3, 3, " ");
+            echo();
+            refresh();
+            wscanw(entry_win, "%llX", &state->p2_cc); //%X
+            if (state->p2_cc > 0xFFF) {
+                state->p2_cc = 0xFFF;
+            }
+            noecho();
+
+            //need handling to truncate larger than expected values
+
+            //set our hardset flag to 1 if values inserted, else set to 0 so we can attempt to get them from TSBK/LCCH
+            if (state->p2_wacn != 0 && state->p2_sysid != 0 && state->p2_cc != 0) {
+                state->p2_hardset = 1;
+            } else state->p2_hardset = 0;
+
+
+        }
+        if (choice == 18) {
+            short int lrrpchoice = 0;
+            entry_win = newwin(10, WIDTH + 16, starty + 10, startx + 10);
+            box (entry_win, 0, 0);
+            mvwprintw(entry_win, 2, 2, " Enable or Disable LRRP Data File");
+            mvwprintw(entry_win, 3, 2, " 1 - ~/lrrp.txt (QGis)");
+            mvwprintw(entry_win, 4, 2, " 2 - ./DSDPlus.LRRP (LRRP.exe)");
+            mvwprintw(entry_win, 5, 2, " 3 - ./Custom Filename");
+            mvwprintw(entry_win, 6, 2, " 4 - Cancel/Stop");
+            mvwprintw(entry_win, 7, 2, " ");
+            mvwprintw(entry_win, 8, 2, " ");
+            echo();
+            refresh();
+            wscanw(entry_win, "%hd", &lrrpchoice); //%d
+            noecho();
+
+            if (lrrpchoice == 1) {
+                //find user home directory and append directory and filename.
+                char *filename = "/lrrp.txt";
+                char *home_dir = getenv("HOME");
+                char *filepath = malloc(strlen(home_dir) + strlen(filename) + 1);
+                strncpy(filepath, home_dir, strlen(home_dir) + 1);
+                strncat(filepath, filename, strlen(filename) + 1);
+                //assign home directory/filename to lrrp_out_file
+                sprintf(opts->lrrp_out_file, "%s", filepath); //double check make sure this still works
+                opts->lrrp_file_output = 1;
+            } else if (lrrpchoice == 2) {
+                sprintf(opts->lrrp_out_file, "DSDPlus.LRRP");
+                opts->lrrp_file_output = 1;
+            } else if (lrrpchoice == 3) {
+                //read in filename for symbol capture bin
+                opts->lrrp_out_file[0] = 0;
+                entry_win = newwin(6, WIDTH + 16, starty + 10, startx + 10);
+                box (entry_win, 0, 0);
+                mvwprintw(entry_win, 2, 2, " Enter LRRP Data Filename");
+                mvwprintw(entry_win, 3, 3, " ");
+                echo();
+                refresh();
+                wscanw(entry_win, "%s", opts->lrrp_out_file); //&opts->lrrp_out_file
+                noecho();
+                if (opts->lrrp_out_file[0] != 0) //NULL
+                {
+                    opts->lrrp_file_output = 1;
+                } else {
+                    opts->lrrp_file_output = 0;
+                    sprintf(opts->lrrp_out_file, "%s", "");
+                    opts->lrrp_out_file[0] = 0;
+                }
+            } else {
+                opts->lrrp_file_output = 0;
+                sprintf(opts->lrrp_out_file, "%s", "");
+                opts->lrrp_out_file[0] = 0;
+            }
+        }
+        if (choice == 19) {
+            ncursesClose();
+            //cleanup_rtlsdr_stream();
+            cleanupAndExit(opts, state);
         }
 
-        if (choicec != 0 && choicec != 18 ) //return to last menu
-        {
-          //return
-          choice = 0;
-          choicec = 0;
+        if (choice != 0 && choice != 20)    /* User did a choice come out of the infinite loop */
+            break;
 
-          keypad(test_win, FALSE);
-          keypad(menu_win, TRUE);
-          delwin(test_win);
-          print_menu(menu_win, highlight);
-          //wrefresh(menu_win);
-          break;
+    }
+
+    clrtoeol(); //clear to end of line?
+    refresh();
+    state->menuopen = 0; //flag the menu is closed, resume processing getFrameSync
+
+    //reopen pulse output with new parameters, if not null output type
+    if (opts->audio_out == 1 && opts->audio_out_type == 0) {
+        openPulseOutput(opts);
+    }
+
+
+    if (opts->audio_in_type == 0) //reopen pulse input if it is the specified input method
+    {
+        openPulseInput(opts);
+    }
+    //fix location of this statement to inside the if statement and add conditions
+    if (opts->audio_in_type == 3) //open rtl input if it is the specified input method
+    {
+        ncursesPrinter(opts, state); //run one rep to clear menu boxes out
+#ifdef USE_RTLSDR
+        if (opts->rtl_started == 0) {
+            opts->rtl_started = 1; //set here so ncurses terminal doesn't attempt to open it again
+            open_rtlsdr_stream(opts);
         }
-
-        if (choicec == 18) //exit both menus
-        {
-          //exit
-          choice = 1;
-          choicec = 0;
-
-          keypad(test_win, FALSE);
-          keypad(menu_win, TRUE);
-          delwin(test_win);
-          print_menu(menu_win, highlight);
-          break;
-        }
-      }
-      clrtoeol(); //clear to end of line?
-      refresh();
-    }
-
-    //Privacy Key Entry
-    if (choice == 13)
-    {
-      state->payload_keyid = 0;
-      state->payload_keyidR = 0;
-      short int option = 0;
-      entry_win = newwin(14, WIDTH+6, starty+10, startx+10);
-      box (entry_win, 0, 0);
-      mvwprintw(entry_win, 2, 2, "Key Type Selection");
-      mvwprintw(entry_win, 3, 2, " ");
-      mvwprintw(entry_win, 4, 2, "1 -  Basic Privacy ");
-      mvwprintw(entry_win, 5, 2, "2 - **tera Privacy ");
-      mvwprintw(entry_win, 6, 2, "3 - NXDN/dPMR Scrambler ");
-      mvwprintw(entry_win, 7, 2, "4 - Force BP/Scr Key Priority ");
-      mvwprintw(entry_win, 8, 3, "-------------------------------- ");
-      mvwprintw(entry_win, 9, 2, "5 - RC4 Key ");
-      mvwprintw(entry_win, 10, 2, "6 - Force DMR RC4 Priority/LE ");
-      mvwprintw(entry_win, 11, 3, " ");
-      echo();
-      refresh();
-      wscanw(entry_win, "%hd", &option); //%d
-      noecho();
-      opts->dmr_mute_encL = 0;
-      opts->dmr_mute_encR = 0;
-      if (option == 1)
-      {
-        state->K = 0;
-        entry_win = newwin(6, WIDTH+6, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, "Basic Privacy Key Number (DEC):");
-        mvwprintw(entry_win, 3, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%lld", &state->K);
-        noecho();
-        if (state->K > 255) state->K = 255;
-
-        state->keyloader = 0; //turn off keyloader
-      }
-      if (option == 2)
-      {
-        state->K1 = 0;
-        state->K2 = 0;
-        state->K3 = 0;
-        state->K4 = 0;
-        state->H = 0;
-
-        entry_win = newwin(7, WIDTH+8, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value (HEX) ");
-        mvwprintw(entry_win, 3, 2, " 10 Char or First 16 for 32/64");
-        mvwprintw(entry_win, 4, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%llX", &state->H);
-        noecho();
-        state->K1 = state->H;
-
-        entry_win = newwin(7, WIDTH+8, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value 2 (HEX) ");
-        mvwprintw(entry_win, 3, 2, " Second 16 Chars or Zero");
-        mvwprintw(entry_win, 4, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%llX", &state->K2);
-        noecho();
-
-        entry_win = newwin(7, WIDTH+8, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value 3 (HEX) ");
-        mvwprintw(entry_win, 3, 2, " Third 16 Chars or Zero");
-        mvwprintw(entry_win, 4, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%llX", &state->K3);
-        noecho();
-
-        entry_win = newwin(7, WIDTH+8, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, " Enter **tera Privacy Key Value 4 (HEX) ");
-        mvwprintw(entry_win, 3, 2, " Fourth 16 Chars or Zero");
-        mvwprintw(entry_win, 4, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%llX", &state->K4);
-        noecho();
-
-        state->keyloader = 0; //turn off keyloader
-      }
-      if (option == 3)
-      {
-        state->R = 0;
-        entry_win = newwin(6, WIDTH+6, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, "NXDN/dPMR Scrambler Key Value (DEC):");
-        mvwprintw(entry_win, 3, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%lld", &state->R);
-        noecho();
-        if (state->R > 0x7FFF) state->R = 0x7FFF;
-        
-        state->keyloader = 0; //turn off keyloader
-      }
-      //toggle enforcement of basic privacy key over enc bit set on traffic
-      if (option == 4)
-      {
-        if (state->M == 1 || state->M == 0x21)
-        {
-          state->M = 0;
-        }
-        else state->M = 1;
-      }
-
-      if (option == 5)
-      {
-        state->R = 0;
-        entry_win = newwin(6, WIDTH+6, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, "RC4 Key Value (HEX):");
-        mvwprintw(entry_win, 3, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%llX", &state->R);
-        noecho();
-        if (state->R > 0xFFFFFFFFFF)
-        {
-          state->R = 0xFFFFFFFFFF;
-        }
-        state->RR = state->R; //assign for both slots
-        state->keyloader = 0; //turn off keyloader
-      }
-
-      //toggle enforcement of rc4 key over missing pi header/le on DMR
-      if (option == 6)
-      {
-        if (state->M == 1 || state->M == 0x21)
-        {
-          state->M = 0;
-        }
-        else state->M = 0x21;
-      }
-
-      if (state->K == 0 && state->K1 == 0 && state->K2 == 0 && state->K3 == 0 && state->K4 == 0)
-      {
-        opts->dmr_mute_encL = 1;
-        opts->dmr_mute_encR = 1;
-      }
-
-      break;
-    }
-
-    if (choice == 2)
-    {
-      //setup Auto parameters--default ones
-      // resetState (state); //use sparingly, may cause memory leak
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-      sprintf (opts->output_name, "Legacy Auto");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 0; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 8000;
-      opts->pulse_digi_out_channels = 1;
-      opts->frame_dstar = 1;
-      opts->frame_x2tdma = 1;
-      opts->frame_p25p1 = 1;
-      opts->frame_p25p2 = 0;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dmr = 1;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      opts->unmute_encrypted_p25 = 0;
-      break;
-
-    }
-    if (choice == 6)
-    {
-      //ProVoice Specifics
-      // resetState (state); //use sparingly, may cause memory leak
-      state->samplesPerSymbol = 5;
-      state->symbolCenter = 2;
-      sprintf (opts->output_name, "EDACS/PV");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 0; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 48000;
-      opts->pulse_digi_out_channels = 1;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 0;
-      opts->frame_p25p2 = 0;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dmr = 0;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 1;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 0;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 1;
-      state->rf_mod = 2;
-      break;
-    }
-    if (choice == 4)
-    {
-      //DSTAR
-      // resetState (state); //use sparingly, may cause memory leak
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-      sprintf (opts->output_name, "D-STAR");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 0; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 48000;
-      opts->pulse_digi_out_channels = 1;
-      opts->frame_dstar = 1;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 0;
-      opts->frame_p25p2 = 0;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dmr = 0;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      // state->rf_mod = 2;
-      opts->unmute_encrypted_p25 = 0;
-      break;
-    }
-    if (choice == 5)
-    {
-      //P25 P1
-      // resetState (state); //use sparingly, may cause memory leak
-      opts->use_heuristics = 1;
-      if (opts->use_heuristics == 1)
-      {
-        initialize_p25_heuristics(&state->p25_heuristics);
-        initialize_p25_heuristics(&state->inv_p25_heuristics);
-      }
-      opts->frame_p25p1 = 1;
-      opts->frame_p25p2 = 0;
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-      state->rf_mod = 0;
-      sprintf (opts->output_name, "P25p1");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 0; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 48000;
-      opts->pulse_digi_out_channels = 1;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      //opts->frame_p25p1 = 0;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dmr = 0;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      // state->rf_mod = 0;
-      opts->unmute_encrypted_p25 = 0;
-      break;
-    }
-
-    if (choice == 3)
-    {
-      //XDMA Stereo P25 1, 2, and DMR
-      // resetState (state); //use sparingly, seems to cause issue when switching back to other formats
-      if (opts->use_heuristics == 1)
-      {
-        initialize_p25_heuristics(&state->p25_heuristics);
-        initialize_p25_heuristics(&state->inv_p25_heuristics);
-      }
-      opts->use_heuristics = 0;
-      opts->frame_dmr = 1;
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-      state->rf_mod = 0;
-      sprintf (opts->output_name, "XDMA");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 1; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 24000;
-      opts->pulse_digi_out_channels = 2;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 1;
-      opts->frame_p25p2 = 1;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      break;
-    }
-    if (choice == 7)
-    {
-      // resetState (state); //use sparingly, seems to cause issue when switching back to other formats
-      state->samplesPerSymbol = 8;
-      state->symbolCenter = 3;
-      sprintf (opts->output_name, "P25p2");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo = 1; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 24000;
-      opts->pulse_digi_out_channels = 2;
-      opts->frame_dmr = 0;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 0;
-      opts->frame_p25p2 = 1;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      break;
-    }
-    if (choice == 8)
-    {
-      //dPMR
-      // resetState (state); //use sparingly, may cause memory leak
-      state->samplesPerSymbol = 20;
-      state->symbolCenter = 10;
-      sprintf (opts->output_name, "dPMR");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 0; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 48000;
-      opts->pulse_digi_out_channels = 1;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 0;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dmr = 0;
-      opts->frame_dpmr = 1;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      //opts->unmute_encrypted_p25 = 0;
-      break;
-    }
-    if (choice == 9)
-    {
-      //NXDN48
-      // resetState (state); //use sparingly, may cause memory leak
-      opts->frame_nxdn48 = 1;
-      state->samplesPerSymbol = 20;
-      state->symbolCenter = 10;
-      state->rf_mod = 0;
-      sprintf (opts->output_name, "NXDN48");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 0; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 48000;
-      opts->pulse_digi_out_channels = 1;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 0;
-      opts->frame_nxdn48 = 1;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dmr = 0;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      //opts->unmute_encrypted_p25 = 0;
-      // opts->mod_qpsk = 0;
-      // opts->mod_gfsk = 0;
-      // state->rf_mod = 0;
-    }
-    if (choice == 10)
-    {
-      //NXDN96
-      // resetState (state); //use sparingly, may cause memory leak
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-      sprintf (opts->output_name, "NXDN96");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 0; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 48000;
-      opts->pulse_digi_out_channels = 1;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 0;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 1;
-      opts->frame_dmr = 0;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      //opts->unmute_encrypted_p25 = 0;
-    }
-    if (choice == 11)
-    {
-      //Decode DMR Stereo (was X2-TDMA)
-      // resetState (state); //use sparingly, may cause memory leak
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-      // sprintf (opts->output_name, "X2-TDMA");
-      sprintf (opts->output_name, "DMR Stereo");
-      opts->dmr_mono = 0;
-      opts->dmr_stereo  = 1; //this value is the end user option
-      state->dmr_stereo = 0; //this values toggles on and off depending on voice or data handling
-      opts->pulse_digi_rate_out = 24000;
-      opts->pulse_digi_out_channels = 2;
-      opts->frame_dstar = 0;
-      opts->frame_x2tdma = 0;
-      opts->frame_p25p1 = 0;
-      opts->frame_nxdn48 = 0;
-      opts->frame_nxdn96 = 0;
-      opts->frame_dmr = 1;
-      opts->frame_dpmr = 0;
-      opts->frame_provoice = 0;
-      opts->frame_ysf = 0;
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      //opts->unmute_encrypted_p25 = 0;
-    }
-    if (choice == 12)
-    {
-      //Set all signal for inversion or uninversion
-      if (opts->inverted_dmr == 0)
-      {
-        opts->inverted_dmr = 1;
-        opts->inverted_dpmr = 1;
-        opts->inverted_x2tdma = 1;
-        opts->inverted_ysf = 1;
-      }
-      else
-      {
-        opts->inverted_dmr = 0;
-        opts->inverted_dpmr = 0;
-        opts->inverted_x2tdma = 0;
-        opts->inverted_ysf = 0;
-      }
-
-    }
-    if (choice == 14) //reset call history (usually if janky output when switching modes)
-    {
-      for (short int k = 0; k <= 9; k++)
-      {
-        call_matrix[k][0] = 0;
-        call_matrix[k][1] = 0;
-        call_matrix[k][2] = 0;
-        call_matrix[k][3] = 0;
-        call_matrix[k][4] = 0;
-        call_matrix[k][5] = 0;
-      }
-      src = 0;
-      rn = 0;
-      tgn = 0;
-      dcc = -1;
-      tg = 0;
-      tgR = 0;
-      rd = 0;
-      rdR = 0;
-      state->lastsrc = 0;
-      state->lastsrcR = 0;
-      state->lasttg = 0;
-      state->lasttgR = 0;
-    }
-
-    if (choice == 15) //toggle payload printing
-    {
-      if (opts->payload == 0)
-      {
-        opts->payload = 1;
-        fprintf(stderr, "Payload on\n");
-      }
-      else
-      {
-        opts->payload = 0;
-        fprintf(stderr, "Payload Off\n");
-      }
-    }
-    if (choice == 16)
-    {
-      //hardset P2 WACN, SYSID, and NAC
-      entry_win = newwin(6, WIDTH+16, starty+10, startx+10);
-      box (entry_win, 0, 0);
-      mvwprintw(entry_win, 2, 2, " Enter Phase 2 WACN (HEX)");
-      mvwprintw(entry_win, 3, 3, " ");
-      echo();
-      refresh();
-      wscanw(entry_win, "%llX", &state->p2_wacn); //%X
-      if (state->p2_wacn > 0xFFFFF)
-      {
-        state->p2_wacn = 0xFFFFF;
-      }
-      noecho();
-
-      entry_win = newwin(6, WIDTH+16, starty+10, startx+10);
-      box (entry_win, 0, 0);
-      mvwprintw(entry_win, 2, 2, " Enter Phase 2 SYSID (HEX)");
-      mvwprintw(entry_win, 3, 3, " ");
-      echo();
-      refresh();
-      wscanw(entry_win, "%llX", &state->p2_sysid); //%X
-      if (state->p2_sysid > 0xFFF)
-      {
-        state->p2_sysid = 0xFFF;
-      }
-      noecho();
-
-      entry_win = newwin(6, WIDTH+16, starty+10, startx+10);
-      box (entry_win, 0, 0);
-      mvwprintw(entry_win, 2, 2, " Enter Phase 2 NAC/CC (HEX)");
-      mvwprintw(entry_win, 3, 3, " ");
-      echo();
-      refresh();
-      wscanw(entry_win, "%llX", &state->p2_cc); //%X
-      if (state->p2_cc > 0xFFF)
-      {
-        state->p2_cc = 0xFFF;
-      }
-      noecho();
-
-      //need handling to truncate larger than expected values
-
-      //set our hardset flag to 1 if values inserted, else set to 0 so we can attempt to get them from TSBK/LCCH
-      if (state->p2_wacn != 0 && state->p2_sysid != 0 && state->p2_cc != 0)
-      {
-        state->p2_hardset = 1;
-      }
-      else state->p2_hardset = 0;
-
-
-    }
-    if (choice == 18)
-    {
-      short int lrrpchoice = 0;
-      entry_win = newwin(10, WIDTH+16, starty+10, startx+10);
-      box (entry_win, 0, 0);
-      mvwprintw(entry_win, 2, 2, " Enable or Disable LRRP Data File");
-      mvwprintw(entry_win, 3, 2, " 1 - ~/lrrp.txt (QGis)");
-      mvwprintw(entry_win, 4, 2, " 2 - ./DSDPlus.LRRP (LRRP.exe)");
-      mvwprintw(entry_win, 5, 2, " 3 - ./Custom Filename");
-      mvwprintw(entry_win, 6, 2, " 4 - Cancel/Stop");
-      mvwprintw(entry_win, 7, 2, " ");
-      mvwprintw(entry_win, 8, 2, " ");
-      echo();
-      refresh();
-      wscanw(entry_win, "%hd", &lrrpchoice); //%d
-      noecho();
-
-      if (lrrpchoice == 1)
-      {
-        //find user home directory and append directory and filename.
-        char * filename = "/lrrp.txt";
-        char * home_dir = getenv("HOME");
-        char * filepath = malloc(strlen(home_dir) + strlen(filename) + 1);
-        strncpy (filepath, home_dir, strlen(home_dir) + 1);
-        strncat (filepath, filename, strlen(filename) + 1);
-        //assign home directory/filename to lrrp_out_file
-        sprintf (opts->lrrp_out_file, "%s", filepath); //double check make sure this still works
-        opts->lrrp_file_output = 1;
-      }
-
-      else if (lrrpchoice == 2)
-      {
-        sprintf (opts->lrrp_out_file, "DSDPlus.LRRP");
-        opts->lrrp_file_output = 1;
-      }
-
-      else if (lrrpchoice == 3)
-      {
-        //read in filename for symbol capture bin
-        opts->lrrp_out_file[0] = 0;
-        entry_win = newwin(6, WIDTH+16, starty+10, startx+10);
-        box (entry_win, 0, 0);
-        mvwprintw(entry_win, 2, 2, " Enter LRRP Data Filename");
-        mvwprintw(entry_win, 3, 3, " ");
-        echo();
-        refresh();
-        wscanw(entry_win, "%s", opts->lrrp_out_file); //&opts->lrrp_out_file
-        noecho();
-        if (opts->lrrp_out_file[0] != 0) //NULL
-        {
-          opts->lrrp_file_output = 1;
-        }
-        else
-        {
-          opts->lrrp_file_output = 0;
-          sprintf (opts->lrrp_out_file, "%s", "");
-          opts->lrrp_out_file[0] = 0;
-        }
-      }
-      else
-      {
-        opts->lrrp_file_output = 0;
-        sprintf (opts->lrrp_out_file, "%s", "");
-        opts->lrrp_out_file[0] = 0;
-      }
-    }
-    if (choice == 19)
-    {
-      ncursesClose();
-      //cleanup_rtlsdr_stream();
-      cleanupAndExit (opts, state);
-    }
-
-		if(choice != 0 && choice != 20)	/* User did a choice come out of the infinite loop */
-			break;
-
-	}
-
-	clrtoeol(); //clear to end of line?
-	refresh();
-  state->menuopen = 0; //flag the menu is closed, resume processing getFrameSync
-
-  //reopen pulse output with new parameters, if not null output type
-  if (opts->audio_out == 1 && opts->audio_out_type == 0)
-  {
-    openPulseOutput (opts);
-  }
-  
-
-  if (opts->audio_in_type == 0) //reopen pulse input if it is the specified input method
-  {
-    openPulseInput(opts);
-  }
-  //fix location of this statement to inside the if statement and add conditions
-  if (opts->audio_in_type == 3) //open rtl input if it is the specified input method
-  {
-    ncursesPrinter (opts, state); //run one rep to clear menu boxes out
-    #ifdef USE_RTLSDR 
-    if (opts->rtl_started == 0)
-    {
-      opts->rtl_started = 1; //set here so ncurses terminal doesn't attempt to open it again
-      open_rtlsdr_stream(opts);
-    }
-    rtl_clean_queue();
-    reset_dibit_buffer(state); //test and observe for any random issues, disable if needed
-    #elif AERO_BUILD
-    opts->audio_out_type = 3; //hopefully the audio stream is still/already open
+        rtl_clean_queue();
+        reset_dibit_buffer(state); //test and observe for any random issues, disable if needed
+#elif AERO_BUILD
+                                                                                                                                opts->audio_out_type = 3; //hopefully the audio stream is still/already open
     #else
     opts->audio_out_type = 0; //need to see if we need to open pulseoutput as well here?
     openPulseOutput (opts);
-    #endif
-  }
+#endif
+    }
 
-  if (opts->audio_in_type == 8) //re-open TCP input 'file'
-  {
-    opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
-  }
+    if (opts->audio_in_type == 8) //re-open TCP input 'file'
+    {
+        opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
+    }
 
-  if (opts->audio_in_type == 5) //re-open UDP input 'file'
-  {
-    // opts->udp_file_in = sf_open_fd(opts->udp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
-  }
+    if (opts->audio_in_type == 5) //re-open UDP input 'file'
+    {
+        // opts->udp_file_in = sf_open_fd(opts->udp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
+    }
 
-  //update sync time on cc sync so we don't immediately go CC hunting when exiting the menu
-  state->last_cc_sync_time = time(NULL);
+    //update sync time on cc sync so we don't immediately go CC hunting when exiting the menu
+    state->last_cc_sync_time = time(NULL);
 
 }
 //end Ncurses Menu
 
 void
-ncursesPrinter (dsd_opts * opts, dsd_state * state)
-{
-  uint8_t idas = 0;
-  int level = 0;
-  int c = 0;
+ncursesPrinter(dsd_opts *opts, dsd_state *state) {
+    uint8_t idas = 0;
+    int level = 0;
+    int c = 0;
 
-  if (opts->audio_in_type != 1) //can't run getch/menu when using STDIN -
-  {
-    timeout(0);  // 
-    c = getch(); //
-  }
-
-  //use rtl_dev_tune
-  #ifdef USE_RTLSDR
-  if (temp_freq == opts->rtlsdr_center_freq)
-  {
-    rtl_dev_tune (opts, temp_freq);
-    temp_freq = -1;
-  }
-  #endif
-
-  //Variable reset/set section
-
-  //set lls sync types
-  if (state->synctype >= 0 && state->synctype < 39) 
-  {
-    lls = state->synctype;
-  }
-
-  //NXDN
-  if (state->nxdn_last_rid > 0 && state->nxdn_last_rid != src);
-  {
-    src = state->nxdn_last_rid;
-  }
-  if (state->nxdn_last_ran > -1 && state->nxdn_last_ran != rn);
-  {
-    rn = state->nxdn_last_ran;
-  }
-  if (state->nxdn_last_tg > 0 && state->nxdn_last_tg != tgn);
-  {
-    tgn = state->nxdn_last_tg;
-  }
-
-  //DMR CC
-  if (state->color_code_ok && state->dmr_color_code != -1 && (lls == 12 || lls == 13 || lls == 10 || lls == 11 || lls == 32 || lls == 33) )
-  {
-    dcc = state->dmr_color_code;
-  }
-
-  //DMR SRC
-  if ( (lls == 12 || lls == 13 || lls == 10 || lls == 11 || lls == 32) )
-  //if ( (lls == 12 || lls == 11 || lls == 32) )
-  {
-    //if (state->dmrburstL == 16 && state->lastsrc > 0) //state->currentslot == 0 &&
-    if (state->lastsrc > 0)
+    if (opts->audio_in_type != 1) //can't run getch/menu when using STDIN -
     {
-      rd = state->lastsrc;
+        timeout(0);  //
+        c = getch(); //
     }
 
-    //if (state->dmrburstR == 16 && state->lastsrcR > 0) //state->currentslot == 1 &&
-    if (state->lastsrcR > 0)
-    {
-      rdR = state->lastsrcR;
+    //use rtl_dev_tune
+#ifdef USE_RTLSDR
+    if (temp_freq == opts->rtlsdr_center_freq) {
+        rtl_dev_tune(opts, temp_freq);
+        temp_freq = -1;
+    }
+#endif
+
+    //Variable reset/set section
+
+    //set lls sync types
+    if (state->synctype >= 0 && state->synctype < 39) {
+        lls = state->synctype;
     }
 
-  }
-
-  //DMR TG
-  if ( (lls == 12 || lls == 13 || lls == 10 || lls == 11 || lls == 32) )
-  //if ( (lls == 12 || lls == 11 || lls == 32) )
-  {
-    //if (state->dmrburstL == 16 && state->lasttg > 0) //state->currentslot == 0 &&
-    if (state->lasttg > 0)
+    //NXDN
+    if (state->nxdn_last_rid > 0 && state->nxdn_last_rid != src);
     {
-      tg = state->lasttg;
+        src = state->nxdn_last_rid;
+    }
+    if (state->nxdn_last_ran > -1 && state->nxdn_last_ran != rn);
+    {
+        rn = state->nxdn_last_ran;
+    }
+    if (state->nxdn_last_tg > 0 && state->nxdn_last_tg != tgn);
+    {
+        tgn = state->nxdn_last_tg;
     }
 
-    //if (state->dmrburstR == 16 && state->lasttgR > 0) //state->currentslot == 1 &&
-    if (state->lasttgR > 0)
+    //DMR CC
+    if (state->color_code_ok && state->dmr_color_code != -1 &&
+        (lls == 12 || lls == 13 || lls == 10 || lls == 11 || lls == 32 || lls == 33)) {
+        dcc = state->dmr_color_code;
+    }
+
+    //DMR SRC
+    if ((lls == 12 || lls == 13 || lls == 10 || lls == 11 || lls == 32))
+        //if ( (lls == 12 || lls == 11 || lls == 32) )
     {
-      tgR = state->lasttgR;
+        //if (state->dmrburstL == 16 && state->lastsrc > 0) //state->currentslot == 0 &&
+        if (state->lastsrc > 0) {
+            rd = state->lastsrc;
+        }
+
+        //if (state->dmrburstR == 16 && state->lastsrcR > 0) //state->currentslot == 1 &&
+        if (state->lastsrcR > 0) {
+            rdR = state->lastsrcR;
+        }
 
     }
 
-  }
-
-  //P25 P1 and VCH0
-  if (state->p2_cc > 0)
-  {
-    nc = state->p2_cc;
-  }
-  if ( state->lasttg > 0 && (lls == 0 || lls == 1 || lls == 35 || lls == 36) )
-  {
-    tg = state->lasttg;
-  }
-  if ( state->lastsrc > 0 && (lls == 0 || lls == 1 || lls == 35 || lls == 36) )
-  {
-    rd = state->lastsrc;
-  }
-  //P25 P2 VCH2
-  if (state->lasttgR > 0 && (lls == 35 || lls == 36) )
-  {
-    tgR = state->lasttgR;
-  }
-  if (state->lastsrcR > 0 && (lls == 35 || lls == 36) )
-  {
-    rdR = state->lastsrcR;
-  }
-  //P25 P2 NAC to dcc for matrix shim
-  if (state->p2_cc > 0 && (lls == 35 || lls == 36) )
-  {
-    dcc = state->p2_cc;
-  }
-
-  //Call History Matrix Shuffling
-  //Edacs - ProVoice
-  if ( (lls == 14 || lls == 15 || lls == 37 || lls == 38) && state->carrier == 1)
-  {
-   
-    if (state->edacs_vc_lcn != -1)      
+    //DMR TG
+    if ((lls == 12 || lls == 13 || lls == 10 || lls == 11 || lls == 32))
+        //if ( (lls == 12 || lls == 11 || lls == 32) )
     {
-      call_matrix[state->edacs_vc_lcn][0] = lls;
-      call_matrix[state->edacs_vc_lcn][1] = state->edacs_vc_lcn;
-      call_matrix[state->edacs_vc_lcn][2] = state->lasttg; 
-      call_matrix[state->edacs_vc_lcn][3] = state->lastsrc; 
-      call_matrix[state->edacs_vc_lcn][4] = 1;
-      call_matrix[state->edacs_vc_lcn][5] = time(NULL);
-    } 
+        //if (state->dmrburstL == 16 && state->lasttg > 0) //state->currentslot == 0 &&
+        if (state->lasttg > 0) {
+            tg = state->lasttg;
+        }
 
-  }
+        //if (state->dmrburstR == 16 && state->lasttgR > 0) //state->currentslot == 1 &&
+        if (state->lasttgR > 0) {
+            tgR = state->lasttgR;
 
-  //D-STAR, work on adding the headers later
-  if ( (lls == 6 || lls == 7 || lls == 18 || lls == 19) && (time(NULL) - call_matrix[9][5] > 5) && state->carrier == 1)
-  {
-    for (short int k = 0; k < 9; k++)
-    {
-      call_matrix[k][0] = call_matrix[k+1][0];
-      call_matrix[k][1] = call_matrix[k+1][1];
-      call_matrix[k][2] = call_matrix[k+1][2];
-      call_matrix[k][3] = call_matrix[k+1][3];
-      call_matrix[k][4] = call_matrix[k+1][4];
-      call_matrix[k][5] = call_matrix[k+1][5];
+        }
+
     }
 
-    call_matrix[9][0] = lls;
-    call_matrix[9][1] = 1;
-    call_matrix[9][2] = 1;
-    call_matrix[9][3] = 1;
-    call_matrix[9][4] = 1;
-    call_matrix[9][5] = time(NULL);
-
-  }
-
-  //NXDN
-  if ( call_matrix[9][2] != src && src > 0 && rn > -1 )
-  {
-    for (short int k = 0; k < 9; k++)
-    {
-      call_matrix[k][0] = call_matrix[k+1][0];
-      call_matrix[k][1] = call_matrix[k+1][1];
-      call_matrix[k][2] = call_matrix[k+1][2];
-      call_matrix[k][3] = call_matrix[k+1][3];
-      call_matrix[k][4] = call_matrix[k+1][4];
-      call_matrix[k][5] = call_matrix[k+1][5];
+    //P25 P1 and VCH0
+    if (state->p2_cc > 0) {
+        nc = state->p2_cc;
     }
-    call_matrix[9][0] = lls;
-    call_matrix[9][1] = rn;
-    call_matrix[9][2] = src;
-    call_matrix[9][3] = 0;
-    call_matrix[9][4] = tgn;
-    call_matrix[9][5] = time(NULL);
-
-    //open wav file if enabled and both rd and tg are not 0
-    if (opts->dmr_stereo_wav == 1 && src != 0 ) //&& tgn != 0, some TG can be 0 on NXDN
-    {
-      //close old first, assign name based on time and radio, open wav file
-      closeWavOutFileL (opts, state);
-      sprintf (opts->wav_out_file, "./WAV/%s %s NXDN - RAN %d - TGT %d - SRC %d.wav", getDateN(), getTimeN(), rn, tgn, src);
-      openWavOutFileL (opts, state); //testing for now, will want to move to per call later
+    if (state->lasttg > 0 && (lls == 0 || lls == 1 || lls == 35 || lls == 36)) {
+        tg = state->lasttg;
+    }
+    if (state->lastsrc > 0 && (lls == 0 || lls == 1 || lls == 35 || lls == 36)) {
+        rd = state->lastsrc;
+    }
+    //P25 P2 VCH2
+    if (state->lasttgR > 0 && (lls == 35 || lls == 36)) {
+        tgR = state->lasttgR;
+    }
+    if (state->lastsrcR > 0 && (lls == 35 || lls == 36)) {
+        rdR = state->lastsrcR;
+    }
+    //P25 P2 NAC to dcc for matrix shim
+    if (state->p2_cc > 0 && (lls == 35 || lls == 36)) {
+        dcc = state->p2_cc;
     }
 
-    if (opts->call_alert == 1)
-    {
-      beeper (opts, state, 0);
+    //Call History Matrix Shuffling
+    //Edacs - ProVoice
+    if ((lls == 14 || lls == 15 || lls == 37 || lls == 38) && state->carrier == 1) {
+
+        if (state->edacs_vc_lcn != -1) {
+            call_matrix[state->edacs_vc_lcn][0] = lls;
+            call_matrix[state->edacs_vc_lcn][1] = state->edacs_vc_lcn;
+            call_matrix[state->edacs_vc_lcn][2] = state->lasttg;
+            call_matrix[state->edacs_vc_lcn][3] = state->lastsrc;
+            call_matrix[state->edacs_vc_lcn][4] = 1;
+            call_matrix[state->edacs_vc_lcn][5] = time(NULL);
+        }
+
     }
 
-  }
+    //D-STAR, work on adding the headers later
+    if ((lls == 6 || lls == 7 || lls == 18 || lls == 19) && (time(NULL) - call_matrix[9][5] > 5) &&
+        state->carrier == 1) {
+        for (short int k = 0; k < 9; k++) {
+            call_matrix[k][0] = call_matrix[k + 1][0];
+            call_matrix[k][1] = call_matrix[k + 1][1];
+            call_matrix[k][2] = call_matrix[k + 1][2];
+            call_matrix[k][3] = call_matrix[k + 1][3];
+            call_matrix[k][4] = call_matrix[k + 1][4];
+            call_matrix[k][5] = call_matrix[k + 1][5];
+        }
 
-  //DMR MS
-  if ( call_matrix[9][2] != rd && lls == 32)
-  {
+        call_matrix[9][0] = lls;
+        call_matrix[9][1] = 1;
+        call_matrix[9][2] = 1;
+        call_matrix[9][3] = 1;
+        call_matrix[9][4] = 1;
+        call_matrix[9][5] = time(NULL);
 
-    for (short int k = 0; k < 10; k++)
-    {
-      call_matrix[k][0] = call_matrix[k+1][0];
-      call_matrix[k][1] = call_matrix[k+1][1];
-      call_matrix[k][2] = call_matrix[k+1][2];
-      call_matrix[k][3] = call_matrix[k+1][3];
-      call_matrix[k][4] = call_matrix[k+1][4];
-      call_matrix[k][5] = call_matrix[k+1][5];
     }
 
-    call_matrix[9][0] = lls;
-    call_matrix[9][1] = tg;
-    call_matrix[9][2] = rd;
-    call_matrix[9][3] = 1; //hard set slot number
-    call_matrix[9][4] = dcc;
-    call_matrix[9][5] = time(NULL);
+    //NXDN
+    if (call_matrix[9][2] != src && src > 0 && rn > -1) {
+        for (short int k = 0; k < 9; k++) {
+            call_matrix[k][0] = call_matrix[k + 1][0];
+            call_matrix[k][1] = call_matrix[k + 1][1];
+            call_matrix[k][2] = call_matrix[k + 1][2];
+            call_matrix[k][3] = call_matrix[k + 1][3];
+            call_matrix[k][4] = call_matrix[k + 1][4];
+            call_matrix[k][5] = call_matrix[k + 1][5];
+        }
+        call_matrix[9][0] = lls;
+        call_matrix[9][1] = rn;
+        call_matrix[9][2] = src;
+        call_matrix[9][3] = 0;
+        call_matrix[9][4] = tgn;
+        call_matrix[9][5] = time(NULL);
 
-    //open wav file if enabled and both rd and tg are not 0
-    if (opts->dmr_stereo_wav == 1 && rd != 0 && tg != 0)
-    {
-      //close old first, assign name based on time and radio, open wav file
-      closeWavOutFileL (opts, state);
-      sprintf (opts->wav_out_file, "./WAV/%s %s MS - CC %d - TG %d - RD %d.wav", getDateN(), getTimeN(), dcc, tg, rd);
-      openWavOutFileL (opts, state); //testing for now, will want to move to per call later
+        //open wav file if enabled and both rd and tg are not 0
+        if (opts->dmr_stereo_wav == 1 && src != 0) //&& tgn != 0, some TG can be 0 on NXDN
+        {
+            //close old first, assign name based on time and radio, open wav file
+            closeWavOutFileL(opts, state);
+            sprintf(opts->wav_out_file, "./WAV/%s %s NXDN - RAN %d - TGT %d - SRC %d.wav", getDateN(), getTimeN(), rn,
+                    tgn, src);
+            openWavOutFileL(opts, state); //testing for now, will want to move to per call later
+        }
+
+        if (opts->call_alert == 1) {
+            beeper(opts, state, 0);
+        }
+
     }
 
-    if (opts->call_alert == 1 && rd != 0 && tg != 0)
-    {
-      //fprintf (stderr, "BEEP 0 MS LEFT\n");
-      beeper (opts, state, 0);
-      state->dmr_end_alert[0] = 0; //new voice frame, okay to beep at the end of it
+    //DMR MS
+    if (call_matrix[9][2] != rd && lls == 32) {
+
+        for (short int k = 0; k < 10; k++) {
+            call_matrix[k][0] = call_matrix[k + 1][0];
+            call_matrix[k][1] = call_matrix[k + 1][1];
+            call_matrix[k][2] = call_matrix[k + 1][2];
+            call_matrix[k][3] = call_matrix[k + 1][3];
+            call_matrix[k][4] = call_matrix[k + 1][4];
+            call_matrix[k][5] = call_matrix[k + 1][5];
+        }
+
+        call_matrix[9][0] = lls;
+        call_matrix[9][1] = tg;
+        call_matrix[9][2] = rd;
+        call_matrix[9][3] = 1; //hard set slot number
+        call_matrix[9][4] = dcc;
+        call_matrix[9][5] = time(NULL);
+
+        //open wav file if enabled and both rd and tg are not 0
+        if (opts->dmr_stereo_wav == 1 && rd != 0 && tg != 0) {
+            //close old first, assign name based on time and radio, open wav file
+            closeWavOutFileL(opts, state);
+            sprintf(opts->wav_out_file, "./WAV/%s %s MS - CC %d - TG %d - RD %d.wav", getDateN(), getTimeN(), dcc, tg,
+                    rd);
+            openWavOutFileL(opts, state); //testing for now, will want to move to per call later
+        }
+
+        if (opts->call_alert == 1 && rd != 0 && tg != 0) {
+            //fprintf (stderr, "BEEP 0 MS LEFT\n");
+            beeper(opts, state, 0);
+            state->dmr_end_alert[0] = 0; //new voice frame, okay to beep at the end of it
+        }
+
+        memset(state->dmr_alias_block_segment[0], 0, sizeof(state->dmr_alias_block_segment[0]));
+        sprintf(state->dmr_embedded_gps[0], "%s", "");
+
     }
 
-    memset(state->dmr_alias_block_segment[0], 0, sizeof(state->dmr_alias_block_segment[0]));
-    sprintf (state->dmr_embedded_gps[0], "%s", "");
+    //DMR BS Slot 1 - matrix 0-4
+    if (call_matrix[4][2] != rd && (lls == 11 || lls == 12 || lls == 10 || lls == 13 || lls == 35 || lls == 36)) {
 
-  }
+        for (short int k = 0; k < 4; k++) {
+            call_matrix[k][0] = call_matrix[k + 1][0];
+            call_matrix[k][1] = call_matrix[k + 1][1];
+            call_matrix[k][2] = call_matrix[k + 1][2];
+            call_matrix[k][3] = call_matrix[k + 1][3];
+            call_matrix[k][4] = call_matrix[k + 1][4];
+            call_matrix[k][5] = call_matrix[k + 1][5];
+        }
 
-  //DMR BS Slot 1 - matrix 0-4
-  if ( call_matrix[4][2] != rd && (lls == 11 || lls == 12 || lls == 10 || lls == 13 || lls == 35 || lls == 36) )
-  {
+        call_matrix[4][0] = lls;
+        call_matrix[4][1] = tg;
+        call_matrix[4][2] = rd;
+        call_matrix[4][3] = 1; //hard set slot number
+        call_matrix[4][4] = dcc;
+        call_matrix[4][5] = time(NULL);
 
-    for (short int k = 0; k < 4; k++)
-    {
-      call_matrix[k][0] = call_matrix[k+1][0];
-      call_matrix[k][1] = call_matrix[k+1][1];
-      call_matrix[k][2] = call_matrix[k+1][2];
-      call_matrix[k][3] = call_matrix[k+1][3];
-      call_matrix[k][4] = call_matrix[k+1][4];
-      call_matrix[k][5] = call_matrix[k+1][5];
+        //open wav file if enabled and both rd and tg are not 0
+        if (opts->dmr_stereo_wav == 1 && rd != 0 && tg != 0) {
+            //close old first, assign name based on time and radio, open wav file
+            closeWavOutFileL(opts, state);
+
+            sprintf(opts->wav_out_file, "./WAV/%s %s CC %d - TG %d - RD %d.wav", getDateN(), getTimeN(), dcc, tg, rd);
+            openWavOutFileL(opts, state); //testing for now, will want to move to per call later
+        }
+
+        if (opts->call_alert == 1 && rd != 0 && tg != 0) {
+            //fprintf (stderr, "BEEP 0 BS LEFT\n");
+            beeper(opts, state, 0);
+            state->dmr_end_alert[0] = 0; //new voice frame, okay to beep at the end of it
+        }
+
+        memset(state->dmr_alias_block_segment[0], 0, sizeof(state->dmr_alias_block_segment[0]));
+        sprintf(state->dmr_embedded_gps[0], "%s", "");
+
     }
 
-    call_matrix[4][0] = lls;
-    call_matrix[4][1] = tg;
-    call_matrix[4][2] = rd;
-    call_matrix[4][3] = 1; //hard set slot number
-    call_matrix[4][4] = dcc;
-    call_matrix[4][5] = time(NULL);
+    //DMR BS Slot 2 - matrix 5-9
+    if (call_matrix[9][2] != rdR && (lls == 11 || lls == 12 || lls == 10 || lls == 13 || lls == 35 || lls == 36)) {
 
-    //open wav file if enabled and both rd and tg are not 0
-    if (opts->dmr_stereo_wav == 1 && rd != 0 && tg != 0)
-    {
-      //close old first, assign name based on time and radio, open wav file
-      closeWavOutFileL (opts, state);
+        for (short int k = 5; k < 9; k++) {
+            call_matrix[k][0] = call_matrix[k + 1][0];
+            call_matrix[k][1] = call_matrix[k + 1][1];
+            call_matrix[k][2] = call_matrix[k + 1][2];
+            call_matrix[k][3] = call_matrix[k + 1][3];
+            call_matrix[k][4] = call_matrix[k + 1][4];
+            call_matrix[k][5] = call_matrix[k + 1][5];
+        }
 
-      sprintf (opts->wav_out_file, "./WAV/%s %s CC %d - TG %d - RD %d.wav", getDateN(), getTimeN(), dcc, tg, rd);
-      openWavOutFileL (opts, state); //testing for now, will want to move to per call later
+        call_matrix[9][0] = lls;
+        call_matrix[9][1] = tgR;
+        call_matrix[9][2] = rdR;
+        call_matrix[9][3] = 2; //hard set slot number
+        call_matrix[9][4] = dcc;
+        call_matrix[9][5] = time(NULL);
+
+        //open wav file if enabled and both rdR and tgR are not 0
+        if (opts->dmr_stereo_wav == 1 && rdR != 0 && tgR != 0) {
+            //close old first, assign name based on time and radio, open wav file
+            closeWavOutFileR(opts, state);
+            sprintf(opts->wav_out_fileR, "./WAV/%s %s CC %d - TG %d - RD %d.wav", getDateN(), getTimeN(), dcc, tgR,
+                    rdR);
+            openWavOutFileR(opts, state); //testing for now, will want to move to per call later
+        }
+
+        if (opts->call_alert == 1 && rdR != 0 && tgR != 0) {
+            //fprintf (stderr, "BEEP 1 BS RIGHT\n");
+            beeper(opts, state, 1);
+            state->dmr_end_alert[1] = 0; //new voice frame, okay to beep at the end of it
+        }
+
+        memset(state->dmr_alias_block_segment[1], 0, sizeof(state->dmr_alias_block_segment[1]));
+        sprintf(state->dmr_embedded_gps[1], "%s", "");
+
     }
 
-    if (opts->call_alert == 1 && rd != 0 && tg != 0)
-    {
-      //fprintf (stderr, "BEEP 0 BS LEFT\n");
-      beeper (opts, state, 0);
-      state->dmr_end_alert[0] = 0; //new voice frame, okay to beep at the end of it
+    //P25 P1
+    if ((lls == 0 || lls == 1) && call_matrix[9][2] != rd && nc > 0 && tg > 0 && state->dmrburstL == 26) {
+        for (short int k = 0; k < 9; k++) {
+            call_matrix[k][0] = call_matrix[k + 1][0];
+            call_matrix[k][1] = call_matrix[k + 1][1];
+            call_matrix[k][2] = call_matrix[k + 1][2];
+            call_matrix[k][3] = call_matrix[k + 1][3];
+            call_matrix[k][4] = call_matrix[k + 1][4];
+            call_matrix[k][5] = call_matrix[k + 1][5];
+        }
+
+        call_matrix[9][0] = lls;
+        call_matrix[9][1] = tg;
+        call_matrix[9][2] = rd;
+        call_matrix[9][3] = 0;
+        call_matrix[9][4] = nc;
+        call_matrix[9][5] = time(NULL);
+
+        //open wav file if enabled and both rd and tg are not 0
+        if (opts->dmr_stereo_wav == 1 && rd != 0 && tg != 0) {
+            //close old first, assign name based on time and radio, open wav file
+            closeWavOutFileL(opts, state);
+            sprintf(opts->wav_out_file, "./WAV/%s %s P1 - NAC %X - TGT %d - SRC %d.wav", getDateN(), getTimeN(), nc, tg,
+                    rd);
+            openWavOutFileL(opts, state); //testing for now, will want to move to per call later
+        }
+
+        if (opts->call_alert == 1) {
+            beeper(opts, state, 0);
+        }
+
     }
 
-    memset(state->dmr_alias_block_segment[0], 0, sizeof(state->dmr_alias_block_segment[0]));
-    sprintf (state->dmr_embedded_gps[0], "%s", "");
+    //Remus DMR End Call Alert Beep
+    // if (opts->call_alert == 1)
+    // {
+    //   if (state->dmrburstL == 2 && state->dmr_end_alert[0] == 0) //if TLC and flag not tripped
+    //   {
+    //     beeper (opts, state, 0);
+    //     state->dmr_end_alert[0] = 1; //don't play again until new voice frames
+    //     state->lasttg = 0;
+    //     state->lastsrc = 0;
+    //     rd = 0;
+    //     tg = 0;
+    //   }
+    //   if (state->dmrburstR == 2 && state->dmr_end_alert[1] == 0) //if TLC and flag not tripped
+    //   {
+    //     beeper (opts, state, 1);
+    //     state->dmr_end_alert[1] = 1; //don't play again until new voice frames
+    //     state->lasttgR = 0;
+    //     state->lastsrcR = 0;
+    //     rdR = 0;
+    //     tgR = 0;
+    //   }
+    // }
 
-  }
-
-  //DMR BS Slot 2 - matrix 5-9
-  if ( call_matrix[9][2] != rdR && (lls == 11 || lls == 12 || lls == 10 || lls == 13 || lls == 35 || lls == 36) )
-  {
-
-    for (short int k = 5; k < 9; k++)
-    {
-      call_matrix[k][0] = call_matrix[k+1][0];
-      call_matrix[k][1] = call_matrix[k+1][1];
-      call_matrix[k][2] = call_matrix[k+1][2];
-      call_matrix[k][3] = call_matrix[k+1][3];
-      call_matrix[k][4] = call_matrix[k+1][4];
-      call_matrix[k][5] = call_matrix[k+1][5];
-    }
-
-    call_matrix[9][0] = lls;
-    call_matrix[9][1] = tgR;
-    call_matrix[9][2] = rdR;
-    call_matrix[9][3] = 2; //hard set slot number
-    call_matrix[9][4] = dcc;
-    call_matrix[9][5] = time(NULL);
-
-    //open wav file if enabled and both rdR and tgR are not 0
-    if (opts->dmr_stereo_wav == 1 && rdR != 0 && tgR != 0)
-    {
-      //close old first, assign name based on time and radio, open wav file
-      closeWavOutFileR (opts, state);
-      sprintf (opts->wav_out_fileR, "./WAV/%s %s CC %d - TG %d - RD %d.wav", getDateN(), getTimeN(), dcc, tgR, rdR);
-      openWavOutFileR (opts, state); //testing for now, will want to move to per call later
-    }
-
-    if (opts->call_alert == 1 && rdR != 0 && tgR != 0)
-    {
-      //fprintf (stderr, "BEEP 1 BS RIGHT\n");
-      beeper (opts, state, 1);
-      state->dmr_end_alert[1] = 0; //new voice frame, okay to beep at the end of it
-    }
-
-    memset(state->dmr_alias_block_segment[1], 0, sizeof(state->dmr_alias_block_segment[1]));
-    sprintf (state->dmr_embedded_gps[1], "%s", "");
-
-  }
-
-  //P25 P1
-  if ( (lls == 0 || lls == 1) && call_matrix[9][2] != rd && nc > 0 && tg > 0 && state->dmrburstL == 26)
-  {
-    for (short int k = 0; k < 9; k++)
-    {
-      call_matrix[k][0] = call_matrix[k+1][0];
-      call_matrix[k][1] = call_matrix[k+1][1];
-      call_matrix[k][2] = call_matrix[k+1][2];
-      call_matrix[k][3] = call_matrix[k+1][3];
-      call_matrix[k][4] = call_matrix[k+1][4];
-      call_matrix[k][5] = call_matrix[k+1][5];
-    }
-
-    call_matrix[9][0] = lls;
-    call_matrix[9][1] = tg;
-    call_matrix[9][2] = rd;
-    call_matrix[9][3] = 0;
-    call_matrix[9][4] = nc;
-    call_matrix[9][5] = time(NULL);
-
-    //open wav file if enabled and both rd and tg are not 0
-    if (opts->dmr_stereo_wav == 1 && rd != 0 && tg != 0)
-    {
-      //close old first, assign name based on time and radio, open wav file
-      closeWavOutFileL (opts, state);
-      sprintf (opts->wav_out_file, "./WAV/%s %s P1 - NAC %X - TGT %d - SRC %d.wav", getDateN(), getTimeN(), nc, tg, rd);
-      openWavOutFileL (opts, state); //testing for now, will want to move to per call later
-    }
-
-    if (opts->call_alert == 1)
-    {
-      beeper (opts, state, 0);
-    }
-
-  }
-
-  //Remus DMR End Call Alert Beep
-  // if (opts->call_alert == 1)
-  // {
-  //   if (state->dmrburstL == 2 && state->dmr_end_alert[0] == 0) //if TLC and flag not tripped
-  //   {
-  //     beeper (opts, state, 0);
-  //     state->dmr_end_alert[0] = 1; //don't play again until new voice frames
-  //     state->lasttg = 0;
-  //     state->lastsrc = 0;
-  //     rd = 0;
-  //     tg = 0;
-  //   } 
-  //   if (state->dmrburstR == 2 && state->dmr_end_alert[1] == 0) //if TLC and flag not tripped
-  //   {
-  //     beeper (opts, state, 1);
-  //     state->dmr_end_alert[1] = 1; //don't play again until new voice frames
-  //     state->lasttgR = 0;
-  //     state->lastsrcR = 0;
-  //     rdR = 0;
-  //     tgR = 0;
-  //   } 
-  // }
-
-  //Start Printing Section
-  erase();
+    //Start Printing Section
+    erase();
 #ifdef AERO_BUILD
-  if (opts->ncurses_compact == 1)
+                                                                                                                            if (opts->ncurses_compact == 1)
   {
     printw ("------------------------------------------------------------------------------\n");
     printw ("| Digital Speech Decoder: Florida Man Edition - Aero %s \n", "v2.1 ");
-    printw ("------------------------------------------------------------------------------\n"); 
+    printw ("------------------------------------------------------------------------------\n");
   }
 #elif LIMAZULUTWEAKS
-  if (opts->ncurses_compact == 1)
+                                                                                                                            if (opts->ncurses_compact == 1)
   {
     printw ("------------------------------------------------------------------------------\n");
     printw ("| Digital Speech Decoder: LimaZulu Edition V: The Empire Strikes Back \n");
     printw ("------------------------------------------------------------------------------\n");
   }
 #elif ZDEV_BUILD
-  if (opts->ncurses_compact == 1)
+                                                                                                                            if (opts->ncurses_compact == 1)
   {
     printw ("------------------------------------------------------------------------------\n");
     printw ("| Digital Speech Decoder: Florida Man Edition - zDEV %s \n", GIT_TAG);
     printw ("------------------------------------------------------------------------------\n");
   }
 #else
-  if (opts->ncurses_compact == 1)
-  {
-    printw ("------------------------------------------------------------------------------\n");
-    printw ("| Digital Speech Decoder: Florida Man Edition - Main %s \n", GIT_TAG);
-    printw ("------------------------------------------------------------------------------\n");
-  }
-#endif
-  if (opts->ncurses_compact == 0)
-  {
-    attron(COLOR_PAIR(6));
-    for (short int i = 0; i < 7; i++)
-    {
-      printw("%s", FM_bannerN[i]);
-      if (i == 1) printw (" ESC to Menu");
-      if (i == 2) printw (" 'q' to Quit ");
-      if (i == 4) printw (" MBElib %s", versionstr);
-      #ifdef AERO_BUILD
-      if (i == 5) printw (" %s ", "Aero Build");
-      if (i == 6) printw (" v2.1 \n");
-      #elif ZDEV_BUILD
-      if (i == 5) printw (" %s ", "zDEV Build");
-      if (i == 6) printw (" %s \n", GIT_TAG);
-      #else 
-      if (i == 5) printw (" %s ", "Main Build");
-      if (i == 6) printw (" %s \n", GIT_TAG);
-      #endif
-      else printw ("\n");
+    if (opts->ncurses_compact == 1) {
+        printw("------------------------------------------------------------------------------\n");
+        printw("| Digital Speech Decoder: Florida Man Edition - Main %s \n", GIT_TAG);
+        printw("------------------------------------------------------------------------------\n");
     }
-    attroff(COLOR_PAIR(6)); //6
-    attron(COLOR_PAIR(4));
-  }
+#endif
+    if (opts->ncurses_compact == 0) {
+        attron(COLOR_PAIR(6));
+        for (short int i = 0; i < 7; i++) {
+            printw("%s", FM_bannerN[i]);
+            if (i == 1) printw(" ESC to Menu");
+            if (i == 2) printw(" 'q' to Quit ");
+            if (i == 4) printw(" MBElib %s", versionstr);
+#ifdef AERO_BUILD
+                                                                                                                                    if (i == 5) printw (" %s ", "Aero Build");
+      if (i == 6) printw (" v2.1 \n");
+#elif ZDEV_BUILD
+                                                                                                                                    if (i == 5) printw (" %s ", "zDEV Build");
+      if (i == 6) printw (" %s \n", GIT_TAG);
+#else
+            if (i == 5) printw(" %s ", "Main Build");
+            if (i == 6) printw(" %s \n", GIT_TAG);
+#endif
+            else printw("\n");
+        }
+        attroff(COLOR_PAIR(6)); //6
+        attron(COLOR_PAIR(4));
+    }
 
-  //fix color/pair issue when compact and trunking enabled
-  if (opts->ncurses_compact == 1 && opts->p25_trunk == 1) attron(COLOR_PAIR(4));
+    //fix color/pair issue when compact and trunking enabled
+    if (opts->ncurses_compact == 1 && opts->p25_trunk == 1) attron(COLOR_PAIR(4));
 
-  printw ("--Input Output----------------------------------------------------------------\n");
-  if (opts->audio_in_type == 0)
-  {
-    printw ("| Pulse Audio  Input: [%2i] kHz [%i] Channel\n", opts->pulse_digi_rate_in/1000, opts->pulse_digi_in_channels);
-  }
-  if (opts->audio_in_type == 5)
-  {
-    printw ("| OSS Audio  Input: [%2i] kHz [1] Channel\n", SAMPLE_RATE_IN/1000);
-  }
-  if (opts->audio_in_type == 4)
-  {
-    printw ("| Direct Symbol Bin Input: %s \n", opts->audio_in_dev);
-  }
+    printw("--Input Output----------------------------------------------------------------\n");
+    if (opts->audio_in_type == 0) {
+        printw("| Pulse Audio  Input: [%2i] kHz [%i] Channel\n", opts->pulse_digi_rate_in / 1000,
+               opts->pulse_digi_in_channels);
+    }
+    if (opts->audio_in_type == 5) {
+        printw("| OSS Audio  Input: [%2i] kHz [1] Channel\n", SAMPLE_RATE_IN / 1000);
+    }
+    if (opts->audio_in_type == 4) {
+        printw("| Direct Symbol Bin Input: %s \n", opts->audio_in_dev);
+    }
 
-  if (opts->audio_in_type == 8)
-  {
-    printw ("| Direct TCP Input: Port [%d] Sample Rate [%d] \n", opts->tcp_portno, opts->wav_sample_rate);
-  }
+    if (opts->audio_in_type == 8) {
+        printw("| Direct TCP Input: Port [%d] Sample Rate [%d] \n", opts->tcp_portno, opts->wav_sample_rate);
+    }
 
-  if (opts->audio_in_type == 2)
-  {
-    printw ("| Direct WAV File Input: %s Sample Rate [%d] \n", opts->audio_in_dev, opts->wav_sample_rate);
-  }
-  if (opts->audio_in_type == 1)
-  {
-    printw ("| STDIN Standard Input: - Menu Disabled when using STDIN!\n");
-    // printw ("| NCURSES Menu Disabled when using STDIN! - Use CTRL + C to Close. \n");
-  }
-  if (opts->audio_in_type == 3)
-  {
-    printw ("| RTL: %d;", opts->rtl_dev_index);
-    if (opts->rtl_gain_value == 0)
-      printw (" Gain: AGC;");
-    else
-      printw (" Gain: %idB;", opts->rtl_gain_value);
-    printw (" PPM: %i;", opts->rtlsdr_ppm_error);
-    printw (" SQ: %i;", opts->rtl_squelch_level);
-    printw (" RMS: %04i;", opts->rtl_rms);
-    printw (" BW: %i kHz;", opts->rtl_bandwidth);
-    printw (" FRQ: %i;", opts->rtlsdr_center_freq); 
-    if (opts->rtl_udp_port != 0) printw ("\n| External Tuning on UDP Port: %i", opts->rtl_udp_port);
-    printw ("\n");
-  }
-  if (opts->audio_out_type == 0)
-  {
-    printw ("| Pulse Audio Output: [%2i] kHz [%i] Channel", opts->pulse_digi_rate_out/1000, opts->pulse_digi_out_channels);
-    if (state->audio_smoothing == 1) printw (" - Smoothing On");
-    printw (" \n");
-  }
-  if (opts->audio_out_type == 5)
-  {
-    printw ("| OSS Audio Output: [%2i] kHz [1] Channel", SAMPLE_RATE_OUT/1000);
-    if (state->audio_smoothing == 1) printw (" - Smoothing On");
-    printw (" \n");
-  }
-  if (opts->monitor_input_audio == 1)
-  {
-    printw ("| Monitoring Source Audio when Carrier Present and No Sync Detected\n");
-  }
-  if (opts->mbe_out_dir[0] != 0 && opts->dmr_stereo == 0)
-  {
-    printw ("| Writing MBE data files to directory %s\n", opts->mbe_out_dir);
-  }
-  if (opts->wav_out_file_raw[0] != 0 && opts->audio_in_type == 0)
-  {
-    printw ("| Appending Raw Sig Audio WAV to file %s\n", opts->wav_out_file_raw);
-  }
-  if (opts->symbol_out_file[0] != 0 && opts->symbol_out == 1)
-  {
-    printw ("| SymbolC Bin: %s\n", opts->symbol_out_file);
-  }
-  if (opts->wav_out_file[0] != 0 && opts->dmr_stereo_wav == 0)
-  {
-    printw ("| Decoded WAV: %s\n", opts->wav_out_file);
-  }
-  if (opts->dmr_stereo_wav == 1) //opts->wav_out_file[0] != 0 &&
-  {
-    printw ("| Per Call - %s\n", opts->wav_out_file);
-    if (opts->dmr_stereo == 1) printw ("| Per Call - %s\n", opts->wav_out_fileR);
-  }
-  if (opts->use_rigctl == 1)
-  {
-    printw ("| RIGCTL Remote Control Client Established on Port [%d]\n", opts->rigctlportno);
-  }
-  #ifdef PRETTY_COLORS
-  if (opts->p25_trunk == 1 && (opts->use_rigctl == 1 || opts->audio_in_type == 3) )
-  {
-    printw ("| Trunking -");
-    if (opts->trunk_tune_group_calls == 0) attron(COLOR_PAIR(2));
-    printw (" Group(g)");
-    attron(COLOR_PAIR(4));
-    if (opts->trunk_tune_private_calls == 0) attron(COLOR_PAIR(2));
-    printw (" Private(u)");
-    attron(COLOR_PAIR(4));
-    if (opts->trunk_tune_data_calls == 0) attron(COLOR_PAIR(2));
-    printw (" Data(d)");
-    attron(COLOR_PAIR(4));
-    if (opts->trunk_tune_enc_calls == 0) attron(COLOR_PAIR(2));
-    printw (" Encrypted(e)");
-    attron(COLOR_PAIR(4));
-    printw (" Calls");
-    if (opts->trunk_use_allow_list == 1) printw (" - White List Mode\n");
-    else printw (" - Black List Mode\n");
-  }
-  #else //set on to UPPER CASE, off to lower case
-  if (opts->p25_trunk == 1 && (opts->use_rigctl == 1 || opts->audio_in_type == 3) )
+    if (opts->audio_in_type == 2) {
+        printw("| Direct WAV File Input: %s Sample Rate [%d] \n", opts->audio_in_dev, opts->wav_sample_rate);
+    }
+    if (opts->audio_in_type == 1) {
+        printw("| STDIN Standard Input: - Menu Disabled when using STDIN!\n");
+        // printw ("| NCURSES Menu Disabled when using STDIN! - Use CTRL + C to Close. \n");
+    }
+    if (opts->audio_in_type == 3) {
+        printw("| RTL: %d;", opts->rtl_dev_index);
+        if (opts->rtl_gain_value == 0)
+            printw(" Gain: AGC;");
+        else
+            printw(" Gain: %idB;", opts->rtl_gain_value);
+        printw(" PPM: %i;", opts->rtlsdr_ppm_error);
+        printw(" SQ: %i;", opts->rtl_squelch_level);
+        printw(" RMS: %04i;", opts->rtl_rms);
+        printw(" BW: %i kHz;", opts->rtl_bandwidth);
+        printw(" FRQ: %i;", opts->rtlsdr_center_freq);
+        if (opts->rtl_udp_port != 0) printw("\n| External Tuning on UDP Port: %i", opts->rtl_udp_port);
+        printw("\n");
+    }
+    if (opts->audio_out_type == 0) {
+        printw("| Pulse Audio Output: [%2i] kHz [%i] Channel", opts->pulse_digi_rate_out / 1000,
+               opts->pulse_digi_out_channels);
+        if (state->audio_smoothing == 1) printw(" - Smoothing On");
+        printw(" \n");
+    }
+    if (opts->audio_out_type == 5) {
+        printw("| OSS Audio Output: [%2i] kHz [1] Channel", SAMPLE_RATE_OUT / 1000);
+        if (state->audio_smoothing == 1) printw(" - Smoothing On");
+        printw(" \n");
+    }
+    if (opts->monitor_input_audio == 1) {
+        printw("| Monitoring Source Audio when Carrier Present and No Sync Detected\n");
+    }
+    if (opts->mbe_out_dir[0] != 0 && opts->dmr_stereo == 0) {
+        printw("| Writing MBE data files to directory %s\n", opts->mbe_out_dir);
+    }
+    if (opts->wav_out_file_raw[0] != 0 && opts->audio_in_type == 0) {
+        printw("| Appending Raw Sig Audio WAV to file %s\n", opts->wav_out_file_raw);
+    }
+    if (opts->symbol_out_file[0] != 0 && opts->symbol_out == 1) {
+        printw("| SymbolC Bin: %s\n", opts->symbol_out_file);
+    }
+    if (opts->wav_out_file[0] != 0 && opts->dmr_stereo_wav == 0) {
+        printw("| Decoded WAV: %s\n", opts->wav_out_file);
+    }
+    if (opts->dmr_stereo_wav == 1) //opts->wav_out_file[0] != 0 &&
+    {
+        printw("| Per Call - %s\n", opts->wav_out_file);
+        if (opts->dmr_stereo == 1) printw("| Per Call - %s\n", opts->wav_out_fileR);
+    }
+    if (opts->use_rigctl == 1) {
+        printw("| RIGCTL Remote Control Client Established on Port [%d]\n", opts->rigctlportno);
+    }
+#ifdef PRETTY_COLORS
+    if (opts->p25_trunk == 1 && (opts->use_rigctl == 1 || opts->audio_in_type == 3)) {
+        printw("| Trunking -");
+        if (opts->trunk_tune_group_calls == 0) attron(COLOR_PAIR(2));
+        printw(" Group(g)");
+        attron(COLOR_PAIR(4));
+        if (opts->trunk_tune_private_calls == 0) attron(COLOR_PAIR(2));
+        printw(" Private(u)");
+        attron(COLOR_PAIR(4));
+        if (opts->trunk_tune_data_calls == 0) attron(COLOR_PAIR(2));
+        printw(" Data(d)");
+        attron(COLOR_PAIR(4));
+        if (opts->trunk_tune_enc_calls == 0) attron(COLOR_PAIR(2));
+        printw(" Encrypted(e)");
+        attron(COLOR_PAIR(4));
+        printw(" Calls");
+        if (opts->trunk_use_allow_list == 1) printw(" - White List Mode\n");
+        else printw(" - Black List Mode\n");
+    }
+#else //set on to UPPER CASE, off to lower case
+                                                                                                                            if (opts->p25_trunk == 1 && (opts->use_rigctl == 1 || opts->audio_in_type == 3) )
   {
     printw ("| Trunking -");
     if (opts->trunk_tune_group_calls == 0) printw (" group(g)");
@@ -2331,1437 +2173,1315 @@ ncursesPrinter (dsd_opts * opts, dsd_state * state)
     if (opts->trunk_use_allow_list == 1) printw (" - White List Mode\n");
     else printw (" - Black List Mode\n");
   }
-  #endif
-  if (opts->reverse_mute == 1)
-  {
-    printw ("| Reverse Mute - Muting Unencrypted Voice\n");
-  }
-  if (opts->aggressive_framesync == 0) printw ("| Selective CRC ERR Bypass Enabled (RAS) \n");
-  if (state->M == 1)
-  {
-    if (state->R != 0)  printw ("| Forcing Key Priority -- NXDN Sc Key: %05lld \n", state->R);
-    if (state->K != 0)  printw ("| Forcing Key Priority -- Moto BP Key: %03lld \n", state->K);
-    if (state->K1 != 0) printw ("| Forcing Key Priority -- tera BP Key: %016llX \n", state->K1);
-    if (state->K != 0 && state->K1 != 0) printw ("| Warning! Multiple DMR Key Types Loaded! \n"); //warning may not be required
-  }
-  if (state->M == 0x21)
-  {
-    if (state->R != 0)  printw ("| Forcing Key Priority -- RC4 Key: %010llX \n", state->R);
-  }
-  if (opts->scanner_mode == 1)
-  {
-    printw ("| Fast Scan Mode Enabled ");
-    if (state->lcn_freq_roll != 0) 
-      printw (" - Frequency: %.06lf Mhz", (double)state->trunk_lcn_freq[state->lcn_freq_roll-1]/1000000);
-    printw (" Speed: %.02lf sec \n", opts->trunk_hangtime);  //not sure values less than 1 make a difference, may be system/environment dependent 
-  }
-
-  printw ("------------------------------------------------------------------------------\n");
-  attroff(COLOR_PAIR(4));
-
-  if (state->carrier == 1)
-  {
-    attron(COLOR_PAIR(3));
-    level = (int) state->max / 164; //only update on carrier present
-    if (opts->mod_qpsk == 1) level = (int) state->max / 328; //test values here
-    reset = 1;
-  }
-
-  printw ("--Audio Decode----------------------------------------------------------------\n");
-  printw ("| Demod/Rate:  ");
-  if (opts->mod_qpsk == 1) printw ("[QPSK]");
-  if (opts->mod_c4fm == 1) printw ("[C4FM]");
-  if (opts->mod_gfsk == 1) printw ("[GFSK]");
-  printw ( "[%d] \n", (48000*opts->wav_interpolator)/state->samplesPerSymbol);
-  printw ("| Decoding:    [%s] \n", opts->output_name);
-  printw ("| In Level:    [%02d%%] \n", level); 
-  if (opts->dmr_stereo == 0)
-  {
-    printw ("| Voice Error: [%i][%i] \n", state->errs, state->errs2);
-  }
-
-  if (opts->dmr_stereo == 1)
-  {
-    printw ("| Voice ErrS1: [%i][%i] \n", state->errs, state->errs2);
-    printw ("| Voice ErrS2: [%i][%i] \n", state->errsR, state->errs2R);
-  }
-  printw ("------------------------------------------------------------------------------\n");
-
-  printw ("--Call Info-------------------------------------------------------------------\n");
-  //DSTAR...what a pain...
-  if (lls == 6 || lls == 7 || lls == 18 || lls == 19)
-  {
-    if (state->dstarradioheader[3] != 0) //
-    {
-      printw ("| RPT 2: [%c%c%c%c%c%c%c%c] ", state->dstarradioheader[3], state->dstarradioheader[4],
-  			state->dstarradioheader[5], state->dstarradioheader[6], state->dstarradioheader[7], state->dstarradioheader[8],
-  			state->dstarradioheader[9], state->dstarradioheader[10]);
-      printw ("RPT 1: [%c%c%c%c%c%c%c%c] \n| ", state->dstarradioheader[11], state->dstarradioheader[12],
-  			state->dstarradioheader[13], state->dstarradioheader[14], state->dstarradioheader[15], state->dstarradioheader[16],
-  			state->dstarradioheader[17], state->dstarradioheader[18]);
-      printw ("YOUR:  [%c%c%c%c%c%c%c%c] ", state->dstarradioheader[19], state->dstarradioheader[20],
-  			state->dstarradioheader[21], state->dstarradioheader[22], state->dstarradioheader[23], state->dstarradioheader[24],
-  			state->dstarradioheader[25], state->dstarradioheader[26]);
-      printw ("MY: [%c%c%c%c%c%c%c%c] [%c%c%c%c]\n", state->dstarradioheader[27],
-  			state->dstarradioheader[28], state->dstarradioheader[29], state->dstarradioheader[30], state->dstarradioheader[31],
-  			state->dstarradioheader[32], state->dstarradioheader[33], state->dstarradioheader[34], state->dstarradioheader[35],
-  			state->dstarradioheader[36], state->dstarradioheader[37], state->dstarradioheader[38]);
+#endif
+    if (opts->reverse_mute == 1) {
+        printw("| Reverse Mute - Muting Unencrypted Voice\n");
     }
-  }
-
-  //NXDN
-  if (lls == 28 || lls == 29)
-  {
-    if (strcmp (state->nxdn_location_category, "Type-D") == 0) idas = 1;
-
-    if (opts->p25_trunk == 1)
-    {
-
-      printw ("| ");
-      if (opts->p25_is_tuned == 0)
-      {
-        if (idas == 0) printw ("Monitoring RCCH Channel"); //Control Channel
-        if (idas == 1) printw ("Monitoring RTCH2 Channel"); //Idas RTCH2 Channel
-        if (state->p25_cc_freq != 0)
-        {
-          printw (" - Frequency: %.06lf Mhz ", (double)state->p25_cc_freq/1000000);
-        }
-      } 
-      else if (opts->p25_is_tuned == 1)
-      {
-        if (idas == 0) printw ("Monitoring RTCH Channel"); //Traffic Channel
-        if (idas == 1) printw ("Monitoring RTCH2 Channel"); //Idas RTCH2
-        if (state->p25_vc_freq[0] != 0)
-        {
-          printw (" - Frequency: %.06lf Mhz ", (double)state->p25_vc_freq[0]/1000000);
-        }
-      }
-
-      printw ("\n");
+    if (opts->aggressive_framesync == 0) printw("| Selective CRC ERR Bypass Enabled (RAS) \n");
+    if (state->M == 1) {
+        if (state->R != 0) printw("| Forcing Key Priority -- NXDN Sc Key: %05lld \n", state->R);
+        if (state->K != 0) printw("| Forcing Key Priority -- Moto BP Key: %03lld \n", state->K);
+        if (state->K1 != 0) printw("| Forcing Key Priority -- tera BP Key: %016llX \n", state->K1);
+        if (state->K != 0 && state->K1 != 0)
+            printw("| Warning! Multiple DMR Key Types Loaded! \n"); //warning may not be required
     }
-      
-    
+    if (state->M == 0x21) {
+        if (state->R != 0) printw("| Forcing Key Priority -- RC4 Key: %010llX \n", state->R);
+    }
+    if (opts->scanner_mode == 1) {
+        printw("| Fast Scan Mode Enabled ");
+        if (state->lcn_freq_roll != 0)
+            printw(" - Frequency: %.06lf Mhz", (double) state->trunk_lcn_freq[state->lcn_freq_roll - 1] / 1000000);
+        printw(" Speed: %.02lf sec \n",
+               opts->trunk_hangtime);  //not sure values less than 1 make a difference, may be system/environment dependent
+    }
 
-    printw ("| ");
-    #ifdef LIMAZULUTWEAKS
-    if (idas == 0) printw ("NXDN - RAN: [%02d] ", state->nxdn_last_ran);
+    printw("------------------------------------------------------------------------------\n");
+    attroff(COLOR_PAIR(4));
+
+    if (state->carrier == 1) {
+        attron(COLOR_PAIR(3));
+        level = (int) state->max / 164; //only update on carrier present
+        if (opts->mod_qpsk == 1) level = (int) state->max / 328; //test values here
+        reset = 1;
+    }
+
+    printw("--Audio Decode----------------------------------------------------------------\n");
+    printw("| Demod/Rate:  ");
+    if (opts->mod_qpsk == 1) printw("[QPSK]");
+    if (opts->mod_c4fm == 1) printw("[C4FM]");
+    if (opts->mod_gfsk == 1) printw("[GFSK]");
+    printw("[%d] \n", (48000 * opts->wav_interpolator) / state->samplesPerSymbol);
+    printw("| Decoding:    [%s] \n", opts->output_name);
+    printw("| In Level:    [%02d%%] \n", level);
+    if (opts->dmr_stereo == 0) {
+        printw("| Voice Error: [%i][%i] \n", state->errs, state->errs2);
+    }
+
+    if (opts->dmr_stereo == 1) {
+        printw("| Voice ErrS1: [%i][%i] \n", state->errs, state->errs2);
+        printw("| Voice ErrS2: [%i][%i] \n", state->errsR, state->errs2R);
+    }
+    printw("------------------------------------------------------------------------------\n");
+
+    printw("--Call Info-------------------------------------------------------------------\n");
+    //DSTAR...what a pain...
+    if (lls == 6 || lls == 7 || lls == 18 || lls == 19) {
+        if (state->dstarradioheader[3] != 0) //
+        {
+            printw("| RPT 2: [%c%c%c%c%c%c%c%c] ", state->dstarradioheader[3], state->dstarradioheader[4],
+                   state->dstarradioheader[5], state->dstarradioheader[6], state->dstarradioheader[7],
+                   state->dstarradioheader[8],
+                   state->dstarradioheader[9], state->dstarradioheader[10]);
+            printw("RPT 1: [%c%c%c%c%c%c%c%c] \n| ", state->dstarradioheader[11], state->dstarradioheader[12],
+                   state->dstarradioheader[13], state->dstarradioheader[14], state->dstarradioheader[15],
+                   state->dstarradioheader[16],
+                   state->dstarradioheader[17], state->dstarradioheader[18]);
+            printw("YOUR:  [%c%c%c%c%c%c%c%c] ", state->dstarradioheader[19], state->dstarradioheader[20],
+                   state->dstarradioheader[21], state->dstarradioheader[22], state->dstarradioheader[23],
+                   state->dstarradioheader[24],
+                   state->dstarradioheader[25], state->dstarradioheader[26]);
+            printw("MY: [%c%c%c%c%c%c%c%c] [%c%c%c%c]\n", state->dstarradioheader[27],
+                   state->dstarradioheader[28], state->dstarradioheader[29], state->dstarradioheader[30],
+                   state->dstarradioheader[31],
+                   state->dstarradioheader[32], state->dstarradioheader[33], state->dstarradioheader[34],
+                   state->dstarradioheader[35],
+                   state->dstarradioheader[36], state->dstarradioheader[37], state->dstarradioheader[38]);
+        }
+    }
+
+    //NXDN
+    if (lls == 28 || lls == 29) {
+        if (strcmp(state->nxdn_location_category, "Type-D") == 0) idas = 1;
+
+        if (opts->p25_trunk == 1) {
+
+            printw("| ");
+            if (opts->p25_is_tuned == 0) {
+                if (idas == 0) printw("Monitoring RCCH Channel"); //Control Channel
+                if (idas == 1) printw("Monitoring RTCH2 Channel"); //Idas RTCH2 Channel
+                if (state->p25_cc_freq != 0) {
+                    printw(" - Frequency: %.06lf Mhz ", (double) state->p25_cc_freq / 1000000);
+                }
+            } else if (opts->p25_is_tuned == 1) {
+                if (idas == 0) printw("Monitoring RTCH Channel"); //Traffic Channel
+                if (idas == 1) printw("Monitoring RTCH2 Channel"); //Idas RTCH2
+                if (state->p25_vc_freq[0] != 0) {
+                    printw(" - Frequency: %.06lf Mhz ", (double) state->p25_vc_freq[0] / 1000000);
+                }
+            }
+
+            printw("\n");
+        }
+
+
+        printw("| ");
+#ifdef LIMAZULUTWEAKS
+                                                                                                                                if (idas == 0) printw ("NXDN - RAN: [%02d] ", state->nxdn_last_ran);
     if (idas == 1) printw ("IDAS - Area: [%02d] ", state->nxdn_last_ran);
-    #else
-    if (idas == 0) printw ("NXDN - RAN: [%02d] ", rn);
-    if (idas == 1) printw ("IDAS - Area: [%02d] ", rn);
-    #endif
-    if (state->nxdn_location_site_code != 0)
-    {
-      printw ("Cat: [%s] ", state->nxdn_location_category);
-      printw ("Sys Code: [%d] ", state->nxdn_location_sys_code);
-      printw ("Site Code: [%d] ", state->nxdn_location_site_code);
-    }
-
-    //if system supports Direct Frequency Assignment
-    if (state->nxdn_rcn == 1) printw ("DFA ");
-
-    printw ("\n");
-    printw ("| ");
-    printw ("TGT: [%5d] ", tgn);
-    printw ("SRC: [%5d] ", src);
-    if (state->nxdn_alias_block_segment[0][0] > 0) 
-    {
-      printw ("ALIAS: [");
-      for (int i = 0; i < 4; i++)
-      {
-        for (int j = 0; j < 4; j++)
-        {
-          printw ("%s", state->nxdn_alias_block_segment[i][j]); 
+#else
+        if (idas == 0) printw("NXDN - RAN: [%02d] ", rn);
+        if (idas == 1) printw("IDAS - Area: [%02d] ", rn);
+#endif
+        if (state->nxdn_location_site_code != 0) {
+            printw("Cat: [%s] ", state->nxdn_location_category);
+            printw("Sys Code: [%d] ", state->nxdn_location_sys_code);
+            printw("Site Code: [%d] ", state->nxdn_location_site_code);
         }
-      }
-      printw ("]");
-    }
 
-    //Group Name Labels from CSV import
-    for (int k = 0; k < state->group_tally; k++)
-    {
-      if (state->group_array[k].groupNumber == tgn)
-      {
-        attron(COLOR_PAIR(4));
-        printw (" [%s]", state->group_array[k].groupName);
-        printw ("[%s] ", state->group_array[k].groupMode);
-      }
-      else if (state->group_array[k].groupNumber == src)
-      {
-        attron(COLOR_PAIR(4));
-        printw (" [%s]", state->group_array[k].groupName);
-        printw ("[%s] ", state->group_array[k].groupMode);
-      }
-      if (state->carrier == 1)
-      {
-        attron(COLOR_PAIR(3));
-      }
-    }
+        //if system supports Direct Frequency Assignment
+        if (state->nxdn_rcn == 1) printw("DFA ");
 
-    if (state->carrier == 1)
-    {
-      printw(" %s ", state->nxdn_call_type);
-    }
-    printw ("\n|");
-    if (state->nxdn_cipher_type > 0)
-    {
-      printw (" ALG: [0x%02X] KEY: [0x%02X] ", state->nxdn_cipher_type, state->nxdn_key);
-    }
-    if (state->nxdn_cipher_type == 0x1 && state->carrier == 1)
-    {
-      if (state->R == 0) attron(COLOR_PAIR(2));
-      printw ("Scrambler ");
-      if (state->R == 0) attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(3));
-      if (state->R != 0)
-      {
-        attron(COLOR_PAIR(1));
-        printw ("KEY VALUE: [%05lld] ", state->R );
-        printw ("SEED: [%04llX]", state->payload_miN);
-        attron(COLOR_PAIR(3));
-      }
-    }
-    if (state->nxdn_cipher_type == 0x2 && state->carrier == 1)
-    {
-      attron(COLOR_PAIR(1));
-      printw ("IV: [%016llX] ", state->payload_miN);
-      attron(COLOR_PAIR(2));
-      printw ("DES-OFB  ");
-      attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(3));
-    }
-    if (state->nxdn_cipher_type == 0x3 && state->carrier == 1)
-    {
-      attron(COLOR_PAIR(1));
-      printw ("IV: [%016llX] ", state->payload_miN);
-      attron(COLOR_PAIR(2));
-      printw ("AES-256 ");
-      attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(3));
-    }
-    if (state->nxdn_cipher_type > 0x3 && state->carrier == 1)
-    {
-      attron(COLOR_PAIR(2));
-      printw ("Unknown Encryption ");
-      attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(3));
-    }
-
-    //Active Trunking Channels (NXDN and IDAS)
-    if (1 == 1) //opts->p25_trunk 
-    {
-      printw ("\n");
-      printw ("| "); 
-
-      //active channel display
-      attron(COLOR_PAIR(4));
-      for (int i = 0; i < 16; i++)
-      {
-        if (state->active_channel[i] != 0) printw ("%s", state->active_channel[i]);
-      }
-
-      if (state->carrier == 1) attron(COLOR_PAIR(3));
-      else attroff(COLOR_PAIR(4));
-    }
-
-    printw("\n");
-  }
-  
-  //P25 and DMR BS/MS 
-  if (  lls == 0 || lls == 1 || lls == 12 || lls == 13 || lls == 10 ||
-        lls == 11 || lls == 32 || lls == 33 || lls == 34 || lls == 35 || lls == 36)
-  {
-    printw ("| ");
-    if (lls > 1 && lls < 30)
-    {
-      printw ("DMR BS - DCC: [%02i] ", dcc);
-      // printw ("%s %s", state->dmr_branding, state->dmr_branding_sub);
-      printw ("%s ", state->dmr_branding);
-      printw ("%s", state->dmr_branding_sub);
-      printw ("%s", state->dmr_site_parms); //site id, net id, etc 
-      if (state->dmr_rest_channel > 0)
-      {
-        printw ("Rest LSN: %02d; ", state->dmr_rest_channel);
-        if (state->trunk_chan_map[state->dmr_rest_channel] != 0)
-        {
-          printw ("Freq: %.06lf Mhz", (double)state->trunk_chan_map[state->dmr_rest_channel]/1000000);
+        printw("\n");
+        printw("| ");
+        printw("TGT: [%5d] ", tgn);
+        printw("SRC: [%5d] ", src);
+        if (state->nxdn_alias_block_segment[0][0] > 0) {
+            printw("ALIAS: [");
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    printw("%s", state->nxdn_alias_block_segment[i][j]);
+                }
+            }
+            printw("]");
         }
-      }
-      else if (state->p25_cc_freq != 0)
-      {
-        printw ("Freq: %.06lf MHz", (double)state->p25_cc_freq/1000000);
-      }
-      
-    }
-    else if (lls == 32 || lls == 33 || lls == 34)
-    {
-      printw ("DMR MS - DCC: [%02i] ", dcc);
-    }
-    else if (lls == 0 || lls == 1) //P1
-    {
-      printw ("P25 P1 - [%05llX][%03llX][%03llX] RFSS: [%lld] SITE: [%lld] ", state->p2_wacn, state->p2_sysid, state->p2_cc, state->p2_rfssid, state->p2_siteid);
-      if (state->p25_cc_freq != 0)
-      {
-        printw ("Freq: %.06lf MHz", (double)state->p25_cc_freq/1000000);
-      }
-    }
-    else if (lls == 35 || lls == 36) //P2
-    {
-      printw ("P25 P2 - [%05llX][%03llX][%03llX] RFSS: [%lld] SITE: [%lld] ", state->p2_wacn, state->p2_sysid, state->p2_cc, state->p2_rfssid, state->p2_siteid);
-      if (state->p2_wacn == 0 || state->p2_sysid == 0 || state->p2_cc == 0)
-      {
-        attron(COLOR_PAIR(2));
-        printw (" Phase 2 Missing Parameters ");
-        attron(COLOR_PAIR(3));
-      }
-      else if (state->p2_wacn == 0xFFFFF || state->p2_sysid == 0xFFF || state->p2_cc == 0xFFF)
-      {
-        attron(COLOR_PAIR(2));
-        printw (" Phase 2 Invalid Parameters ");
-        attron(COLOR_PAIR(3));
-      }
-      else 
-      {
-        if (state->p25_cc_freq != 0)
-        {
-          printw ("Freq: %.06lf MHz", (double)state->p25_cc_freq/1000000);
+
+        //Group Name Labels from CSV import
+        for (int k = 0; k < state->group_tally; k++) {
+            if (state->group_array[k].groupNumber == tgn) {
+                attron(COLOR_PAIR(4));
+                printw(" [%s]", state->group_array[k].groupName);
+                printw("[%s] ", state->group_array[k].groupMode);
+            } else if (state->group_array[k].groupNumber == src) {
+                attron(COLOR_PAIR(4));
+                printw(" [%s]", state->group_array[k].groupName);
+                printw("[%s] ", state->group_array[k].groupMode);
+            }
+            if (state->carrier == 1) {
+                attron(COLOR_PAIR(3));
+            }
         }
-      }
+
+        if (state->carrier == 1) {
+            printw(" %s ", state->nxdn_call_type);
+        }
+        printw("\n|");
+        if (state->nxdn_cipher_type > 0) {
+            printw(" ALG: [0x%02X] KEY: [0x%02X] ", state->nxdn_cipher_type, state->nxdn_key);
+        }
+        if (state->nxdn_cipher_type == 0x1 && state->carrier == 1) {
+            if (state->R == 0) attron(COLOR_PAIR(2));
+            printw("Scrambler ");
+            if (state->R == 0) attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(3));
+            if (state->R != 0) {
+                attron(COLOR_PAIR(1));
+                printw("KEY VALUE: [%05lld] ", state->R);
+                printw("SEED: [%04llX]", state->payload_miN);
+                attron(COLOR_PAIR(3));
+            }
+        }
+        if (state->nxdn_cipher_type == 0x2 && state->carrier == 1) {
+            attron(COLOR_PAIR(1));
+            printw("IV: [%016llX] ", state->payload_miN);
+            attron(COLOR_PAIR(2));
+            printw("DES-OFB  ");
+            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(3));
+        }
+        if (state->nxdn_cipher_type == 0x3 && state->carrier == 1) {
+            attron(COLOR_PAIR(1));
+            printw("IV: [%016llX] ", state->payload_miN);
+            attron(COLOR_PAIR(2));
+            printw("AES-256 ");
+            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(3));
+        }
+        if (state->nxdn_cipher_type > 0x3 && state->carrier == 1) {
+            attron(COLOR_PAIR(2));
+            printw("Unknown Encryption ");
+            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(3));
+        }
+
+        //Active Trunking Channels (NXDN and IDAS)
+        if (1 == 1) //opts->p25_trunk
+        {
+            printw("\n");
+            printw("| ");
+
+            //active channel display
+            attron(COLOR_PAIR(4));
+            for (int i = 0; i < 16; i++) {
+                if (state->active_channel[i] != 0) printw("%s", state->active_channel[i]);
+            }
+
+            if (state->carrier == 1) attron(COLOR_PAIR(3));
+            else
+                attroff(COLOR_PAIR(4));
+        }
+
+        printw("\n");
     }
 
-    printw ("\n");
-    //Slot 1 [0]
-    printw ("| SLOT 1 - ");
-    if (state->dmrburstL < 16 && state->carrier == 1 && state->lasttg > 0 && state->lastsrc > 0)
-    {
-      attron(COLOR_PAIR(2));
-    }
-    printw ("TGT: [%8i] SRC: [%8i] ", state->lasttg, state->lastsrc);
-    if (state->dmrburstL != 16 && state->carrier == 1 && state->lasttg > 0 && state->lastsrc > 0)
-    {
-      attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(3));
-    }
+    //P25 and DMR BS/MS
+    if (lls == 0 || lls == 1 || lls == 12 || lls == 13 || lls == 10 ||
+        lls == 11 || lls == 32 || lls == 33 || lls == 34 || lls == 35 || lls == 36) {
+        printw("| ");
+        if (lls > 1 && lls < 30) {
+            printw("DMR BS - DCC: [%02i] ", dcc);
+            // printw ("%s %s", state->dmr_branding, state->dmr_branding_sub);
+            printw("%s ", state->dmr_branding);
+            printw("%s", state->dmr_branding_sub);
+            printw("%s", state->dmr_site_parms); //site id, net id, etc
+            if (state->dmr_rest_channel > 0) {
+                printw("Rest LSN: %02d; ", state->dmr_rest_channel);
+                if (state->trunk_chan_map[state->dmr_rest_channel] != 0) {
+                    printw("Freq: %.06lf Mhz", (double) state->trunk_chan_map[state->dmr_rest_channel] / 1000000);
+                }
+            } else if (state->p25_cc_freq != 0) {
+                printw("Freq: %.06lf MHz", (double) state->p25_cc_freq / 1000000);
+            }
 
-    //REMUS! THIS IS THE OLD ONE
-    // printw ("FID: [%02X] SVC: [%02X] ", state->dmr_fid, state->dmr_so);
-    //This is the new one
-    printw ("%s | ", state->call_string[0]);
-    printw ("%s ", DMRBusrtTypes[state->dmrburstL]);
+        } else if (lls == 32 || lls == 33 || lls == 34) {
+            printw("DMR MS - DCC: [%02i] ", dcc);
+        } else if (lls == 0 || lls == 1) //P1
+        {
+            printw("P25 P1 - [%05llX][%03llX][%03llX] RFSS: [%lld] SITE: [%lld] ", state->p2_wacn, state->p2_sysid,
+                   state->p2_cc, state->p2_rfssid, state->p2_siteid);
+            if (state->p25_cc_freq != 0) {
+                printw("Freq: %.06lf MHz", (double) state->p25_cc_freq / 1000000);
+            }
+        } else if (lls == 35 || lls == 36) //P2
+        {
+            printw("P25 P2 - [%05llX][%03llX][%03llX] RFSS: [%lld] SITE: [%lld] ", state->p2_wacn, state->p2_sysid,
+                   state->p2_cc, state->p2_rfssid, state->p2_siteid);
+            if (state->p2_wacn == 0 || state->p2_sysid == 0 || state->p2_cc == 0) {
+                attron(COLOR_PAIR(2));
+                printw(" Phase 2 Missing Parameters ");
+                attron(COLOR_PAIR(3));
+            } else if (state->p2_wacn == 0xFFFFF || state->p2_sysid == 0xFFF || state->p2_cc == 0xFFF) {
+                attron(COLOR_PAIR(2));
+                printw(" Phase 2 Invalid Parameters ");
+                attron(COLOR_PAIR(3));
+            } else {
+                if (state->p25_cc_freq != 0) {
+                    printw("Freq: %.06lf MHz", (double) state->p25_cc_freq / 1000000);
+                }
+            }
+        }
 
-    #ifdef AERO_BUILD //FUN FACT: OSS stutters only on Cygwin, using padsp in linux, it actually opens two virtual /dev/dsp audio streams for output
-    //
+        printw("\n");
+        //Slot 1 [0]
+        printw("| SLOT 1 - ");
+        if (state->dmrburstL < 16 && state->carrier == 1 && state->lasttg > 0 && state->lastsrc > 0) {
+            attron(COLOR_PAIR(2));
+        }
+        printw("TGT: [%8i] SRC: [%8i] ", state->lasttg, state->lastsrc);
+        if (state->dmrburstL != 16 && state->carrier == 1 && state->lasttg > 0 && state->lastsrc > 0) {
+            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(3));
+        }
+
+        //REMUS! THIS IS THE OLD ONE
+        // printw ("FID: [%02X] SVC: [%02X] ", state->dmr_fid, state->dmr_so);
+        //This is the new one
+        printw("%s | ", state->call_string[0]);
+        printw("%s ", DMRBusrtTypes[state->dmrburstL]);
+
+#ifdef AERO_BUILD //FUN FACT: OSS stutters only on Cygwin, using padsp in linux, it actually opens two virtual /dev/dsp audio streams for output
+                                                                                                                                //
     if (opts->slot_preference == 1 && opts->audio_out_type == 5 && opts->audio_out == 1 && ( state->dmrburstL == 16 || state->dmrburstL == 21) && (state->dmrburstR == 16 || state->dmrburstR == 21)) printw ("*M*");
     //
-    #endif 
+#endif
 
-    printw ("\n");
+        printw("\n");
 
-    printw ("| V XTRA | "); //10 spaces
+        printw("| V XTRA | "); //10 spaces
 
-    if(state->dmrburstL == 16 && state->payload_algid == 0 && (state->dmr_so & 0xCF) == 0x40) //4F or CF mask? & 0xCF currently
-    {
-      attron(COLOR_PAIR(5));
-      printw (" **Pr** ");
-      attroff(COLOR_PAIR(5));
-      attron(COLOR_PAIR(3));
-    }
-
-    if(state->dmrburstL == 16 && state->payload_algid == 0 && state->K > 0 && state->dmr_fid == 0x10 && (state->dmr_so & 0xCF) == 0x40)
-    {
-      attron(COLOR_PAIR(1));
-      printw ("Pr Key [%3lld] ", state->K);
-      attroff(COLOR_PAIR(1));
-      attron(COLOR_PAIR(3));
-    }
-
-    if(state->dmrburstL == 16 && state->payload_algid == 0 && state->H > 0 && state->dmr_fid == 0x68 && ((state->dmr_so & 0xCF) == 0x40) )
-    {
-      attron(COLOR_PAIR(1));
-      printw ("**tera Pr Key [%010llX] ", state->H);
-      attroff(COLOR_PAIR(1));
-      attron(COLOR_PAIR(3));
-    }
-
-    //ALG, KeyID, MI                            //was key_id
-    if(state->dmrburstL == 16 && state->payload_algid > 0 && (state->dmr_so & 0xCF) == 0x40)
-    {
-      attron(COLOR_PAIR(1));
-      printw ("ALG: 0x%02X KEY: 0x%02X MI: 0x%08X ", state->payload_algid, state->payload_keyid, state->payload_mi);
-      attroff(COLOR_PAIR(1));
-      attron(COLOR_PAIR(3));
-    }
-
-    //P25 FDMA/TDMA
-    if(state->dmrburstL > 19 && state->payload_algid > 0 && state->payload_algid != 0x80)
-    {
-      attron(COLOR_PAIR(1));
-      printw ("ALG: 0x%02X KEY: 0x%04X MI: 0x%016llX ", state->payload_algid, state->payload_keyid, state->payload_miP);
-      attroff(COLOR_PAIR(1));
-      attron(COLOR_PAIR(3));
-    }
-
-    //Anytone 0x01 will never show here since its converted to 0x21 for handling
-    if (state->payload_algid == 0xAA || state->payload_algid == 0x21 || state->payload_algid == 0x01)
-    {
-      attron(COLOR_PAIR(1));
-      printw("RC4 ");
-      if (state->R != 0) { printw("Key: %010llX ", state->R); }
-      attron(COLOR_PAIR(3));
-    }
-    if (state->payload_algid == 0x81 || state->payload_algid == 0x22)
-    {
-      attron(COLOR_PAIR(1));
-      printw("DES-OFB");
-      attron(COLOR_PAIR(3));
-    }
-    if (state->payload_algid == 0x82)
-    {
-      attron(COLOR_PAIR(1));
-      printw("Double DES");
-      attron(COLOR_PAIR(3));
-    }
-    if (state->payload_algid == 0x83)
-    {
-      attron(COLOR_PAIR(1));
-      printw("Triple DES");
-      attron(COLOR_PAIR(3));
-    }
-    if (state->payload_algid == 0x85 || state->payload_algid == 0x24)
-    {
-      attron(COLOR_PAIR(1));
-      printw("AES-128");
-      attron(COLOR_PAIR(3));
-    }
-    if (state->payload_algid == 0x84 || state->payload_algid == 0x25 || state->payload_algid == 0x05)
-    {
-      attron(COLOR_PAIR(1));
-      printw("AES-256");
-      attron(COLOR_PAIR(3));
-    }
-    if (state->payload_algid == 0x02)
-    {
-      attron(COLOR_PAIR(1));
-      printw("Hytera Full Encrypt");
-      attron(COLOR_PAIR(3));
-    }
-
-    //Not always correct, or correct at all, depends on context
-    //this is already in the call_string anyways
-    
-    // if(state->dmrburstL == 16 && state->dmr_so == 0x40 && state->R == 0) //0100 0000
-    // {
-    //   attron(COLOR_PAIR(2));
-    //   printw (" **ENC** ");
-    //   attroff(COLOR_PAIR(2));
-    //   attron(COLOR_PAIR(3));
-    // }
-    // if(state->dmrburstL == 16 && state->dmr_so == 0x80)
-    // {
-    //   attron(COLOR_PAIR(2));
-    //   printw (" **Emergency** ");
-    //   attroff(COLOR_PAIR(2));
-    //   attron(COLOR_PAIR(3));
-    // }
-    // if(state->dmrburstL == 16 && state->dmr_so == 0x30) //0010 0000
-    // {
-    //   attron(COLOR_PAIR(2));
-    //   printw (" **Private Call** ");
-    //   attroff(COLOR_PAIR(2));
-    //   attron(COLOR_PAIR(3));
-    // }
-
-    printw ("\n");
-
-    //printw ("|        | "); //10 spaces
-    printw ("| D XTRA | ");
-
-    attron(COLOR_PAIR(4));
-
-    if(state->dmrburstL == 16) //only during call
-    {
-
-      attron(COLOR_PAIR(4));
-
-      //Embedded GPS (not LRRP)
-      printw  ("%s ", state->dmr_embedded_gps[0]);
-            
-      //Embedded Talker Alias Blocks
-      for (int i = 0; i < 4; i++)
-      {
-        for (int j = 0; j < 7; j++)
+        if (state->dmrburstL == 16 && state->payload_algid == 0 &&
+            (state->dmr_so & 0xCF) == 0x40) //4F or CF mask? & 0xCF currently
         {
-          printw ("%s", state->dmr_alias_block_segment[0][i][j]); 
-        }
-      }
-
-      attroff(COLOR_PAIR(5));
-      if (state->carrier == 1)
-      {
-        attron(COLOR_PAIR(3));
-      }
-    }
-
-    //LRRP
-    if(state->dmrburstL != 16) //only during data and no trunking
-    {
-      attron(COLOR_PAIR(4));
-      printw  ("%s", state->dmr_lrrp_gps[0]);
-    }
-
-    //Group Name Labels from CSV import
-    if (state->dmrburstL == 16 || state->dmrburstL > 19)
-    {
-      for (int k = 0; k < state->group_tally; k++)
-      {
-        if (state->group_array[k].groupNumber == state->lasttg)
-        {
-          attron(COLOR_PAIR(4));
-          printw (" [%s]", state->group_array[k].groupName);
-          printw ("[%s] ", state->group_array[k].groupMode);
-          if (state->carrier == 1)
-          {
+            attron(COLOR_PAIR(5));
+            printw(" **Pr** ");
+            attroff(COLOR_PAIR(5));
             attron(COLOR_PAIR(3));
-          }
         }
-      }
-    }
 
-    if (state->carrier == 1) attron(COLOR_PAIR(3));
-    else attroff(COLOR_PAIR(4));
+        if (state->dmrburstL == 16 && state->payload_algid == 0 && state->K > 0 && state->dmr_fid == 0x10 &&
+            (state->dmr_so & 0xCF) == 0x40) {
+            attron(COLOR_PAIR(1));
+            printw("Pr Key [%3lld] ", state->K);
+            attroff(COLOR_PAIR(1));
+            attron(COLOR_PAIR(3));
+        }
 
-    printw ("\n");
+        if (state->dmrburstL == 16 && state->payload_algid == 0 && state->H > 0 && state->dmr_fid == 0x68 &&
+            ((state->dmr_so & 0xCF) == 0x40)) {
+            attron(COLOR_PAIR(1));
+            printw("**tera Pr Key [%010llX] ", state->H);
+            attroff(COLOR_PAIR(1));
+            attron(COLOR_PAIR(3));
+        }
 
-    //Slot 2 [1] //Don't print on MS mode
-    if (lls < 30 || lls == 35 || lls == 36)
-    { 
-      printw ("| SLOT 2 - ");
-      if (state->dmrburstR < 16 && state->carrier == 1 && state->lasttgR > 0 && state->lastsrcR > 0)
-      {
-        attron(COLOR_PAIR(2));
-      }
-      printw ("TGT: [%8i] SRC: [%8i] ", state->lasttgR, state->lastsrcR);
-      if (state->dmrburstR != 16 && state->carrier == 1 && state->lasttgR > 0 && state->lastsrcR > 0)
-      {
-        attroff(COLOR_PAIR(2));
-        attron(COLOR_PAIR(3));
-      }
+        //ALG, KeyID, MI                            //was key_id
+        if (state->dmrburstL == 16 && state->payload_algid > 0 && (state->dmr_so & 0xCF) == 0x40) {
+            attron(COLOR_PAIR(1));
+            printw("ALG: 0x%02X KEY: 0x%02X MI: 0x%08X ", state->payload_algid, state->payload_keyid,
+                   state->payload_mi);
+            attroff(COLOR_PAIR(1));
+            attron(COLOR_PAIR(3));
+        }
 
-      //REMUS! THIS IS THE OLD ONE
-      // printw ("FID: [%02X] SVC: [%02X] ", state->dmr_fidR, state->dmr_soR);
-      //THIS IS THE NEW ONE
-      printw ("%s | ", state->call_string[1]);
-      printw ("%s ", DMRBusrtTypes[state->dmrburstR]);
-      #ifdef AERO_BUILD //FUN FACT: OSS stutters only on Cygwin, using padsp in linux, it actually opens two virtual /dev/dsp audio streams for output
-	    //
-      if (opts->slot_preference == 0 && opts->audio_out_type == 5 && opts->audio_out == 1 && ( state->dmrburstL == 16 || state->dmrburstL == 21) && (state->dmrburstR == 16 || state->dmrburstR == 21) ) printw ("*M*"); 
-      //
-      #endif
-      printw ("\n");
-      
-      printw ("| V XTRA | "); //10 spaces
+        //P25 FDMA/TDMA
+        if (state->dmrburstL > 19 && state->payload_algid > 0 && state->payload_algid != 0x80) {
+            attron(COLOR_PAIR(1));
+            printw("ALG: 0x%02X KEY: 0x%04X MI: 0x%016llX ", state->payload_algid, state->payload_keyid,
+                   state->payload_miP);
+            attroff(COLOR_PAIR(1));
+            attron(COLOR_PAIR(3));
+        }
 
-      if(state->dmrburstR == 16 && state->payload_algidR == 0 && (state->dmr_soR & 0xCF) == 0x40) //4F or CF mask?
-      {
-        attron(COLOR_PAIR(5));
-        printw (" **Pr** ");
-        attroff(COLOR_PAIR(5));
-        attron(COLOR_PAIR(3));
-      }
+        //Anytone 0x01 will never show here since its converted to 0x21 for handling
+        if (state->payload_algid == 0xAA || state->payload_algid == 0x21 || state->payload_algid == 0x01) {
+            attron(COLOR_PAIR(1));
+            printw("RC4 ");
+            if (state->R != 0) { printw("Key: %010llX ", state->R); }
+            attron(COLOR_PAIR(3));
+        }
+        if (state->payload_algid == 0x81 || state->payload_algid == 0x22) {
+            attron(COLOR_PAIR(1));
+            printw("DES-OFB");
+            attron(COLOR_PAIR(3));
+        }
+        if (state->payload_algid == 0x82) {
+            attron(COLOR_PAIR(1));
+            printw("Double DES");
+            attron(COLOR_PAIR(3));
+        }
+        if (state->payload_algid == 0x83) {
+            attron(COLOR_PAIR(1));
+            printw("Triple DES");
+            attron(COLOR_PAIR(3));
+        }
+        if (state->payload_algid == 0x85 || state->payload_algid == 0x24) {
+            attron(COLOR_PAIR(1));
+            printw("AES-128");
+            attron(COLOR_PAIR(3));
+        }
+        if (state->payload_algid == 0x84 || state->payload_algid == 0x25 || state->payload_algid == 0x05) {
+            attron(COLOR_PAIR(1));
+            printw("AES-256");
+            attron(COLOR_PAIR(3));
+        }
+        if (state->payload_algid == 0x02) {
+            attron(COLOR_PAIR(1));
+            printw("Hytera Full Encrypt");
+            attron(COLOR_PAIR(3));
+        }
 
-      if(state->dmrburstR == 16 && state->payload_algidR == 0 && state->K > 0 && ((state->dmr_soR & 0xCF) == 0x40) && state->dmr_fidR == 0x10)
-      {
-        attron(COLOR_PAIR(1));
-        printw ("Pr Key [%3lld] ", state->K);
-        attroff(COLOR_PAIR(1));
-        attron(COLOR_PAIR(3));
-      }
-      if(state->dmrburstR == 16 && state->payload_algidR == 0 && state->H > 0 && ((state->dmr_soR & 0xCF) == 0x40) && state->dmr_fidR == 0x68)
-      {
-        attron(COLOR_PAIR(1));
-        printw ("**tera Pr Key [%010llX] ", state->H);
-        attroff(COLOR_PAIR(1));
-        attron(COLOR_PAIR(3));
-      }
-      //ALG, KeyID, MI 2                          //was keyidR
-      if(state->dmrburstR == 16 && state->payload_algidR > 0 && (state->dmr_soR & 0xCF) == 0x40)
-      {
-        attron(COLOR_PAIR(1));
-        printw ("ALG: 0x%02X KEY: 0x%02X MI: 0x%08X ", state->payload_algidR, state->payload_keyidR, state->payload_miR);
-        attroff(COLOR_PAIR(1));
-        attron(COLOR_PAIR(3));
-      }
-      //P25-P1 and P2
-      if(state->dmrburstR > 19 && state->payload_algidR > 0 && state->payload_algidR != 0x80)
-      {
-        attron(COLOR_PAIR(1));
-        printw ("ALG: 0x%02X KEY: 0x%04X MI: 0x%016llX ", state->payload_algidR, state->payload_keyidR, state->payload_miN);
-        attroff(COLOR_PAIR(1));
-        attron(COLOR_PAIR(3));
-      }
+        //Not always correct, or correct at all, depends on context
+        //this is already in the call_string anyways
 
-      //Anytone 0x01 will never show here since its converted to 0x21 for handling
-      if (state->payload_algidR == 0xAA || state->payload_algidR == 0x21 || state->payload_algidR == 0x01)
-      {
-        attron(COLOR_PAIR(1));
-        printw("RC4 ");
-        if (state->RR != 0) { printw("Key: %010llX ", state->RR); }
-        attron(COLOR_PAIR(3));
-      }
-      if (state->payload_algidR == 0x81 || state->payload_algidR == 0x22)
-      {
-        attron(COLOR_PAIR(1));
-        printw("DES-OFB");
-        attron(COLOR_PAIR(3));
-      }
-      if (state->payload_algidR == 0x83)
-      {
-        attron(COLOR_PAIR(1));
-        printw("Triple DES");
-        attron(COLOR_PAIR(3));
-      }
-      if (state->payload_algidR == 0x85 || state->payload_algidR == 0x24)
-      {
-        attron(COLOR_PAIR(1));
-        printw("AES-128");
-        attron(COLOR_PAIR(3));
-      }
-      if (state->payload_algidR == 0x84 || state->payload_algidR == 0x25 || state->payload_algidR == 0x05)
-      {
-        attron(COLOR_PAIR(1));
-        printw("AES-256");
-        attron(COLOR_PAIR(3));
-      }
-      if (state->payload_algidR == 0x02)
-      {
-        attron(COLOR_PAIR(1));
-        printw("Hytera Full Encrypt");
-        attron(COLOR_PAIR(3));
-      }
+        // if(state->dmrburstL == 16 && state->dmr_so == 0x40 && state->R == 0) //0100 0000
+        // {
+        //   attron(COLOR_PAIR(2));
+        //   printw (" **ENC** ");
+        //   attroff(COLOR_PAIR(2));
+        //   attron(COLOR_PAIR(3));
+        // }
+        // if(state->dmrburstL == 16 && state->dmr_so == 0x80)
+        // {
+        //   attron(COLOR_PAIR(2));
+        //   printw (" **Emergency** ");
+        //   attroff(COLOR_PAIR(2));
+        //   attron(COLOR_PAIR(3));
+        // }
+        // if(state->dmrburstL == 16 && state->dmr_so == 0x30) //0010 0000
+        // {
+        //   attron(COLOR_PAIR(2));
+        //   printw (" **Private Call** ");
+        //   attroff(COLOR_PAIR(2));
+        //   attron(COLOR_PAIR(3));
+        // }
 
-      //Not always correct, or correct at all, depends on context
-      //this is already in the call_string anyways
+        printw("\n");
 
-      // if(state->dmrburstR == 16 && state->dmr_soR == 0x40 && state->R == 0) //0100 0000
-      // {
-      //   attron(COLOR_PAIR(2));
-      //   printw (" **ENC** ");
-      //   attroff(COLOR_PAIR(2));
-      //   attron(COLOR_PAIR(3));
-      // }
-      // if(state->dmrburstR == 16 && state->dmr_soR == 0x80)
-      // {
-      //   attron(COLOR_PAIR(2));
-      //   printw (" **Emergency** ");
-      //   attroff(COLOR_PAIR(2));
-      //   attron(COLOR_PAIR(3));
-      // }
-      // if(state->dmrburstR == 16 && state->dmr_soR == 0x30) //0010 0000
-      // {
-      //   attron(COLOR_PAIR(2));
-      //   printw (" **Private Call** ");
-      //   attroff(COLOR_PAIR(2));
-      //   attron(COLOR_PAIR(3));
-      // }
+        //printw ("|        | "); //10 spaces
+        printw("| D XTRA | ");
 
-      printw ("\n");
-
-      //printw ("|        | ");
-      printw ("| D XTRA | ");
-
-      attron(COLOR_PAIR(4));
-
-      if(state->dmrburstR == 16) //only during call
-      {
-        
-        //Embedded GPS (not LRRP)
         attron(COLOR_PAIR(4));
-        printw  ("%s ", state->dmr_embedded_gps[1]);
 
-        //Embedded Talker Alias Blocks
-        for (int i = 0; i < 4; i++)
+        if (state->dmrburstL == 16) //only during call
         {
-          for (int j = 0; j < 7; j++)
-          {
-            printw ("%s", state->dmr_alias_block_segment[1][i][j]); 
-          }
-        }
 
-        attroff(COLOR_PAIR(5));
-        if (state->carrier == 1)
-        {
-          attron(COLOR_PAIR(3));
-        }
-
-      }
-
-      //LRRP
-      if(state->dmrburstR != 16) //only during data and no trunking
-      {
-        attron(COLOR_PAIR(4));
-        printw  ("%s", state->dmr_lrrp_gps[1]);
-      }
-      
-      //Group Name Labels from CSV import
-      if (state->dmrburstR == 16 || state->dmrburstR > 19)
-      {
-        for (int k = 0; k < state->group_tally; k++)
-        {
-          if (state->group_array[k].groupNumber == state->lasttgR)
-          {
             attron(COLOR_PAIR(4));
-            printw (" [%s]", state->group_array[k].groupName);
-            printw ("[%s] ", state->group_array[k].groupMode);
-          }
-          if (state->carrier == 1)
-          {
-            attron(COLOR_PAIR(3));
-          }
+
+            //Embedded GPS (not LRRP)
+            printw("%s ", state->dmr_embedded_gps[0]);
+
+            //Embedded Talker Alias Blocks
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 7; j++) {
+                    printw("%s", state->dmr_alias_block_segment[0][i][j]);
+                }
+            }
+
+            attroff(COLOR_PAIR(5));
+            if (state->carrier == 1) {
+                attron(COLOR_PAIR(3));
+            }
         }
-      }
 
-      if (state->carrier == 1) attron(COLOR_PAIR(3));
-      else attroff(COLOR_PAIR(4));
-
-      printw ("\n");
-
-      if (1 == 1) //opts->p25_trunk == 1
-      {
-        printw ("|        | "); //Active Trunking Channels
-
-        //active channel display
-        attron(COLOR_PAIR(4));
-        for (int i = 0; i < 31; i++) //up to 31 idas channels
+        //LRRP
+        if (state->dmrburstL != 16) //only during data and no trunking
         {
-          if (state->active_channel[i] != 0) printw ("%s", state->active_channel[i]);
+            attron(COLOR_PAIR(4));
+            printw("%s", state->dmr_lrrp_gps[0]);
         }
 
-        if (state->carrier == 1) attron(COLOR_PAIR(3));
-        else attroff(COLOR_PAIR(4));
-        printw ("\n");
-      }
-
-      if (1 == 1) //opts->p25_trunk == 1
-      {
-        printw ("|        | "); //Currently Tuned Frequency
-
-        // Tuned Frequency Display
-        if (state->p25_vc_freq[0] != 0)
-        {
-          attron(COLOR_PAIR(4));
-          printw ("Frequency: %.06lf MHz  ", (double)state->p25_vc_freq[0]/1000000);
-        }
-        if (state->carrier == 1) attron(COLOR_PAIR(3));
-        else attroff(COLOR_PAIR(4));
-        printw ("\n");
-      }
-
-    }  // end if not MS
-  } //end DMR BS Types
-
-  //dPMR
-  if (lls == 20 || lls == 21 || lls == 22 || lls == 23 ||lls == 24 || lls == 25 || lls == 26 || lls == 27)
-  {
-    printw ("| DCC: [%i] ", state->dpmr_color_code);
-    printw ("TGT: [%s] SRC: [%s] ", state->dpmr_target_id, state->dpmr_caller_id);
-    printw ("\n| ");
-    if (state->dPMRVoiceFS2Frame.Version[0] == 3)
-    {
-      attron(COLOR_PAIR(2));
-      printw ("Scrambler ");
-      attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(3));
-      if (state->R != 0)
-      {
-        attron(COLOR_PAIR(1));
-        printw ("KEY VALUE: [%05lld] ", state->R );
-        //printw ("SEED: [%04llX]", state->payload_miN);
-        attron(COLOR_PAIR(3));
-      }
-    }
-    printw ("\n");
-  }
-
-  //EDACS and ProVoice
-  if (lls == 14 || lls == 15 || lls == 37 || lls == 38)
-  {
-    attroff (COLOR_PAIR(3)); //colors off for EDACS 
-    if (state->edacs_site_id != 0)
-    {
-      if (opts->p25_is_tuned == 0)
-      {
-        printw ("| Monitoring Control Channel\n");
-      }
-      else
-      {
-        printw ("| Monitoring Voice Channel - LCN [%02d]\n", state->edacs_tuned_lcn);
-        //since we are tuned, keep updating the time so it doesn't disappear during call
-        call_matrix[state->edacs_tuned_lcn][5] = time(NULL); 
-      } 
-      printw ("| SITE [%03lld][%02llX]", state->edacs_site_id, state->edacs_site_id);
-
-      if (state->ea_mode == 1)
-      {
-        printw (" Extended Addressing");
-      }
-      else printw (" Standard/Networked");
-      if (state->esk_mask == 0xA0)
-      {
-        printw (" w/  ESK");
-      }
-      else printw (" w/o ESK");
-      printw ("\n");
-    }
-    for (i = 1; i <= state->edacs_lcn_count; i++)
-    {
-      //shim 443 afs in here for display purposes
-      int a  = (call_matrix[i][3] >> 7) & 0xF; 
-      int fs = call_matrix[i][3] & 0x7F;
-      printw ("| - LCN [%02d][%.06lf] MHz", i, (double)state->trunk_lcn_freq[i-1]/1000000); 
-      
-      //print Control Channel on LCN line with the current Control Channel
-      if ( (i) == state->edacs_cc_lcn)
-      {
-        attron (COLOR_PAIR(1)); //yellow
-        printw (" Control Channel");
-        attroff (COLOR_PAIR(1));
-      }
-      //print active calls on corresponding LCN line
-      if ((i != state->edacs_cc_lcn) && time(NULL) - call_matrix[i][5] < 2) 
-      {
-        attron (COLOR_PAIR(3)); 
-        if (state->ea_mode == 1) printw (" TG [%5lld] SRC [%8lld]", call_matrix[i][2], call_matrix[i][3] );
-        else printw (" AFS [%3llX][%02d-%03d]", call_matrix[i][3], a, fs );
-        for (int k = 0; k < state->group_tally; k++)
-        {
-          if (state->group_array[k].groupNumber == call_matrix[i][2])
-          {
-            printw (" [%s]", state->group_array[k].groupName);
-            printw ("[%s]", state->group_array[k].groupMode);
-          }
-        }
-        attroff (COLOR_PAIR(3)); 
-      }
-      //print dying or dead calls in red for x seconds longer 
-      if ( (i != state->edacs_cc_lcn) && (time(NULL) - call_matrix[i][5] >= 2) && (time(NULL) - call_matrix[i][5] < 5) ) 
-      {
-        attron (COLOR_PAIR(2)); 
-        if (state->ea_mode == 1) printw (" TG [%5lld] SRC [%8lld]", call_matrix[i][2], call_matrix[i][3] );
-        else printw (" AFS [%3llX][%02d-%03d]", call_matrix[i][3], a, fs );
-        for (int k = 0; k < state->group_tally; k++)
-        {
-          if (state->group_array[k].groupNumber == call_matrix[i][2])
-          {
-            printw (" [%s]", state->group_array[k].groupName);
-            printw ("[%s]", state->group_array[k].groupMode);
-          }
-        }
-        attroff (COLOR_PAIR(2)); 
-      }
-      if (i == state->edacs_tuned_lcn && opts->p25_is_tuned == 1) printw (" **T**"); //asterisk which lcn is opened
-      printw ("\n");
-    }
-    if (state->carrier == 1)
-    {
-      attron (COLOR_PAIR(3)); 
-    }
-  }
-
-
-  if (lls == 6 || lls == 7 || lls == 18 || lls == 19)
-  {
-    printw ("| %s ", SyncTypes[lls]);
-    //printw ("%s", state->dmr_branding);
-    printw ("\n");
-  }
-  //fence bottom
-  printw ("------------------------------------------------------------------------------\n");
-  //colors off
-  if (state->carrier == 1){ //same as above
-    attroff(COLOR_PAIR(3));
-  }
-  //only print call history if enabled
-  if (opts->ncurses_history == 1)
-  {
-    attron(COLOR_PAIR(4)); //cyan for history
-    printw ("--Call History----------------------------------------------------------------\n");
-    for (short int j = 0; j < 10; j++)
-    {
-      //only print if a valid time was assigned to the matrix, and not EDACS/PV, and source is not zero
-      if ( ((time(NULL) - call_matrix[9-j][5]) < 999999) && call_matrix[9-j][0] != 14 && call_matrix[9-j][0] != 15 && call_matrix[9-j][0] != 37 && call_matrix[9-j][0] != 38 && call_matrix[9-j][2] != 0) //
-      {
-        // printw ("| %s ", SyncTypes[call_matrix[9-j][0]]); //sync type
-
-        printw ("| ");
-        printw ("%s ", getDateC(call_matrix[9-j][5]) );
-        printw ("%s ", getTimeC(call_matrix[9-j][5]) );
-
-        if (lls == 28 || lls == 29)
-        {
-          if (idas == 0) printw ("RAN [%02lld] ", call_matrix[9-j][1]);
-          if (idas == 1) printw ("Area [%02lld] ", call_matrix[9-j][1]);
-          printw ("TG [%5lld] ", call_matrix[9-j][4]);
-          printw ("RID [%5lld] ", call_matrix[9-j][2]);
-        }
-        //dPMR
-        if (lls == 20 || lls == 21 || lls == 22 || lls == 23 ||lls == 24 || lls == 25 || lls == 26 || lls == 27)
-        {
-          printw ("TGT [%8lld] ", call_matrix[9-j][1]);
-          printw ("SRC [%8lld] ", call_matrix[9-j][2]);
-          printw ("DCC [%2lld] ", call_matrix[9-j][4]);
-        }
-        //P25
-        if (call_matrix[9-j][0] == 0 || call_matrix[9-j][0] == 1 || call_matrix[9-j][0] == 35 || call_matrix[9-j][0] == 36)
-        {
-          printw ("TGT [%8lld] ", call_matrix[9-j][1]);
-          printw ("SRC [%8lld] ", call_matrix[9-j][2]);
-          printw ("NAC [0x%03llX] ", call_matrix[9-j][4]);
-        }
-        //DMR BS Types
-        if (call_matrix[9-j][0] == 12 || call_matrix[9-j][0] == 13 || call_matrix[9-j][0] == 10 || call_matrix[9-j][0] == 11 )
-        {
-          // printw ("S[%lld] ", call_matrix[9-j][3]); //%d
-          printw ("TGT [%8lld] ", call_matrix[9-j][1]);
-          printw ("SRC [%8lld] ", call_matrix[9-j][2]);
-          printw ("DCC [%02lld] ", call_matrix[9-j][4]);
-        }
-        //DMR MS Types
-        if (call_matrix[9-j][0] == 32 || call_matrix[9-j][0] == 33 || call_matrix[9-j][0] == 34 )
-        {
-          // printw ("S[%lld] ", call_matrix[9-j][3]);
-          printw ("TGT [%8lld] ", call_matrix[9-j][1]);
-          printw ("SRC [%8lld] ", call_matrix[9-j][2]);
-          printw ("DCC [%02lld] ", call_matrix[9-j][4]);
-        }
-
-        // #ifdef LIMAZULUTWEAKS
         //Group Name Labels from CSV import
-        for (int k = 0; k < state->group_tally; k++)
-        {
-          if (state->group_array[k].groupNumber == call_matrix[9-j][1])
-          {
-            attron(COLOR_PAIR(4));
-            printw ("[%s]", state->group_array[k].groupName);
-            printw ("[%s] ", state->group_array[k].groupMode);
-          }
-          else if (state->group_array[k].groupNumber == call_matrix[9-j][2])
-          {
-            attron(COLOR_PAIR(4));
-            printw ("[%s]", state->group_array[k].groupName);
-            printw ("[%s] ", state->group_array[k].groupMode);
-          }
+        if (state->dmrburstL == 16 || state->dmrburstL > 19) {
+            for (int k = 0; k < state->group_tally; k++) {
+                if (state->group_array[k].groupNumber == state->lasttg) {
+                    attron(COLOR_PAIR(4));
+                    printw(" [%s]", state->group_array[k].groupName);
+                    printw("[%s] ", state->group_array[k].groupMode);
+                    if (state->carrier == 1) {
+                        attron(COLOR_PAIR(3));
+                    }
+                }
+            }
         }
-        // #endif
-        printw ("\n");
-      }
 
-      //EDACS and ProVoice, outside of timestamp loop
-      if (call_matrix[j][0] == 14 || call_matrix[j][0] == 15 || call_matrix[j][0] == 37 || call_matrix[j][0] == 38 )
-      {
-        if (call_matrix[j][3] != 0) 
-        {
-          printw ("| ");
-          printw ("%s ", getDateC(call_matrix[j][5]) ); 
-          printw ("%s ", getTimeC(call_matrix[j][5]) );
-          printw ("LCN [%2lld] ", call_matrix[j][1]);
-          printw ("Group [%8lld] ", call_matrix[j][2]);
-          printw ("Source [%8lld] ", call_matrix[j][3]);
-          //test
-          for (int k = 0; k < state->group_tally; k++)
-          {
-            if (state->group_array[k].groupNumber == call_matrix[j][2])
-            {
-              attron(COLOR_PAIR(4));
-              printw ("[%s] ", state->group_array[k].groupName);
+        if (state->carrier == 1) attron(COLOR_PAIR(3));
+        else
+            attroff(COLOR_PAIR(4));
+
+        printw("\n");
+
+        //Slot 2 [1] //Don't print on MS mode
+        if (lls < 30 || lls == 35 || lls == 36) {
+            printw("| SLOT 2 - ");
+            if (state->dmrburstR < 16 && state->carrier == 1 && state->lasttgR > 0 && state->lastsrcR > 0) {
+                attron(COLOR_PAIR(2));
             }
-            else if (state->group_array[k].groupNumber == call_matrix[j][3])
-            {
-              attron(COLOR_PAIR(4));
-              printw ("[%s] ", state->group_array[k].groupName);
+            printw("TGT: [%8i] SRC: [%8i] ", state->lasttgR, state->lastsrcR);
+            if (state->dmrburstR != 16 && state->carrier == 1 && state->lasttgR > 0 && state->lastsrcR > 0) {
+                attroff(COLOR_PAIR(2));
+                attron(COLOR_PAIR(3));
             }
-          }
-          //end test
-          printw ("\n");
+
+            //REMUS! THIS IS THE OLD ONE
+            // printw ("FID: [%02X] SVC: [%02X] ", state->dmr_fidR, state->dmr_soR);
+            //THIS IS THE NEW ONE
+            printw("%s | ", state->call_string[1]);
+            printw("%s ", DMRBusrtTypes[state->dmrburstR]);
+#ifdef AERO_BUILD //FUN FACT: OSS stutters only on Cygwin, using padsp in linux, it actually opens two virtual /dev/dsp audio streams for output
+                                                                                                                                    //
+      if (opts->slot_preference == 0 && opts->audio_out_type == 5 && opts->audio_out == 1 && ( state->dmrburstL == 16 || state->dmrburstL == 21) && (state->dmrburstR == 16 || state->dmrburstR == 21) ) printw ("*M*");
+      //
+#endif
+            printw("\n");
+
+            printw("| V XTRA | "); //10 spaces
+
+            if (state->dmrburstR == 16 && state->payload_algidR == 0 &&
+                (state->dmr_soR & 0xCF) == 0x40) //4F or CF mask?
+            {
+                attron(COLOR_PAIR(5));
+                printw(" **Pr** ");
+                attroff(COLOR_PAIR(5));
+                attron(COLOR_PAIR(3));
+            }
+
+            if (state->dmrburstR == 16 && state->payload_algidR == 0 && state->K > 0 &&
+                ((state->dmr_soR & 0xCF) == 0x40) && state->dmr_fidR == 0x10) {
+                attron(COLOR_PAIR(1));
+                printw("Pr Key [%3lld] ", state->K);
+                attroff(COLOR_PAIR(1));
+                attron(COLOR_PAIR(3));
+            }
+            if (state->dmrburstR == 16 && state->payload_algidR == 0 && state->H > 0 &&
+                ((state->dmr_soR & 0xCF) == 0x40) && state->dmr_fidR == 0x68) {
+                attron(COLOR_PAIR(1));
+                printw("**tera Pr Key [%010llX] ", state->H);
+                attroff(COLOR_PAIR(1));
+                attron(COLOR_PAIR(3));
+            }
+            //ALG, KeyID, MI 2                          //was keyidR
+            if (state->dmrburstR == 16 && state->payload_algidR > 0 && (state->dmr_soR & 0xCF) == 0x40) {
+                attron(COLOR_PAIR(1));
+                printw("ALG: 0x%02X KEY: 0x%02X MI: 0x%08X ", state->payload_algidR, state->payload_keyidR,
+                       state->payload_miR);
+                attroff(COLOR_PAIR(1));
+                attron(COLOR_PAIR(3));
+            }
+            //P25-P1 and P2
+            if (state->dmrburstR > 19 && state->payload_algidR > 0 && state->payload_algidR != 0x80) {
+                attron(COLOR_PAIR(1));
+                printw("ALG: 0x%02X KEY: 0x%04X MI: 0x%016llX ", state->payload_algidR, state->payload_keyidR,
+                       state->payload_miN);
+                attroff(COLOR_PAIR(1));
+                attron(COLOR_PAIR(3));
+            }
+
+            //Anytone 0x01 will never show here since its converted to 0x21 for handling
+            if (state->payload_algidR == 0xAA || state->payload_algidR == 0x21 || state->payload_algidR == 0x01) {
+                attron(COLOR_PAIR(1));
+                printw("RC4 ");
+                if (state->RR != 0) { printw("Key: %010llX ", state->RR); }
+                attron(COLOR_PAIR(3));
+            }
+            if (state->payload_algidR == 0x81 || state->payload_algidR == 0x22) {
+                attron(COLOR_PAIR(1));
+                printw("DES-OFB");
+                attron(COLOR_PAIR(3));
+            }
+            if (state->payload_algidR == 0x83) {
+                attron(COLOR_PAIR(1));
+                printw("Triple DES");
+                attron(COLOR_PAIR(3));
+            }
+            if (state->payload_algidR == 0x85 || state->payload_algidR == 0x24) {
+                attron(COLOR_PAIR(1));
+                printw("AES-128");
+                attron(COLOR_PAIR(3));
+            }
+            if (state->payload_algidR == 0x84 || state->payload_algidR == 0x25 || state->payload_algidR == 0x05) {
+                attron(COLOR_PAIR(1));
+                printw("AES-256");
+                attron(COLOR_PAIR(3));
+            }
+            if (state->payload_algidR == 0x02) {
+                attron(COLOR_PAIR(1));
+                printw("Hytera Full Encrypt");
+                attron(COLOR_PAIR(3));
+            }
+
+            //Not always correct, or correct at all, depends on context
+            //this is already in the call_string anyways
+
+            // if(state->dmrburstR == 16 && state->dmr_soR == 0x40 && state->R == 0) //0100 0000
+            // {
+            //   attron(COLOR_PAIR(2));
+            //   printw (" **ENC** ");
+            //   attroff(COLOR_PAIR(2));
+            //   attron(COLOR_PAIR(3));
+            // }
+            // if(state->dmrburstR == 16 && state->dmr_soR == 0x80)
+            // {
+            //   attron(COLOR_PAIR(2));
+            //   printw (" **Emergency** ");
+            //   attroff(COLOR_PAIR(2));
+            //   attron(COLOR_PAIR(3));
+            // }
+            // if(state->dmrburstR == 16 && state->dmr_soR == 0x30) //0010 0000
+            // {
+            //   attron(COLOR_PAIR(2));
+            //   printw (" **Private Call** ");
+            //   attroff(COLOR_PAIR(2));
+            //   attron(COLOR_PAIR(3));
+            // }
+
+            printw("\n");
+
+            //printw ("|        | ");
+            printw("| D XTRA | ");
+
+            attron(COLOR_PAIR(4));
+
+            if (state->dmrburstR == 16) //only during call
+            {
+
+                //Embedded GPS (not LRRP)
+                attron(COLOR_PAIR(4));
+                printw("%s ", state->dmr_embedded_gps[1]);
+
+                //Embedded Talker Alias Blocks
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 7; j++) {
+                        printw("%s", state->dmr_alias_block_segment[1][i][j]);
+                    }
+                }
+
+                attroff(COLOR_PAIR(5));
+                if (state->carrier == 1) {
+                    attron(COLOR_PAIR(3));
+                }
+
+            }
+
+            //LRRP
+            if (state->dmrburstR != 16) //only during data and no trunking
+            {
+                attron(COLOR_PAIR(4));
+                printw("%s", state->dmr_lrrp_gps[1]);
+            }
+
+            //Group Name Labels from CSV import
+            if (state->dmrburstR == 16 || state->dmrburstR > 19) {
+                for (int k = 0; k < state->group_tally; k++) {
+                    if (state->group_array[k].groupNumber == state->lasttgR) {
+                        attron(COLOR_PAIR(4));
+                        printw(" [%s]", state->group_array[k].groupName);
+                        printw("[%s] ", state->group_array[k].groupMode);
+                    }
+                    if (state->carrier == 1) {
+                        attron(COLOR_PAIR(3));
+                    }
+                }
+            }
+
+            if (state->carrier == 1) attron(COLOR_PAIR(3));
+            else
+                attroff(COLOR_PAIR(4));
+
+            printw("\n");
+
+            if (1 == 1) //opts->p25_trunk == 1
+            {
+                printw("|        | "); //Active Trunking Channels
+
+                //active channel display
+                attron(COLOR_PAIR(4));
+                for (int i = 0; i < 31; i++) //up to 31 idas channels
+                {
+                    if (state->active_channel[i] != 0) printw("%s", state->active_channel[i]);
+                }
+
+                if (state->carrier == 1) attron(COLOR_PAIR(3));
+                else
+                    attroff(COLOR_PAIR(4));
+                printw("\n");
+            }
+
+            if (1 == 1) //opts->p25_trunk == 1
+            {
+                printw("|        | "); //Currently Tuned Frequency
+
+                // Tuned Frequency Display
+                if (state->p25_vc_freq[0] != 0) {
+                    attron(COLOR_PAIR(4));
+                    printw("Frequency: %.06lf MHz  ", (double) state->p25_vc_freq[0] / 1000000);
+                }
+                if (state->carrier == 1) attron(COLOR_PAIR(3));
+                else
+                    attroff(COLOR_PAIR(4));
+                printw("\n");
+            }
+
+        }  // end if not MS
+    } //end DMR BS Types
+
+    //dPMR
+    if (lls == 20 || lls == 21 || lls == 22 || lls == 23 || lls == 24 || lls == 25 || lls == 26 || lls == 27) {
+        printw("| DCC: [%i] ", state->dpmr_color_code);
+        printw("TGT: [%s] SRC: [%s] ", state->dpmr_target_id, state->dpmr_caller_id);
+        printw("\n| ");
+        if (state->dPMRVoiceFS2Frame.Version[0] == 3) {
+            attron(COLOR_PAIR(2));
+            printw("Scrambler ");
+            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(3));
+            if (state->R != 0) {
+                attron(COLOR_PAIR(1));
+                printw("KEY VALUE: [%05lld] ", state->R);
+                //printw ("SEED: [%04llX]", state->payload_miN);
+                attron(COLOR_PAIR(3));
+            }
         }
-         
-      }
-    } //end Call History
+        printw("\n");
+    }
+
+    //EDACS and ProVoice
+    if (lls == 14 || lls == 15 || lls == 37 || lls == 38) {
+        attroff (COLOR_PAIR(3)); //colors off for EDACS
+        if (state->edacs_site_id != 0) {
+            if (opts->p25_is_tuned == 0) {
+                printw("| Monitoring Control Channel\n");
+            } else {
+                printw("| Monitoring Voice Channel - LCN [%02d]\n", state->edacs_tuned_lcn);
+                //since we are tuned, keep updating the time so it doesn't disappear during call
+                call_matrix[state->edacs_tuned_lcn][5] = time(NULL);
+            }
+            printw("| SITE [%03lld][%02llX]", state->edacs_site_id, state->edacs_site_id);
+
+            if (state->ea_mode == 1) {
+                printw(" Extended Addressing");
+            } else printw(" Standard/Networked");
+            if (state->esk_mask == 0xA0) {
+                printw(" w/  ESK");
+            } else printw(" w/o ESK");
+            printw("\n");
+        }
+        for (i = 1; i <= state->edacs_lcn_count; i++) {
+            //shim 443 afs in here for display purposes
+            int a = (call_matrix[i][3] >> 7) & 0xF;
+            int fs = call_matrix[i][3] & 0x7F;
+            printw("| - LCN [%02d][%.06lf] MHz", i, (double) state->trunk_lcn_freq[i - 1] / 1000000);
+
+            //print Control Channel on LCN line with the current Control Channel
+            if ((i) == state->edacs_cc_lcn) {
+                attron (COLOR_PAIR(1)); //yellow
+                printw(" Control Channel");
+                attroff (COLOR_PAIR(1));
+            }
+            //print active calls on corresponding LCN line
+            if ((i != state->edacs_cc_lcn) && time(NULL) - call_matrix[i][5] < 2) {
+                attron (COLOR_PAIR(3));
+                if (state->ea_mode == 1) printw(" TG [%5lld] SRC [%8lld]", call_matrix[i][2], call_matrix[i][3]);
+                else printw(" AFS [%3llX][%02d-%03d]", call_matrix[i][3], a, fs);
+                for (int k = 0; k < state->group_tally; k++) {
+                    if (state->group_array[k].groupNumber == call_matrix[i][2]) {
+                        printw(" [%s]", state->group_array[k].groupName);
+                        printw("[%s]", state->group_array[k].groupMode);
+                    }
+                }
+                attroff (COLOR_PAIR(3));
+            }
+            //print dying or dead calls in red for x seconds longer
+            if ((i != state->edacs_cc_lcn) && (time(NULL) - call_matrix[i][5] >= 2) &&
+                (time(NULL) - call_matrix[i][5] < 5)) {
+                attron (COLOR_PAIR(2));
+                if (state->ea_mode == 1) printw(" TG [%5lld] SRC [%8lld]", call_matrix[i][2], call_matrix[i][3]);
+                else printw(" AFS [%3llX][%02d-%03d]", call_matrix[i][3], a, fs);
+                for (int k = 0; k < state->group_tally; k++) {
+                    if (state->group_array[k].groupNumber == call_matrix[i][2]) {
+                        printw(" [%s]", state->group_array[k].groupName);
+                        printw("[%s]", state->group_array[k].groupMode);
+                    }
+                }
+                attroff (COLOR_PAIR(2));
+            }
+            if (i == state->edacs_tuned_lcn && opts->p25_is_tuned == 1) printw(" **T**"); //asterisk which lcn is opened
+            printw("\n");
+        }
+        if (state->carrier == 1) {
+            attron (COLOR_PAIR(3));
+        }
+    }
+
+
+    if (lls == 6 || lls == 7 || lls == 18 || lls == 19) {
+        printw("| %s ", SyncTypes[lls]);
+        //printw ("%s", state->dmr_branding);
+        printw("\n");
+    }
     //fence bottom
-   printw ("------------------------------------------------------------------------------\n");
-   attroff(COLOR_PAIR(4)); //cyan for history
-  }
-
- refresh();
-
-  //keyboard shortcuts - codes same as ascii codes
-  if (c == 27) //esc key, open menu
-  {
-    ncursesMenu (opts, state); //just a quick test
-  }
-
-  if (c == 122) //'z' key, toggle payload to console
-  {
-    if (opts->payload == 1) opts->payload = 0;
-    else opts->payload = 1;
-  }
-
-  if (c == 99) //'c' key, toggle compact mode
-  {
-    if (opts->ncurses_compact == 1) opts->ncurses_compact = 0;
-    else opts->ncurses_compact = 1;
-  }
-
-  if (c == 116) //'t' key, toggle trunking
-  {
-    if (opts->p25_trunk == 1) opts->p25_trunk = 0;
-    else opts->p25_trunk = 1;
-  }
-
-  if (c == 121) //'y' key, toggle scanner mode
- {
-  if (opts->scanner_mode == 1) opts->scanner_mode = 0;
-  else opts->scanner_mode = 1;
-  opts->p25_trunk = 0; //turn off trunking mode
- }
-
-  if (c == 97) //'a' key, toggle call alert beep
-  {
-    if (opts->call_alert == 1) opts->call_alert = 0;
-    else opts->call_alert = 1;
-  }
-
-  if (c == 104) //'h' key, toggle history
-  {
-    if (opts->ncurses_history == 1) opts->ncurses_history = 0;
-    else opts->ncurses_history = 1;
-  }
-
-  if (c == 113) //'q' key, quit
-  {
-    ncursesClose();
-    cleanupAndExit (opts, state);
-  }
-
-  if (c == 52) // '4' key, toggle force privacy key over fid and svc (dmr)
-  {
-    if (state->M == 1 || state->M == 0x21) state->M = 0;
-    else state->M = 1;
-  }
-
-  if (c == 54) // '6' key, toggle force rc4 key over missing pi header/late entry
-  {
-    if (state->M == 1 || state->M == 0x21) state->M = 0;
-    else state->M = 0x21;
-  }
-
-  if (c == 105) //'i' key, toggle signal inversion on inverted types
-  {
-    //Set all signal for inversion or uninversion
-    if (opts->inverted_dmr == 0)
-    {
-      opts->inverted_dmr = 1;
-      opts->inverted_dpmr = 1;
-      opts->inverted_x2tdma = 1;
-      opts->inverted_ysf = 1;
+    printw("------------------------------------------------------------------------------\n");
+    //colors off
+    if (state->carrier == 1) { //same as above
+        attroff(COLOR_PAIR(3));
     }
-    else
-    {
-      opts->inverted_dmr = 0;
-      opts->inverted_dpmr = 0;
-      opts->inverted_x2tdma = 0;
-      opts->inverted_ysf = 0;
-    }
-  }
+    //only print call history if enabled
+    if (opts->ncurses_history == 1) {
+        attron(COLOR_PAIR(4)); //cyan for history
+        printw("--Call History----------------------------------------------------------------\n");
+        for (short int j = 0; j < 10; j++) {
+            //only print if a valid time was assigned to the matrix, and not EDACS/PV, and source is not zero
+            if (((time(NULL) - call_matrix[9 - j][5]) < 999999) && call_matrix[9 - j][0] != 14 &&
+                call_matrix[9 - j][0] != 15 && call_matrix[9 - j][0] != 37 && call_matrix[9 - j][0] != 38 &&
+                call_matrix[9 - j][2] != 0) //
+            {
+                // printw ("| %s ", SyncTypes[call_matrix[9-j][0]]); //sync type
 
-  if (c == 109) //'m' key, toggle qpsk/c4fm - everything but phase 2
-  {
-    if (state->rf_mod == 0)
-    {
-      opts->mod_c4fm = 0;
-      opts->mod_qpsk = 1;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 1;
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-    }
-    else
-    {
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      state->samplesPerSymbol = 10;
-      state->symbolCenter = 4;
-    }
-  }
+                printw("| ");
+                printw("%s ", getDateC(call_matrix[9 - j][5]));
+                printw("%s ", getTimeC(call_matrix[9 - j][5]));
 
-  if (c == 77) //'M' key, toggle qpsk - phase 2 6000 sps
-  {
-    if (state->rf_mod == 0)
-    {
-      opts->mod_c4fm = 0;
-      opts->mod_qpsk = 1;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 1;
-      state->samplesPerSymbol = 8;
-      state->symbolCenter = 3;
-    }
-    else
-    {
-      opts->mod_c4fm = 1;
-      opts->mod_qpsk = 0;
-      opts->mod_gfsk = 0;
-      state->rf_mod = 0;
-      state->samplesPerSymbol = 8;
-      state->symbolCenter = 3;
-    }
-  }
+                if (lls == 28 || lls == 29) {
+                    if (idas == 0) printw("RAN [%02lld] ", call_matrix[9 - j][1]);
+                    if (idas == 1) printw("Area [%02lld] ", call_matrix[9 - j][1]);
+                    printw("TG [%5lld] ", call_matrix[9 - j][4]);
+                    printw("RID [%5lld] ", call_matrix[9 - j][2]);
+                }
+                //dPMR
+                if (lls == 20 || lls == 21 || lls == 22 || lls == 23 || lls == 24 || lls == 25 || lls == 26 ||
+                    lls == 27) {
+                    printw("TGT [%8lld] ", call_matrix[9 - j][1]);
+                    printw("SRC [%8lld] ", call_matrix[9 - j][2]);
+                    printw("DCC [%2lld] ", call_matrix[9 - j][4]);
+                }
+                //P25
+                if (call_matrix[9 - j][0] == 0 || call_matrix[9 - j][0] == 1 || call_matrix[9 - j][0] == 35 ||
+                    call_matrix[9 - j][0] == 36) {
+                    printw("TGT [%8lld] ", call_matrix[9 - j][1]);
+                    printw("SRC [%8lld] ", call_matrix[9 - j][2]);
+                    printw("NAC [0x%03llX] ", call_matrix[9 - j][4]);
+                }
+                //DMR BS Types
+                if (call_matrix[9 - j][0] == 12 || call_matrix[9 - j][0] == 13 || call_matrix[9 - j][0] == 10 ||
+                    call_matrix[9 - j][0] == 11) {
+                    // printw ("S[%lld] ", call_matrix[9-j][3]); //%d
+                    printw("TGT [%8lld] ", call_matrix[9 - j][1]);
+                    printw("SRC [%8lld] ", call_matrix[9 - j][2]);
+                    printw("DCC [%02lld] ", call_matrix[9 - j][4]);
+                }
+                //DMR MS Types
+                if (call_matrix[9 - j][0] == 32 || call_matrix[9 - j][0] == 33 || call_matrix[9 - j][0] == 34) {
+                    // printw ("S[%lld] ", call_matrix[9-j][3]);
+                    printw("TGT [%8lld] ", call_matrix[9 - j][1]);
+                    printw("SRC [%8lld] ", call_matrix[9 - j][2]);
+                    printw("DCC [%02lld] ", call_matrix[9 - j][4]);
+                }
 
-  if (c == 82) //'R', save symbol capture bin with date/time string as name
-  {
-    sprintf (opts->symbol_out_file, "%s %s.bin", getDateN(), getTimeN());
-    if (opts->symbol_out_file[0] != 0)
-    {
-      opts->symbol_out = 1; //set flag to 1
-      openSymbolOutFile (opts, state);
-    }
-  }
+                // #ifdef LIMAZULUTWEAKS
+                //Group Name Labels from CSV import
+                for (int k = 0; k < state->group_tally; k++) {
+                    if (state->group_array[k].groupNumber == call_matrix[9 - j][1]) {
+                        attron(COLOR_PAIR(4));
+                        printw("[%s]", state->group_array[k].groupName);
+                        printw("[%s] ", state->group_array[k].groupMode);
+                    } else if (state->group_array[k].groupNumber == call_matrix[9 - j][2]) {
+                        attron(COLOR_PAIR(4));
+                        printw("[%s]", state->group_array[k].groupName);
+                        printw("[%s] ", state->group_array[k].groupMode);
+                    }
+                }
+                // #endif
+                printw("\n");
+            }
 
-  if (c == 114) //'r' key, stop capturing symbol capture bin file
-  {
-    if (opts->symbol_out == 1)
-    {
-      if (opts->symbol_out_file[0] != 0)
-      {
-        fclose(opts->symbol_out_f); 
-        sprintf (opts->audio_in_dev, "%s", opts->symbol_out_file);
-      }
+            //EDACS and ProVoice, outside of timestamp loop
+            if (call_matrix[j][0] == 14 || call_matrix[j][0] == 15 || call_matrix[j][0] == 37 ||
+                call_matrix[j][0] == 38) {
+                if (call_matrix[j][3] != 0) {
+                    printw("| ");
+                    printw("%s ", getDateC(call_matrix[j][5]));
+                    printw("%s ", getTimeC(call_matrix[j][5]));
+                    printw("LCN [%2lld] ", call_matrix[j][1]);
+                    printw("Group [%8lld] ", call_matrix[j][2]);
+                    printw("Source [%8lld] ", call_matrix[j][3]);
+                    //test
+                    for (int k = 0; k < state->group_tally; k++) {
+                        if (state->group_array[k].groupNumber == call_matrix[j][2]) {
+                            attron(COLOR_PAIR(4));
+                            printw("[%s] ", state->group_array[k].groupName);
+                        } else if (state->group_array[k].groupNumber == call_matrix[j][3]) {
+                            attron(COLOR_PAIR(4));
+                            printw("[%s] ", state->group_array[k].groupName);
+                        }
+                    }
+                    //end test
+                    printw("\n");
+                }
 
-      opts->symbol_out = 0;
-    }
-  }
-
- #ifdef AERO_BUILD
- //do nothing
- #else
- if (c == 32) //'space bar' replay last bin file (rework to do wav files too?)
- {
-  struct stat stat_buf;
-  if (stat(opts->audio_in_dev, &stat_buf) != 0)
-  {
-    fprintf (stderr,"Error, couldn't open %s\n", opts->audio_in_dev);
-    goto SKIPR;
-  }
-  if (S_ISREG(stat_buf.st_mode))
-  {
-    opts->symbolfile = fopen(opts->audio_in_dev, "r");
-    opts->audio_in_type = 4; //symbol capture bin files
-  }
-  SKIPR: ; //do nothing
- }
- #endif
-
-
-
- if (c == 80) //'P' key - start per call wav files
- {
-  char wav_file_directory[1024];
-  sprintf (wav_file_directory, "./WAV");
-  wav_file_directory[1023] = '\0';
-  if (stat(wav_file_directory, &st_wav) == -1)
-  {
-    fprintf (stderr, "-T %s wav file directory does not exist\n", wav_file_directory);
-    fprintf (stderr, "Creating directory %s to save decoded wav files\n", wav_file_directory);
-    mkdir(wav_file_directory, 0700); 
-  }
-  opts->dmr_stereo_wav = 1;
-  //catch all in case of no file name set, won't crash or something
-  sprintf (opts->wav_out_file, "./WAV/DSD-FME-T1.wav");
-  sprintf (opts->wav_out_fileR, "./WAV/DSD-FME-T2.wav");
-  openWavOutFileL (opts, state); 
-  openWavOutFileR (opts, state); 
- }
-
-  //this one could cause issues, but seems okay
-  if (c == 112) //'p' key - stop all per call wav files
-  {
-    //hope this one doesn't cause random crashing or garbage writing
-    closeWavOutFile (opts, state);
-    closeWavOutFileL (opts, state);
-    closeWavOutFileR (opts, state);
-    sprintf (opts->wav_out_file, "%s", "");
-    sprintf (opts->wav_out_fileR, "%s", "");
-    opts->dmr_stereo_wav = 0;
-  }
-
-  //
-  #ifdef AERO_BUILD //this might be okay on Aero as well, will need to look into and/or test
-  // 
-  #else
-  if (c == 115) //'s' key, stop playing wav or symbol in files
-  {
-    if (opts->symbolfile != NULL)
-    {
-      if (opts->audio_in_type == 4) 
-      {
-        fclose(opts->symbolfile); 
-      }
+            }
+        } //end Call History
+        //fence bottom
+        printw("------------------------------------------------------------------------------\n");
+        attroff(COLOR_PAIR(4)); //cyan for history
     }
 
-    if (opts->audio_in_type == 2) //wav input file
+    refresh();
+
+    //keyboard shortcuts - codes same as ascii codes
+    if (c == 27) //esc key, open menu
     {
-      sf_close(opts->audio_in_file);
+        ncursesMenu(opts, state); //just a quick test
     }
 
-    if (opts->audio_out_type == 0)
+    if (c == 122) //'z' key, toggle payload to console
     {
-      opts->audio_in_type = 0;
-      openPulseInput(opts);
-    }
-    else opts->audio_in_type = 5;//cleanupAndExit(opts, state); 
-    
-  }
-  #endif
-  
-  //test jumping back to CC on group lockout instead of random frequency to break framesync
-  if (state->lasttg != 0 && opts->frame_provoice != 1 && c == 49) //'1' key, lockout slot 1 or conventional tg from tuning/playback during session
-  {
-    state->group_array[state->group_tally].groupNumber = state->lasttg;
-    sprintf (state->group_array[state->group_tally].groupMode, "%s", "B");
-    sprintf (state->group_array[state->group_tally].groupName, "%s", "LOCKOUT");
-    state->group_tally++;
-
-    //if we have an opened group file, let's write a group lock out into it to make it permanent
-    if (opts->group_in_file[0] != 0) //file is available
-    {
-      FILE * pFile; //file pointer
-      //open file by name that is supplied in the ncurses terminal, or cli
-      pFile = fopen (opts->group_in_file, "a");
-      fprintf (pFile, "%d,B,LOCKOUT,%02X\n", state->lasttg, state->payload_algid);
-      fclose (pFile);
+        if (opts->payload == 1) opts->payload = 0;
+        else opts->payload = 1;
     }
 
-    //extra safeguards due to sync issues with NXDN
-    memset (state->nxdn_sacch_frame_segment, 1, sizeof(state->nxdn_sacch_frame_segment));
-    memset (state->nxdn_sacch_frame_segcrc, 1, sizeof(state->nxdn_sacch_frame_segcrc));
-
-    memset (state->active_channel, 0, sizeof(state->active_channel));
-
-    //reset dmr blocks
-    dmr_reset_blocks (opts, state);
-
-    //zero out additional items
-    state->lasttg = 0;
-    state->lasttgR = 0;
-    state->lastsrc = 0;
-    state->lastsrcR = 0;
-    state->payload_algid = 0;
-    state->payload_algidR = 0;
-    state->payload_keyid = 0;
-    state->payload_keyidR = 0;
-    state->payload_mi = 0;
-    state->payload_miR = 0;
-    state->payload_miP = 0;
-    state->payload_miN = 0;
-    opts->p25_is_tuned = 0;
-    state->p25_vc_freq[0] = state->p25_vc_freq[1] = 0;
-
-    //tune back to the control channel
-    //RIGCTL
-    if (opts->p25_trunk == 1 && opts->use_rigctl == 1) SetFreq(opts->rigctl_sockfd, state->p25_cc_freq);
-
-    //rtl
-    #ifdef USE_RTLSDR
-    if (opts->p25_trunk == 1 && opts->audio_in_type == 3) rtl_dev_tune (opts, state->p25_cc_freq);
-    #endif
-
-    state->last_cc_sync_time = time(NULL);
-
-  }
-
-  if (state->lasttgR != 0 && opts->frame_provoice != 1 && c == 50) //'2' key, lockout slot 2 tdma tgR from tuning/playback during session
-  {
-    state->group_array[state->group_tally].groupNumber = state->lasttgR;
-    sprintf (state->group_array[state->group_tally].groupMode, "%s", "B");
-    sprintf (state->group_array[state->group_tally].groupName, "%s", "LOCKOUT");
-    state->group_tally++;
-
-    //if we have an opened group file, let's write a group lock out into it to make it permanent
-    if (opts->group_in_file[0] != 0) //file is available
+    if (c == 99) //'c' key, toggle compact mode
     {
-      FILE * pFile; //file pointer
-      //open file by name that is supplied in the ncurses terminal, or cli
-      pFile = fopen (opts->group_in_file, "a");
-      fprintf (pFile, "%d,B,LOCKOUT,%02X\n", state->lasttgR, state->payload_algidR);
-      fclose (pFile);
+        if (opts->ncurses_compact == 1) opts->ncurses_compact = 0;
+        else opts->ncurses_compact = 1;
     }
 
-    //extra safeguards due to sync issues with NXDN
-    memset (state->nxdn_sacch_frame_segment, 1, sizeof(state->nxdn_sacch_frame_segment));
-    memset (state->nxdn_sacch_frame_segcrc, 1, sizeof(state->nxdn_sacch_frame_segcrc));
-
-    memset (state->active_channel, 0, sizeof(state->active_channel));
-
-    //reset dmr blocks
-    dmr_reset_blocks (opts, state);
-
-    //zero out additional items
-    state->lasttg = 0;
-    state->lasttgR = 0;
-    state->lastsrc = 0;
-    state->lastsrcR = 0;
-    state->payload_algid = 0;
-    state->payload_algidR = 0;
-    state->payload_keyid = 0;
-    state->payload_keyidR = 0;
-    state->payload_mi = 0;
-    state->payload_miR = 0;
-    state->payload_miP = 0;
-    state->payload_miN = 0;
-    opts->p25_is_tuned = 0;
-    state->p25_vc_freq[0] = state->p25_vc_freq[1] = 0;
-
-    //tune back to the control channel
-    //RIGCTL
-    if (opts->p25_trunk == 1 && opts->use_rigctl == 1) SetFreq(opts->rigctl_sockfd, state->p25_cc_freq);
-
-    //rtl
-    #ifdef USE_RTLSDR
-    if (opts->p25_trunk == 1 && opts->audio_in_type == 3) rtl_dev_tune (opts, state->p25_cc_freq);
-    #endif
-
-    state->last_cc_sync_time = time(NULL);
-
-  }
-
-  if (c == 48) //'0' key, toggle upsampled audio smoothing
-  {
-    if (state->audio_smoothing == 1) state->audio_smoothing = 0;
-    else state->audio_smoothing = 1; 
-  }
-
-  if (opts->p25_trunk == 1 && c == 119) //'w' key, toggle white list/black list mode 
-  {
-    if (opts->trunk_use_allow_list == 1) opts->trunk_use_allow_list = 0;
-    else opts->trunk_use_allow_list = 1; 
-  }
-
-  if (opts->p25_trunk == 1 && c == 117) //'u' key, toggle tune private calls
-  {
-    if (opts->trunk_tune_private_calls == 1) opts->trunk_tune_private_calls = 0;
-    else opts->trunk_tune_private_calls = 1; 
-  }
-
-  if (opts->p25_trunk == 1 && c == 100) //'d' key, toggle tune data calls
-  {
-    if (opts->trunk_tune_data_calls == 1) opts->trunk_tune_data_calls = 0;
-    else opts->trunk_tune_data_calls = 1; 
-  }
-
-  if (opts->p25_trunk == 1 && c == 101) //'e' key, toggle tune enc calls (P25 only on certain grants)
-  {
-    if (opts->trunk_tune_enc_calls == 1) opts->trunk_tune_enc_calls = 0;
-    else opts->trunk_tune_enc_calls = 1; 
-  }
-
-  if (opts->p25_trunk == 1 && c == 103) //'g' key, toggle tune group calls
-  {
-    if (opts->trunk_tune_group_calls == 1) opts->trunk_tune_group_calls = 0;
-    else opts->trunk_tune_group_calls = 1; 
-  }
-
-  if (c == 70) //'F' key - toggle agressive sync/crc failure/ras 
-  {
-    if (opts->aggressive_framesync == 0) opts->aggressive_framesync = 1;
-    else opts->aggressive_framesync = 0;
-  }
-
-  if (c == 68) //'D' key - Reset DMR Site Parms/Call Strings, etc.
-  {
-    //dmr trunking/ncurses stuff 
-    state->dmr_rest_channel = -1; //init on -1
-    state->dmr_mfid = -1; //
-
-    //dmr mfid branding and site parms
-    sprintf(state->dmr_branding_sub, "%s", "");
-    sprintf(state->dmr_branding, "%s", "");
-    sprintf (state->dmr_site_parms, "%s", "");
-
-    //DMR Location Area - DMRLA B***S***
-    opts->dmr_dmrla_is_set = 0;
-    opts->dmr_dmrla_n = 0;
-
-    //reset NXDN info
-    state->nxdn_location_site_code = 0;
-    state->nxdn_location_sys_code = 0;
-    sprintf (state->nxdn_location_category, "%s", " ");
-
-    state->nxdn_last_ran = -1; //0
-    state->nxdn_ran = 0; //0
-
-    state->nxdn_rcn = 0;
-    state->nxdn_base_freq = 0;
-    state->nxdn_step = 0;
-    state->nxdn_bw = 0;
-
-  }
-
-  //Debug/Troubleshooting Option
-  if (c == 90) //'Z' key - Simulate NoCarrier/No VC/CC sync to zero out more stuff (capital Z)
-  {
-    // opts->p25_is_tuned = 0;
-    state->last_cc_sync_time = 0;
-    state->last_vc_sync_time = 0;
-    noCarrier(opts, state);
-  }
-
-  //attempt retry to TCP Audio server
-  if (c == 56) // '8' key, try audio in type 8 (TCP Audio Server connection) using defaults OR whatever the user last specified
-  {
-
-    opts->tcp_sockfd = Connect(opts->tcp_hostname, opts->tcp_portno);
-    if (opts->tcp_sockfd != 0)
+    if (c == 116) //'t' key, toggle trunking
     {
-      //reset audio input stream
-      opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
-      opts->audio_in_file_info->samplerate=opts->wav_sample_rate;
-      opts->audio_in_file_info->channels=1;
-      opts->audio_in_file_info->seekable=0;
-      opts->audio_in_file_info->format=SF_FORMAT_RAW|SF_FORMAT_PCM_16|SF_ENDIAN_LITTLE;
-      opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
-
-      if(opts->tcp_file_in == NULL)
-      {
-        fprintf(stderr, "Error, couldn't Connect to TCP with libsndfile: %s\n", sf_strerror(NULL));
-      }
-      else
-      {
-        //close pulse input if it is currently open
-        if (opts->audio_in_type == 0) closePulseInput(opts);
-        fprintf (stderr, "TCP Socket Connected Successfully.\n");
-        opts->audio_in_type = 8;
-      } 
+        if (opts->p25_trunk == 1) opts->p25_trunk = 0;
+        else opts->p25_trunk = 1;
     }
-    else fprintf (stderr, "TCP Socket Connection Error.\n");
-  }
 
-  if (c == 57) //'9' key, try rigctl connection with default values
-  {
-    //use same or last specified host for TCP audio sink for connection
-    memcpy (opts->rigctlhostname, opts->tcp_hostname, sizeof (opts->rigctlhostname) );
-    opts->rigctl_sockfd = Connect(opts->rigctlhostname, opts->rigctlportno);
-    if (opts->rigctl_sockfd != 0) opts->use_rigctl = 1;
-    else opts->use_rigctl = 0;
-  }
+    if (c == 121) //'y' key, toggle scanner mode
+    {
+        if (opts->scanner_mode == 1) opts->scanner_mode = 0;
+        else opts->scanner_mode = 1;
+        opts->p25_trunk = 0; //turn off trunking mode
+    }
 
-  //anything with an entry box will need the inputs and outputs stopped first
-  //so probably just write a function to handle c input, and when c = certain values 
-  //needing an entry box, then stop all of those
+    if (c == 97) //'a' key, toggle call alert beep
+    {
+        if (opts->call_alert == 1) opts->call_alert = 0;
+        else opts->call_alert = 1;
+    }
+
+    if (c == 104) //'h' key, toggle history
+    {
+        if (opts->ncurses_history == 1) opts->ncurses_history = 0;
+        else opts->ncurses_history = 1;
+    }
+
+    if (c == 113) //'q' key, quit
+    {
+        ncursesClose();
+        cleanupAndExit(opts, state);
+    }
+
+    if (c == 52) // '4' key, toggle force privacy key over fid and svc (dmr)
+    {
+        if (state->M == 1 || state->M == 0x21) state->M = 0;
+        else state->M = 1;
+    }
+
+    if (c == 54) // '6' key, toggle force rc4 key over missing pi header/late entry
+    {
+        if (state->M == 1 || state->M == 0x21) state->M = 0;
+        else state->M = 0x21;
+    }
+
+    if (c == 105) //'i' key, toggle signal inversion on inverted types
+    {
+        //Set all signal for inversion or uninversion
+        if (opts->inverted_dmr == 0) {
+            opts->inverted_dmr = 1;
+            opts->inverted_dpmr = 1;
+            opts->inverted_x2tdma = 1;
+            opts->inverted_ysf = 1;
+        } else {
+            opts->inverted_dmr = 0;
+            opts->inverted_dpmr = 0;
+            opts->inverted_x2tdma = 0;
+            opts->inverted_ysf = 0;
+        }
+    }
+
+    if (c == 109) //'m' key, toggle qpsk/c4fm - everything but phase 2
+    {
+        if (state->rf_mod == 0) {
+            opts->mod_c4fm = 0;
+            opts->mod_qpsk = 1;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 1;
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+        } else {
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            state->samplesPerSymbol = 10;
+            state->symbolCenter = 4;
+        }
+    }
+
+    if (c == 77) //'M' key, toggle qpsk - phase 2 6000 sps
+    {
+        if (state->rf_mod == 0) {
+            opts->mod_c4fm = 0;
+            opts->mod_qpsk = 1;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 1;
+            state->samplesPerSymbol = 8;
+            state->symbolCenter = 3;
+        } else {
+            opts->mod_c4fm = 1;
+            opts->mod_qpsk = 0;
+            opts->mod_gfsk = 0;
+            state->rf_mod = 0;
+            state->samplesPerSymbol = 8;
+            state->symbolCenter = 3;
+        }
+    }
+
+    if (c == 82) //'R', save symbol capture bin with date/time string as name
+    {
+        sprintf(opts->symbol_out_file, "%s %s.bin", getDateN(), getTimeN());
+        if (opts->symbol_out_file[0] != 0) {
+            opts->symbol_out = 1; //set flag to 1
+            openSymbolOutFile(opts, state);
+        }
+    }
+
+    if (c == 114) //'r' key, stop capturing symbol capture bin file
+    {
+        if (opts->symbol_out == 1) {
+            if (opts->symbol_out_file[0] != 0) {
+                fclose(opts->symbol_out_f);
+                sprintf(opts->audio_in_dev, "%s", opts->symbol_out_file);
+            }
+
+            opts->symbol_out = 0;
+        }
+    }
+
+#ifdef AERO_BUILD
+    //do nothing
+#else
+    if (c == 32) //'space bar' replay last bin file (rework to do wav files too?)
+    {
+        struct stat stat_buf;
+        if (stat(opts->audio_in_dev, &stat_buf) != 0) {
+            fprintf(stderr, "Error, couldn't open %s\n", opts->audio_in_dev);
+            goto SKIPR;
+        }
+        if (S_ISREG(stat_buf.st_mode)) {
+            opts->symbolfile = fopen(opts->audio_in_dev, "r");
+            opts->audio_in_type = 4; //symbol capture bin files
+        }
+        SKIPR:; //do nothing
+    }
+#endif
+
+
+    if (c == 80) //'P' key - start per call wav files
+    {
+        char wav_file_directory[1024];
+        sprintf(wav_file_directory, "./WAV");
+        wav_file_directory[1023] = '\0';
+        if (stat(wav_file_directory, &st_wav) == -1) {
+            fprintf(stderr, "-T %s wav file directory does not exist\n", wav_file_directory);
+            fprintf(stderr, "Creating directory %s to save decoded wav files\n", wav_file_directory);
+            mkdir(wav_file_directory, 0700);
+        }
+        opts->dmr_stereo_wav = 1;
+        //catch all in case of no file name set, won't crash or something
+        sprintf(opts->wav_out_file, "./WAV/DSD-FME-T1.wav");
+        sprintf(opts->wav_out_fileR, "./WAV/DSD-FME-T2.wav");
+        openWavOutFileL(opts, state);
+        openWavOutFileR(opts, state);
+    }
+
+    //this one could cause issues, but seems okay
+    if (c == 112) //'p' key - stop all per call wav files
+    {
+        //hope this one doesn't cause random crashing or garbage writing
+        closeWavOutFile(opts, state);
+        closeWavOutFileL(opts, state);
+        closeWavOutFileR(opts, state);
+        sprintf(opts->wav_out_file, "%s", "");
+        sprintf(opts->wav_out_fileR, "%s", "");
+        opts->dmr_stereo_wav = 0;
+    }
+
+    //
+#ifdef AERO_BUILD //this might be okay on Aero as well, will need to look into and/or test
+    //
+#else
+    if (c == 115) //'s' key, stop playing wav or symbol in files
+    {
+        if (opts->symbolfile != NULL) {
+            if (opts->audio_in_type == 4) {
+                fclose(opts->symbolfile);
+            }
+        }
+
+        if (opts->audio_in_type == 2) //wav input file
+        {
+            sf_close(opts->audio_in_file);
+        }
+
+        if (opts->audio_out_type == 0) {
+            opts->audio_in_type = 0;
+            openPulseInput(opts);
+        } else opts->audio_in_type = 5;//cleanupAndExit(opts, state);
+
+    }
+#endif
+
+    //test jumping back to CC on group lockout instead of random frequency to break framesync
+    if (state->lasttg != 0 && opts->frame_provoice != 1 &&
+        c == 49) //'1' key, lockout slot 1 or conventional tg from tuning/playback during session
+    {
+        state->group_array[state->group_tally].groupNumber = state->lasttg;
+        sprintf(state->group_array[state->group_tally].groupMode, "%s", "B");
+        sprintf(state->group_array[state->group_tally].groupName, "%s", "LOCKOUT");
+        state->group_tally++;
+
+        //if we have an opened group file, let's write a group lock out into it to make it permanent
+        if (opts->group_in_file[0] != 0) //file is available
+        {
+            FILE *pFile; //file pointer
+            //open file by name that is supplied in the ncurses terminal, or cli
+            pFile = fopen(opts->group_in_file, "a");
+            fprintf(pFile, "%d,B,LOCKOUT,%02X\n", state->lasttg, state->payload_algid);
+            fclose(pFile);
+        }
+
+        //extra safeguards due to sync issues with NXDN
+        memset(state->nxdn_sacch_frame_segment, 1, sizeof(state->nxdn_sacch_frame_segment));
+        memset(state->nxdn_sacch_frame_segcrc, 1, sizeof(state->nxdn_sacch_frame_segcrc));
+
+        memset(state->active_channel, 0, sizeof(state->active_channel));
+
+        //reset dmr blocks
+        dmr_reset_blocks(opts, state);
+
+        //zero out additional items
+        state->lasttg = 0;
+        state->lasttgR = 0;
+        state->lastsrc = 0;
+        state->lastsrcR = 0;
+        state->payload_algid = 0;
+        state->payload_algidR = 0;
+        state->payload_keyid = 0;
+        state->payload_keyidR = 0;
+        state->payload_mi = 0;
+        state->payload_miR = 0;
+        state->payload_miP = 0;
+        state->payload_miN = 0;
+        opts->p25_is_tuned = 0;
+        state->p25_vc_freq[0] = state->p25_vc_freq[1] = 0;
+
+        //tune back to the control channel
+        //RIGCTL
+        if (opts->p25_trunk == 1 && opts->use_rigctl == 1) SetFreq(opts->rigctl_sockfd, state->p25_cc_freq);
+
+        //rtl
+#ifdef USE_RTLSDR
+        if (opts->p25_trunk == 1 && opts->audio_in_type == 3) rtl_dev_tune(opts, state->p25_cc_freq);
+#endif
+
+        state->last_cc_sync_time = time(NULL);
+
+    }
+
+    if (state->lasttgR != 0 && opts->frame_provoice != 1 &&
+        c == 50) //'2' key, lockout slot 2 tdma tgR from tuning/playback during session
+    {
+        state->group_array[state->group_tally].groupNumber = state->lasttgR;
+        sprintf(state->group_array[state->group_tally].groupMode, "%s", "B");
+        sprintf(state->group_array[state->group_tally].groupName, "%s", "LOCKOUT");
+        state->group_tally++;
+
+        //if we have an opened group file, let's write a group lock out into it to make it permanent
+        if (opts->group_in_file[0] != 0) //file is available
+        {
+            FILE *pFile; //file pointer
+            //open file by name that is supplied in the ncurses terminal, or cli
+            pFile = fopen(opts->group_in_file, "a");
+            fprintf(pFile, "%d,B,LOCKOUT,%02X\n", state->lasttgR, state->payload_algidR);
+            fclose(pFile);
+        }
+
+        //extra safeguards due to sync issues with NXDN
+        memset(state->nxdn_sacch_frame_segment, 1, sizeof(state->nxdn_sacch_frame_segment));
+        memset(state->nxdn_sacch_frame_segcrc, 1, sizeof(state->nxdn_sacch_frame_segcrc));
+
+        memset(state->active_channel, 0, sizeof(state->active_channel));
+
+        //reset dmr blocks
+        dmr_reset_blocks(opts, state);
+
+        //zero out additional items
+        state->lasttg = 0;
+        state->lasttgR = 0;
+        state->lastsrc = 0;
+        state->lastsrcR = 0;
+        state->payload_algid = 0;
+        state->payload_algidR = 0;
+        state->payload_keyid = 0;
+        state->payload_keyidR = 0;
+        state->payload_mi = 0;
+        state->payload_miR = 0;
+        state->payload_miP = 0;
+        state->payload_miN = 0;
+        opts->p25_is_tuned = 0;
+        state->p25_vc_freq[0] = state->p25_vc_freq[1] = 0;
+
+        //tune back to the control channel
+        //RIGCTL
+        if (opts->p25_trunk == 1 && opts->use_rigctl == 1) SetFreq(opts->rigctl_sockfd, state->p25_cc_freq);
+
+        //rtl
+#ifdef USE_RTLSDR
+        if (opts->p25_trunk == 1 && opts->audio_in_type == 3) rtl_dev_tune(opts, state->p25_cc_freq);
+#endif
+
+        state->last_cc_sync_time = time(NULL);
+
+    }
+
+    if (c == 48) //'0' key, toggle upsampled audio smoothing
+    {
+        if (state->audio_smoothing == 1) state->audio_smoothing = 0;
+        else state->audio_smoothing = 1;
+    }
+
+    if (opts->p25_trunk == 1 && c == 119) //'w' key, toggle white list/black list mode
+    {
+        if (opts->trunk_use_allow_list == 1) opts->trunk_use_allow_list = 0;
+        else opts->trunk_use_allow_list = 1;
+    }
+
+    if (opts->p25_trunk == 1 && c == 117) //'u' key, toggle tune private calls
+    {
+        if (opts->trunk_tune_private_calls == 1) opts->trunk_tune_private_calls = 0;
+        else opts->trunk_tune_private_calls = 1;
+    }
+
+    if (opts->p25_trunk == 1 && c == 100) //'d' key, toggle tune data calls
+    {
+        if (opts->trunk_tune_data_calls == 1) opts->trunk_tune_data_calls = 0;
+        else opts->trunk_tune_data_calls = 1;
+    }
+
+    if (opts->p25_trunk == 1 && c == 101) //'e' key, toggle tune enc calls (P25 only on certain grants)
+    {
+        if (opts->trunk_tune_enc_calls == 1) opts->trunk_tune_enc_calls = 0;
+        else opts->trunk_tune_enc_calls = 1;
+    }
+
+    if (opts->p25_trunk == 1 && c == 103) //'g' key, toggle tune group calls
+    {
+        if (opts->trunk_tune_group_calls == 1) opts->trunk_tune_group_calls = 0;
+        else opts->trunk_tune_group_calls = 1;
+    }
+
+    if (c == 70) //'F' key - toggle agressive sync/crc failure/ras
+    {
+        if (opts->aggressive_framesync == 0) opts->aggressive_framesync = 1;
+        else opts->aggressive_framesync = 0;
+    }
+
+    if (c == 68) //'D' key - Reset DMR Site Parms/Call Strings, etc.
+    {
+        //dmr trunking/ncurses stuff
+        state->dmr_rest_channel = -1; //init on -1
+        state->dmr_mfid = -1; //
+
+        //dmr mfid branding and site parms
+        sprintf(state->dmr_branding_sub, "%s", "");
+        sprintf(state->dmr_branding, "%s", "");
+        sprintf(state->dmr_site_parms, "%s", "");
+
+        //DMR Location Area - DMRLA B***S***
+        opts->dmr_dmrla_is_set = 0;
+        opts->dmr_dmrla_n = 0;
+
+        //reset NXDN info
+        state->nxdn_location_site_code = 0;
+        state->nxdn_location_sys_code = 0;
+        sprintf(state->nxdn_location_category, "%s", " ");
+
+        state->nxdn_last_ran = -1; //0
+        state->nxdn_ran = 0; //0
+
+        state->nxdn_rcn = 0;
+        state->nxdn_base_freq = 0;
+        state->nxdn_step = 0;
+        state->nxdn_bw = 0;
+
+    }
+
+    //Debug/Troubleshooting Option
+    if (c == 90) //'Z' key - Simulate NoCarrier/No VC/CC sync to zero out more stuff (capital Z)
+    {
+        // opts->p25_is_tuned = 0;
+        state->last_cc_sync_time = 0;
+        state->last_vc_sync_time = 0;
+        noCarrier(opts, state);
+    }
+
+    //attempt retry to TCP Audio server
+    if (c ==
+        56) // '8' key, try audio in type 8 (TCP Audio Server connection) using defaults OR whatever the user last specified
+    {
+
+        opts->tcp_sockfd = Connect(opts->tcp_hostname, opts->tcp_portno);
+        if (opts->tcp_sockfd != 0) {
+            //reset audio input stream
+            opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
+            opts->audio_in_file_info->samplerate = opts->wav_sample_rate;
+            opts->audio_in_file_info->channels = 1;
+            opts->audio_in_file_info->seekable = 0;
+            opts->audio_in_file_info->format = SF_FORMAT_RAW | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
+            opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
+
+            if (opts->tcp_file_in == NULL) {
+                fprintf(stderr, "Error, couldn't Connect to TCP with libsndfile: %s\n", sf_strerror(NULL));
+            } else {
+                //close pulse input if it is currently open
+                if (opts->audio_in_type == 0) closePulseInput(opts);
+                fprintf(stderr, "TCP Socket Connected Successfully.\n");
+                opts->audio_in_type = 8;
+            }
+        } else fprintf(stderr, "TCP Socket Connection Error.\n");
+    }
+
+    if (c == 57) //'9' key, try rigctl connection with default values
+    {
+        //use same or last specified host for TCP audio sink for connection
+        memcpy(opts->rigctlhostname, opts->tcp_hostname, sizeof(opts->rigctlhostname));
+        opts->rigctl_sockfd = Connect(opts->rigctlhostname, opts->rigctlportno);
+        if (opts->rigctl_sockfd != 0) opts->use_rigctl = 1;
+        else opts->use_rigctl = 0;
+    }
+
+    //anything with an entry box will need the inputs and outputs stopped first
+    //so probably just write a function to handle c input, and when c = certain values
+    //needing an entry box, then stop all of those
 
 } //end ncursesPrinter
 
-void ncursesClose ()
-{
-  endwin();
+void ncursesClose() {
+    endwin();
 
 }
