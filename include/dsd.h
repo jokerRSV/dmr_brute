@@ -875,8 +875,6 @@ void processLDU2 (dsd_opts * opts, dsd_state * state);
 void processTDU (dsd_opts * opts, dsd_state * state);
 void processTDULC (dsd_opts * opts, dsd_state * state);
 void processProVoice (dsd_opts * opts, dsd_state * state);
-void processX2TDMAdata (dsd_opts * opts, dsd_state * state);
-void processX2TDMAvoice (dsd_opts * opts, dsd_state * state);
 void processDSTAR_HD (dsd_opts * opts, dsd_state * state);
 void processYSF(dsd_opts * opts, dsd_state * state); //YSF
 void processP2(dsd_opts * opts, dsd_state * state); //P2
