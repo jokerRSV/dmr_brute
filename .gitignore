@@ -6,6 +6,5 @@
 examples
 *.bin
 *.ans
-/build
 .idea
 /cmake-build-debug/
