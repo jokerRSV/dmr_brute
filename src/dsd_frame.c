@@ -213,17 +213,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     else if ((state->synctype >= 2) && (state->synctype <= 5)) {
         return;
     } else if ((state->synctype == 14) || (state->synctype == 15)) {
-        if (opts->errorbars == 1) {
-            if (opts->verbose > 0) {
-                level = (int) state->max / 164;
-                //fprintf (stderr,"inlvl: %2i%% ", level);
-            }
-        }
-        if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) {
-            openMbeOutFile(opts, state);
-        }
-        sprintf(state->fsubtype, " VOICE        ");
-        processProVoice(opts, state);
         return;
     }
         //edacs

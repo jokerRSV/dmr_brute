@@ -868,13 +868,11 @@ void processDSTAR (dsd_opts * opts, dsd_state * state);
 //new p25lcw
 void p25_lcw (dsd_opts * opts, dsd_state * state, uint8_t LCW_bits[], uint8_t irrecoverable_errors);
 
-void processP25lcw (dsd_opts * opts, dsd_state * state, char *lcformat, char *mfid, char *lcinfo);
 void processHDU (dsd_opts * opts, dsd_state * state);
 void processLDU1 (dsd_opts * opts, dsd_state * state);
 void processLDU2 (dsd_opts * opts, dsd_state * state);
 void processTDU (dsd_opts * opts, dsd_state * state);
 void processTDULC (dsd_opts * opts, dsd_state * state);
-void processProVoice (dsd_opts * opts, dsd_state * state);
 void processDSTAR_HD (dsd_opts * opts, dsd_state * state);
 void processYSF(dsd_opts * opts, dsd_state * state); //YSF
 void processP2(dsd_opts * opts, dsd_state * state); //P2
