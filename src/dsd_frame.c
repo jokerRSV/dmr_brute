@@ -82,41 +82,11 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         //MBEout restored, is not handled internally by nxdn_frame.c
         nxdn_frame(opts, state);
         return;
+        //D-Star
     } else if ((state->synctype == 6) || (state->synctype == 7)) {
-        state->nac = 0;
-        state->lastsrc = 0;
-        state->lasttg = 0;
-        if (opts->errorbars == 1) {
-            if (opts->verbose > 0) {
-                level = (int) state->max / 164;
-                //fprintf (stderr,"inlvl: %2i%% ", level);
-            }
-        }
-        state->nac = 0;
-        if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) {
-            openMbeOutFile(opts,
-                           state); //dstar ambe files are read back incorrectly, need to change file extension to differentiate when doing a playback
-        }
-        sprintf(state->fsubtype, " VOICE        ");
-        processDSTAR(opts, state);
         return;
+        //D-Star-HD
     } else if ((state->synctype == 18) || (state->synctype == 19)) {
-        state->nac = 0;
-        state->lastsrc = 0;
-        state->lasttg = 0;
-        if (opts->errorbars == 1) {
-            if (opts->verbose > 0) {
-                level = (int) state->max / 164;
-                //fprintf (stderr,"inlvl: %2i%% ", level);
-            }
-        }
-        state->nac = 0;
-        if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) {
-            openMbeOutFile(opts,
-                           state); //dstar ambe files are read back incorrectly, need to change file extension to differentiate when doing a playback
-        }
-        sprintf(state->fsubtype, " DATA         ");
-        processDSTAR_HD(opts, state);
         return;
     }
         //Start DMR Types

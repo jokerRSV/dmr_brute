@@ -863,7 +863,6 @@ void openSerial (dsd_opts * opts, dsd_state * state);
 void resumeScan (dsd_opts * opts, dsd_state * state);
 int getSymbol (dsd_opts * opts, dsd_state * state, int have_sync);
 void upsample (dsd_state * state, float invalue);
-void processDSTAR (dsd_opts * opts, dsd_state * state);
 
 //new p25lcw
 void p25_lcw (dsd_opts * opts, dsd_state * state, uint8_t LCW_bits[], uint8_t irrecoverable_errors);
@@ -873,7 +872,6 @@ void processLDU1 (dsd_opts * opts, dsd_state * state);
 void processLDU2 (dsd_opts * opts, dsd_state * state);
 void processTDU (dsd_opts * opts, dsd_state * state);
 void processTDULC (dsd_opts * opts, dsd_state * state);
-void processDSTAR_HD (dsd_opts * opts, dsd_state * state);
 void processYSF(dsd_opts * opts, dsd_state * state); //YSF
 void processP2(dsd_opts * opts, dsd_state * state); //P2
 void processTSBK(dsd_opts * opts, dsd_state * state); //P25 Trunking Single Block
