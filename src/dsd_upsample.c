@@ -18,121 +18,104 @@
 #include "dsd.h"
 
 void
-upsample (dsd_state * state, float invalue)
-{
+upsample(dsd_state *state, float invalue) {
 
-  int i, j, sum;
-  float *outbuf1, c, d;
-  if (state->currentslot == 0 && state->dmr_stereo == 1)
-  {
-    outbuf1 = state->audio_out_float_buf_p;
-  }
-  if (state->currentslot == 1 && state->dmr_stereo == 1)
-  {
-    outbuf1 = state->audio_out_float_buf_pR;
-  }
-  if (state->dmr_stereo == 0)
-  {
-    outbuf1 = state->audio_out_float_buf_p;
-  }
-  //outbuf1 = state->audio_out_float_buf_p;
-  outbuf1--;
-  c = *outbuf1;
-  d = invalue;
-  // basic triangle interpolation
-  outbuf1++;
-  *outbuf1 = ((invalue * (float) 0.166) + (c * (float) 0.834));
-  outbuf1++;
-  *outbuf1 = ((invalue * (float) 0.332) + (c * (float) 0.668));
-  outbuf1++;
-  *outbuf1 = ((invalue * (float) 0.5) + (c * (float) 0.5));
-  outbuf1++;
-  *outbuf1 = ((invalue * (float) 0.668) + (c * (float) 0.332));
-  outbuf1++;
-  *outbuf1 = ((invalue * (float) 0.834) + (c * (float) 0.166));
-  outbuf1++;
-  *outbuf1 = d;
-  outbuf1++;
+    int i, j, sum;
+    float *outbuf1, c, d;
+    if (state->currentslot == 0 && state->dmr_stereo == 1) {
+        outbuf1 = state->audio_out_float_buf_p;
+    }
+    if (state->currentslot == 1 && state->dmr_stereo == 1) {
+        outbuf1 = state->audio_out_float_buf_pR;
+    }
+    if (state->dmr_stereo == 0) {
+        outbuf1 = state->audio_out_float_buf_p;
+    }
+    //outbuf1 = state->audio_out_float_buf_p;
+    outbuf1--;
+    c = *outbuf1;
+    d = invalue;
+    // basic triangle interpolation
+    outbuf1++;
+    *outbuf1 = ((invalue * (float) 0.166) + (c * (float) 0.834));
+    outbuf1++;
+    *outbuf1 = ((invalue * (float) 0.332) + (c * (float) 0.668));
+    outbuf1++;
+    *outbuf1 = ((invalue * (float) 0.5) + (c * (float) 0.5));
+    outbuf1++;
+    *outbuf1 = ((invalue * (float) 0.668) + (c * (float) 0.332));
+    outbuf1++;
+    *outbuf1 = ((invalue * (float) 0.834) + (c * (float) 0.166));
+    outbuf1++;
+    *outbuf1 = d;
+    outbuf1++;
 
-  //only if enabled, produces crackling/buzzing sounds when input type is not pulse audio (reason still unknown)
-  //also, could be improved to provide better audio in the future
-  if (state->audio_smoothing == 1) 
-  {
-    if (state->currentslot == 1 && state->dmr_stereo == 1)
-    {
-      if (state->audio_out_idx2R > 24)
-      {
-        // smoothing
-        outbuf1 -= 16;
-        for (j = 0; j < 4; j++)
-        {
-            for (i = 0; i < 6; i++)
-            {
-              sum = 0;
-              outbuf1 -= 2;
-              sum += (int)*outbuf1;
-              outbuf1 += 2;
-              sum += (int)*outbuf1;
-              outbuf1 += 2;
-              sum += (int)*outbuf1;
-              outbuf1 -= 2;
-              *outbuf1 = (sum / (float) 3);
-              outbuf1++;
+    //only if enabled, produces crackling/buzzing sounds when input type is not pulse audio (reason still unknown)
+    //also, could be improved to provide better audio in the future
+    if (state->audio_smoothing == 1) {
+        if (state->currentslot == 1 && state->dmr_stereo == 1) {
+            if (state->audio_out_idx2R > 24) {
+                // smoothing
+                outbuf1 -= 16;
+                for (j = 0; j < 4; j++) {
+                    for (i = 0; i < 6; i++) {
+                        sum = 0;
+                        outbuf1 -= 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 += 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 += 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 -= 2;
+                        *outbuf1 = (sum / (float) 3);
+                        outbuf1++;
+                    }
+                    outbuf1 -= 8;
+                }
             }
-          outbuf1 -= 8;
         }
-      }
+        if (state->currentslot == 0 && state->dmr_stereo == 1) {
+            if (state->audio_out_idx2 > 24) {
+                // smoothing
+                outbuf1 -= 16;
+                for (j = 0; j < 4; j++) {
+                    for (i = 0; i < 6; i++) {
+                        sum = 0;
+                        outbuf1 -= 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 += 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 += 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 -= 2;
+                        *outbuf1 = (sum / (float) 3);
+                        outbuf1++;
+                    }
+                    outbuf1 -= 8;
+                }
+            }
+        }
+        if (state->dmr_stereo == 0) {
+            if (state->audio_out_idx2 > 24) {
+                // smoothing
+                outbuf1 -= 16;
+                for (j = 0; j < 4; j++) {
+                    for (i = 0; i < 6; i++) {
+                        sum = 0;
+                        outbuf1 -= 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 += 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 += 2;
+                        sum += (int) *outbuf1;
+                        outbuf1 -= 2;
+                        *outbuf1 = (sum / (float) 3);
+                        outbuf1++;
+                    }
+                    outbuf1 -= 8;
+                }
+            }
+        }
     }
-    if (state->currentslot == 0 && state->dmr_stereo == 1)
-    {
-      if (state->audio_out_idx2 > 24)
-      {
-        // smoothing
-        outbuf1 -= 16;
-        for (j = 0; j < 4; j++)
-          {
-            for (i = 0; i < 6; i++)
-              {
-                sum = 0;
-                outbuf1 -= 2;
-                sum += (int)*outbuf1;
-                outbuf1 += 2;
-                sum += (int)*outbuf1;
-                outbuf1 += 2;
-                sum += (int)*outbuf1;
-                outbuf1 -= 2;
-                *outbuf1 = (sum / (float) 3);
-                outbuf1++;
-              }
-            outbuf1 -= 8;
-          }
-      }
-    }
-    if (state->dmr_stereo == 0)
-    {
-      if (state->audio_out_idx2 > 24)
-      {
-        // smoothing
-        outbuf1 -= 16;
-        for (j = 0; j < 4; j++)
-          {
-            for (i = 0; i < 6; i++)
-              {
-                sum = 0;
-                outbuf1 -= 2;
-                sum += (int)*outbuf1;
-                outbuf1 += 2;
-                sum += (int)*outbuf1;
-                outbuf1 += 2;
-                sum += (int)*outbuf1;
-                outbuf1 -= 2;
-                *outbuf1 = (sum / (float) 3);
-                outbuf1++;
-              }
-            outbuf1 -= 8;
-          }
-      }
-    }
-  }
 
 }
