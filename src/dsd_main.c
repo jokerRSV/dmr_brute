@@ -1152,19 +1152,6 @@ usage() {
 void
 liveScanner(dsd_opts *opts, dsd_state *state) {
 
-    if (opts->audio_in_type == 1) {
-        opts->pulse_digi_rate_out = 48000;
-        opts->pulse_digi_out_channels = 1;
-        if (opts->dmr_stereo == 1) {
-            opts->pulse_digi_rate_out = 24000;
-            opts->pulse_digi_out_channels = 2;
-            fprintf(stderr, "STDIN Audio Rate Out set to 24000 Khz/2 Channel \n");
-        } else fprintf(stderr, "STDIN Audio Rate Out set to 48000 Khz/1 Channel \n");
-        opts->pulse_raw_rate_out = 48000;
-        opts->pulse_raw_out_channels = 1;
-
-    }
-
 #ifdef USE_RTLSDR
     if (opts->audio_in_type == 3) {
         //still need this section mostly due the the crackling on the rtl dongle when upsampled
@@ -1191,13 +1178,13 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
     }
 #endif
 
-    if (opts->use_ncurses_terminal == 1) {
-        ncursesOpen(opts, state);
-    }
+//    if (opts->use_ncurses_terminal == 1) {
+//        ncursesOpen(opts, state);
+//    }
 
-    if (opts->audio_in_type == 0) {
-        openPulseInput(opts);
-    }
+//    if (opts->audio_in_type == 0) {
+//        openPulseInput(opts);
+//    }
 
     if (opts->audio_out_type == 0) {
         // openPulseInput(opts); //test to see if we still randomly hang up in ncurses and tcp input if we open this and leave it opened
@@ -2398,12 +2385,7 @@ main(int argc, char **argv) {
         // opts.audio_out_fd = opts.audio_in_fd; //not sure that this really does much anymore, other than cause problems
     }
 
-    if (opts.playfiles == 1) {
-        state.aout_gain = 25; //BUGFIX: No audio output when playing back .amb/.imb files
-        playMbeFiles(&opts, &state, argc, argv);
-    } else {
-        liveScanner(&opts, &state);
-    }
+    liveScanner(&opts, &state);
 
     cleanupAndExit(&opts, &state);
 
