@@ -451,6 +451,30 @@ src/dmr_le.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dmr_le.c.s
 .PHONY : src/dmr_le.c.s
 
+src/dmr_ms.o: src/dmr_ms.c.o
+.PHONY : src/dmr_ms.o
+
+# target to build an object file
+src/dmr_ms.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o
+.PHONY : src/dmr_ms.c.o
+
+src/dmr_ms.i: src/dmr_ms.c.i
+.PHONY : src/dmr_ms.i
+
+# target to preprocess a source file
+src/dmr_ms.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dmr_ms.c.i
+.PHONY : src/dmr_ms.c.i
+
+src/dmr_ms.s: src/dmr_ms.c.s
+.PHONY : src/dmr_ms.s
+
+# target to generate assembly for a file
+src/dmr_ms.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dmr_ms.c.s
+.PHONY : src/dmr_ms.c.s
+
 src/dmr_pdu.o: src/dmr_pdu.c.o
 .PHONY : src/dmr_pdu.o
 
@@ -1146,6 +1170,9 @@ help:
 	@echo "... src/dmr_le.o"
 	@echo "... src/dmr_le.i"
 	@echo "... src/dmr_le.s"
+	@echo "... src/dmr_ms.o"
+	@echo "... src/dmr_ms.i"
+	@echo "... src/dmr_ms.s"
 	@echo "... src/dmr_pdu.o"
 	@echo "... src/dmr_pdu.i"
 	@echo "... src/dmr_pdu.s"

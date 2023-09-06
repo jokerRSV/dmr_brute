@@ -21,6 +21,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/dmr_le.c.o"
   "CMakeFiles/dsd-fme.dir/src/dmr_le.c.o.d"
+  "CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o"
+  "CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o"
   "CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o"
