@@ -177,6 +177,9 @@ typedef struct {
 } dPMRVoiceFS2Frame_t;
 //
 typedef struct {
+    int delay;
+    pa_simple *pulse_digi_dev_out;
+    int pulse_digi_rate_out;
     int onesymbol;
     char mbe_in_file[1024];
     FILE *mbe_in_f;
@@ -255,7 +258,6 @@ typedef struct {
     int ssize;
     int msize;
     int playfiles;
-    int delay;
     int use_cosine_filter;
     int unmute_encrypted_p25;
     int rtl_dev_index;
@@ -270,7 +272,6 @@ typedef struct {
     int pulse_raw_rate_in;
     int pulse_raw_rate_out;
     int pulse_digi_rate_in;
-    int pulse_digi_rate_out;
     int pulse_raw_in_channels;
     int pulse_raw_out_channels;
     int pulse_digi_in_channels;
@@ -279,7 +280,6 @@ typedef struct {
     pa_simple *pulse_raw_dev_in;
     pa_simple *pulse_raw_dev_out;
     pa_simple *pulse_digi_dev_in;
-    pa_simple *pulse_digi_dev_out;
     pa_simple *pulse_digi_dev_outR;
     int use_ncurses_terminal;
     int ncurses_compact;
@@ -384,6 +384,8 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    int audio_out_idx;
+    short *audio_out_buf_p;
     int pos;
     int *dibit_buf;
     int *dibit_buf_p;
@@ -391,7 +393,6 @@ typedef struct {
     int *dmr_payload_p;
     int repeat;
     short *audio_out_buf;
-    short *audio_out_buf_p;
     short *audio_out_bufR;
     short *audio_out_buf_pR;
     float *audio_out_float_buf;
@@ -402,7 +403,6 @@ typedef struct {
     float *audio_out_temp_buf_p;
     float audio_out_temp_bufR[160];
     float *audio_out_temp_buf_pR;
-    int audio_out_idx;
     int audio_out_idx2;
     int audio_out_idxR;
     int audio_out_idx2R;
@@ -795,21 +795,13 @@ void processdPMRvoice(dsd_opts *opts, dsd_state *state);
 
 void processAudio(dsd_opts *opts, dsd_state *state);
 
-void processAudioR(dsd_opts *opts, dsd_state *state);
-
 void openPulseInput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 void openPulseOutput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 void closePulseInput(dsd_opts *opts);
 
 void closePulseOutput(dsd_opts *opts);
 
-void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
-
-void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
-
 void playSynthesizedVoice(dsd_opts *opts, dsd_state *state);
-
-void playSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 
 void openAudioOutDevice(dsd_opts *opts, int speed);
 
@@ -848,15 +840,9 @@ void openWavOutFileL(dsd_opts *opts, dsd_state *state);
 
 void openWavOutFileR(dsd_opts *opts, dsd_state *state);
 
-void openWavOutFileRaw(dsd_opts *opts, dsd_state *state);
-
 void openSymbolOutFile(dsd_opts *opts, dsd_state *state);
 
 void closeSymbolOutFile(dsd_opts *opts, dsd_state *state);
-
-void writeSymbolOutFile(dsd_opts *opts, dsd_state *state);
-
-void writeRawSample(dsd_opts *opts, dsd_state *state, short sample);
 
 void closeWavOutFile(dsd_opts *opts, dsd_state *state);
 

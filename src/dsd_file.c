@@ -523,21 +523,6 @@ void openWavOutFileR (dsd_opts * opts, dsd_state * state)
   }
 }
 
-void openWavOutFileRaw (dsd_opts * opts, dsd_state * state)
-{
-
-  SF_INFO info;
-  info.samplerate = 48000; //8000
-  info.channels = 1;
-  info.format = SF_FORMAT_WAV | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
-  opts->wav_out_raw = sf_open (opts->wav_out_file_raw, SFM_RDWR, &info);
-  if (opts->wav_out_raw == NULL)
-  {
-    fprintf (stderr,"Error - could not open raw wav output file %s\n", opts->wav_out_file_raw);
-    return;
-  }
-}
-
 void closeWavOutFile (dsd_opts * opts, dsd_state * state)
 {
   sf_close(opts->wav_out_f);
@@ -562,12 +547,6 @@ void openSymbolOutFile (dsd_opts * opts, dsd_state * state)
 {
   //Do something
   opts->symbol_out_f = fopen (opts->symbol_out_file, "w");
-}
-
-void writeSymbolOutFile (dsd_opts * opts, dsd_state * state)
-{
-  //Do something
-
 }
 
 void closeSymbolOutFile (dsd_opts * opts, dsd_state * state)

@@ -146,31 +146,15 @@ processMbeFrame(dsd_opts *opts, dsd_state *state, char imbe_fr[8][23], char ambe
                 int pos = 0;
 
                 unsigned long long int k1 = state->K1;
-                unsigned long long int k2 = state->K2;
-                unsigned long long int k3 = state->K3;
-                unsigned long long int k4 = state->K4;
 
                 int T_Key[256] = {0};
                 int pN[882] = {0};
 
-                int len = 0;
-
-                if (k2 == 0) {
-                    len = 39;
-                    k1 = k1 << 24;
-                }
-                if (k2 != 0) {
-                    len = 127;
-                }
-                if (k4 != 0) {
-                    len = 255;
-                }
+                int len = 39;
+                k1 = k1 << 24;
 
                 for (i = 0; i < 64; i++) {
                     T_Key[i] = (((k1 << i) & 0x8000000000000000) >> 63);
-                    T_Key[i + 64] = (((k2 << i) & 0x8000000000000000) >> 63);
-                    T_Key[i + 128] = (((k3 << i) & 0x8000000000000000) >> 63);
-                    T_Key[i + 192] = (((k4 << i) & 0x8000000000000000) >> 63);
                 }
 
                 for (i = 0; i < 882; i++) {
