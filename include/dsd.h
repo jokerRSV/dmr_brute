@@ -384,6 +384,8 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    int DMRvcL;
+    int pos;
     int *dibit_buf;
     int *dibit_buf_p;
     int *dmr_payload_buf;
@@ -587,7 +589,6 @@ typedef struct {
     unsigned long long int H;
     unsigned long long int HYTL;
     unsigned long long int HYTR;
-    int DMRvcL;
     int DMRvcR;
 
     short int dmr_encL;
@@ -875,7 +876,7 @@ int main(int argc, char **argv);
 void playMbeFiles(dsd_opts *opts, dsd_state *state, int argc, char **argv);
 
 void
-processMbeFrame(dsd_opts *opts, dsd_state *state, char imbe_fr[8][23], char ambe_fr[4][24], char imbe7100_fr[7][24]);
+processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]);
 
 void openSerial(dsd_opts *opts, dsd_state *state);
 

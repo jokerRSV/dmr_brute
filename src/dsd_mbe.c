@@ -100,267 +100,96 @@ int Pr[256] = {
 };
 
 void
-processMbeFrame(dsd_opts *opts, dsd_state *state, char imbe_fr[8][23], char ambe_fr[4][24], char imbe7100_fr[7][24]) {
+processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
     int i;
-    char imbe_d[88];
-    char ambe_d[49];
+    unsigned char ambe_d[49];
     unsigned long long int k;
     int x;
-
-    //these conditions should ensure no clashing with the BP/HBP/Scrambler key loading machanisms already coded in
-//    if (state->currentslot == 0 && state->payload_algid != 0 && state->payload_algid != 0x80 &&
-//        state->payload_keyid != 0 && state->keyloader == 1)
-//        keyring(opts, state);
-
-//    if (state->currentslot == 1 && state->payload_algidR != 0 && state->payload_algidR != 0x80 &&
-//        state->payload_keyidR != 0 && state->keyloader == 1)
-//        keyring(opts, state);
 
     //24-bit TG to 16-bit hash
     uint8_t hash_bits[24];
     memset(hash_bits, 0, sizeof(hash_bits));
 
-    for (i = 0; i < 88; i++) {
-        imbe_d[i] = 0;
-    }
-
     for (i = 0; i < 49; i++) {
         ambe_d[i] = 0;
     }
 
-    //set playback mode for this frame
     char mode[8];
 
-    //if we are using allow/whitelist mode, then write 'B' to mode for block
-    //comparison below will look for an 'A' to write to mode if it is allowed
-//    if (opts->trunk_use_allow_list == 1)
-//        sprintf(mode, "%s", "B");
-
-    int groupNumber = 0;
-
-    if (state->currentslot == 0)
-        groupNumber = state->lasttg;
-//    else
-//        groupNumber = state->lasttgR;
-
-//    for (i = 0; i < state->group_tally; i++) {
-//        if (state->group_array[i].groupNumber == groupNumber) {
-//            strcpy(mode, state->group_array[i].groupMode);
-//        }
-//    }
-
-    //set flag to not play audio this time, but won't prevent writing to wav files
-//    if (strcmp(mode, "B") == 0)
-//        opts->audio_out = 0;
-
-    //end set playback mode for this frame
-
-    if ((state->synctype == 0) || (state->synctype == 1)) {
-        fprintf(stderr, "\n!!!!!!!!!!!!!!!! sync type not supported:  %d \n", state->synctype);
-    } else if ((state->synctype == 14) || (state->synctype == 15)) {
-        fprintf(stderr, "\n!!!!!!!!!!!!!!!! sync type not supported:  %d \n", state->synctype);
-    } else if ((state->synctype == 6) || (state->synctype == 7)) {
-        fprintf(stderr, "\n!!!!!!!!!!!!!!!! sync type not supported:  %d \n", state->synctype);
-    } else if ((state->synctype == 28) || (state->synctype == 29)) {
-        fprintf(stderr, "\n!!!!!!!!!!!!!!!! sync type not supported:  %d \n", state->synctype);
-    } else {
-        if (state->currentslot == 0) {
-
-            state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
-            mbe_demodulateAmbe3600x2450Data(ambe_fr);
-            state->errs2 = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
-
-//            fprintf(stderr, "\nerr1:  %d", state->errs);
-//            fprintf(stderr, "\nerr2:  %d \n", state->errs2);
-
-
-            if ((state->K1 > 0 && state->dmr_so & 0x40 && state->payload_keyid == 0 && state->dmr_fid == 0x68) ||
-                (state->K1 > 0 && state->M == 1)) {
-
-                int pos = 0;
-
-                unsigned long long int k1 = state->K1;
-
-                int T_Key[256] = {0};
-                int pN[882] = {0};
-
-                int len = 39;
-                k1 = k1 << 24;
-
-                for (i = 0; i < 64; i++) {
-                    T_Key[i] = (((k1 << i) & 0x8000000000000000) >> 63);
-                }
-
-                for (i = 0; i < 882; i++) {
-                    pN[i] = T_Key[pos];
-                    pos++;
-                    if (pos > len) {
-                        pos = 0;
-                    }
-                }
-
-                //sanity check
-                if (state->DMRvcL > 17) {
-                    state->DMRvcL = 17; //18
-                }
-
-                pos = state->DMRvcL * 49;
-                for (i = 0; i < 49; i++) {
-                    ambe_d[i] ^= pN[pos];
-                    pos++;
-                }
-                state->DMRvcL++;
-            }
-
-            mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str, ambe_d,
-                                     state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
-
-        }
-        //stereo slots and slot 1 (right slot)
-        if (state->currentslot == 1) {
-
-            state->errsR = mbe_eccAmbe3600x2450C0(ambe_fr);
-            //state->errs2R = state->errsR;
-            mbe_demodulateAmbe3600x2450Data(ambe_fr);
-            state->errs2R = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
-
-            if ((state->K > 0 && state->dmr_soR & 0x40 && state->payload_keyidR == 0 && state->dmr_fidR == 0x10) ||
-                (state->K > 0 && state->M == 1)) {
-                k = Pr[state->K];
-                k = (((k & 0xFF0F) << 32) + (k << 16) + k);
-                for (short int j = 0; j < 48; j++) {
-                    x = (((k << j) & 0x800000000000) >> 47);
-                    ambe_d[j] ^= x;
-                }
-            }
-
-            if ((state->K1 > 0 && state->dmr_soR & 0x40 && state->payload_keyidR == 0 && state->dmr_fidR == 0x68) ||
-                (state->K1 > 0 && state->M == 1)) {
-
-                int pos = 0;
-
-                unsigned long long int k1 = state->K1;
-                unsigned long long int k2 = state->K2;
-                unsigned long long int k3 = state->K3;
-                unsigned long long int k4 = state->K4;
-
-                int T_Key[256] = {0};
-                int pN[882] = {0};
-
-                int len = 0;
-
-                if (k2 == 0) {
-                    len = 39;
-                    k1 = k1 << 24;
-                }
-                if (k2 != 0) {
-                    len = 127;
-                }
-                if (k4 != 0) {
-                    len = 255;
-                }
-
-                for (i = 0; i < 64; i++) {
-                    T_Key[i] = (((k1 << i) & 0x8000000000000000) >> 63);
-                    T_Key[i + 64] = (((k2 << i) & 0x8000000000000000) >> 63);
-                    T_Key[i + 128] = (((k3 << i) & 0x8000000000000000) >> 63);
-                    T_Key[i + 192] = (((k4 << i) & 0x8000000000000000) >> 63);
-                }
-
-                for (i = 0; i < 882; i++) {
-                    pN[i] = T_Key[pos];
-                    pos++;
-                    if (pos > len) {
-                        pos = 0;
-                    }
-                }
-
-                //sanity check
-                if (state->DMRvcR > 17) //18
-                {
-                    state->DMRvcR = 17; //18
-                }
-
-                pos = state->DMRvcR * 49;
-                for (i = 0; i < 49; i++) {
-                    ambe_d[i] ^= pN[pos];
-                    pos++;
-                }
-                state->DMRvcR++;
-            }
-
-            //slot 1
-            mbe_processAmbe2450Dataf(state->audio_out_temp_bufR, &state->errsR, &state->errs2R, state->err_strR,
-                                     ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp_enhanced2,
-                                     opts->uvquality);
-            if (opts->payload == 1) {
-                PrintAMBEData(opts, state, ambe_d);
-            }
-
-            //restore MBE file save, slot 2 -- consider saving even if enc
-            if (opts->mbe_out_fR != NULL && (state->dmr_encR == 0 || opts->dmr_mute_encR == 0)) {
-                saveAmbe2450DataR(opts, state, ambe_d);
-            }
-        }
-
-    }
-
-    //quick enc check to determine whether or not to play enc traffic
-    int enc_bit = 0;
-    //end enc check
-
-    //all mono traffic routed through 'left' and crypt
     if (state->currentslot == 0) {
-        enc_bit = (state->dmr_so >> 6) & 0x1;
-        if (enc_bit == 1) {
-            state->dmr_encL = 1;
-            //checkdown for P25 1 and 2
-        } else if (state->payload_algid != 0 && state->payload_algid != 0x80) {
-            state->dmr_encL = 1;
-        } else
-            state->dmr_encL = 0;
 
-        //check for available R key
-        if (state->R != 0) state->dmr_encL = 0;
+        state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
+        mbe_demodulateAmbe3600x2450Data(ambe_fr);
+        state->errs2 = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
 
-        if (state->dmr_encL == 0 || opts->dmr_mute_encL == 0) {
-            state->debug_audio_errors += state->errs2;
-//            if (opts->audio_out == 1 && state->audioCount >= 7 * 10 && state->audioCount <= 7 * 15) {
-            if (opts->audio_out == 1) {
-                processAudio(opts, state);
-                writeSynthesizedVoice(opts, state);
-                playSynthesizedVoice(opts, state);
+        if ((state->K1 > 0 && state->dmr_so & 0x40 && state->payload_keyid == 0 && state->dmr_fid == 0x68) ||
+            (state->K1 > 0 && state->M == 1)) {
+
+            int pos = 0;
+
+            unsigned long long int k1 = state->K1;
+
+            unsigned char T_Key[256] = {0};
+            unsigned char pN[882] = {0};
+
+            k1 = k1 << 24;
+
+            for (i = 0; i < 64; i++) {
+                T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
             }
+
+            for (i = 0; i < 882; i++) {
+                pN[i] = T_Key[pos++];
+                pos = pos % 40;
+            }
+
+            pos = (state->DMRvcL) * 49;
+            for (i = 0; i < 49; i++) {
+                ambe_d[i] ^= pN[pos];
+                pos++;
+            }
+            state->DMRvcL++;
+        }
+
+        mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str, ambe_d,
+                                 state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+
+        state->debug_audio_errors += state->errs2;
+//            if (opts->audio_out == 1 && state->audioCount >= 7 * 10 && state->audioCount <= 7 * 15) {
+        if (opts->audio_out == 1) {
+            processAudio(opts, state);
+            writeSynthesizedVoice(opts, state);
+            playSynthesizedVoice(opts, state);
         }
     }
 
-    if (opts->dmr_stereo == 1 && state->currentslot == 1) {
-        enc_bit = (state->dmr_soR >> 6) & 0x1;
-        if (enc_bit == 0x1) {
-            state->dmr_encR = 1;
-            //checkdown for P25 1 and 2
-        } else if (state->payload_algidR != 0 && state->payload_algidR != 0x80) {
-            state->dmr_encR = 1;
-        } else
+    //stereo slots and slot 1 (right slot)
+    if (state->currentslot == 1) {
+
+        state->errsR = mbe_eccAmbe3600x2450C0(ambe_fr);
+        //state->errs2R = state->errsR;
+        mbe_demodulateAmbe3600x2450Data(ambe_fr);
+        state->errs2R = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
+
+        //slot 1
+        mbe_processAmbe2450Dataf(state->audio_out_temp_bufR, &state->errsR, &state->errs2R, state->err_strR,
+                                 ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp_enhanced2,
+                                 opts->uvquality);
+        if (opts->dmr_stereo == 1 && state->currentslot == 1) {
             state->dmr_encR = 0;
 
-        //check for available RR key
-        if (state->RR != 0) state->dmr_encR = 0;
+            //check for available RR key
+            if (state->RR != 0) state->dmr_encR = 0;
 
-        if (state->dmr_encR == 0 || opts->dmr_mute_encR == 0) {
-            state->debug_audio_errorsR += state->errs2R;
-            if (opts->audio_out == 1) {
-                processAudioR(opts, state);
-                writeSynthesizedVoiceR(opts, state);
-                playSynthesizedVoiceR(opts, state);
+            if (state->dmr_encR == 0 || opts->dmr_mute_encR == 0) {
+                state->debug_audio_errorsR += state->errs2R;
+                if (opts->audio_out == 1) {
+                    processAudioR(opts, state);
+                    writeSynthesizedVoiceR(opts, state);
+                    playSynthesizedVoiceR(opts, state);
+                }
             }
         }
     }
-
-
-    //reset audio out flag for next repitition
-    if (strcmp(mode, "B") == 0) opts->audio_out = 1;
-    //restore flag for null output type
-    if (opts->audio_out_type == 9) opts->audio_out = 0;
 }

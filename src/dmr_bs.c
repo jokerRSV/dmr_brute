@@ -346,9 +346,9 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             memcpy(m2, ambe_fr2, sizeof(m2));
             memcpy(m3, ambe_fr3, sizeof(m3));
 
-            processMbeFrame(opts, state, NULL, ambe_fr, NULL);
-            processMbeFrame(opts, state, NULL, ambe_fr2, NULL);
-            processMbeFrame(opts, state, NULL, ambe_fr3, NULL);
+            processMbeFrame(opts, state, ambe_fr);
+            processMbeFrame(opts, state, ambe_fr2);
+            processMbeFrame(opts, state, ambe_fr3);
 
             //run sbrc here to look for the late entry key and alg after we observe potential errors in VC6
             if (internalslot == 0 && vc1 == 6) dmr_sbrc(opts, state, power);
@@ -677,9 +677,9 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     memcpy(m3, ambe_fr3, sizeof(m3));
 
     if (opts->payload == 1) fprintf(stderr, "\n"); //extra line break necessary here
-    processMbeFrame(opts, state, NULL, ambe_fr, NULL);
-    processMbeFrame(opts, state, NULL, ambe_fr2, NULL);
-    processMbeFrame(opts, state, NULL, ambe_fr3, NULL);
+    processMbeFrame(opts, state, ambe_fr);
+    processMbeFrame(opts, state, ambe_fr2);
+    processMbeFrame(opts, state, ambe_fr3);
 
     //collect the mi fragment
     dmr_late_entry_mi_fragment(opts, state, 1, m1, m2, m3);
