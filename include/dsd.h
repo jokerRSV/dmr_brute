@@ -177,9 +177,6 @@ typedef struct {
 } dPMRVoiceFS2Frame_t;
 //
 typedef struct {
-    int delay;
-    pa_simple *pulse_digi_dev_out;
-    int pulse_digi_rate_out;
     int onesymbol;
     char mbe_in_file[1024];
     FILE *mbe_in_f;
@@ -258,6 +255,7 @@ typedef struct {
     int ssize;
     int msize;
     int playfiles;
+    int delay;
     int use_cosine_filter;
     int unmute_encrypted_p25;
     int rtl_dev_index;
@@ -272,6 +270,7 @@ typedef struct {
     int pulse_raw_rate_in;
     int pulse_raw_rate_out;
     int pulse_digi_rate_in;
+    int pulse_digi_rate_out;
     int pulse_raw_in_channels;
     int pulse_raw_out_channels;
     int pulse_digi_in_channels;
@@ -280,6 +279,7 @@ typedef struct {
     pa_simple *pulse_raw_dev_in;
     pa_simple *pulse_raw_dev_out;
     pa_simple *pulse_digi_dev_in;
+    pa_simple *pulse_digi_dev_out;
     pa_simple *pulse_digi_dev_outR;
     int use_ncurses_terminal;
     int ncurses_compact;
@@ -384,15 +384,13 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
-    int audio_out_idx;
-    short *audio_out_buf_p;
-    int pos;
     int *dibit_buf;
     int *dibit_buf_p;
     int *dmr_payload_buf;
     int *dmr_payload_p;
     int repeat;
     short *audio_out_buf;
+    short *audio_out_buf_p;
     short *audio_out_bufR;
     short *audio_out_buf_pR;
     float *audio_out_float_buf;
@@ -403,6 +401,7 @@ typedef struct {
     float *audio_out_temp_buf_p;
     float audio_out_temp_bufR[160];
     float *audio_out_temp_buf_pR;
+    int audio_out_idx;
     int audio_out_idx2;
     int audio_out_idxR;
     int audio_out_idx2R;
@@ -795,13 +794,21 @@ void processdPMRvoice(dsd_opts *opts, dsd_state *state);
 
 void processAudio(dsd_opts *opts, dsd_state *state);
 
+void processAudioR(dsd_opts *opts, dsd_state *state);
+
 void openPulseInput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 void openPulseOutput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 void closePulseInput(dsd_opts *opts);
 
 void closePulseOutput(dsd_opts *opts);
 
+void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
+
+void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
+
 void playSynthesizedVoice(dsd_opts *opts, dsd_state *state);
+
+void playSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 
 void openAudioOutDevice(dsd_opts *opts, int speed);
 
@@ -813,20 +820,8 @@ int get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state, int *out_analo
 
 void skipDibit(dsd_opts *opts, dsd_state *state, int count);
 
-void saveImbe4400Data(dsd_opts *opts, dsd_state *state, char *imbe_d);
-
-void saveAmbe2450Data(dsd_opts *opts, dsd_state *state, char *ambe_d);
-
 void saveAmbe2450DataR(dsd_opts *opts, dsd_state *state, char *ambe_d); //tdma slot 2
 void PrintAMBEData(dsd_opts *opts, dsd_state *state, char *ambe_d);
-
-void PrintIMBEData(dsd_opts *opts, dsd_state *state, char *imbe_d);
-
-int readImbe4400Data(dsd_opts *opts, dsd_state *state, char *imbe_d);
-
-int readAmbe2450Data(dsd_opts *opts, dsd_state *state, char *ambe_d);
-
-void openMbeInFile(dsd_opts *opts, dsd_state *state);
 
 void closeMbeOutFile(dsd_opts *opts, dsd_state *state);
 
@@ -884,8 +879,6 @@ processMbeFrame(dsd_opts *opts, dsd_state *state, char imbe_fr[8][23], char ambe
 
 void openSerial(dsd_opts *opts, dsd_state *state);
 
-void resumeScan(dsd_opts *opts, dsd_state *state);
-
 int getSymbol(dsd_opts *opts, dsd_state *state, int have_sync);
 
 void upsample(dsd_state *state, float invalue);
@@ -900,8 +893,6 @@ int strncmperr(const char *s1, const char *s2, size_t size, int MaxErr);
 
 uint64_t ConvertBitIntoBytes(uint8_t *BufferIn, uint32_t BitLength);
 
-void ncursesOpen(dsd_opts *opts, dsd_state *state);
-
 void ncursesPrinter(dsd_opts *opts, dsd_state *state);
 
 void ncursesClose();
@@ -912,8 +903,6 @@ void ScrambledPMRBit(uint32_t *LfsrValue, uint8_t *BufferIn, uint8_t *BufferOut,
 void DeInterleave6x12DPmrBit(uint8_t *BufferIn, uint8_t *BufferOut);
 
 uint8_t CRC7BitdPMR(uint8_t *BufferIn, uint32_t BitLength);
-
-uint8_t CRC8BitdPMR(uint8_t *BufferIn, uint32_t BitLength);
 
 void ConvertAirInterfaceID(uint32_t AI_ID, uint8_t ID[8]);
 
@@ -936,8 +925,6 @@ uint8_t rs_12_9_check_syndrome(rs_12_9_poly_t *syndrome);
 
 rs_12_9_correct_errors_result_t
 rs_12_9_correct_errors(rs_12_9_codeword_t *codeword, rs_12_9_poly_t *syndrome, uint8_t *errors_found);
-
-rs_12_9_checksum_t *rs_12_9_calc_checksum(rs_12_9_codeword_t *codeword);
 
 //DMR CRC Functions
 uint16_t ComputeCrcCCITT(uint8_t *DMRData);
@@ -1040,65 +1027,41 @@ void LFSR64(dsd_state *state);
 
 void Hamming_7_4_init();
 
-void Hamming_7_4_encode(unsigned char *origBits, unsigned char *encodedBits);
-
 bool Hamming_7_4_decode(unsigned char *rxBits);
 
 void Hamming_12_8_init();
-
-void Hamming_12_8_encode(unsigned char *origBits, unsigned char *encodedBits);
 
 bool Hamming_12_8_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords);
 
 void Hamming_13_9_init();
 
-void Hamming_13_9_encode(unsigned char *origBits, unsigned char *encodedBits);
-
 bool Hamming_13_9_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords);
 
 void Hamming_15_11_init();
-
-void Hamming_15_11_encode(unsigned char *origBits, unsigned char *encodedBits);
 
 bool Hamming_15_11_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords);
 
 void Hamming_16_11_4_init();
 
-void Hamming_16_11_4_encode(unsigned char *origBits, unsigned char *encodedBits);
-
 bool Hamming_16_11_4_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords);
 
 void Golay_20_8_init();
-
-void Golay_20_8_encode(unsigned char *origBits, unsigned char *encodedBits);
 
 bool Golay_20_8_decode(unsigned char *rxBits);
 
 void Golay_23_12_init();
 
-void Golay_23_12_encode(unsigned char *origBits, unsigned char *encodedBits);
-
-bool Golay_23_12_decode(unsigned char *rxBits);
-
 void Golay_24_12_init();
-
-void Golay_24_12_encode(unsigned char *origBits, unsigned char *encodedBits);
 
 bool Golay_24_12_decode(unsigned char *rxBits);
 
 void QR_16_7_6_init();
 
-void QR_16_7_6_encode(unsigned char *origBits, unsigned char *encodedBits);
-
 bool QR_16_7_6_decode(unsigned char *rxBits);
 
 void InitAllFecFunction(void);
 
-void resetState(dsd_state *state);
-
 void reset_dibit_buffer(dsd_state *state);
-
-void dstar_header_decode(dsd_state *state, int radioheaderbuffer[660]);
 
 //rigctl functions and TCP/UDP functions
 void error(char *msg);
@@ -1109,9 +1072,6 @@ bool Send(int sockfd, char *buf);
 
 bool Recv(int sockfd, char *buf);
 
-//rtl_fm udp tuning function
-void rtl_udp_tune(dsd_opts *opts, dsd_state *state, long int frequency);
-
 long int GetCurrentFreq(int sockfd);
 
 bool SetFreq(int sockfd, long int freq);
@@ -1120,16 +1080,6 @@ bool SetModulation(int sockfd, int bandwidth);
 //commands below unique to GQRX only, not usable on SDR++
 bool GetSignalLevel(int sockfd, double *dBFS);
 
-bool GetSquelchLevel(int sockfd, double *dBFS);
-
-bool SetSquelchLevel(int sockfd, double dBFS);
-
-bool GetSignalLevelEx(int sockfd, double *dBFS, int n_samp);
-//end gqrx-scanner
-
-//UDP socket connection
-int UDPBind(char *hostname, int portno);
-
 //EDACS
 void edacs(dsd_opts *opts, dsd_state *state);
 
@@ -1137,8 +1087,6 @@ unsigned long long int edacs_bch(unsigned long long int message);
 
 //csv imports
 int csvGroupImport(dsd_opts *opts, dsd_state *state);
-
-int csvLCNImport(dsd_opts *opts, dsd_state *state);
 
 int csvChanImport(dsd_opts *opts, dsd_state *state);
 
@@ -1154,11 +1102,7 @@ extern "C" {
 
 void open_rtlsdr_stream(dsd_opts *opts);
 
-void cleanup_rtlsdr_stream();
-
 void get_rtlsdr_sample(int16_t *sample, dsd_opts *opts, dsd_state *state);
-
-void rtlsdr_sighandler();
 
 void rtl_dev_tune(dsd_opts *opts, long int frequency);
 
@@ -1168,12 +1112,6 @@ void rtl_clean_queue();
 
 #endif
 
-
-//Phase 2 Helper Functions
-int ez_rs28_ess(int payload[96], int parity[168]); //ezpwd bridge for FME
-int ez_rs28_facch(int payload[156], int parity[114]); //ezpwd bridge for FME
-int ez_rs28_sacch(int payload[180], int parity[132]); //ezpwd bridge for FME
-int isch_lookup(uint64_t isch); //isch map lookup
 
 #ifdef __cplusplus
 }
