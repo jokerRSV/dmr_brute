@@ -199,6 +199,7 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     sprintf(state->fsubtype, "              ");
     sprintf(state->ftype, "             ");
     state->errs = 0;
+    state->audioCount = 0;
     state->errs2 = 0;
 
     //zero out right away if not trunking
@@ -1152,39 +1153,10 @@ usage() {
 void
 liveScanner(dsd_opts *opts, dsd_state *state) {
 
-#ifdef USE_RTLSDR
-    if (opts->audio_in_type == 3) {
-        //still need this section mostly due the the crackling on the rtl dongle when upsampled
-        //probably need to dig a little deeper, maybe inlvl releated?
-        opts->pulse_digi_rate_out = 48000; //revert to 8K/1 for RTL input, random crackling otherwise
-        opts->pulse_digi_out_channels = 1;
-        if (opts->dmr_stereo == 1) {
-            opts->pulse_digi_rate_out = 24000; //rtl needs 24000 by 2 channel for DMR TDMA Stereo output
-            opts->pulse_digi_out_channels = 2; //minimal crackling 'may' be observed, not sure, can't test to see on DMR with RTL
-            // fprintf (stderr, "RTL Audio Rate Out set to 24000 Khz/2 Channel \n");
-        }
-        // else fprintf (stderr, "RTL Audio Rate Out set to 48000 Khz/1 Channel \n");
-        opts->pulse_raw_rate_out = 48000;
-        opts->pulse_raw_out_channels = 1;
+    char *file_name = "coef.txt";
 
-        open_rtlsdr_stream(opts);
-        opts->rtl_started = 1; //set here so ncurses terminal doesn't attempt to open it again
-#ifdef __arm__
-        fprintf (stderr, "WARNING: RMS Function is Disabled on ARM Devices (Raspberry Pi) due to High CPU use. \n");
-        fprintf (stderr, "RMS/Squelch Functionality for NXDN, dPMR, EDACS Analog, M17 and Raw Audio Monitor are unavailable and these modes will not function properly. \n");
-        if (opts->monitor_input_audio == 1) opts->monitor_input_audio = 0;
-        opts->rtl_squelch_level = 0;
-#endif
-    }
-#endif
-
-//    if (opts->use_ncurses_terminal == 1) {
-//        ncursesOpen(opts, state);
-//    }
-
-//    if (opts->audio_in_type == 0) {
-//        openPulseInput(opts);
-//    }
+    FILE *pFile;
+    pFile = fopen(file_name, "a");
 
     if (opts->audio_out_type == 0) {
         // openPulseInput(opts); //test to see if we still randomly hang up in ncurses and tcp input if we open this and leave it opened
@@ -1204,17 +1176,9 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
 
 
         while (state->synctype != -1) {
-            processFrame(opts, state);
-
-#ifdef TRACE_DSD
-            state->debug_prefix = 'S';
-#endif
+            processFrame(opts, state, pFile);
 
             // state->synctype = getFrameSync (opts, state);
-
-#ifdef TRACE_DSD
-            state->debug_prefix = '\0';
-#endif
 
             // // recalibrate center/umid/lmid
             // state->center = ((state->max) + (state->min)) / 2;
@@ -1229,10 +1193,11 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
             }
         }
     }
+    int ii = fclose(pFile);
+    fprintf (stderr, "exit11111 %d ", ii);
 }
 
-void
-cleanupAndExit(dsd_opts *opts, dsd_state *state) {
+void cleanupAndExit(dsd_opts *opts, dsd_state *state) {
     noCarrier(opts, state);
     if (opts->wav_out_f != NULL) {
         closeWavOutFile(opts, state);

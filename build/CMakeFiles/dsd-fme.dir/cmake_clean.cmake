@@ -51,8 +51,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/dsd-fme.dir/src/dsd_main.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o"
   "CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o.d"
-  "CMakeFiles/dsd-fme.dir/src/dsd_ncurses.c.o"
-  "CMakeFiles/dsd-fme.dir/src/dsd_ncurses.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o"
   "CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o"

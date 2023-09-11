@@ -265,12 +265,6 @@ getFrameSync (dsd_opts * opts, dsd_state * state)
   lastt = 0;
   state->numflips = 0;
 
-  //move ncursesPrinter outside of the sync loop, causes weird lag inside the loop
-  if (opts->use_ncurses_terminal == 1)
-  {
-    ncursesPrinter(opts, state);
-  }
-
   if ((opts->symboltiming == 1) && (state->carrier == 1))
     {
       //fprintf (stderr,"\nSymbol Timing:\n");

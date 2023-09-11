@@ -84,125 +84,19 @@ print_datascope(dsd_opts *opts, dsd_state *state, int *sbuf2) {
     }
 }
 
-static void
-use_symbol(dsd_opts *opts, dsd_state *state, int symbol) {
-    int i;
-    int sbuf2[128];
-    int lmin, lmax, lsum;
-
-    for (i = 0; i < opts->ssize; i++) {
-        sbuf2[i] = state->sbuf[i];
-    }
-
-    qsort(sbuf2, opts->ssize, sizeof(int), comp);
-
-    // continuous update of min/max in rf_mod=1 (QPSK) mode
-    // in c4fm min/max must only be updated during sync
-    if (state->rf_mod == 1) {
-        lmin = (sbuf2[0] + sbuf2[1]) / 2;
-        lmax = (sbuf2[(opts->ssize - 1)] + sbuf2[(opts->ssize - 2)]) / 2;
-        state->minbuf[state->midx] = lmin;
-        state->maxbuf[state->midx] = lmax;
-        if (state->midx == (opts->msize - 1)) {
-            state->midx = 0;
-        } else {
-            state->midx++;
-        }
-        lsum = 0;
-        for (i = 0; i < opts->msize; i++) {
-            lsum += state->minbuf[i];
-        }
-        state->min = lsum / opts->msize;
-        lsum = 0;
-        for (i = 0; i < opts->msize; i++) {
-            lsum += state->maxbuf[i];
-        }
-        state->max = lsum / opts->msize;
-        state->center = ((state->max) + (state->min)) / 2;
-        state->umid = (((state->max) - state->center) * 5 / 8) + state->center;
-        state->lmid = (((state->min) - state->center) * 5 / 8) + state->center;
-        state->maxref = (int) ((state->max) * 0.80F);
-        state->minref = (int) ((state->min) * 0.80F);
-    } else {
-        state->maxref = state->max;
-        state->minref = state->min;
-    }
-
-    // Increase sidx
-    if (state->sidx >= (opts->ssize - 1)) {
-        state->sidx = 0;
-
-        if (opts->datascope == 1) {
-            print_datascope(opts, state, sbuf2);
-        }
-    } else {
-        state->sidx++;
-    }
-
-    if (state->dibit_buf_p > state->dibit_buf + 900000) {
-        state->dibit_buf_p = state->dibit_buf + 200;
-    }
-
-    //dmr buffer
-    if (state->dmr_payload_p > state->dmr_payload_buf + 900000) {
-        state->dmr_payload_p = state->dmr_payload_buf + 200;
-    }
-    //dmr buffer end
-}
-
-static int
-invert_dibit(int dibit) {
-    switch (dibit) {
-        case 0:
-            return 2;
-        case 1:
-            return 3;
-        case 2:
-            return 0;
-        case 3:
-            return 1;
-    }
-
-    // Error, shouldn't be here
-    assert(0);
-    return -1;
-}
-
-static int digitize(dsd_opts *opts, dsd_state *state, int symbol)
-//int digitize (dsd_opts* opts, dsd_state* state, int symbol)
-{
+static int digitize(dsd_state *state, int symbol) {
     // determine dibit state
     if ((state->synctype == 6) || (state->synctype == 14) || (state->synctype == 18) || (state->synctype == 37)) {
         //  6 +D-STAR
         // 14 +ProVoice
         // 18 +D-STAR_HD
         // 37 +EDACS
-
-        if (symbol > state->center) {
-            *state->dibit_buf_p = 1;
-            state->dibit_buf_p++;
-            return (0);               // +1
-        } else {
-            *state->dibit_buf_p = 3;
-            state->dibit_buf_p++;
-            return (1);               // +3
-        }
     } else if ((state->synctype == 7) || (state->synctype == 15) || (state->synctype == 19) ||
                (state->synctype == 38)) {
         //  7 -D-STAR
         // 15 -ProVoice
         // 19 -D-STAR_HD
         // 38 -EDACS
-
-        if (symbol > state->center) {
-            *state->dibit_buf_p = 1;
-            state->dibit_buf_p++;
-            return (1);               // +3
-        } else {
-            *state->dibit_buf_p = 3;
-            state->dibit_buf_p++;
-            return (0);               // +1
-        }
     } else if ((state->synctype == 1) || (state->synctype == 3) || (state->synctype == 5) ||
                (state->synctype == 9) || (state->synctype == 11) || (state->synctype == 13) ||
                (state->synctype == 17) || (state->synctype == 29) || (state->synctype == 36)) {
@@ -215,45 +109,6 @@ static int digitize(dsd_opts *opts, dsd_state *state, int symbol)
         // 17 -NXDN (inverted data frame)
         // 29 -NXDN (inverted FSW)
         // 36 -P25p2
-
-        int valid;
-        int dibit;
-
-        valid = 0;
-
-        //testing again, either on Voice channels only (when tuned) or with trunk disabled
-        if (state->synctype == 1 && (opts->p25_is_tuned == 1 || opts->p25_trunk == 0) && opts->use_heuristics == 1) {
-        }
-
-        if (valid == 0) {
-            // Revert to the original approach: choose the symbol according to the regions delimited
-            // by center, umid and lmid
-            if (symbol > state->center) {
-                if (symbol > state->umid) {
-                    dibit = 3;               // -3
-                } else {
-                    dibit = 2;               // -1
-                }
-            } else {
-                if (symbol < state->lmid) {
-                    dibit = 1;               // +3
-                } else {
-                    dibit = 0;               // +1
-                }
-            }
-        }
-
-        state->last_dibit = dibit;
-
-        *state->dibit_buf_p = invert_dibit(dibit);
-        state->dibit_buf_p++;
-
-        //dmr buffer
-        *state->dmr_payload_p = invert_dibit(dibit);
-        state->dmr_payload_p++;
-        //dmr buffer end
-
-        return dibit;
     } else {
         //  0 +P25p1
         //  2 +X2-TDMA (non inverted signal data frame)
@@ -265,30 +120,19 @@ static int digitize(dsd_opts *opts, dsd_state *state, int symbol)
         // 28 +NXND (FSW)
         // 35 +p25p2
 
-        int valid;
         int dibit;
 
-        valid = 0;
-
-        //testing again, either on Voice channels only (when tuned) or with trunk disabled
-        if (state->synctype == 0 && (opts->p25_is_tuned == 1 || opts->p25_trunk == 0) && opts->use_heuristics == 1) {
-        }
-
-        if (valid == 0) {
-            // Revert to the original approach: choose the symbol according to the regions delimited
-            // by center, umid and lmid
-            if (symbol > state->center) {
-                if (symbol > state->umid) {
-                    dibit = 1;               // +3
-                } else {
-                    dibit = 0;               // +1
-                }
+        if (symbol > state->center) {
+            if (symbol > state->umid) {
+                dibit = 1;               // +3
             } else {
-                if (symbol < state->lmid) {
-                    dibit = 3;               // -3
-                } else {
-                    dibit = 2;               // -1
-                }
+                dibit = 0;               // +1
+            }
+        } else {
+            if (symbol < state->lmid) {
+                dibit = 3;               // -3
+            } else {
+                dibit = 2;               // -1
             }
         }
 
@@ -315,59 +159,10 @@ get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state, int *out_analog_si
     int symbol;
     int dibit;
 
-#ifdef TRACE_DSD
-    unsigned int l, r;
-#endif
-
     state->numflips = 0;
-
-#ifdef TRACE_DSD
-    l = state->debug_sample_index;
-#endif
-
     symbol = getSymbol(opts, state, 1);
-
-#ifdef TRACE_DSD
-    r = state->debug_sample_index;
-#endif
-
-
     state->sbuf[state->sidx] = symbol;
-
-    if (out_analog_signal != NULL) {
-        *out_analog_signal = symbol;
-    }
-
-    use_symbol(opts, state, symbol);
-
-    dibit = digitize(opts, state, symbol);
-
-    if (opts->audio_in_type == 4) {
-        //assign dibit from last symbol/dibit read from capture bin
-        dibit = state->symbolc;
-        if (state->use_throttle == 1) {
-            usleep(0);
-        }
-    }
-
-    //symbol/dibit file capture/writing
-    if (opts->symbol_out == 1) {
-        //fprintf (stderr, "%d", dibit);
-        fputc(dibit, opts->symbol_out_f);
-    }
-
-#ifdef TRACE_DSD
-    {
-        float left, right;
-        if (state->debug_label_dibit_file == NULL) {
-            state->debug_label_dibit_file = fopen ("pp_label_dibit.txt", "w");
-        }
-        left = l / 48000.0;
-        right = r / 48000.0;
-        fprintf(state->debug_label_dibit_file, "%f\t%f\t%i\n", left, right, dibit);
-    }
-#endif
-
+    dibit = digitize(state, symbol);
     return dibit;
 }
 

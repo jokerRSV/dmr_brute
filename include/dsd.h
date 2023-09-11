@@ -384,6 +384,7 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    int audioCount;
     int errs;
     int errs2;
     int sample_count;
@@ -800,11 +801,6 @@ void processAudioR(dsd_opts *opts, dsd_state *state);
 
 void openPulseInput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 void openPulseOutput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
-void closePulseInput(dsd_opts *opts);
-
-void closePulseOutput(dsd_opts *opts);
-
-void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
 
 void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 
@@ -821,9 +817,6 @@ int getDibit(dsd_opts *opts, dsd_state *state);
 int get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state, int *out_analog_signal);
 
 void skipDibit(dsd_opts *opts, dsd_state *state, int count);
-
-void saveAmbe2450DataR(dsd_opts *opts, dsd_state *state, char *ambe_d); //tdma slot 2
-void PrintAMBEData(dsd_opts *opts, dsd_state *state, char *ambe_d);
 
 void closeMbeOutFile(dsd_opts *opts, dsd_state *state);
 
@@ -851,7 +844,7 @@ void closeWavOutFileRaw(dsd_opts *opts, dsd_state *state);
 
 //void printFrameInfo(dsd_opts *opts, dsd_state *state);
 
-void processFrame(dsd_opts *opts, dsd_state *state);
+void processFrame(dsd_opts *opts, dsd_state *state, FILE *pFile);
 
 void printFrameSync(dsd_opts *opts, dsd_state *state, char *frametype, int offset, char *modulation);
 
@@ -874,10 +867,7 @@ void cleanupAndExit(dsd_opts *opts, dsd_state *state);
 // void sigfun (int sig); //not necesary
 int main(int argc, char **argv);
 
-void playMbeFiles(dsd_opts *opts, dsd_state *state, int argc, char **argv);
-
-void
-processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]);
+void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24], FILE *pFile);
 
 void openSerial(dsd_opts *opts, dsd_state *state);
 
@@ -894,10 +884,6 @@ short dpmr_filter(short sample);
 int strncmperr(const char *s1, const char *s2, size_t size, int MaxErr);
 
 uint64_t ConvertBitIntoBytes(uint8_t *BufferIn, uint32_t BitLength);
-
-void ncursesPrinter(dsd_opts *opts, dsd_state *state);
-
-void ncursesClose();
 
 //dPMR functions
 void ScrambledPMRBit(uint32_t *LfsrValue, uint8_t *BufferIn, uint8_t *BufferOut, uint32_t NbOfBitToScramble);
@@ -960,7 +946,6 @@ void dmr_slco(dsd_opts *opts, dsd_state *state, uint8_t slco_bits[]);
 uint8_t dmr_cach(dsd_opts *opts, dsd_state *state, uint8_t cach_bits[25]);
 
 uint32_t dmr_34(uint8_t *input, uint8_t treturn[18]); //simplier trellis decoder
-void beeper(dsd_opts *opts, dsd_state *state, int type); //the tone beeper function
 
 //Embedded Alias and GPS
 void dmr_embedded_alias_header(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[]);
@@ -970,9 +955,9 @@ void dmr_embedded_alias_blocks(dsd_opts *opts, dsd_state *state, uint8_t lc_bits
 void dmr_embedded_gps(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[]);
 
 //"DMR STEREO"
-void dmrBSBootstrap(dsd_opts *opts, dsd_state *state);
+void dmrBSBootstrap(dsd_opts *opts, dsd_state *state, FILE *pFile);
 
-void dmrBS(dsd_opts *opts, dsd_state *state);
+void dmrBS(dsd_opts *opts, dsd_state *state, FILE *pFile);
 
 void dmrMS(dsd_opts *opts, dsd_state *state);
 
@@ -1062,8 +1047,6 @@ void QR_16_7_6_init();
 bool QR_16_7_6_decode(unsigned char *rxBits);
 
 void InitAllFecFunction(void);
-
-void reset_dibit_buffer(dsd_state *state);
 
 //rigctl functions and TCP/UDP functions
 void error(char *msg);

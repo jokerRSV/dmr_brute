@@ -33,7 +33,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_import.c" "CMakeFiles/dsd-fme.dir/src/dsd_import.c.o" "gcc" "CMakeFiles/dsd-fme.dir/src/dsd_import.c.o.d"
   "/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_main.c" "CMakeFiles/dsd-fme.dir/src/dsd_main.c.o" "gcc" "CMakeFiles/dsd-fme.dir/src/dsd_main.c.o.d"
   "/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_mbe.c" "CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o" "gcc" "CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o.d"
-  "/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_ncurses.c" "CMakeFiles/dsd-fme.dir/src/dsd_ncurses.c.o" "gcc" "CMakeFiles/dsd-fme.dir/src/dsd_ncurses.c.o.d"
   "/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_reset.c" "CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o" "gcc" "CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o.d"
   "/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_rigctl.c" "CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o" "gcc" "CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o.d"
   "/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_serial.c" "CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o" "gcc" "CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o.d"

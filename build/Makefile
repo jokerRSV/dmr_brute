@@ -811,30 +811,6 @@ src/dsd_mbe.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.s
 .PHONY : src/dsd_mbe.c.s
 
-src/dsd_ncurses.o: src/dsd_ncurses.c.o
-.PHONY : src/dsd_ncurses.o
-
-# target to build an object file
-src/dsd_ncurses.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dsd_ncurses.c.o
-.PHONY : src/dsd_ncurses.c.o
-
-src/dsd_ncurses.i: src/dsd_ncurses.c.i
-.PHONY : src/dsd_ncurses.i
-
-# target to preprocess a source file
-src/dsd_ncurses.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dsd_ncurses.c.i
-.PHONY : src/dsd_ncurses.c.i
-
-src/dsd_ncurses.s: src/dsd_ncurses.c.s
-.PHONY : src/dsd_ncurses.s
-
-# target to generate assembly for a file
-src/dsd_ncurses.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/dsd_ncurses.c.s
-.PHONY : src/dsd_ncurses.c.s
-
 src/dsd_reset.o: src/dsd_reset.c.o
 .PHONY : src/dsd_reset.o
 
@@ -1215,9 +1191,6 @@ help:
 	@echo "... src/dsd_mbe.o"
 	@echo "... src/dsd_mbe.i"
 	@echo "... src/dsd_mbe.s"
-	@echo "... src/dsd_ncurses.o"
-	@echo "... src/dsd_ncurses.i"
-	@echo "... src/dsd_ncurses.s"
 	@echo "... src/dsd_reset.o"
 	@echo "... src/dsd_reset.i"
 	@echo "... src/dsd_reset.s"

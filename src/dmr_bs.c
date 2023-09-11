@@ -11,7 +11,7 @@
 
 //A subroutine for processing each TDMA frame individually to allow for
 //processing voice and/or data on both BS slots (channels) simultaneously
-void dmrBS(dsd_opts *opts, dsd_state *state) {
+void dmrBS(dsd_opts *opts, dsd_state *state, FILE *pFile) {
     int i, j, k, l, dibit;
     int *dibit_p;
 
@@ -241,9 +241,9 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             char light[18];
             uint8_t vc;
 
-            processMbeFrame(opts, state, ambe_fr);
-            processMbeFrame(opts, state, ambe_fr2);
-            processMbeFrame(opts, state, ambe_fr3);
+            processMbeFrame(opts, state, ambe_fr, pFile);
+            processMbeFrame(opts, state, ambe_fr2, pFile);
+            processMbeFrame(opts, state, ambe_fr3, pFile);
 
             //run sbrc here to look for the late entry key and alg after we observe potential errors in VC6
             if (internalslot == 0 && vc1 == 6) dmr_sbrc(opts, state, power);
@@ -283,11 +283,6 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             goto END;
         }
 
-        //since we are in a while loop, run ncursesPrinter here.
-        if (opts->use_ncurses_terminal == 1) {
-            ncursesPrinter(opts, state);
-        }
-
     } // while loop
 
     END:
@@ -300,7 +295,7 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
 }
 
 //Process buffered half frame and 2nd half and then jump to full BS decoding
-void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
+void dmrBSBootstrap(dsd_opts *opts, dsd_state *state, FILE *pFile) {
     int i, j, k, l, dibit;
     int *dibit_p;
     char ambe_fr[4][24];
@@ -472,16 +467,16 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     dmr_alg_reset(opts, state);
 
     if (opts->payload == 1) fprintf(stderr, "\n"); //extra line break necessary here
-    processMbeFrame(opts, state, ambe_fr);
-    processMbeFrame(opts, state, ambe_fr2);
-    processMbeFrame(opts, state, ambe_fr3);
+    processMbeFrame(opts, state, ambe_fr, pFile);
+    processMbeFrame(opts, state, ambe_fr2, pFile);
+    processMbeFrame(opts, state, ambe_fr3, pFile);
 
     if (opts->payload == 0) fprintf(stderr, "\n");
 
     //update voice sync time for trunking purposes (particularly Con+)
     if (opts->p25_is_tuned == 1) state->last_vc_sync_time = time(NULL);
 
-    dmrBS(opts, state); //bootstrap into full TDMA frame for BS mode
+    dmrBS(opts, state, pFile); //bootstrap into full TDMA frame for BS mode
     END:
     //if we have a tact err, then produce sync pattern/err message
     if (tact_okay != 1 || sync_okay != 1) {

@@ -126,7 +126,7 @@ void print_time(char *buffer, struct timeval tv, int i, int j, int k) {
     fflush(stdout);
 }
 
-void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
+void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24], FILE *pFile) {
 
     int i;
     unsigned char ambe_d[49];
@@ -135,7 +135,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         ambe_d[i] = 0;
     }
 
+//    if (state->currentslot == 0 && state->audioCount >= 7 * 10 && state->audioCount <= 7 * 15) {
     if (state->currentslot == 0) {
+        state->audioCount++;
 
         state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
         mbe_demodulateAmbe3600x2450Data(ambe_fr);

@@ -481,7 +481,7 @@ void processdPMRvoice (dsd_opts * opts, dsd_state * state)
       //There are 4 AMBE voice frames per TCH
       for(i = start; i < end; i++)
       {
-          processMbeFrame(opts, state, ambe_fr[i]);
+          processMbeFrame(opts, state, ambe_fr[i], NULL);
       } 
 
       //set the correct sync type again and flag off the cipher
