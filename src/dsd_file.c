@@ -165,10 +165,10 @@ void PrintAMBEData (dsd_opts * opts, dsd_state * state, char *ambe_d)
 
   err = (unsigned char) state->errs2;
   k = 0;
-  if (opts->dmr_stereo == 0 && opts->dmr_mono == 0)
-  {
+//  if (opts->dmr_stereo == 0 && opts->dmr_mono == 0)
+//  {
     fprintf (stderr, "\n");
-  }
+//  }
   if (opts->payload == 1) //print AMBE info from DMR Stereo method
   {
     fprintf(stderr, " AMBE ");

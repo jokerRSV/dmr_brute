@@ -636,7 +636,7 @@ void
 initState(dsd_state *state) {
 
     int i, j;
-    // state->testcounter = 0;
+    state->sample_count = 0;
     state->last_dibit = 0;
     state->dibit_buf = malloc(sizeof(int) * 1000000);
     state->dibit_buf_p = state->dibit_buf + 200;

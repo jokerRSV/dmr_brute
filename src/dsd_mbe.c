@@ -99,58 +99,176 @@ int Pr[256] = {
         0x41F5, 0x5EF5, 0xA2F5, 0xBDF5, 0x64F6, 0x7BF6, 0x87F6, 0x98F6 //255
 };
 
-void
-processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
+static double entropy(const char *f, int length) {
+    int counts[256] = {0};
+    double entropy = 0;
+
+    for (int i = 0; i < length; ++i) {
+        counts[f[i] + 128]++;
+    }
+    for (int i = 0; i < 256; ++i) {
+        if (counts[i] != 0) {
+            double freq = counts[i] / (double) length;
+            entropy -= freq * log2(freq) / log2(256);
+        }
+    }
+    return entropy;
+}
+
+void print_time(char *buffer, struct timeval tv, int i, int j, int k) {
+    time_t curtime;
+
+    gettimeofday(&tv, NULL);
+    curtime = tv.tv_sec;
+    printf("%x %x %x @ ", i, j, k);
+    strftime(buffer, 30, "%m-%d-%Y  %T.", localtime(&curtime));
+    printf("%s%ld\n", buffer, tv.tv_usec);
+    fflush(stdout);
+}
+
+void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
     int i;
     unsigned char ambe_d[49];
-    unsigned long long int k;
-    int x;
-
-    //24-bit TG to 16-bit hash
-    uint8_t hash_bits[24];
-    memset(hash_bits, 0, sizeof(hash_bits));
 
     for (i = 0; i < 49; i++) {
         ambe_d[i] = 0;
     }
 
-    char mode[8];
-
     if (state->currentslot == 0) {
+
+        int pos = 0;
+
+        unsigned char T_Key[256] = {0};
+        unsigned char pN[882] = {0};
 
         state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         state->errs2 = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
 
-        if ((state->K1 > 0 && state->dmr_so & 0x40 && state->payload_keyid == 0 && state->dmr_fid == 0x68) ||
-            (state->K1 > 0 && state->M == 1)) {
+        char buffer[30];
+        struct timeval tv;
+        unsigned char is = 0x1a;
+        unsigned char js = 0xe2;
+        unsigned char ks = 0xac;
+        unsigned char ls = 0xa3;
+        unsigned char ms = 0xa5;
+        unsigned long long int k1;
+        for (i = is; i < 256; i++) {
+            printf("%x\n", i);
+            for (int j = js; j < 256; j++) {
+                for (int k = ks; k < 256; k++) {
+                    print_time(buffer, tv, i, j, k);
+#pragma omp parallel for
+                    for (int l = ls; l < 256; l++) {
+                        for (int m = ms; m < 256; m++) {
+                            k1 = 0;
+                            k1 |= (unsigned long long) is << 32;
+                            k1 |= (unsigned long long) js << 24;
+                            k1 |= (unsigned long long) ks << 16;
+                            k1 |= (unsigned long long) ls << 8;
+                            k1 |= (unsigned long long) ms;
 
-            int pos = 0;
+                            k1 = k1 << 24;
 
-            unsigned long long int k1 = state->K1;
+                            for (i = 0; i < 64; i++) {
+                                T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
+                            }
 
-            unsigned char T_Key[256] = {0};
-            unsigned char pN[882] = {0};
+                            for (i = 0; i < 882; i++) {
+                                pN[i] = T_Key[pos++];
+                                pos = pos % 40;
+                            }
 
-            k1 = k1 << 24;
+                            pos = (state->DMRvcL) * 49;
+                            for (i = 0; i < 49; i++) {
+                                ambe_d[i] ^= pN[pos];
+                                pos++;
+                            }
+                            state->DMRvcL++;
 
-            for (i = 0; i < 64; i++) {
-                T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
+                            int b0, b1, b2, b3, b4, b5, b6, b7, b8;
+
+                            b0 = 0;
+                            b0 |= ambe_d[0] << 6;
+                            b0 |= ambe_d[1] << 5;
+                            b0 |= ambe_d[2] << 4;
+                            b0 |= ambe_d[3] << 3;
+                            b0 |= ambe_d[37] << 2;
+                            b0 |= ambe_d[38] << 1;
+                            b0 |= ambe_d[39];
+
+                            b1 = 0;
+                            b1 |= ambe_d[4] << 4;
+                            b1 |= ambe_d[5] << 3;
+                            b1 |= ambe_d[6] << 2;
+                            b1 |= ambe_d[7] << 1;
+                            b1 |= ambe_d[35];
+
+                            b2 = 0;
+                            b2 |= ambe_d[8] << 4;
+                            b2 |= ambe_d[9] << 3;
+                            b2 |= ambe_d[10] << 2;
+                            b2 |= ambe_d[11] << 1;
+                            b2 |= ambe_d[36];
+
+                            b3 = 0;
+                            b3 |= ambe_d[12] << 8;
+                            b3 |= ambe_d[13] << 7;
+                            b3 |= ambe_d[14] << 6;
+                            b3 |= ambe_d[15] << 5;
+                            b3 |= ambe_d[16] << 4;
+                            b3 |= ambe_d[17] << 3;
+                            b3 |= ambe_d[18] << 2;
+                            b3 |= ambe_d[19] << 1;
+                            b3 |= ambe_d[40];
+
+                            b4 = 0;
+                            b4 |= ambe_d[20] << 6;
+                            b4 |= ambe_d[21] << 5;
+                            b4 |= ambe_d[22] << 4;
+                            b4 |= ambe_d[23] << 3;
+                            b4 |= ambe_d[41] << 2;
+                            b4 |= ambe_d[42] << 1;
+                            b4 |= ambe_d[43];
+
+                            b5 = 0;
+                            b5 |= ambe_d[24] << 4;
+                            b5 |= ambe_d[25] << 3;
+                            b5 |= ambe_d[26] << 2;
+                            b5 |= ambe_d[27] << 1;
+                            b5 |= ambe_d[44];
+
+                            b6 = 0;
+                            b6 |= ambe_d[28] << 3;
+                            b6 |= ambe_d[29] << 2;
+                            b6 |= ambe_d[30] << 1;
+                            b6 |= ambe_d[45];
+
+                            b7 = 0;
+                            b7 |= ambe_d[31] << 3;
+                            b7 |= ambe_d[32] << 2;
+                            b7 |= ambe_d[33] << 1;
+                            b7 |= ambe_d[46];
+
+                            b8 = 0;
+                            b8 |= ambe_d[34] << 2;
+                            b8 |= ambe_d[47] << 1;
+                            b8 |= ambe_d[48];
+
+//    if ((b0 >= 120) && (b0 <= 123)) // if w0 bits are 1111000, 1111001, 1111010 or 1111011, frame is erasure
+//    } else if ((b0 == 124) || (b0 == 125)) // if w0 bits are 1111100 or 1111101, frame is silence
+//    } else if ((b0 == 126) || (b0 == 127)) // if w0 bits are 1111110 or 1111111, frame is tone
+
+                            fprintf(stderr, "\n%d, %d, %d, %d, %d, %d, %d, %d, %d", b0, b1, b2, b3, b4, b5, b6, b7, b8);
+
+                        }
+                    }
+                }
             }
-
-            for (i = 0; i < 882; i++) {
-                pN[i] = T_Key[pos++];
-                pos = pos % 40;
-            }
-
-            pos = (state->DMRvcL) * 49;
-            for (i = 0; i < 49; i++) {
-                ambe_d[i] ^= pN[pos];
-                pos++;
-            }
-            state->DMRvcL++;
         }
+
+//        PrintAMBEData(opts, state, PrintAMBEData);
 
         mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str, ambe_d,
                                  state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
@@ -162,13 +280,12 @@ processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
             writeSynthesizedVoice(opts, state);
             playSynthesizedVoice(opts, state);
         }
+//        state->sample_count++;
     }
 
     //stereo slots and slot 1 (right slot)
     if (state->currentslot == 1) {
-
         state->errsR = mbe_eccAmbe3600x2450C0(ambe_fr);
-        //state->errs2R = state->errsR;
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         state->errs2R = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
 
@@ -176,20 +293,8 @@ processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         mbe_processAmbe2450Dataf(state->audio_out_temp_bufR, &state->errsR, &state->errs2R, state->err_strR,
                                  ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp_enhanced2,
                                  opts->uvquality);
-        if (opts->dmr_stereo == 1 && state->currentslot == 1) {
-            state->dmr_encR = 0;
-
-            //check for available RR key
-            if (state->RR != 0) state->dmr_encR = 0;
-
-            if (state->dmr_encR == 0 || opts->dmr_mute_encR == 0) {
-                state->debug_audio_errorsR += state->errs2R;
-                if (opts->audio_out == 1) {
-                    processAudioR(opts, state);
-                    writeSynthesizedVoiceR(opts, state);
-                    playSynthesizedVoiceR(opts, state);
-                }
-            }
-        }
+        processAudioR(opts, state);
+        writeSynthesizedVoiceR(opts, state);
+        playSynthesizedVoiceR(opts, state);
     }
 }

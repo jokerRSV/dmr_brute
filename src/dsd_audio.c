@@ -317,7 +317,7 @@ void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state) {
 
         aout_buf[n] = (short) *state->audio_out_temp_buf_p;
         float ii = aout_buf[n];
-        fprintf (stderr, "%f ", ii);
+//        fprintf (stderr, "%f ", ii);
         state->audio_out_temp_buf_p++;
     }
 
@@ -341,7 +341,7 @@ void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state) {
         }
         *aout_buf_p = (short) *state->audio_out_temp_buf_pR;
         float ii = *aout_buf_p;
-        fprintf (stderr, "%f ", ii);
+//        fprintf (stderr, "%f ", ii);
 
         *aout_buf_p = (short) *state->audio_out_temp_buf_pR;
         aout_buf_p++;

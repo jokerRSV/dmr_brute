@@ -384,6 +384,7 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    int sample_count;
     int DMRvcL;
     int pos;
     int *dibit_buf;
