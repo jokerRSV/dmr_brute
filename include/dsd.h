@@ -205,8 +205,8 @@ typedef struct {
 
     int audio_out_type; // 0 for device, 1 for file,
     int split;
-    int playoffset;
-    int playoffsetR;
+//    int playoffset;
+//    int playoffsetR;
     char mbe_out_dir[1024];
     char mbe_out_file[1024];
     char mbe_out_fileR[1024]; //second slot on a TDMA system
@@ -384,6 +384,8 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    int errs;
+    int errs2;
     int sample_count;
     int DMRvcL;
     int pos;
@@ -445,8 +447,6 @@ typedef struct {
     int lastsrc;
     int lastsrcR;
     int nac;
-    int errs;
-    int errs2;
     int errsR;
     int errs2R;
     int mbe_file_type;
@@ -849,7 +849,7 @@ void closeWavOutFileR(dsd_opts *opts, dsd_state *state);
 
 void closeWavOutFileRaw(dsd_opts *opts, dsd_state *state);
 
-void printFrameInfo(dsd_opts *opts, dsd_state *state);
+//void printFrameInfo(dsd_opts *opts, dsd_state *state);
 
 void processFrame(dsd_opts *opts, dsd_state *state);
 

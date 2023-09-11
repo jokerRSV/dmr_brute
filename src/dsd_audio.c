@@ -84,60 +84,61 @@ processAudio(dsd_opts *opts, dsd_state *state) {
     int i, n;
     float aout_abs, max, gainfactor, gaindelta, maxbuf;
 
-    if (opts->audio_gain == (float) 0) {
-        // detect max level
-        max = 0;
+//    if (opts->audio_gain == (float) 0) {
+//        // detect max level
+//        max = 0;
+//
+//        state->audio_out_temp_buf_p = state->audio_out_temp_buf;
+//        for (n = 0; n < 160; n++) {
+//            aout_abs = fabsf(*state->audio_out_temp_buf_p);
+//            if (aout_abs > max) {
+//                max = aout_abs;
+//            }
+//            state->audio_out_temp_buf_p++;
+//        }
+//        *state->aout_max_buf_p = max;
+//
+//        state->aout_max_buf_p++;
+//
+//        state->aout_max_buf_idx++;
+//
+//        if (state->aout_max_buf_idx > 24) {
+//            state->aout_max_buf_idx = 0;
+//            state->aout_max_buf_p = state->aout_max_buf;
+//        }
+//
+//        // lookup max history
+//        for (i = 0; i < 25; i++) {
+//            maxbuf = state->aout_max_buf[i];
+//            if (maxbuf > max) {
+//                max = maxbuf;
+//            }
+//        }
+//
+//        // determine optimal gain level
+//        if (max > (float) 0) {
+//            gainfactor = ((float) 30000 / max);
+//        } else {
+//            gainfactor = (float) 50;
+//        }
+//        if (gainfactor < state->aout_gain) {
+//            state->aout_gain = gainfactor;
+//            gaindelta = (float) 0;
+//        } else {
+//            if (gainfactor > (float) 50) {
+//                gainfactor = (float) 50;
+//            }
+//            gaindelta = gainfactor - state->aout_gain;
+//            if (gaindelta > ((float) 0.05 * state->aout_gain)) {
+//                gaindelta = ((float) 0.05 * state->aout_gain);
+//            }
+//        }
+//        gaindelta /= (float) 160;
+//    } else {
+//        gaindelta = (float) 0;
+//    }
 
-        state->audio_out_temp_buf_p = state->audio_out_temp_buf;
-        for (n = 0; n < 160; n++) {
-            aout_abs = fabsf(*state->audio_out_temp_buf_p);
-            if (aout_abs > max) {
-                max = aout_abs;
-            }
-            state->audio_out_temp_buf_p++;
-        }
-        *state->aout_max_buf_p = max;
-
-        state->aout_max_buf_p++;
-
-        state->aout_max_buf_idx++;
-
-        if (state->aout_max_buf_idx > 24) {
-            state->aout_max_buf_idx = 0;
-            state->aout_max_buf_p = state->aout_max_buf;
-        }
-
-        // lookup max history
-        for (i = 0; i < 25; i++) {
-            maxbuf = state->aout_max_buf[i];
-            if (maxbuf > max) {
-                max = maxbuf;
-            }
-        }
-
-        // determine optimal gain level
-        if (max > (float) 0) {
-            gainfactor = ((float) 30000 / max);
-        } else {
-            gainfactor = (float) 50;
-        }
-        if (gainfactor < state->aout_gain) {
-            state->aout_gain = gainfactor;
-            gaindelta = (float) 0;
-        } else {
-            if (gainfactor > (float) 50) {
-                gainfactor = (float) 50;
-            }
-            gaindelta = gainfactor - state->aout_gain;
-            if (gaindelta > ((float) 0.05 * state->aout_gain)) {
-                gaindelta = ((float) 0.05 * state->aout_gain);
-            }
-        }
-        gaindelta /= (float) 160;
-    } else {
-        gaindelta = (float) 0;
-    }
-
+/*
     if (opts->audio_gain >= 0) {
         // adjust output gain
         state->audio_out_temp_buf_p = state->audio_out_temp_buf;
@@ -148,6 +149,7 @@ processAudio(dsd_opts *opts, dsd_state *state) {
         }
         state->aout_gain += ((float) 160 * gaindelta);
     }
+*/
 
     // copy audio data to output buffer and upsample if necessary
     state->audio_out_temp_buf_p = state->audio_out_temp_buf;
@@ -161,7 +163,7 @@ processAudio(dsd_opts *opts, dsd_state *state) {
             state->audio_out_idx += 6;
             state->audio_out_idx2 += 6;
         }
-        state->audio_out_float_buf_p -= (960 + opts->playoffset);
+        state->audio_out_float_buf_p -= (960);
         // copy to output (short) buffer
         for (n = 0; n < 960; n++) {
             if (*state->audio_out_float_buf_p > 32767.0F) {
@@ -173,7 +175,7 @@ processAudio(dsd_opts *opts, dsd_state *state) {
             state->audio_out_buf_p++;
             state->audio_out_float_buf_p++;
         }
-        state->audio_out_float_buf_p += opts->playoffset;
+//        state->audio_out_float_buf_p += opts->playoffset;
     } else {
         for (n = 0; n < 160; n++) {
             if (*state->audio_out_temp_buf_p > 32767.0F) {
@@ -273,7 +275,7 @@ processAudioR(dsd_opts *opts, dsd_state *state) {
             state->audio_out_idxR += 6;
             state->audio_out_idx2R += 6;
         }
-        state->audio_out_float_buf_pR -= (960 + opts->playoffsetR);
+        state->audio_out_float_buf_pR -= (960);
         // copy to output (short) buffer
         for (n = 0; n < 960; n++) {
             if (*state->audio_out_float_buf_pR > 32767.0F) {
@@ -285,7 +287,7 @@ processAudioR(dsd_opts *opts, dsd_state *state) {
             state->audio_out_buf_pR++;
             state->audio_out_float_buf_pR++;
         }
-        state->audio_out_float_buf_pR += opts->playoffsetR;
+//        state->audio_out_float_buf_pR += opts->playoffsetR;
     } else {
         for (n = 0; n < 160; n++) {
             if (*state->audio_out_temp_buf_pR > 32767.0F) {
@@ -368,32 +370,9 @@ void writeRawSample(dsd_opts *opts, dsd_state *state, short sample) {
 
 void
 playSynthesizedVoice(dsd_opts *opts, dsd_state *state) {
-    ssize_t result;
-
-    if (state->audio_out_idx > opts->delay) {
-        if (opts->audio_out_type == 5) //OSS
-        {
-            //OSS
-            result = write(opts->audio_out_fd, (state->audio_out_buf_p - state->audio_out_idx),
-                           (state->audio_out_idx * 2));
-            state->audio_out_idx = 0;
-        } else if (opts->audio_out_type == 0) {
             pa_simple_write(opts->pulse_digi_dev_out, (state->audio_out_buf_p - state->audio_out_idx),
                             (state->audio_out_idx * 2), NULL);
             state->audio_out_idx = 0;
-        } else state->audio_out_idx = 0; //failsafe for audio_out == 0
-
-
-    }
-
-    if (state->audio_out_idx2 >= 800000) {
-        state->audio_out_float_buf_p = state->audio_out_float_buf + 100;
-        state->audio_out_buf_p = state->audio_out_buf + 100;
-        memset(state->audio_out_float_buf, 0, 100 * sizeof(float));
-        memset(state->audio_out_buf, 0, 100 * sizeof(short));
-        state->audio_out_idx2 = 0;
-    }
-
 }
 
 void

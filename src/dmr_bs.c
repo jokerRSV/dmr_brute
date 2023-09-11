@@ -50,23 +50,6 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
     uint8_t dummy_bits[196];
     memset(dummy_bits, 0, sizeof(dummy_bits));
 
-    //add time to mirror printFrameSync
-    time_t now;
-    char *getTime(void) //get pretty hh:mm:ss timestamp
-    {
-        time_t t = time(NULL);
-
-        char *curr;
-        char *stamp = asctime(localtime(&t));
-
-        curr = strtok(stamp, " ");
-        curr = strtok(NULL, " ");
-        curr = strtok(NULL, " ");
-        curr = strtok(NULL, " ");
-
-        return curr;
-    }
-
     //Init slot lights
     sprintf(state->slot1light, " slot1 ");
     sprintf(state->slot2light, " slot2 ");
@@ -143,18 +126,6 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
 
         }
 
-        //check for repetitive data if caught in a 'no carrier' loop? Just picking random values.
-        //this will test for no carrier (input signal) and return us to no sync state if necessary
-        if (redundancyA[16] == redundancyB[16] && redundancyA[27] == redundancyB[27] &&
-            redundancyA[01] == redundancyB[01] && redundancyA[32] == redundancyB[32] &&
-            redundancyA[03] == redundancyB[03] && redundancyA[33] == redundancyB[33] &&
-            redundancyA[13] == redundancyB[13] && redundancyA[07] == redundancyB[07]) {
-            goto END;
-        }
-
-        //end redundancy test, set B to A
-        memcpy(redundancyB, redundancyA, sizeof(redundancyA));
-
         //Setup for Second AMBE Frame
         //Interleave Schedule
         w = rW;
@@ -186,14 +157,14 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             syncdata[(2 * i) + 1] = (1 & dibit);         // bit 0
 
             //embedded link control
-            if (internalslot == 0 && vc1 > 1 && vc1 < 7) //grab on vc1 values 2-5 B C D and E
-            {
+            //grab on vc1 values 2-5 B C D and E
+            if (internalslot == 0 && vc1 > 1 && vc1 < 7) {
                 state->dmr_embedded_signalling[internalslot][vc1 - 1][i * 2] = (1 & (dibit >> 1)); // bit 1
                 state->dmr_embedded_signalling[internalslot][vc1 - 1][i * 2 + 1] = (1 & dibit); // bit 0
             }
 
-            if (internalslot == 1 && vc2 > 1 && vc2 < 7) //grab on vc2 values 2-5 B C D and E
-            {
+            //grab on vc2 values 2-5 B C D and E
+            if (internalslot == 1 && vc2 > 1 && vc2 < 7) {
                 state->dmr_embedded_signalling[internalslot][vc2 - 1][i * 2] = (1 & (dibit >> 1)); // bit 1
                 state->dmr_embedded_signalling[internalslot][vc2 - 1][i * 2 + 1] = (1 & dibit); // bit 0
             }
@@ -245,40 +216,9 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             if (internalslot == 1) vc2 = 1;
         }
 
-        //check for sync pattern here after collected the rest of the payload, decide what to do with it
-        if (strcmp(sync, DMR_BS_DATA_SYNC) == 0) {
-
-            fprintf(stderr, "%s ", getTime());
-            if (internalslot == 0) {
-                if (opts->inverted_dmr == 0) {
-                    fprintf(stderr, "Sync: +DMR  ");
-                } else fprintf(stderr, "Sync: -DMR  ");
-
-                vc1 = 1;
-
-                //close MBEout file - slot 1
-                if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-            }
-            if (internalslot == 1) {
-                if (opts->inverted_dmr == 0) {
-                    fprintf(stderr, "Sync: +DMR  ");
-                } else fprintf(stderr, "Sync: -DMR  ");
-
-                vc2 = 1;
-
-                //close MBEout file - slot 2
-                if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
-
-            }
-            dmr_data_sync(opts, state);
-            skipcount++;
-            goto SKIP;
-        }
-
         //only play voice on no data sync
-        if (strcmp(sync, DMR_BS_DATA_SYNC) !=
-            0) //we already have a tact ecc check, so we won't get here without that, see if there is any other eccs we can run just to make sure
-        {
+        //we already have a tact ecc check, so we won't get here without that, see if there is any other eccs we can run just to make sure
+        if (strcmp(sync, DMR_BS_DATA_SYNC) != 0) {
 
             //check the embedded signalling, if bad at this point, we probably aren't quite in sync
             if (QR_16_7_6_decode(EmbeddedSignalling)) emb_ok = 1;
@@ -295,56 +235,11 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
 
 
             skipcount = 0; //reset skip count if processing voice frames
-            fprintf(stderr, "%s ", getTime());
 
             //simplifying things
             char polarity[3];
             char light[18];
             uint8_t vc;
-            if (internalslot == 0) {
-                state->dmrburstL = 16;
-                vc = vc1;
-                sprintf(light, "%s", " [SLOT1]  slot2  ");
-                //open MBEout file - slot 1
-                if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) openMbeOutFile(opts, state);
-            } else {
-                state->dmrburstR = 16;
-                vc = vc2;
-                sprintf(light, "%s", "  slot1  [SLOT2] ");
-                //open MBEout file - slot 2
-                if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_fR == NULL)) openMbeOutFileR(opts, state);
-            }
-            if (opts->inverted_dmr == 0) sprintf(polarity, "%s", "+");
-            else sprintf(polarity, "%s", "-");
-
-            fprintf(stderr, "Sync: %sDMR %s| Color Code=%02d | VC%d ", polarity, light, state->dmr_color_code, vc);
-
-            if (internalslot == 0 && vc1 == 6) {
-                //process embedded link control
-                fprintf(stderr, "\n");
-                dmr_data_burst_handler(opts, state, (uint8_t *) dummy_bits, 0xEB);
-                //check the single burst/reverse channel opportunity -- moved
-                // dmr_sbrc (opts, state, power);
-
-            }
-
-            if (internalslot == 1 && vc2 == 6) {
-                //process embedded link control
-                fprintf(stderr, "\n");
-                dmr_data_burst_handler(opts, state, (uint8_t *) dummy_bits, 0xEB);
-                //check the single burst/reverse channel opportunity -- moved
-                // dmr_sbrc (opts, state, power);
-
-            }
-
-            if (opts->payload == 1) fprintf(stderr, "\n"); //extra line break necessary here
-
-            //copy ambe_fr frames first, running process mbe will correct them,
-            //but this also leads to issues extracting good le mi values when
-            //we go to do correction on them there too
-            memcpy(m1, ambe_fr, sizeof(m1));
-            memcpy(m2, ambe_fr2, sizeof(m2));
-            memcpy(m3, ambe_fr3, sizeof(m3));
 
             processMbeFrame(opts, state, ambe_fr);
             processMbeFrame(opts, state, ambe_fr2);
@@ -354,43 +249,13 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             if (internalslot == 0 && vc1 == 6) dmr_sbrc(opts, state, power);
             if (internalslot == 1 && vc2 == 6) dmr_sbrc(opts, state, power);
 
-            cach_err = dmr_cach(opts, state, cachdata);
-            if (opts->payload == 0) fprintf(stderr, "\n");
-
             // run alg refresh after vc6 ambe processing
             if (internalslot == 0 && vc1 == 6) dmr_alg_refresh(opts, state);
             if (internalslot == 1 && vc2 == 6) dmr_alg_refresh(opts, state);
 
-            dmr_late_entry_mi_fragment(opts, state, vc, m1, m2, m3);
-
             //increment the vc counters
             if (internalslot == 0) vc1++;
             if (internalslot == 1) vc2++;
-
-            //update cc amd vc sync time for trunking purposes (particularly Con+)
-            if (opts->p25_is_tuned == 1) {
-                state->last_vc_sync_time = time(NULL);
-                state->last_cc_sync_time = time(NULL);
-            }
-
-            //'DSP' output to file
-            if (opts->use_dsp_output == 1) {
-                FILE *pFile; //file pointer
-                pFile = fopen(opts->dsp_out_file, "a");
-                fprintf(pFile, "\n%d 98 ", internalslot + 1); //'98' is CACH designation value
-                for (i = 0; i < 6; i++) //3 byte CACH
-                {
-                    int cach_byte = (state->dmr_stereo_payload[i * 2] << 2) | state->dmr_stereo_payload[i * 2 + 1];
-                    fprintf(pFile, "%X", cach_byte);
-                }
-                fprintf(pFile, "\n%d 10 ", internalslot + 1); //0x10 for voice burst
-                for (i = 6; i < 72; i++) //33 bytes, no CACH
-                {
-                    int dsp_byte = (state->dmr_stereo_payload[i * 2] << 2) | state->dmr_stereo_payload[i * 2 + 1];
-                    fprintf(pFile, "%X", dsp_byte);
-                }
-                fclose(pFile);
-            }
 
             //reset err checks
             cach_err = 1;
@@ -408,9 +273,9 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
 
         }
 
+        //after 2 consecutive data frames, drop back to getFrameSync and process with dmr_data_sync
         SKIP:
-        if (skipcount > 2) //after 2 consecutive data frames, drop back to getFrameSync and process with dmr_data_sync
-        {
+        if (skipcount > 2) {
             //set tests to all good so we don't get a bogus/redundant voice error
             cach_err = 0;
             tact_okay = 1;
@@ -431,34 +296,6 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
     state->errs2 = 0;
     state->errs2R = 0;
     state->errs2 = 0;
-
-    //close any open MBEout files
-    if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-    if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
-
-    //if we have a tact or emb err, then produce sync pattern/err message
-    if (tact_okay != 1 || emb_ok != 1) {
-
-        fprintf(stderr, "%s ", getTime());
-        fprintf(stderr, "Sync:  DMR                  ");
-        fprintf(stderr, "%s", KRED);
-        fprintf(stderr, "| VOICE CACH/EMB ERR");
-        fprintf(stderr, "%s", KNRM);
-        fprintf(stderr, "\n");
-        //run refresh if either slot had an active MI in it.
-        if (state->payload_algid >= 0x21) {
-            state->currentslot = 0;
-            dmr_alg_refresh(opts, state);
-        }
-        if (state->payload_algidR >= 0x21) {
-            state->currentslot = 1;
-            dmr_alg_refresh(opts, state);
-        }
-
-        //failsafe to reset all data header and blocks when bad tact or emb
-        dmr_reset_blocks(opts, state);
-
-    }
 
 }
 
@@ -495,22 +332,6 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
              19, 5, 20, 21, 22, 6, 23
             };
     //add time to mirror printFrameSync
-    time_t now;
-    char *getTime(void) //get pretty hh:mm:ss timestamp
-    {
-        time_t t = time(NULL);
-
-        char *curr;
-        char *stamp = asctime(localtime(&t));
-
-        curr = strtok(stamp, " ");
-        curr = strtok(NULL, " ");
-        curr = strtok(NULL, " ");
-        curr = strtok(NULL, " ");
-
-        return curr;
-    }
-
     //payload buffer
     //CACH + First Half Payload + Sync = 12 + 54 + 24
     dibit_p = state->dmr_payload_p - 90;
@@ -536,7 +357,8 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
 
     //decode and correct tact and compare
     if (Hamming_7_4_decode(tact_bits)) tact_okay = 1;
-    if (tact_okay != 1) goto END;
+    if (tact_okay != 1)
+        goto END;
 
     internalslot = state->currentslot = tact_bits[1];
 
@@ -583,16 +405,16 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     }
 
     // signaling data or sync, just redo it
-    for (i = 0; i < 24; i++) {
-        dibit = state->dmr_stereo_payload[i + 66];
-        sync[i] = (dibit | 1) + 48;
-    }
-    sync[24] = 0;
+//    for (i = 0; i < 24; i++) {
+//        dibit = state->dmr_stereo_payload[i + 66];
+//        sync[i] = (dibit | 1) + 48;
+//    }
+//    sync[24] = 0;
 
-    if (strcmp(sync, DMR_BS_VOICE_SYNC) != 0) {
-        sync_okay = 0;
-        goto END;
-    }
+//    if (strcmp(sync, DMR_BS_VOICE_SYNC) != 0) {
+//        sync_okay = 0;
+//        goto END;
+//    }
 
     //Continue Second AMBE Frame, 18 after Sync or EmbeddedSignalling
     for (i = 0; i < 18; i++) {
@@ -630,26 +452,6 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
 
     }
 
-    //'DSP' output to file
-    if (opts->use_dsp_output == 1) {
-        FILE *pFile; //file pointer
-        pFile = fopen(opts->dsp_out_file, "a");
-        fprintf(pFile, "\n%d 98 ", internalslot + 1); //'98' is CACH designation value
-        for (i = 0; i < 6; i++) //3 byte CACH
-        {
-            int cach_byte = (state->dmr_stereo_payload[i * 2] << 2) | state->dmr_stereo_payload[i * 2 + 1];
-            fprintf(pFile, "%X", cach_byte);
-        }
-        fprintf(pFile, "\n%d 10 ", internalslot + 1); //0x10 for "voice burst"
-        for (i = 6; i < 72; i++) //33 bytes, no CACH
-        {
-            int dsp_byte = (state->dmr_stereo_payload[i * 2] << 2) | state->dmr_stereo_payload[i * 2 + 1];
-            fprintf(pFile, "%X", dsp_byte);
-        }
-        fclose(pFile);
-    }
-
-    fprintf(stderr, "%s ", getTime());
     char polarity[3];
     char light[18];
 
@@ -669,22 +471,11 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
 
     dmr_alg_reset(opts, state);
 
-    //copy ambe_fr frames first, running process mbe will correct them,
-    //but this also leads to issues extracting good le mi values when
-    //we go to do correction on them there too
-    memcpy(m1, ambe_fr, sizeof(m1));
-    memcpy(m2, ambe_fr2, sizeof(m2));
-    memcpy(m3, ambe_fr3, sizeof(m3));
-
     if (opts->payload == 1) fprintf(stderr, "\n"); //extra line break necessary here
     processMbeFrame(opts, state, ambe_fr);
     processMbeFrame(opts, state, ambe_fr2);
     processMbeFrame(opts, state, ambe_fr3);
 
-    //collect the mi fragment
-    dmr_late_entry_mi_fragment(opts, state, 1, m1, m2, m3);
-
-    cach_err = dmr_cach(opts, state, cachdata);
     if (opts->payload == 0) fprintf(stderr, "\n");
 
     //update voice sync time for trunking purposes (particularly Con+)
@@ -694,7 +485,6 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     END:
     //if we have a tact err, then produce sync pattern/err message
     if (tact_okay != 1 || sync_okay != 1) {
-        fprintf(stderr, "%s ", getTime());
         fprintf(stderr, "Sync:  DMR                  ");
         fprintf(stderr, "%s", KRED);
         fprintf(stderr, "| VOICE CACH/SYNC ERR");

@@ -137,11 +137,6 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
     if (state->currentslot == 0) {
 
-        int pos = 0;
-
-        unsigned char T_Key[256] = {0};
-        unsigned char pN[882] = {0};
-
         state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         state->errs2 = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
@@ -153,131 +148,65 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         unsigned char ks = 0xac;
         unsigned char ls = 0xa3;
         unsigned char ms = 0xa5;
+//        unsigned char is = 0x11;
+//        unsigned char js = 0x11;
+//        unsigned char ks = 0x11;
+//        unsigned char ls = 0x11;
+//        unsigned char ms = 0x11;
         unsigned long long int k1;
-        for (i = is; i < 256; i++) {
-            printf("%x\n", i);
-            for (int j = js; j < 256; j++) {
-                for (int k = ks; k < 256; k++) {
-                    print_time(buffer, tv, i, j, k);
-#pragma omp parallel for
-                    for (int l = ls; l < 256; l++) {
-                        for (int m = ms; m < 256; m++) {
-                            k1 = 0;
-                            k1 |= (unsigned long long) is << 32;
-                            k1 |= (unsigned long long) js << 24;
-                            k1 |= (unsigned long long) ks << 16;
-                            k1 |= (unsigned long long) ls << 8;
-                            k1 |= (unsigned long long) ms;
+//        for (i = is; i < 256; i++) {
+//            printf("%x\n", i);
+//            for (int j = js; j < 256; j++) {
+//                for (int k = ks; k < 256; k++) {
+//                    print_time(buffer, tv, i, j, k);
+//#pragma omp parallel for
+//                    for (int l = ls; l < 256; l++) {
+//                        for (int m = ms; m < 256; m++) {
+        unsigned char T_Key[256] = {0};
+        unsigned char pN[882] = {0};
+        int pos = 0;
+        k1 = 0;
+        k1 |= (unsigned long long) is << 32;
+        k1 |= (unsigned long long) js << 24;
+        k1 |= (unsigned long long) ks << 16;
+        k1 |= (unsigned long long) ls << 8;
+        k1 |= (unsigned long long) ms;
 
-                            k1 = k1 << 24;
+        k1 = k1 << 24;
 
-                            for (i = 0; i < 64; i++) {
-                                T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
-                            }
-
-                            for (i = 0; i < 882; i++) {
-                                pN[i] = T_Key[pos++];
-                                pos = pos % 40;
-                            }
-
-                            pos = (state->DMRvcL) * 49;
-                            for (i = 0; i < 49; i++) {
-                                ambe_d[i] ^= pN[pos];
-                                pos++;
-                            }
-                            state->DMRvcL++;
-
-                            int b0, b1, b2, b3, b4, b5, b6, b7, b8;
-
-                            b0 = 0;
-                            b0 |= ambe_d[0] << 6;
-                            b0 |= ambe_d[1] << 5;
-                            b0 |= ambe_d[2] << 4;
-                            b0 |= ambe_d[3] << 3;
-                            b0 |= ambe_d[37] << 2;
-                            b0 |= ambe_d[38] << 1;
-                            b0 |= ambe_d[39];
-
-                            b1 = 0;
-                            b1 |= ambe_d[4] << 4;
-                            b1 |= ambe_d[5] << 3;
-                            b1 |= ambe_d[6] << 2;
-                            b1 |= ambe_d[7] << 1;
-                            b1 |= ambe_d[35];
-
-                            b2 = 0;
-                            b2 |= ambe_d[8] << 4;
-                            b2 |= ambe_d[9] << 3;
-                            b2 |= ambe_d[10] << 2;
-                            b2 |= ambe_d[11] << 1;
-                            b2 |= ambe_d[36];
-
-                            b3 = 0;
-                            b3 |= ambe_d[12] << 8;
-                            b3 |= ambe_d[13] << 7;
-                            b3 |= ambe_d[14] << 6;
-                            b3 |= ambe_d[15] << 5;
-                            b3 |= ambe_d[16] << 4;
-                            b3 |= ambe_d[17] << 3;
-                            b3 |= ambe_d[18] << 2;
-                            b3 |= ambe_d[19] << 1;
-                            b3 |= ambe_d[40];
-
-                            b4 = 0;
-                            b4 |= ambe_d[20] << 6;
-                            b4 |= ambe_d[21] << 5;
-                            b4 |= ambe_d[22] << 4;
-                            b4 |= ambe_d[23] << 3;
-                            b4 |= ambe_d[41] << 2;
-                            b4 |= ambe_d[42] << 1;
-                            b4 |= ambe_d[43];
-
-                            b5 = 0;
-                            b5 |= ambe_d[24] << 4;
-                            b5 |= ambe_d[25] << 3;
-                            b5 |= ambe_d[26] << 2;
-                            b5 |= ambe_d[27] << 1;
-                            b5 |= ambe_d[44];
-
-                            b6 = 0;
-                            b6 |= ambe_d[28] << 3;
-                            b6 |= ambe_d[29] << 2;
-                            b6 |= ambe_d[30] << 1;
-                            b6 |= ambe_d[45];
-
-                            b7 = 0;
-                            b7 |= ambe_d[31] << 3;
-                            b7 |= ambe_d[32] << 2;
-                            b7 |= ambe_d[33] << 1;
-                            b7 |= ambe_d[46];
-
-                            b8 = 0;
-                            b8 |= ambe_d[34] << 2;
-                            b8 |= ambe_d[47] << 1;
-                            b8 |= ambe_d[48];
-
-//    if ((b0 >= 120) && (b0 <= 123)) // if w0 bits are 1111000, 1111001, 1111010 or 1111011, frame is erasure
-//    } else if ((b0 == 124) || (b0 == 125)) // if w0 bits are 1111100 or 1111101, frame is silence
-//    } else if ((b0 == 126) || (b0 == 127)) // if w0 bits are 1111110 or 1111111, frame is tone
-
-                            fprintf(stderr, "\n%d, %d, %d, %d, %d, %d, %d, %d, %d", b0, b1, b2, b3, b4, b5, b6, b7, b8);
-
-                        }
-                    }
-                }
-            }
+        for (i = 0; i < 64; i++) {
+            T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
         }
 
-//        PrintAMBEData(opts, state, PrintAMBEData);
+        for (i = 0; i < 882; i++) {
+            pN[i] = T_Key[pos++];
+            pos = pos % 40;
+        }
 
-        mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str, ambe_d,
-                                 state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+        pos = (state->DMRvcL) * 49;
+        for (i = 0; i < 49; i++) {
+            ambe_d[i] ^= pN[pos];
+            pos++;
+        }
+        state->DMRvcL++;
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
-        state->debug_audio_errors += state->errs2;
+        int errs  = 0;
+        int errs2 = 0;
+        char err_str[64];
+        memset(err_str, 0, 64 * sizeof(char));
+
+        mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &errs, &errs2, err_str, ambe_d,
+                                 state->cur_mp, state->prev_mp, state->prev_mp, 1);
+
 //            if (opts->audio_out == 1 && state->audioCount >= 7 * 10 && state->audioCount <= 7 * 15) {
         if (opts->audio_out == 1) {
             processAudio(opts, state);
-            writeSynthesizedVoice(opts, state);
+//            writeSynthesizedVoice(opts, state);
             playSynthesizedVoice(opts, state);
         }
 //        state->sample_count++;

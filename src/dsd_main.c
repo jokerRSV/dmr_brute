@@ -445,8 +445,8 @@ initOpts(dsd_opts *opts) {
     opts->audio_out_fdR = -1;
 
     opts->split = 0;
-    opts->playoffset = 0;
-    opts->playoffsetR = 0;
+//    opts->playoffset = 0;
+//    opts->playoffsetR = 0;
     opts->mbe_out_dir[0] = 0;
     opts->mbe_out_file[0] = 0;
     opts->mbe_out_fileR[0] = 0; //second slot on a TDMA system
@@ -2344,8 +2344,8 @@ main(int argc, char **argv) {
 
     if (opts.playfiles == 1) {
         opts.split = 1;
-        opts.playoffset = 0;
-        opts.playoffsetR = 0;
+//        opts.playoffset = 0;
+//        opts.playoffsetR = 0;
         opts.delay = 0;
 
         //open wav file should be handled directly by the -w switch now
@@ -2363,8 +2363,8 @@ main(int argc, char **argv) {
         //this particular if-elseif-else could be rewritten to be a lot neater and simpler
     else if (strcmp(opts.audio_in_dev, opts.audio_out_dev) != 0) {
         opts.split = 1;
-        opts.playoffset = 0;
-        opts.playoffsetR = 0;
+//        opts.playoffset = 0;
+//        opts.playoffsetR = 0;
         opts.delay = 0;
 
         //open wav file should be handled directly by the -w switch now
@@ -2378,8 +2378,8 @@ main(int argc, char **argv) {
         // fprintf (stderr,"Press CTRL + C to close.\n");
     } else {
         opts.split = 0;
-        opts.playoffset = 0; //not sure what the playoffset actually does for us
-        opts.playoffsetR = 0;
+//        opts.playoffset = 0; //not sure what the playoffset actually does for us
+//        opts.playoffsetR = 0;
         opts.delay = 0;
         openAudioInDevice(&opts);
         // opts.audio_out_fd = opts.audio_in_fd; //not sure that this really does much anymore, other than cause problems

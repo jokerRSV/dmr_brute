@@ -21,30 +21,6 @@
 #define NULL 0
 #endif
 
-void
-printFrameInfo(dsd_opts *opts, dsd_state *state) {
-
-    int level;
-
-    level = (int) state->max / 164;
-    if (opts->verbose > 0) {
-        //fprintf (stderr,"inlvl: %2i%% ", level);
-    }
-    if (state->nac != 0) {
-        fprintf(stderr, "%s", KCYN);
-        fprintf(stderr, "nac: [%4X] ", state->nac);
-        fprintf(stderr, "%s", KNRM);
-    }
-
-    if (opts->verbose > 1) {
-        fprintf(stderr, "%s", KGRN);
-        fprintf(stderr, "src: [%8i] ", state->lastsrc);
-        fprintf(stderr, "%s", KNRM);
-    }
-    fprintf(stderr, "%s", KGRN);
-    fprintf(stderr, "tg: [%5i] ", state->lasttg);
-    fprintf(stderr, "%s", KNRM);
-}
 
 void
 processFrame(dsd_opts *opts, dsd_state *state) {
@@ -52,7 +28,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     int i, j, dibit;
     char duid[3];
     char nac[13];
-    int level;
 
     char status_0;
     char bch_code[63];
@@ -99,34 +74,28 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         else if (state->dmr_mfid == 0x58)
             sprintf(state->dmr_branding, "%s", "    Tait");
 
-        //disabling these due to random data decodes setting an odd mfid, could be legit, but only for that one packet?
-        //or, its just a decode error somewhere
-         else if (state->dmr_mfid == 0x20) sprintf (state->dmr_branding, "%s", "JVC Kenwood");
-         else if (state->dmr_mfid == 0x04) sprintf (state->dmr_branding, "%s", "Flyde Micro");
-         else if (state->dmr_mfid == 0x05) sprintf (state->dmr_branding, "%s", "PROD-EL SPA");
-         else if (state->dmr_mfid == 0x06) sprintf (state->dmr_branding, "%s", "Motorola"); //trident/moto con+
-         else if (state->dmr_mfid == 0x07) sprintf (state->dmr_branding, "%s", "RADIODATA");
-         else if (state->dmr_mfid == 0x08) sprintf (state->dmr_branding, "%s", "Hytera");
-         else if (state->dmr_mfid == 0x09) sprintf (state->dmr_branding, "%s", "ASELSAN");
-         else if (state->dmr_mfid == 0x0A) sprintf (state->dmr_branding, "%s", "Kirisun");
-         else if (state->dmr_mfid == 0x0B) sprintf (state->dmr_branding, "%s", "DMR Association");
-         else if (state->dmr_mfid == 0x13) sprintf (state->dmr_branding, "%s", "EMC S.P.A.");
-         else if (state->dmr_mfid == 0x1C) sprintf (state->dmr_branding, "%s", "EMC S.P.A.");
-         else if (state->dmr_mfid == 0x33) sprintf (state->dmr_branding, "%s", "Radio Activity");
-         else if (state->dmr_mfid == 0x3C) sprintf (state->dmr_branding, "%s", "Radio Activity");
-         else if (state->dmr_mfid == 0x77) sprintf (state->dmr_branding, "%s", "Vertex Standard");
+            //disabling these due to random data decodes setting an odd mfid, could be legit, but only for that one packet?
+            //or, its just a decode error somewhere
+        else if (state->dmr_mfid == 0x20) sprintf(state->dmr_branding, "%s", "JVC Kenwood");
+        else if (state->dmr_mfid == 0x04) sprintf(state->dmr_branding, "%s", "Flyde Micro");
+        else if (state->dmr_mfid == 0x05) sprintf(state->dmr_branding, "%s", "PROD-EL SPA");
+        else if (state->dmr_mfid == 0x06) sprintf(state->dmr_branding, "%s", "Motorola"); //trident/moto con+
+        else if (state->dmr_mfid == 0x07) sprintf(state->dmr_branding, "%s", "RADIODATA");
+        else if (state->dmr_mfid == 0x08) sprintf(state->dmr_branding, "%s", "Hytera");
+        else if (state->dmr_mfid == 0x09) sprintf(state->dmr_branding, "%s", "ASELSAN");
+        else if (state->dmr_mfid == 0x0A) sprintf(state->dmr_branding, "%s", "Kirisun");
+        else if (state->dmr_mfid == 0x0B) sprintf(state->dmr_branding, "%s", "DMR Association");
+        else if (state->dmr_mfid == 0x13) sprintf(state->dmr_branding, "%s", "EMC S.P.A.");
+        else if (state->dmr_mfid == 0x1C) sprintf(state->dmr_branding, "%s", "EMC S.P.A.");
+        else if (state->dmr_mfid == 0x33) sprintf(state->dmr_branding, "%s", "Radio Activity");
+        else if (state->dmr_mfid == 0x3C) sprintf(state->dmr_branding, "%s", "Radio Activity");
+        else if (state->dmr_mfid == 0x77) sprintf(state->dmr_branding, "%s", "Vertex Standard");
 
         //disable so radio id doesn't blink in and out during ncurses and aggressive_framesync
         state->nac = 0;
 
-        if (opts->errorbars == 1) {
-            if (opts->verbose > 0) {
-                level = (int) state->max / 164;
-                //fprintf (stderr,"inlvl: %2i%% ", level);
-            }
-        }
-        if ((state->synctype == 11) || (state->synctype == 12) || (state->synctype == 32)) //DMR Voice Modes
-        {
+        //DMR Voice Modes
+        if ((state->synctype == 11) || (state->synctype == 12) || (state->synctype == 32)) {
 
             sprintf(state->fsubtype, " VOICE        ");
             if (opts->dmr_stereo == 0 && state->synctype < 32) {
@@ -141,17 +110,14 @@ processFrame(dsd_opts *opts, dsd_state *state) {
                 if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) openMbeOutFile(opts, state);
                 if (opts->p25_trunk == 0) dmrMSBootstrap(opts, state);
             }
-            if (opts->dmr_stereo == 1) //opts->dmr_stereo == 1
-            {
+            //opts->dmr_stereo == 1
+            if (opts->dmr_stereo == 1) {
                 state->dmr_stereo = 1; //set the state to 1 when handling pure voice frames
-                if (state->synctype > 31) {
-                    //we can safely open MBE on any MS or mono handling
-                    if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) openMbeOutFile(opts, state);
-                    if (opts->p25_trunk == 0) dmrMSBootstrap(opts, state); //bootstrap into MS Bootstrap (voice only)
-                } else dmrBSBootstrap(opts, state); //bootstrap into BS Bootstrap
+                if (state->synctype <= 31)
+                    dmrBSBootstrap(opts, state); //bootstrap into BS Bootstrap
             }
-        } else if ((state->synctype == 33) || (state->synctype == 34)) //MS Data and RC data
-        {
+            //MS Data and RC data
+        } else if ((state->synctype == 33) || (state->synctype == 34)) {
             if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
             if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
             if (opts->p25_trunk == 0) dmrMSData(opts, state);
@@ -210,11 +176,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         state->nac = 0;
         state->lastsrc = 0;
         state->lasttg = 0;
-        if (opts->errorbars == 1) {
-            if (opts->verbose > 0) {
-                level = (int) state->max / 164;
-            }
-        }
         state->nac = 0;
 
         if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) {
@@ -321,20 +282,4 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         }
     }
 
-    if (strcmp(duid, "00") == 0) {
-    } else if (strcmp(duid, "11") == 0) {
-    } else if (strcmp(duid, "22") == 0) {
-    } else if (strcmp(duid, "33") == 0) {
-    } else if (strcmp(duid, "03") == 0) {
-    } else if (strcmp(duid, "13") == 0) {
-    } else if (strcmp(duid, "30") == 0) {
-    } else {
-        state->lastp25type = 0;
-        sprintf(state->fsubtype, "              ");
-        if (opts->errorbars == 1) {
-            printFrameInfo(opts, state);
-            // fprintf (stderr," duid:%s *Unknown DUID*\n", duid);
-            fprintf(stderr, " duid:%s \n", duid); //DUID ERR
-        }
-    }
 }
