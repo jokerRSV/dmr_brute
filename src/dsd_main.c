@@ -1193,8 +1193,6 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
             }
         }
     }
-    int ii = fclose(pFile);
-    fprintf (stderr, "exit11111 %d ", ii);
 }
 
 void cleanupAndExit(dsd_opts *opts, dsd_state *state) {
@@ -2352,7 +2350,7 @@ main(int argc, char **argv) {
 
     liveScanner(&opts, &state);
 
-    cleanupAndExit(&opts, &state);
+//    cleanupAndExit(&opts, &state);
 
     return (0);
 }
