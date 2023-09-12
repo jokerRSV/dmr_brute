@@ -200,6 +200,7 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     sprintf(state->ftype, "             ");
     state->errs = 0;
     state->audio_count = 0;
+    state->ambe_count = 0;
     state->errs2 = 0;
 
     //zero out right away if not trunking

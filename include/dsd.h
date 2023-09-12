@@ -398,6 +398,7 @@ typedef struct {
     unsigned char ambe_d[500][49];
 
     int audio_count;
+    int ambe_count;
     int errs;
     int errs2;
     int sample_count;

@@ -127,32 +127,38 @@ void print_time(char *buffer, struct timeval tv, int i, int j, int k) {
 }
 
 void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
+    int i;
+    unsigned char ambe_d[49];
 
-    if (state->currentslot == 0 && state->audio_count >= 5 && state->audio_count <= 25) {
-        int i;
-        unsigned char ambe_d[49];
-        state->DMRvcL++;
+    for (i = 0; i < 49; i++) {
+        ambe_d[i] = 0;
+    }
 
-        for (i = 0; i < 49; i++) {
-            ambe_d[i] = 0;
-        }
+    if (state->DMRvcL > 17) {
+        state->DMRvcL = 17; //18
+    }
+    state->DMRvcL++;
+    if (state->currentslot == 0 && state->audio_count >= 30 && state->audio_count <= 60) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
 
         for (int j = 0; j < 49; ++j) {
-            state->ambe_d[state->audio_count][j] = ambe_d[j];
+            state->ambe_d[state->ambe_count][j] = ambe_d[j];
         }
-        state->cur_mp_store[state->audio_count] = state->cur_mp;
-        state->prev_mp_store[state->audio_count] = state->prev_mp;
+        state->cur_mp_store[state->ambe_count] = state->cur_mp;
+        state->prev_mp_store[state->ambe_count] = state->prev_mp;
+        //sanity check
+        state->ambe_count++;
     }
 
-    if (state->audio_count == 7 * 50) {
+    if (state->audio_count == 7 * 10) {
         int errs = 0;
         int errs2 = 0;
         char err_str[64];
         memset(err_str, 0, 64 * sizeof(char));
         state->DMRvcL = 0;
-        for (int j = 0; j < state->audio_count; ++j) {
+
+        for (int j = 0; j < state->ambe_count; ++j) {
             unsigned char is = 0x1a;
             unsigned char js = 0xe2;
             unsigned char ks = 0xac;
@@ -180,7 +186,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
             //sanity check
             if (state->DMRvcL > 17) {
-                state->DMRvcL = 17; //18
+                state->DMRvcL = 0; //18
             }
 
             pos = (state->DMRvcL) * 49;
@@ -190,13 +196,11 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
             }
             state->DMRvcL++;
 
-            mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &errs, &errs2, err_str,
-                                     state->ambe_d[j], state->cur_mp_store[j], state->prev_mp_store[j],
+            mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &errs, &errs2, err_str, state->ambe_d[j],
+                                     state->cur_mp_store[j], state->prev_mp_store[j],
                                      state->prev_mp_store[j], 1);
             processAudio(opts, state);
-//            writeSynthesizedVoiceR(opts, state);
             playSynthesizedVoice(opts, state);
-
         }
     }
     state->audio_count++;
