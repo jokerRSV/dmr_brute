@@ -147,6 +147,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         }
         state->cur_mp_store[state->ambe_count] = state->cur_mp;
         state->prev_mp_store[state->ambe_count] = state->prev_mp;
+        state->DMRvcL_p[state->ambe_count] = state->DMRvcL * 49;
         //sanity check
         state->ambe_count++;
     }
@@ -184,17 +185,12 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                 pos = pos % 40;
             }
 
-            //sanity check
-            if (state->DMRvcL > 17) {
-                state->DMRvcL = 0; //18
-            }
-
-            pos = (state->DMRvcL) * 49;
+            pos = state->DMRvcL_p[j];
             for (int i = 0; i < 49; i++) {
                 state->ambe_d[j][i] ^= pN[pos];
                 pos++;
             }
-            state->DMRvcL++;
+//            state->DMRvcL++;
 
             mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &errs, &errs2, err_str, state->ambe_d[j],
                                      state->cur_mp_store[j], state->prev_mp_store[j],

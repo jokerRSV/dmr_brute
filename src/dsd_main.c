@@ -757,6 +757,9 @@ initState(dsd_state *state) {
     for (int k = 0; k < 500; ++k) {
         state->cur_mp2_store[k] = malloc(sizeof(mbe_parms));
     }
+    for (int k = 0; k < 500; ++k) {
+        state->DMRvcL_p[k] = 0;
+    }
     state->prev_mp2 = malloc(sizeof(mbe_parms));
     for (int k = 0; k < 500; ++k) {
         state->prev_mp2_store[k] = malloc(sizeof(mbe_parms));

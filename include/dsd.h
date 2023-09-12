@@ -385,6 +385,8 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    int DMRvcL;
+    int DMRvcL_p[500];
     mbe_parms *cur_mp;
     mbe_parms *prev_mp;
     mbe_parms *prev_mp_enhanced;
@@ -402,7 +404,6 @@ typedef struct {
     int errs;
     int errs2;
     int sample_count;
-    int DMRvcL;
     int pos;
     int *dibit_buf;
     int *dibit_buf_p;
