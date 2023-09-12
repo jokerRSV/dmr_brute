@@ -199,7 +199,7 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     sprintf(state->fsubtype, "              ");
     sprintf(state->ftype, "             ");
     state->errs = 0;
-    state->audioCount = 0;
+    state->audio_count = 0;
     state->errs2 = 0;
 
     //zero out right away if not trunking
@@ -704,6 +704,12 @@ initState(dsd_state *state) {
     state->lastp25type = 0;
     state->offset = 0;
     state->carrier = 0;
+    for (i = 0; i < 500; i++) {
+        for (j = 0; j < 49; j++) {
+            state->ambe_d[i][j] = 0;
+        }
+    }
+    state->ambe_d_count = 0;
     for (i = 0; i < 25; i++) {
         for (j = 0; j < 16; j++) {
             state->tg[i][j] = 48;
@@ -743,7 +749,19 @@ initState(dsd_state *state) {
     state->prev_mp_enhanced = malloc(sizeof(mbe_parms));
 
     state->cur_mp2 = malloc(sizeof(mbe_parms));
+    for (int k = 0; k < 500; ++k) {
+        state->cur_mp2_store[k] = malloc(sizeof(mbe_parms));
+    }
+    for (int k = 0; k < 500; ++k) {
+        state->cur_mp_store[k] = malloc(sizeof(mbe_parms));
+    }
     state->prev_mp2 = malloc(sizeof(mbe_parms));
+    for (int k = 0; k < 500; ++k) {
+        state->prev_mp2_store[k] = malloc(sizeof(mbe_parms));
+    }
+    for (int k = 0; k < 500; ++k) {
+        state->prev_mp_store[k] = malloc(sizeof(mbe_parms));
+    }
     state->prev_mp_enhanced2 = malloc(sizeof(mbe_parms));
 
     mbe_initMbeParms(state->cur_mp, state->prev_mp, state->prev_mp_enhanced);

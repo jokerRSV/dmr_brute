@@ -385,7 +385,20 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
-    int audioCount;
+    mbe_parms *cur_mp;
+    mbe_parms *prev_mp;
+    mbe_parms *prev_mp_enhanced;
+    mbe_parms *cur_mp2;
+    mbe_parms *cur_mp2_store[500];
+    mbe_parms *cur_mp_store[500];
+    mbe_parms *prev_mp2;
+    mbe_parms *prev_mp2_store[500];
+    mbe_parms *prev_mp_store[500];
+    mbe_parms *prev_mp_enhanced2;
+    unsigned char ambe_d[500][49];
+    int ambe_d_count;
+
+    int audio_count;
     int errs;
     int errs2;
     int sample_count;
@@ -470,12 +483,6 @@ typedef struct {
     char keyid[17];
     int currentslot;
     int hardslot;
-    mbe_parms *cur_mp;
-    mbe_parms *prev_mp;
-    mbe_parms *prev_mp_enhanced;
-    mbe_parms *cur_mp2;
-    mbe_parms *prev_mp2;
-    mbe_parms *prev_mp_enhanced2;
     int p25kid;
     int payload_algid;
     int payload_algidR;

@@ -250,8 +250,10 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             if (internalslot == 1 && vc2 == 6) dmr_sbrc(opts, state, power);
 
             // run alg refresh after vc6 ambe processing
-            if (internalslot == 0 && vc1 == 6) dmr_alg_refresh(opts, state);
-            if (internalslot == 1 && vc2 == 6) dmr_alg_refresh(opts, state);
+            if (internalslot == 0 && vc1 == 6)
+                dmr_alg_refresh(opts, state);
+            if (internalslot == 1 && vc2 == 6)
+                dmr_alg_refresh(opts, state);
 
             //increment the vc counters
             if (internalslot == 0) vc1++;
