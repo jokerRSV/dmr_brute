@@ -1,2 +1,2 @@
-#define _GIT_TAG "v2.1-46-g2714b12"
+#define _GIT_TAG "v2.1-48-g88789f6"
 const char GIT_TAG[] = _GIT_TAG;

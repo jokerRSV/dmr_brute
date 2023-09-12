@@ -134,22 +134,17 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         ambe_d[i] = 0;
     }
 
-    if (state->DMRvcL > 17) {
-        state->DMRvcL = 17; //18
-    }
-    state->DMRvcL++;
     if (state->currentslot == 0 && state->audio_count >= 30 && state->audio_count <= 60) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
-
         for (int j = 0; j < 49; ++j) {
             state->ambe_d[state->ambe_count][j] = ambe_d[j];
         }
         state->cur_mp_store[state->ambe_count] = state->cur_mp;
         state->prev_mp_store[state->ambe_count] = state->prev_mp;
         state->DMRvcL_p[state->ambe_count] = state->DMRvcL * 49;
-        //sanity check
         state->ambe_count++;
+        state->DMRvcL++;
     }
 
     if (state->audio_count == 7 * 10) {
@@ -190,7 +185,6 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                 state->ambe_d[j][i] ^= pN[pos];
                 pos++;
             }
-//            state->DMRvcL++;
 
             mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &errs, &errs2, err_str, state->ambe_d[j],
                                      state->cur_mp_store[j], state->prev_mp_store[j],
