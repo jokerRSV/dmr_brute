@@ -1153,10 +1153,9 @@ usage() {
 void
 liveScanner(dsd_opts *opts, dsd_state *state) {
 
-    char *file_name = "coef.txt";
+    char *file_name = "coef_file.txt";
 
-    FILE *pFile;
-    pFile = fopen(file_name, "a");
+    opts->coef_file = fopen(file_name, "a");
 
     if (opts->audio_out_type == 0) {
         // openPulseInput(opts); //test to see if we still randomly hang up in ncurses and tcp input if we open this and leave it opened
@@ -1176,7 +1175,7 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
 
 
         while (state->synctype != -1) {
-            processFrame(opts, state, pFile);
+            processFrame(opts, state);
 
             // state->synctype = getFrameSync (opts, state);
 
@@ -1197,6 +1196,9 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
 
 void cleanupAndExit(dsd_opts *opts, dsd_state *state) {
     noCarrier(opts, state);
+    if (opts->coef_file != NULL) {
+        fclose(opts->coef_file);
+    }
     if (opts->wav_out_f != NULL) {
         closeWavOutFile(opts, state);
     }

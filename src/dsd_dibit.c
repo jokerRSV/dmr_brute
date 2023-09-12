@@ -155,7 +155,7 @@ static int digitize(dsd_state *state, int symbol) {
 }
 
 int
-get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state, int *out_analog_signal) {
+get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state) {
     int symbol;
     int dibit;
 
@@ -172,7 +172,7 @@ get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state, int *out_analog_si
  */
 int
 getDibit(dsd_opts *opts, dsd_state *state) {
-    return get_dibit_and_analog_signal(opts, state, NULL);
+    return get_dibit_and_analog_signal(opts, state);
 }
 
 void

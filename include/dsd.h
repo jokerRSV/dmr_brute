@@ -180,6 +180,7 @@ typedef struct {
     int onesymbol;
     char mbe_in_file[1024];
     FILE *mbe_in_f;
+    FILE *coef_file;
     int errorbars;
     int datascope;
     int symboltiming;
@@ -802,6 +803,8 @@ void processAudioR(dsd_opts *opts, dsd_state *state);
 void openPulseInput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 void openPulseOutput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 
+void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
+
 void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 
 void playSynthesizedVoice(dsd_opts *opts, dsd_state *state);
@@ -814,7 +817,7 @@ void openAudioInDevice(dsd_opts *opts);
 
 int getDibit(dsd_opts *opts, dsd_state *state);
 
-int get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state, int *out_analog_signal);
+int get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state);
 
 void skipDibit(dsd_opts *opts, dsd_state *state, int count);
 
@@ -844,7 +847,7 @@ void closeWavOutFileRaw(dsd_opts *opts, dsd_state *state);
 
 //void printFrameInfo(dsd_opts *opts, dsd_state *state);
 
-void processFrame(dsd_opts *opts, dsd_state *state, FILE *pFile);
+void processFrame(dsd_opts *opts, dsd_state *state);
 
 void printFrameSync(dsd_opts *opts, dsd_state *state, char *frametype, int offset, char *modulation);
 
@@ -867,7 +870,7 @@ void cleanupAndExit(dsd_opts *opts, dsd_state *state);
 // void sigfun (int sig); //not necesary
 int main(int argc, char **argv);
 
-void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24], FILE *pFile);
+void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]);
 
 void openSerial(dsd_opts *opts, dsd_state *state);
 
@@ -955,9 +958,9 @@ void dmr_embedded_alias_blocks(dsd_opts *opts, dsd_state *state, uint8_t lc_bits
 void dmr_embedded_gps(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[]);
 
 //"DMR STEREO"
-void dmrBSBootstrap(dsd_opts *opts, dsd_state *state, FILE *pFile);
+void dmrBSBootstrap(dsd_opts *opts, dsd_state *state);
 
-void dmrBS(dsd_opts *opts, dsd_state *state, FILE *pFile);
+void dmrBS(dsd_opts *opts, dsd_state *state);
 
 void dmrMS(dsd_opts *opts, dsd_state *state);
 

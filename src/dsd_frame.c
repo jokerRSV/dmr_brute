@@ -23,7 +23,7 @@
 
 
 void
-processFrame(dsd_opts *opts, dsd_state *state, FILE *pFile) {
+processFrame(dsd_opts *opts, dsd_state *state) {
 
     int i, j, dibit;
     char duid[3];
@@ -114,7 +114,7 @@ processFrame(dsd_opts *opts, dsd_state *state, FILE *pFile) {
             if (opts->dmr_stereo == 1) {
                 state->dmr_stereo = 1; //set the state to 1 when handling pure voice frames
                 if (state->synctype <= 31)
-                    dmrBSBootstrap(opts, state, pFile); //bootstrap into BS Bootstrap
+                    dmrBSBootstrap(opts, state); //bootstrap into BS Bootstrap
             }
             //MS Data and RC data
         } else if ((state->synctype == 33) || (state->synctype == 34)) {

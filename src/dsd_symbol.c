@@ -60,158 +60,24 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
             state->jitter = -1;
         }
 
-        // Read the new sample from the input
-        if (opts->audio_in_type == 0) //pulse audio
-        {
-            pa_simple_read(opts->pulse_digi_dev_in, &sample, 2, NULL);
-        } else if (opts->audio_in_type == 5) //OSS
-        {
-            read(opts->audio_in_fd, &sample, 2);
+
+        result = sf_read_short(opts->audio_in_file, &sample, 1);
+        if (result == 0) {
+            sf_close(opts->audio_in_file);
+            fprintf(stderr, "\n\nEnd of .wav file.\n");
+            cleanupAndExit(opts, state);
+//            int ii = fclose(pFile);
+//            fprintf (stderr, "exit11111 %d ", ii);
+
         }
 
-            //stdin only, wav files moving to new number
-        else if (opts->audio_in_type == 1) //won't work in windows, needs posix pipe (mintty)
-        {
-            result = sf_read_short(opts->audio_in_file, &sample, 1);
-            if (result == 0) {
-                sf_close(opts->audio_in_file);
-                cleanupAndExit(opts, state);
-            }
-        }
-            //wav files, same but using seperate value so we can still manipulate ncurses menu
-            //since we can not worry about getch/stdin conflict
-        else if (opts->audio_in_type == 2) {
-            result = sf_read_short(opts->audio_in_file, &sample, 1);
-            if (result == 0) {
-
-                sf_close(opts->audio_in_file);
-                fprintf(stderr, "\n\nEnd of .wav file.\n");
-                //open pulse input if we are pulse output AND using ncurses terminal
-                if (opts->audio_out_type == 0 && opts->use_ncurses_terminal == 1) {
-                    opts->audio_in_type = 0; //set input type
-                    openPulseInput(opts); //open pulse input
-                }
-                    //else cleanup and exit
-                else {
-                    cleanupAndExit(opts, state);
-                }
-            }
-        } else if (opts->audio_in_type == 3) {
-#ifdef USE_RTLSDR
-            // TODO: need to read demodulated stream here
-            // get_rtlsdr_sample(&sample);
-            get_rtlsdr_sample(&sample, opts, state);
-            if (opts->monitor_input_audio == 1 && state->lastsynctype == -1 && sample < 32767 && sample > -32767) {
-                state->pulse_raw_out_buffer = sample; //steal raw out buffer sample here?
-                pa_simple_write(opts->pulse_raw_dev_out, (void *) &state->pulse_raw_out_buffer, 2, NULL);
-            }
-            opts->rtl_rms = rtl_return_rms();
-
-#endif
-        }
-
-            //tcp socket input from SDR++ -- now with 1 retry if connection is broken
-        else if (opts->audio_in_type == 8) {
-            result = sf_read_short(opts->tcp_file_in, &sample, 1);
-            if (result == 0) {
-                fprintf(stderr, "\nConnection to TCP Server Interrupted. Trying again in 3 seconds.\n");
-                sample = 0;
-                sf_close(opts->tcp_file_in); //close current connection on this end
-                sleep(3); //halt all processing and wait 3 seconds
-
-                //attempt to reconnect to socket
-                opts->tcp_sockfd = 0;
-                opts->tcp_sockfd = Connect(opts->tcp_hostname, opts->tcp_portno);
-                if (opts->tcp_sockfd != 0) {
-                    //reset audio input stream
-                    opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
-                    opts->audio_in_file_info->samplerate = opts->wav_sample_rate;
-                    opts->audio_in_file_info->channels = 1;
-                    opts->audio_in_file_info->seekable = 0;
-                    opts->audio_in_file_info->format = SF_FORMAT_RAW | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
-                    opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
-
-                    if (opts->tcp_file_in == NULL) {
-                        fprintf(stderr, "Error, couldn't Reconnect to TCP with libsndfile: %s\n", sf_strerror(NULL));
-                    } else fprintf(stderr, "TCP Socket Reconnected Successfully.\n");
-                } else fprintf(stderr, "TCP Socket Connection Error.\n");
-
-                //now retry reading sample
-                result = sf_read_short(opts->tcp_file_in, &sample, 1);
-                if (result == 0) {
-                    sf_close(opts->tcp_file_in);
-                    opts->audio_in_type = 0; //set input type
-                    opts->tcp_sockfd = 0; //added this line so we will know if it connected when using ncurses terminal keyboard shortcut
-                    openPulseInput(opts); //open pulse inpput
-                    sample = 0; //zero sample on bad result, keep the ball rolling
-                    fprintf(stderr, "Connection to TCP Server Disconnected.\n");
-                }
-
-            }
-        }
-
-        //tcp socket input from SDR++ -- old method to open pulse or quit right away
-        // else if (opts->audio_in_type == 8)
-        // {
-        //   result = sf_read_short(opts->tcp_file_in, &sample, 1);
-        //   if(result == 0) {
-
-        //     fprintf (stderr, "Connection to TCP Server Disconnected.\n");
-        //     //open pulse input if we are pulse output AND using ncurses terminal
-        //     if (opts->audio_out_type == 0 && opts->use_ncurses_terminal == 1)
-        //     {
-        //       opts->audio_in_type = 0; //set input type
-        //       openPulseInput(opts); //open pulse input
-        //     }
-        //     //else cleanup and exit
-        //     else cleanupAndExit(opts, state);
-
-        //   }
-        // }
-
-        //UDP Socket input...not working correct. Reads samples, but no sync
-        // else if (opts->audio_in_type == 6)
-        // {
-        //I think this doesn't get the entire dgram when we run sf_read_short on the udp dgram
-        // result = sf_read_short(opts->udp_file_in, &sample, 1);
-        // if (sample != 0)
-        //   fprintf (stderr, "Result = %d Sample = %d \n", result, sample);
-        // }
 
         if (opts->use_cosine_filter) {
             if ((state->lastsynctype >= 10 && state->lastsynctype <= 13) || state->lastsynctype == 32 ||
                 state->lastsynctype == 33 || state->lastsynctype == 34) {
                 sample = dmr_filter(sample);
-            } else if (state->lastsynctype == 8 || state->lastsynctype == 9 ||
-                       state->lastsynctype == 16 || state->lastsynctype == 17 ||
-                       state->lastsynctype == 20 || state->lastsynctype == 21 ||
-                       state->lastsynctype == 22 || state->lastsynctype == 23 ||
-                       state->lastsynctype == 24 || state->lastsynctype == 25 ||
-                       state->lastsynctype == 26 || state->lastsynctype == 27 ||
-                       state->lastsynctype == 28 || state->lastsynctype == 29) //||
-                //state->lastsynctype == 35 || state->lastsynctype == 36) //phase 2 C4FM disc tap input
-            {
-                //if(state->samplesPerSymbol == 20)
-                if (opts->frame_nxdn48 == 1) {
-                    sample = nxdn_filter(sample);
-                }
-                    //else if (state->lastsynctype >= 20 && state->lastsynctype <=27) //this the right range?
-                else if (opts->frame_dpmr == 1) {
-                    sample = dpmr_filter(sample);
-                } else if (state->samplesPerSymbol == 8) //phase 2 cqpsk
-                {
-                    //sample = dmr_filter(sample); //work on filter later
-                } else // the 12.5KHz NXDN filter is the same as the DMR filter...hopefully
-                {
-                    sample = dmr_filter(sample);
-                }
+                // phase 2 C4FM disc tap input
             }
-        }
-
-        if ((sample > state->max) && (have_sync == 1) && (state->rf_mod == 0)) {
-            sample = state->max;
-        } else if ((sample < state->min) && (have_sync == 1) && (state->rf_mod == 0)) {
-            sample = state->min;
         }
 
         if (sample > state->center) {
@@ -284,14 +150,6 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
                     count++;
                 }
 
-#ifdef TRACE_DSD
-                if (i == state->symbolCenter - 1) {
-                    state->debug_sample_left_edge = state->debug_sample_index - 1;
-                }
-                if (i == state->symbolCenter + 2) {
-                    state->debug_sample_right_edge = state->debug_sample_index - 1;
-                }
-#endif
             } else {
                 // 1: QPSK modulation
                 // 2: GFSK modulation
@@ -306,19 +164,8 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
                     count++;
                 }
 
-#ifdef TRACE_DSD
-                //if (i == state->symbolCenter) {
-                if (i == state->symbolCenter - 1) {
-                    state->debug_sample_left_edge = state->debug_sample_index - 1;
-                }
-                if (i == state->symbolCenter + 1) {
-                    state->debug_sample_right_edge = state->debug_sample_index - 1;
-                }
-#endif
             }
         }
-
-
         state->lastsample = sample;
 
     }
@@ -333,91 +180,7 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
         }
     }
 
-#ifdef TRACE_DSD
-    if (state->samplesPerSymbol == 10) {
-        float left, right;
-        if (state->debug_label_file == NULL) {
-            state->debug_label_file = fopen ("pp_label.txt", "w");
-        }
-        left = state->debug_sample_left_edge / SAMPLE_RATE_IN;
-        right = state->debug_sample_right_edge / SAMPLE_RATE_IN;
-        if (state->debug_prefix != '\0') {
-            if (state->debug_prefix == 'I') {
-                fprintf(state->debug_label_file, "%f\t%f\t%c%c %i\n", left, right, state->debug_prefix, state->debug_prefix_2, symbol);
-            } else {
-                fprintf(state->debug_label_file, "%f\t%f\t%c %i\n", left, right, state->debug_prefix, symbol);
-            }
-        } else {
-            fprintf(state->debug_label_file, "%f\t%f\t%i\n", left, right, symbol);
-        }
-    }
-#endif
-
-    //test throttle on wav input files
-    if (opts->audio_in_type == 2) {
-        if (state->use_throttle == 1) usleep(.003); //very environment specific, tuning to cygwin
-    }
-
     //read op25/fme symbol bin files
-    if (opts->audio_in_type == 4) {
-        //use fopen and read in a symbol, check op25 for clues
-        if (opts->symbolfile == NULL) {
-            fprintf(stderr, "Error Opening File %s\n", opts->audio_in_dev); //double check this
-            return (-1);
-        }
-
-        state->symbolc = fgetc(opts->symbolfile);
-
-        //experimental throttle
-        useconds_t stime = state->symbol_throttle;
-        if (state->use_throttle == 1) {
-            // usleep(stime);
-            usleep(.003); //very environment specific, tuning to cygwin
-        }
-        //fprintf(stderr, "%d", state->symbolc);
-        if (feof(opts->symbolfile)) {
-            // opts->audio_in_type = 0; //switch to pulse after playback, ncurses terminal can initiate replay if wanted
-            fclose(opts->symbolfile);
-            fprintf(stderr, "\n\nEnd of .bin file\n");
-            //open pulse input if we are pulse output AND using ncurses terminal
-            if (opts->audio_out_type == 0 && opts->use_ncurses_terminal == 1) {
-                opts->audio_in_type = 0; //set input type
-                openPulseInput(opts); //open pulse input
-            }
-                //else cleanup and exit
-            else {
-                cleanupAndExit(opts, state);
-            }
-        }
-
-        //assign symbol/dibit values based on modulation type
-        if (state->rf_mod == 2) //GFSK
-        {
-            symbol = state->symbolc;
-            if (state->symbolc == 0) {
-                symbol = -3; //-1
-            }
-            if (state->symbolc == 1) {
-                symbol = -1; //-3
-            }
-        } else //everything else
-        {
-            if (state->symbolc == 0) {
-                symbol = 1; //-1
-            }
-            if (state->symbolc == 1) {
-                symbol = 3; //-3
-            }
-            if (state->symbolc == 2) {
-                symbol = -1; //1
-            }
-            if (state->symbolc == 3) {
-                symbol = -3; //3
-            }
-        }
-
-    }
-
     state->symbolcnt++;
     return (symbol);
 }

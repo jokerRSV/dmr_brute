@@ -1084,80 +1084,6 @@ getFrameSync(dsd_opts *opts, dsd_state *state) {
 
             }
 
-#ifdef NXDNOLDSYNC //Use FSW vs strncmperr method
-
-                //NXDN FSW sync and handling - moved to very bottom of sync stack for falsing sanity
-                else if ((opts->frame_nxdn96 == 1) || (opts->frame_nxdn48 == 1))
-                {
-                  strncpy (synctest10, (synctest_p - 9), 10); //FSW only
-                  strncpy (synctest19, (synctest_p - 18), 19); //Preamble + FSW
-
-                  //Preamble plus FSW, proceed right away
-                  if ( (strncmperr (synctest19, NXDN_PANDFSW, 19, 1) == 0) )
-                  {
-                    state->carrier = 1;
-                    state->offset = synctest_pos;
-                    state->max = ((state->max) + lmax) / 2;
-                    state->min = ((state->min) + lmin) / 2;
-                    state->lastsynctype = 28;
-                    state->last_cc_sync_time = time(NULL);
-                    // if (opts->payload == 1) fprintf (stderr, "PANDF ");
-                    // fprintf (stderr, " %s ", synctest19);
-                    return (28);
-                  }
-
-                  else if ( (strncmperr (synctest19, INV_NXDN_PANDFSW, 19, 1) == 0) )
-                  {
-                    state->carrier = 1;
-                    state->offset = synctest_pos;
-                    state->max = ((state->max) + lmax) / 2;
-                    state->min = ((state->min) + lmin) / 2;
-                    state->lastsynctype = 29;
-                    state->last_cc_sync_time = time(NULL);
-                    // if (opts->payload == 1) fprintf (stderr, "PANDF ");
-                    // fprintf (stderr, " %s ", synctest19);
-                    return (29);
-                  }
-
-                  else if ( (strncmperr (synctest10, NXDN_FSW, 10, 1) == 0) )
-                  {
-                    state->carrier = 1;
-                    state->offset = synctest_pos;
-                    state->max = ((state->max) + lmax) / 2;
-                    state->min = ((state->min) + lmin) / 2;
-
-                    if (state->lastsynctype == 28)
-                    {
-                      state->last_cc_sync_time = time(NULL);
-                      // if (opts->payload == 1) fprintf (stderr, "FSW   ");
-                      // fprintf (stderr, " %s ", synctest10);
-                      return (28);
-                    }
-                    state->lastsynctype = 28; //need two consecutive patterns to continue
-
-                  }
-
-                  else if ( (strncmperr (synctest10, INV_NXDN_FSW, 10, 1) == 0) )
-                  {
-                    state->carrier = 1;
-                    state->offset = synctest_pos;
-                    state->max = ((state->max) + lmax) / 2;
-                    state->min = ((state->min) + lmin) / 2;
-
-                    if (state->lastsynctype == 29)
-                    {
-                      state->last_cc_sync_time = time(NULL);
-                      // if (opts->payload == 1) fprintf (stderr, "FSW   ");
-                      // fprintf (stderr, " %s ", synctest10);
-                      return (29);
-                    }
-                    state->lastsynctype = 29; //need two consecutive patterns to continue
-
-                  }
-                }
-
-#else //use Current FSW Pattern
-
                 //NXDN FSW sync and handling - using more exact frame sync values
             else if ((opts->frame_nxdn96 == 1) || (opts->frame_nxdn48 == 1)) {
                 strncpy(synctest10, (synctest_p - 9), 10); //FSW only
@@ -1270,102 +1196,13 @@ getFrameSync(dsd_opts *opts, dsd_state *state) {
                 }
             }
 
-#endif //NXDN Sync Type Selection
-
-            //Provoice Conventional -- Some False Positives due to shortened frame sync pattern, so use squelch if possible
-#ifdef PVCONVENTIONAL
-            if (opts->frame_provoice == 1)
-            {
-              memset (synctest32, 0, sizeof(synctest32));
-              strncpy (synctest32, (synctest_p - 31), 16); //short sync grab here on 32
-              char pvc_txs[9]; //string (symbol) value of TX Address
-              char pvc_rxs[9]; //string (symbol) value of RX Address
-              uint8_t pvc_txa = 0; //actual value of TX Address
-              uint8_t pvc_rxa = 0; //actual value of RX Address
-              strncpy (pvc_txs, (synctest_p - 15), 8); //copy string value of TX Address
-              strncpy (pvc_rxs, (synctest_p - 7), 8); //copy string value of RX Address
-              if ((strcmp (synctest32, INV_PROVOICE_CONV_SHORT) == 0))
-              {
-                  if (state->lastsynctype == 15) //use this condition, like NXDN, to migitage false positives due to short sync pattern
-                  {
-                    state->carrier = 1;
-                    state->offset = synctest_pos;
-                    state->max = ((state->max) + lmax) / 2;
-                    state->min = ((state->min) + lmin) / 2;
-                    sprintf (state->ftype, "ProVoice ");
-                    // fprintf (stderr, "Sync Pattern = %s ", synctest32);
-                    // fprintf (stderr, "TX = %s ", pvc_txs);
-                    // fprintf (stderr, "RX = %s ", pvc_rxs);
-                    for (int i = 0; i < 8; i++)
-                    {
-                      pvc_txa = pvc_txa << 1;
-                      pvc_rxa = pvc_rxa << 1;
-                      //symbol 1 is binary 1 on inverted
-                      //I hate working with strings, has to be a better way to evaluate this
-                      memset (pvc_txs, 0, sizeof (pvc_txs));
-                      memset (pvc_rxs, 0, sizeof (pvc_rxs));
-                      strncpy (pvc_txs, (synctest_p - 15+i), 1);
-                      strncpy (pvc_rxs, (synctest_p - 7+i), 1);
-                      if ((strcmp (pvc_txs, "1") == 0))
-                        pvc_txa = pvc_txa + 1;
-                      if ((strcmp (pvc_rxs, "1") == 0))
-                        pvc_rxa = pvc_rxa + 1;
-                    }
-                    printFrameSync (opts, state, "-PV_C ", synctest_pos + 1, modulation);
-                    fprintf (stderr, "TX: %d ", pvc_txa);
-                    fprintf (stderr, "RX: %d ", pvc_rxa);
-                    if (pvc_txa == 172) fprintf (stderr, "ALL CALL ");
-                    state->lastsynctype = 15;
-                    return (15);
-                  }
-                  state->lastsynctype = 15;
-              }
-              else if ((strcmp (synctest32, PROVOICE_CONV_SHORT) == 0))
-              {
-                  if (state->lastsynctype == 14) //use this condition, like NXDN, to migitage false positives due to short sync pattern
-                  {
-                    state->carrier = 1;
-                    state->offset = synctest_pos;
-                    state->max = ((state->max) + lmax) / 2;
-                    state->min = ((state->min) + lmin) / 2;
-                    sprintf (state->ftype, "ProVoice ");
-                    // fprintf (stderr, "Sync Pattern = %s ", synctest32);
-                    // fprintf (stderr, "TX = %s ", pvc_txs);
-                    // fprintf (stderr, "RX = %s ", pvc_rxs);
-                    for (int i = 0; i < 8; i++)
-                    {
-                      pvc_txa = pvc_txa << 1;
-                      pvc_rxa = pvc_rxa << 1;
-                      //symbol 3 is binary 1 on positive
-                      //I hate working with strings, has to be a better way to evaluate this
-                      memset (pvc_txs, 0, sizeof (pvc_txs));
-                      memset (pvc_rxs, 0, sizeof (pvc_rxs));
-                      strncpy (pvc_txs, (synctest_p - 15+i), 1);
-                      strncpy (pvc_rxs, (synctest_p - 7+i), 1);
-                      if ((strcmp (pvc_txs, "3") == 0))
-                        pvc_txa = pvc_txa + 1;
-                      if ((strcmp (pvc_rxs, "3") == 0))
-                        pvc_rxa = pvc_rxa + 1;
-                    }
-                    printFrameSync (opts, state, "+PV_C ", synctest_pos + 1, modulation);
-                    fprintf (stderr, "TX: %d ", pvc_txa);
-                    fprintf (stderr, "RX: %d ", pvc_rxa);
-                    if (pvc_txa == 172) fprintf (stderr, "ALL CALL ");
-                    state->lastsynctype = 14;
-                    return (14);
-                  }
-                  state->lastsynctype = 14;
-              }
-            }
-#endif //End Provoice Conventional
-
             SYNC_TEST_END:; //do nothing
 
         } // t >= 10
 
-        if (exitflag == 1) {
-            cleanupAndExit(opts, state);
-        }
+//        if (exitflag == 1) {
+//            cleanupAndExit(opts, state);
+//        }
 
         if (synctest_pos < 10200) {
             synctest_pos++;

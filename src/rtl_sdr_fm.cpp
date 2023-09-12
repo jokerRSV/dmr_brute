@@ -143,7 +143,7 @@ struct controller_state controller;
 #define safe_cond_signal(n, m) pthread_mutex_lock(m); pthread_cond_signal(n); pthread_mutex_unlock(m)
 #define safe_cond_wait(n, m) pthread_mutex_lock(m); pthread_cond_wait(n, m); pthread_mutex_unlock(m)
 
-/* {length, coef, coef, coef}  and scaled by 2^15
+/* {length, coef_file, coef_file, coef_file}  and scaled by 2^15
    for now, only length 9, optimal way to get +85% bandwidth */
 #define CIC_TABLE_MAX 10
 int cic_9_tables[][10] = {

@@ -126,7 +126,7 @@ void print_time(char *buffer, struct timeval tv, int i, int j, int k) {
     fflush(stdout);
 }
 
-void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24], FILE *pFile) {
+void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
     int i;
     unsigned char ambe_d[49];
@@ -139,7 +139,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24], FILE
     if (state->currentslot == 0) {
         state->audioCount++;
 
-        state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
+//        state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         state->errs2 = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
 
@@ -197,7 +197,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24], FILE
 //            }
 //        }
 
-        int errs  = 0;
+        int errs = 0;
         int errs2 = 0;
         char err_str[64];
         memset(err_str, 0, 64 * sizeof(char));
@@ -206,24 +206,29 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24], FILE
                                  state->cur_mp, state->prev_mp, state->prev_mp, 1);
 
 //            if (opts->audio_out == 1 && state->audioCount >= 7 * 10 && state->audioCount <= 7 * 15) {
-        if (opts->audio_out == 1) {
-            processAudio(opts, state);
-//            writeSynthesizedVoice(opts, state);
-            playSynthesizedVoice(opts, state);
-        }
+        processAudio(opts, state);
+        writeSynthesizedVoice(opts, state);
+        playSynthesizedVoice(opts, state);
 //        state->sample_count++;
     }
 
     //stereo slots and slot 1 (right slot)
     if (state->currentslot == 1) {
-        state->errsR = mbe_eccAmbe3600x2450C0(ambe_fr);
+//        state->errsR = mbe_eccAmbe3600x2450C0(ambe_fr);
+        //preudo-random generator
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
-        state->errs2R = mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
+        mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
+
+        int errs = 0;
+        int errs2 = 0;
+        char err_str[64];
+        memset(err_str, 0, 64 * sizeof(char));
+
+
 
         //slot 1
-        mbe_processAmbe2450Dataf(state->audio_out_temp_bufR, &state->errsR, &state->errs2R, state->err_strR,
-                                 ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp_enhanced2,
-                                 opts->uvquality);
+        mbe_processAmbe2450Dataf(state->audio_out_temp_bufR, &errs, &errs2, err_str,
+                                 ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp2, 1);
         processAudioR(opts, state);
         writeSynthesizedVoiceR(opts, state);
         playSynthesizedVoiceR(opts, state);

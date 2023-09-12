@@ -274,13 +274,13 @@ void dmrMS(dsd_opts *opts, dsd_state *state) {
 
         if (state->dmr_ms_rc == 0) {
             if (state->directmode == 0) {
-                processMbeFrame(opts, state, ambe_fr, NULL);
-                processMbeFrame(opts, state, ambe_fr2, NULL);
-                processMbeFrame(opts, state, ambe_fr3, NULL);
+                processMbeFrame(opts, state, ambe_fr);
+                processMbeFrame(opts, state, ambe_fr2);
+                processMbeFrame(opts, state, ambe_fr3);
             } else {
-                processMbeFrame(opts, state, ambe_fr4, NULL); //play duplicate of 2 here to smooth audio on tdma direct
-                processMbeFrame(opts, state, ambe_fr2, NULL);
-                processMbeFrame(opts, state, ambe_fr3, NULL);
+                processMbeFrame(opts, state, ambe_fr4); //play duplicate of 2 here to smooth audio on tdma direct
+                processMbeFrame(opts, state, ambe_fr2);
+                processMbeFrame(opts, state, ambe_fr3);
             }
         }
 
@@ -544,13 +544,13 @@ void dmrMSBootstrap(dsd_opts *opts, dsd_state *state) {
     memcpy(m3, ambe_fr3, sizeof(m3));
 
     if (state->directmode == 0) {
-        processMbeFrame(opts, state, ambe_fr, NULL);
-        processMbeFrame(opts, state, ambe_fr2, NULL);
-        processMbeFrame(opts, state, ambe_fr3, NULL);
+        processMbeFrame(opts, state, ambe_fr);
+        processMbeFrame(opts, state, ambe_fr2);
+        processMbeFrame(opts, state, ambe_fr3);
     } else {
-        processMbeFrame(opts, state, ambe_fr4, NULL); //play duplicate of 2 here to smooth audio
-        processMbeFrame(opts, state, ambe_fr2, NULL);
-        processMbeFrame(opts, state, ambe_fr3, NULL);
+        processMbeFrame(opts, state, ambe_fr4); //play duplicate of 2 here to smooth audio
+        processMbeFrame(opts, state, ambe_fr2);
+        processMbeFrame(opts, state, ambe_fr3);
     }
 
     //collect the mi fragment
