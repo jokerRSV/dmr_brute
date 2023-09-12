@@ -135,7 +135,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         ambe_d[i] = 0;
     }
 
-    if (state->currentslot == 0 && state->audio_count >= 7 * 10 && state->audio_count <= 7 * 15) {
+    if (state->currentslot == 0 && state->audio_count >= 7 * 10 && state->audio_count <= 7 * 25) {
 //    if (state->currentslot == 0) {
 //        state->errs = mbe_eccAmbe3600x2450C0(ambe_fr);
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
@@ -179,6 +179,11 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
             for (i = 0; i < 882; i++) {
                 pN[i] = T_Key[pos++];
                 pos = pos % 40;
+            }
+
+            //sanity check
+            if (state->DMRvcL > 17) {
+                state->DMRvcL = 17; //18
             }
 
             pos = (state->DMRvcL) * 49;
