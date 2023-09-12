@@ -396,7 +396,6 @@ typedef struct {
     mbe_parms *prev_mp_store[500];
     mbe_parms *prev_mp_enhanced2;
     unsigned char ambe_d[500][49];
-    int ambe_d_count;
 
     int audio_count;
     int errs;
