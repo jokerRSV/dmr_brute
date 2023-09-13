@@ -170,6 +170,7 @@ processAudio(dsd_opts *opts, dsd_state *state) {
                 *state->audio_out_float_buf_p = -32768.0F;
             }
             *state->audio_out_buf_p = (short) *state->audio_out_float_buf_p;
+            state->audio_out[n] = *state->audio_out_buf_p;
             state->audio_out_buf_p++;
             state->audio_out_float_buf_p++;
         }
@@ -316,8 +317,6 @@ void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state) {
         }
 
         aout_buf[n] = (short) *state->audio_out_temp_buf_p;
-        float ii = aout_buf[n];
-//        fprintf (stderr, "%f ", ii);
         state->audio_out_temp_buf_p++;
     }
 
@@ -368,9 +367,9 @@ void writeRawSample(dsd_opts *opts, dsd_state *state, short sample) {
 
 void
 playSynthesizedVoice(dsd_opts *opts, dsd_state *state) {
-            pa_simple_write(opts->pulse_digi_dev_out, (state->audio_out_buf_p - state->audio_out_idx),
-                            (state->audio_out_idx * 2), NULL);
-            state->audio_out_idx = 0;
+    pa_simple_write(opts->pulse_digi_dev_out, (state->audio_out_buf_p - state->audio_out_idx),
+                    (state->audio_out_idx * 2), NULL);
+    state->audio_out_idx = 0;
 }
 
 void

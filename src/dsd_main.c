@@ -670,6 +670,9 @@ initState(dsd_state *state) {
     state->audio_out_idxR = 0;
     state->audio_out_idx2R = 0;
     state->audio_out_temp_buf_p = state->audio_out_temp_buf;
+    for (int k = 0; k < 960; ++k) {
+        state->audio_out[k] = 0;
+    }
     state->audio_out_temp_buf_pR = state->audio_out_temp_bufR;
     //state->wav_out_bytes = 0;
     state->center = 0;
@@ -1639,6 +1642,10 @@ main(int argc, char **argv) {
                 opts.wav_out_file[1023] = '\0';
                 fprintf(stderr, "Writing + Appending decoded audio to file %s\n", opts.wav_out_file);
                 opts.dmr_stereo_wav = 0;
+                if (access(opts.wav_out_file, F_OK) == 0) {
+                    remove(opts.wav_out_file);
+                }
+
                 openWavOutFile(&opts, &state);
                 break;
 

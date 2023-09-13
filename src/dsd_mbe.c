@@ -134,7 +134,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         ambe_d[i] = 0;
     }
     int start = 30;
-    int end = 50;
+    int end = 40;
     if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
@@ -155,45 +155,104 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         memset(err_str, 0, 64 * sizeof(char));
         state->DMRvcL = 0;
 
-        unsigned char is = 0x1a;
+        char buffer[30];
+        struct timeval tv;
+        unsigned char ds = 0x1a;
         unsigned char js = 0xe2;
         unsigned char ks = 0xac;
         unsigned char ls = 0xa3;
         unsigned char ms = 0xa5;
+//        unsigned char is = 0x0d;
+//        unsigned char js = 0x71;
+//        unsigned char ks = 0x86;
+//        unsigned char ls = 0xa3;
+//        unsigned char ms = 0xa5;
+
         unsigned long long int k1;
         unsigned char T_Key[256] = {0};
         unsigned char pN[882] = {0};
-        k1 = 0;
-        k1 |= (unsigned long long) is << 32;
-        k1 |= (unsigned long long) js << 24;
-        k1 |= (unsigned long long) ks << 16;
-        k1 |= (unsigned long long) ls << 8;
-        k1 |= (unsigned long long) ms;
-        k1 = k1 << 24;
 
-        for (int i = 0; i < 64; i++) {
-            T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
-        }
+        for (int d = 0; d < 256; d += ds) {
+//            printf("%x\n", i);
+            for (int j = 0; j < 256; j += js) {
+                for (int k = 0; k < 256; k += ks) {
+//                    print_time(buffer, tv, i, j, k);
+//#pragma omp parallel for
+                    for (int l = 0; l < 256; l += ls) {
+                        for (int m = 0; m < 256; m += ms) {
+                            k1 = 0;
+                            k1 |= (unsigned long long) d << 32;
+                            k1 |= (unsigned long long) j << 24;
+                            k1 |= (unsigned long long) k << 16;
+                            k1 |= (unsigned long long) l << 8;
+                            k1 |= (unsigned long long) m;
+                            fprintf(stderr, "\n");
+                            fprintf(stderr, "--- %02x ", (unsigned int) (k1 >> 32));
+                            fprintf(stderr, "%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
+                            fprintf(stderr, "%02x ", (unsigned int) (((k1 << 16) & 0xff00000000) >> 32));
+                            fprintf(stderr, "%02x ", (unsigned int) (((k1 << 24) & 0xff00000000) >> 32));
+                            fprintf(stderr, "%02x === ", (unsigned int) (((k1 << 32) & 0xff00000000) >> 32));
 
-        int pos = 0;
-        for (int i = 0; i < 882; i++) {
-            pN[i] = T_Key[pos++];
-            pos = pos % 40;
-        }
-        for (int j = 0; j < state->ambe_count; ++j) {
-            pos = state->DMRvcL_p[j];
-            for (int i = 0; i < 49; i++) {
-                state->ambe_d[j][i] ^= pN[pos];
-                pos++;
+                            k1 = k1 << 24;
+
+                            for (int i = 0; i < 64; i++) {
+                                T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
+                            }
+
+                            int pos = 0;
+                            for (int i = 0; i < 882; i++) {
+                                pN[i] = T_Key[pos++];
+                                pos = pos % 40;
+                            }
+
+                            //play stored voice data
+                            for (int j = 0; j < state->ambe_count; ++j) {
+                                pos = state->DMRvcL_p[j];
+                                for (int i = 0; i < 49; i++) {
+                                    state->ambe_d[j][i] ^= pN[pos];
+                                    pos++;
+                                }
+
+                                mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
+                                                         &errs, &errs2, err_str,
+                                                         state->ambe_d[j],
+                                                         state->cur_mp_store[j],
+                                                         state->prev_mp_store[j],
+                                                         state->prev_mp_store[j],
+                                                         1);
+                                processAudio(opts, state);
+                                writeSynthesizedVoice(opts, state);
+//                                playSynthesizedVoice(opts, state);
+                            }
+                            char *delimeter = "||||||";
+                            sf_write_raw(opts->wav_out_f, delimeter, 6);
+//                            int *p;
+//                            memset(p, 0, sizeof(int));
+//                            *p = 0xff;
+
+//                            fprintf(stderr, "\n %d ", &d);
+//                            fprintf(stderr, "%d \n", d);
+
+//                            sf_writef_int(opts->wav_out_f, &d, 1);
+//                            sf_writef_int(opts->wav_out_f, &j, 1);
+//                            sf_writef_int(opts->wav_out_f, &k, 1);
+//                            sf_writef_int(opts->wav_out_f, &l, 1);
+
+                            short mm = (short )m;
+                            sf_write_short(opts->wav_out_f, &mm, 1);
+
+                            sf_write_raw(opts->wav_out_f, delimeter, 6);
+                            sf_write_sync(opts->wav_out_f);
+
+                            if (d == 0x1a && j == 0xe2 && k == 0xac && l == 0xa3 && m == 0xa5) {
+                                goto exit;
+                            }
+                        }
+                    }
+                }
             }
-
-            mbe_processAmbe2450Dataf(state->audio_out_temp_buf, &errs, &errs2, err_str, state->ambe_d[j],
-                                     state->cur_mp_store[j], state->prev_mp_store[j],
-                                     state->prev_mp_store[j], 1);
-            processAudio(opts, state);
-            writeSynthesizedVoice(opts, state);
-            playSynthesizedVoice(opts, state);
         }
     }
+    exit:
     state->audio_count++;
 }

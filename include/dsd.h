@@ -385,6 +385,7 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    short audio_out[960];
     int DMRvcL;
     int DMRvcL_p[500];
     mbe_parms *cur_mp;
