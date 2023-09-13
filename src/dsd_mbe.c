@@ -133,8 +133,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
     for (i = 0; i < 49; i++) {
         ambe_d[i] = 0;
     }
-
-    if (state->currentslot == 0 && state->audio_count >= 30 && state->audio_count <= 60) {
+    int start = 30;
+    int end = 50;
+    if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
         for (int j = 0; j < 49; ++j) {
@@ -147,39 +148,39 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         state->DMRvcL++;
     }
 
-    if (state->audio_count == 7 * 10) {
+    if (state->audio_count == end) {
         int errs = 0;
         int errs2 = 0;
         char err_str[64];
         memset(err_str, 0, 64 * sizeof(char));
         state->DMRvcL = 0;
 
+        unsigned char is = 0x1a;
+        unsigned char js = 0xe2;
+        unsigned char ks = 0xac;
+        unsigned char ls = 0xa3;
+        unsigned char ms = 0xa5;
+        unsigned long long int k1;
+        unsigned char T_Key[256] = {0};
+        unsigned char pN[882] = {0};
+        k1 = 0;
+        k1 |= (unsigned long long) is << 32;
+        k1 |= (unsigned long long) js << 24;
+        k1 |= (unsigned long long) ks << 16;
+        k1 |= (unsigned long long) ls << 8;
+        k1 |= (unsigned long long) ms;
+        k1 = k1 << 24;
+
+        for (int i = 0; i < 64; i++) {
+            T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
+        }
+
+        int pos = 0;
+        for (int i = 0; i < 882; i++) {
+            pN[i] = T_Key[pos++];
+            pos = pos % 40;
+        }
         for (int j = 0; j < state->ambe_count; ++j) {
-            unsigned char is = 0x1a;
-            unsigned char js = 0xe2;
-            unsigned char ks = 0xac;
-            unsigned char ls = 0xa3;
-            unsigned char ms = 0xa5;
-            unsigned long long int k1;
-            unsigned char T_Key[256] = {0};
-            unsigned char pN[882] = {0};
-            k1 = 0;
-            k1 |= (unsigned long long) is << 32;
-            k1 |= (unsigned long long) js << 24;
-            k1 |= (unsigned long long) ks << 16;
-            k1 |= (unsigned long long) ls << 8;
-            k1 |= (unsigned long long) ms;
-            k1 = k1 << 24;
-
-            for (int i = 0; i < 64; i++) {
-                T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
-            }
-            int pos = 0;
-            for (int i = 0; i < 882; i++) {
-                pN[i] = T_Key[pos++];
-                pos = pos % 40;
-            }
-
             pos = state->DMRvcL_p[j];
             for (int i = 0; i < 49; i++) {
                 state->ambe_d[j][i] ^= pN[pos];
@@ -190,6 +191,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                      state->cur_mp_store[j], state->prev_mp_store[j],
                                      state->prev_mp_store[j], 1);
             processAudio(opts, state);
+            writeSynthesizedVoice(opts, state);
             playSynthesizedVoice(opts, state);
         }
     }
