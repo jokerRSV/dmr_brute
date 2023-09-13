@@ -177,6 +177,7 @@ typedef struct {
 } dPMRVoiceFS2Frame_t;
 //
 typedef struct {
+    char wav_out_file[1024];
     int onesymbol;
     char mbe_in_file[1024];
     FILE *mbe_in_f;
@@ -219,7 +220,6 @@ typedef struct {
     float audio_gainR;
     int audio_out;
     int dmr_stereo_wav;
-    char wav_out_file[1024];
     char wav_out_fileR[1024];
     char wav_out_file_raw[1024];
     char symbol_out_file[1024];

@@ -205,6 +205,8 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                 pos = pos % 40;
                             }
 
+                            snprintf(opts->wav_out_file, 20, "sample_%x%x%x%x%x.wav", d, j, k, l, m);
+                            openWavOutFile(opts, state);
                             //play stored voice data
                             for (int j = 0; j < state->ambe_count; ++j) {
                                 pos = state->DMRvcL_p[j];
@@ -222,27 +224,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                                          1);
                                 processAudio(opts, state);
                                 writeSynthesizedVoice(opts, state);
-//                                playSynthesizedVoice(opts, state);
+                                //playSynthesizedVoice(opts, state);
                             }
-                            char *delimeter = "||||||";
-                            sf_write_raw(opts->wav_out_f, delimeter, 6);
-//                            int *p;
-//                            memset(p, 0, sizeof(int));
-//                            *p = 0xff;
-
-//                            fprintf(stderr, "\n %d ", &d);
-//                            fprintf(stderr, "%d \n", d);
-
-//                            sf_writef_int(opts->wav_out_f, &d, 1);
-//                            sf_writef_int(opts->wav_out_f, &j, 1);
-//                            sf_writef_int(opts->wav_out_f, &k, 1);
-//                            sf_writef_int(opts->wav_out_f, &l, 1);
-
-                            short mm = (short )m;
-                            sf_write_short(opts->wav_out_f, &mm, 1);
-
-                            sf_write_raw(opts->wav_out_f, delimeter, 6);
-                            sf_write_sync(opts->wav_out_f);
+                            sf_close(opts->wav_out_f);
 
                             if (d == 0x1a && j == 0xe2 && k == 0xac && l == 0xa3 && m == 0xa5) {
                                 goto exit;

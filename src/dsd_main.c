@@ -1646,7 +1646,7 @@ main(int argc, char **argv) {
                     remove(opts.wav_out_file);
                 }
 
-                openWavOutFile(&opts, &state);
+                //openWavOutFile(&opts, &state);
                 break;
 
             case 'f':
