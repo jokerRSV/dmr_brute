@@ -127,14 +127,13 @@ void print_time(char *buffer, struct timeval tv, int i, int j, int k) {
 }
 
 void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
-    int i;
     unsigned char ambe_d[49];
 
-    for (i = 0; i < 49; i++) {
+    for (int i = 0; i < 49; i++) {
         ambe_d[i] = 0;
     }
     int start = 30;
-    int end = 40;
+    int end = 100;
     if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
@@ -168,24 +167,22 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //        unsigned char ls = 0xa3;
 //        unsigned char ms = 0xa5;
 
-        unsigned long long int k1;
-        unsigned char T_Key[256] = {0};
-        unsigned char pN[882] = {0};
 
-        for (int d = 0; d < 256; d += ds) {
+//        for (int d = 0; d < 256; d += ds) {
 //            printf("%x\n", i);
             for (int j = 0; j < 256; j += js) {
-                for (int k = 0; k < 256; k += ks) {
+//                for (int k = 0; k < 256; k += ks) {
 //                    print_time(buffer, tv, i, j, k);
 //#pragma omp parallel for
-                    for (int l = 0; l < 256; l += ls) {
-                        for (int m = 0; m < 256; m += ms) {
+//                    for (int l = 0; l < 256; l += ls) {
+//                        for (int m = 0; m < 256; m += ms) {
+                            unsigned long long int k1;
                             k1 = 0;
-                            k1 |= (unsigned long long) d << 32;
+                            k1 |= (unsigned long long) ds << 32;
                             k1 |= (unsigned long long) j << 24;
-                            k1 |= (unsigned long long) k << 16;
-                            k1 |= (unsigned long long) l << 8;
-                            k1 |= (unsigned long long) m;
+                            k1 |= (unsigned long long) ks << 16;
+                            k1 |= (unsigned long long) ls << 8;
+                            k1 |= (unsigned long long) ms;
                             fprintf(stderr, "\n");
                             fprintf(stderr, "--- %02x ", (unsigned int) (k1 >> 32));
                             fprintf(stderr, "%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
@@ -195,48 +192,53 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
                             k1 = k1 << 24;
 
+                            unsigned char T_Key[256] = {0};
                             for (int i = 0; i < 64; i++) {
                                 T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
                             }
 
                             int pos = 0;
+                            unsigned char pN[882] = {0};
                             for (int i = 0; i < 882; i++) {
                                 pN[i] = T_Key[pos++];
                                 pos = pos % 40;
                             }
 
-                            snprintf(opts->wav_out_file, 20, "sample_%x%x%x%x%x.wav", d, j, k, l, m);
-                            openWavOutFile(opts, state);
+//                            snprintf(opts->wav_out_file, 30, "sample_%x%x%x%x%x.wav", ds, j, ks, ls, ms);
+//                            if (access(opts->wav_out_file, F_OK) == 0) {
+//                                remove(opts->wav_out_file);
+//                            }
+//                            openWavOutFile(opts);
                             //play stored voice data
-                            for (int j = 0; j < state->ambe_count; ++j) {
-                                pos = state->DMRvcL_p[j];
+                            for (int w = 0; w < state->ambe_count; ++w) {
+                                pos = state->DMRvcL_p[w];
                                 for (int i = 0; i < 49; i++) {
-                                    state->ambe_d[j][i] ^= pN[pos];
+                                    state->ambe_d[w][i] ^= pN[pos];
                                     pos++;
                                 }
 
                                 mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
                                                          &errs, &errs2, err_str,
-                                                         state->ambe_d[j],
-                                                         state->cur_mp_store[j],
-                                                         state->prev_mp_store[j],
-                                                         state->prev_mp_store[j],
+                                                         state->ambe_d[w],
+                                                         state->cur_mp_store[w],
+                                                         state->prev_mp_store[w],
+                                                         state->prev_mp_store[w],
                                                          1);
                                 processAudio(opts, state);
-                                writeSynthesizedVoice(opts, state);
-                                //playSynthesizedVoice(opts, state);
+//                                writeSynthesizedVoice(opts, state);
+                                playSynthesizedVoice(opts, state);
                             }
-                            sf_close(opts->wav_out_f);
+//                            sf_close(opts->wav_out_f);
 
-                            if (d == 0x1a && j == 0xe2 && k == 0xac && l == 0xa3 && m == 0xa5) {
+                            if (ds == 0x1a && j == 0xe2 && ks == 0xac && ls == 0xa3 && ms == 0xa5) {
                                 goto exit;
                             }
                         }
                     }
-                }
-            }
-        }
-    }
+//                }
+//            }
+//        }
+//    }
     exit:
     state->audio_count++;
 }

@@ -283,7 +283,7 @@ void edacs(dsd_opts * opts, dsd_state * state)
             if (opts->dmr_stereo_wav == 1 && (opts->use_rigctl == 1 || opts->audio_in_type == 3))
             {
               sprintf (opts->wav_out_file, "./WAV/%s %s pV Site %lld TG %d SRC %d.wav", getDateE(), getTimeE(), state->edacs_site_id, group, source);
-              openWavOutFile (opts, state);
+                openWavOutFile(opts);
             }
             
             //do condition here, in future, will allow us to use tuning methods as well, or rtl_udp as well
@@ -417,7 +417,7 @@ void edacs(dsd_opts * opts, dsd_state * state)
               if (opts->dmr_stereo_wav == 1 && (opts->use_rigctl == 1 || opts->audio_in_type == 3))
               {
                 sprintf (opts->wav_out_file, "./WAV/%s %s pV Site %lld AFS %X.wav", getDateE(), getTimeE(), state->edacs_site_id, afs);
-                openWavOutFile (opts, state);
+                  openWavOutFile(opts);
               }
 
               if (opts->use_rigctl == 1)

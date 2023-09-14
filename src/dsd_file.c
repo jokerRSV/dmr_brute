@@ -415,7 +415,7 @@ void openMbeOutFileR(dsd_opts *opts, dsd_state *state) {
     fflush(opts->mbe_out_fR);
 }
 
-void openWavOutFile(dsd_opts *opts, dsd_state *state) {
+void openWavOutFile(dsd_opts *opts) {
 
     SF_INFO info;
     info.samplerate = 8000; //8000

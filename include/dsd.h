@@ -836,7 +836,7 @@ void closeMbeOutFileR(dsd_opts *opts, dsd_state *state); //tdma slot 2
 void openMbeOutFile(dsd_opts *opts, dsd_state *state);
 
 void openMbeOutFileR(dsd_opts *opts, dsd_state *state); //tdma slot 2
-void openWavOutFile(dsd_opts *opts, dsd_state *state);
+void openWavOutFile(dsd_opts *opts);
 
 void openWavOutFileL(dsd_opts *opts, dsd_state *state);
 
