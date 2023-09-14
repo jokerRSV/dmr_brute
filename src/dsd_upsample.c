@@ -117,5 +117,5 @@ upsample(dsd_state *state, float invalue) {
             }
         }
     }
-
+//    free(outbuf1);
 }

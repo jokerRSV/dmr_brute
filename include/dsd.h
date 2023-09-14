@@ -181,7 +181,6 @@ typedef struct {
     int onesymbol;
     char mbe_in_file[1024];
     FILE *mbe_in_f;
-    FILE *coef_file;
     int errorbars;
     int datascope;
     int symboltiming;
@@ -385,9 +384,15 @@ typedef struct {
 } dsd_opts;
 
 typedef struct {
+    unsigned long long int key;
+    int zero_num;
+} key_state;
+
+typedef struct {
     short audio_out[960];
     int DMRvcL;
     int DMRvcL_p[500];
+    key_state ring_buff_key[100];
     mbe_parms *cur_mp;
     mbe_parms *prev_mp;
     mbe_parms *prev_mp_enhanced;

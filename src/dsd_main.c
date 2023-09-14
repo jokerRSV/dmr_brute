@@ -289,6 +289,8 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     state->HYTL = 0;
     state->HYTR = 0;
     state->DMRvcL = 0;
+    state->count = 0;
+
     state->DMRvcR = 0;
     state->dropL = 256;
     state->dropR = 256;
@@ -712,6 +714,10 @@ initState(dsd_state *state) {
         for (j = 0; j < 49; j++) {
             state->ambe_d[i][j] = 0;
         }
+    }
+    for (i = 0; i < 100; i++) {
+            state->ring_buff_key[i].zero_num = 0;
+            state->ring_buff_key[i].key = 0;
     }
     for (i = 0; i < 25; i++) {
         for (j = 0; j < 16; j++) {
@@ -1176,9 +1182,8 @@ usage() {
 void
 liveScanner(dsd_opts *opts, dsd_state *state) {
 
-    char *file_name = "coef_file.txt";
-
-    opts->coef_file = fopen(file_name, "a");
+//    char *file_name = "coef_file.txt";
+//    opts->coef_file = fopen(file_name, "a");
 
     if (opts->audio_out_type == 0) {
         // openPulseInput(opts); //test to see if we still randomly hang up in ncurses and tcp input if we open this and leave it opened
@@ -1219,9 +1224,9 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
 
 void cleanupAndExit(dsd_opts *opts, dsd_state *state) {
     noCarrier(opts, state);
-    if (opts->coef_file != NULL) {
-        fclose(opts->coef_file);
-    }
+//    if (opts->coef_file != NULL) {
+//        fclose(opts->coef_file);
+//    }
     if (opts->wav_out_f != NULL) {
         closeWavOutFile(opts, state);
     }

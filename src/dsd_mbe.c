@@ -16,6 +16,7 @@
  */
 
 #include "dsd.h"
+#include <omp.h>
 
 //NOTE: I attempted to fix the atrocious tab/space alignnment issues that happened in this file,
 //it looks fine in VSCodium, but no telling how it will translate when pushed to Github or another editor
@@ -64,41 +65,6 @@ void RC4(int drop, uint8_t keylength, uint8_t messagelength, uint8_t key[], uint
 
 }
 
-int Pr[256] = {
-        0x0000, 0x1F00, 0xE300, 0xFC00, 0x2503, 0x3A03, 0xC603, 0xD903,
-        0x4A05, 0x5505, 0xA905, 0xB605, 0x6F06, 0x7006, 0x8C06, 0x9306,
-        0x2618, 0x3918, 0xC518, 0xDA18, 0x031B, 0x1C1B, 0xE01B, 0xFF1B,
-        0x6C1D, 0x731D, 0x8F1D, 0x901D, 0x491E, 0x561E, 0xAA1E, 0xB51E, //31
-        0x4B28, 0x5428, 0xA828, 0xB728, 0x6E2B, 0x712B, 0x8D2B, 0x922B,
-        0x012D, 0x1E2D, 0xE22D, 0xFD2D, 0x242E, 0x3B2E, 0xC72E, 0xD82E,
-        0x6D30, 0x7230, 0x8E30, 0x9130, 0x4833, 0x5733, 0xAB33, 0xB433,
-        0x2735, 0x3835, 0xC435, 0xDB35, 0x0236, 0x1D36, 0xE136, 0xFE36, //63
-        0x2B49, 0x3449, 0xC849, 0xD749, 0x0E4A, 0x114A, 0xED4A, 0xF24A,
-        0x614C, 0xAE4C, 0x824C, 0x9D4C, 0x444F, 0x5B4F, 0xA74F, 0xB84F,
-        0x0D51, 0x1251, 0xEE51, 0xF151, 0x2852, 0x3752, 0xCB52, 0xD452,
-        0x4754, 0x5854, 0xA454, 0xBB54, 0x6257, 0x7D57, 0x8157, 0x9E57, //95
-        0x6061, 0x7F61, 0x8361, 0x9C61, 0x4562, 0x5A62, 0xA662, 0xB962,
-        0x2A64, 0x3564, 0xC964, 0xD664, 0x0F67, 0x1067, 0xEC67, 0xF367,
-        0x4679, 0x5979, 0xA579, 0xBA79, 0x637A, 0x7C7A, 0x807A, 0x9F7A,
-        0x0C7C, 0x137C, 0xEF7C, 0xF07C, 0x297F, 0x367F, 0xCA7F, 0xD57F, //127
-        0x4D89, 0x5289, 0xAE89, 0xB189, 0x688A, 0x778A, 0x8B8A, 0x948A,
-        0x078C, 0x188C, 0xE48C, 0xFB8C, 0x228F, 0x3D8F, 0xC18F, 0xDE8F,
-        0x6B91, 0x7491, 0x8891, 0x9791, 0x4E92, 0x5192, 0xAD92, 0xB292,
-        0x2194, 0x3E94, 0xC294, 0xDD94, 0x0497, 0x1B97, 0xE797, 0xF897, //159
-        0x06A1, 0x19A1, 0xE5A1, 0xFAA1, 0x23A2, 0x3CA2, 0xC0A2, 0xDFA2,
-        0x4CA4, 0x53A4, 0xAFA4, 0xB0A4, 0x69A7, 0x76A7, 0x8AA7, 0x95A7,
-        0x20B9, 0x3FB9, 0xC3B9, 0xDCB9, 0x05BA, 0x1ABA, 0xE6BA, 0xF9BA,
-        0x6ABC, 0x75BC, 0x89BC, 0x96BC, 0x4FBF, 0x50BF, 0xACBF, 0xB3BF, //191
-        0x66C0, 0x79C0, 0x85C0, 0x9AC0, 0x43C3, 0x5CC3, 0xA0C3, 0xBFC3,
-        0x2CC5, 0x33C5, 0xCFC5, 0xD0C5, 0x09C6, 0x16C6, 0xEAC6, 0xF5C6,
-        0x84D0, 0x85DF, 0x8AD3, 0x8BDC, 0xB6D5, 0xB7DA, 0xB8D6, 0xB9D9,
-        0xD0DA, 0xD1D5, 0xDED9, 0xDFD6, 0xE2DF, 0xE3D0, 0xECDC, 0xEDD3, //223
-        0x2DE8, 0x32E8, 0xCEE8, 0xD1E8, 0x08EB, 0x17EB, 0xEBEB, 0xF4EB,
-        0x67ED, 0x78ED, 0x84ED, 0x9BED, 0x42EE, 0x5DEE, 0xA1EE, 0xBEEE,
-        0x0BF0, 0x14F0, 0xE8F0, 0xF7F0, 0x2EF3, 0x31F3, 0xCDF3, 0xD2F3,
-        0x41F5, 0x5EF5, 0xA2F5, 0xBDF5, 0x64F6, 0x7BF6, 0x87F6, 0x98F6 //255
-};
-
 static double entropy(const char *f, int length) {
     int counts[256] = {0};
     double entropy = 0;
@@ -132,9 +98,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
     for (int i = 0; i < 49; i++) {
         ambe_d[i] = 0;
     }
-    int start = 30;
-    int end = 70;
-    if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
+    int start = 130;
+    int end = 100;
+    if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < start + end) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
         for (int j = 0; j < 49; ++j) {
@@ -151,7 +117,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         int errs = 0;
         int errs2 = 0;
         char err_str[64];
-        memset(err_str, 0, 64 * sizeof(char));
+//        memset(err_str, 0, 64 * sizeof(char));
         state->DMRvcL = 0;
 
         char buffer[30];
@@ -161,28 +127,28 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         unsigned char ks = 0xac;
         unsigned char ls = 0xa3;
         unsigned char ms = 0xa5;
-//        unsigned char is = 0x0d;
-//        unsigned char js = 0x71;
-//        unsigned char ks = 0x86;
-//        unsigned char ls = 0xa3;
-//        unsigned char ms = 0xa5;
+        int di[] = {0x00, 0x11, 0x55, 0x34, ds};
+        int ji[] = {0x00, 0x22, 0x55, 0xfe, js};
+        int ki[] = {0x00, 0x11, 0x22, 0x55, 0x92, ks};
+        int li[] = {0x00, 0x11, 0x31, 0x55, ls};
+        int mi[] = {0x00, 0x11, 0x22, 0x33, 0x55, 0x66, 0x77, 0x40, 0xdf, ms};
 
 
-        for (int d = 0; d < 256; d += ds) {
-//            printf("%x\n", i);
-            for (int j = 0; j < 256; j += js) {
-                for (int k = 0; k < 256; k += ks) {
-//                    print_time(buffer, tv, i, j, k);
-//#pragma omp parallel for
-                    for (int l = 0; l < 256; l += ls) {
-                        for (int m = 0; m < 256; m += ms) {
+        for (int d = 0; d < 5; d++) {
+            printf("%x\n", d);
+            print_time(buffer, tv, d, 0, 0);
+#pragma omp parallel for
+            for (int l = 0; l < 5; l++) {
+                for (int j = 0; j < 5; j++) {
+                    for (int k = 0; k < 6; k++) {
+                        for (int m = 0; m < 10; m++) {
                             unsigned long long int k1;
                             k1 = 0;
-                            k1 |= (unsigned long long) d << 32;
-                            k1 |= (unsigned long long) j << 24;
-                            k1 |= (unsigned long long) k << 16;
-                            k1 |= (unsigned long long) l << 8;
-                            k1 |= (unsigned long long) m;
+                            k1 |= (unsigned long long) di[d] << 32;
+                            k1 |= (unsigned long long) ji[j] << 24;
+                            k1 |= (unsigned long long) ki[k] << 16;
+                            k1 |= (unsigned long long) li[l] << 8;
+                            k1 |= (unsigned long long) mi[m];
                             fprintf(stderr, "\n");
                             fprintf(stderr, "--- %02x ", (unsigned int) (k1 >> 32));
                             fprintf(stderr, "%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
@@ -204,7 +170,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                 pos = pos % 40;
                             }
 
-                            snprintf(opts->wav_out_file, 30, "sample_%x%x%x%x%x.wav", d, j, k, l, m);
+                            snprintf(opts->wav_out_file, 22 + 4, "iii/sample_%x%x%x%x%x.wav", di[d], ji[j], ki[k],
+                                     li[l],
+                                     mi[m]);
                             if (access(opts->wav_out_file, F_OK) == 0) {
                                 remove(opts->wav_out_file);
                             }
@@ -231,13 +199,13 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                                          state->prev_mp_store[w],
                                                          state->prev_mp_store[w],
                                                          1);
-                                processAudio(opts, state);
+//                                processAudio(opts, state);
                                 writeSynthesizedVoice(opts, state);
 //                                playSynthesizedVoice(opts, state);
                             }
                             sf_close(opts->wav_out_f);
 
-                            if (d == 0x1a && j == 0xe2 && k == 0xac && l == 0xa3 && m == 0xa5) {
+                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
                                 goto exit;
                             }
                         }
