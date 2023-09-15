@@ -8,3 +8,4 @@ examples
 *.ans
 .idea
 /cmake-build-debug/
+/build/
