@@ -19,7 +19,6 @@
 
 #include "dsd.h"
 #include "dmr_const.h"
-#include "git_ver.h"
 
 volatile uint8_t exitflag; //fix for issue #136
 
@@ -1282,11 +1281,6 @@ main(int argc, char **argv) {
         fprintf(stderr, "%s\n", FM_banner[i]);
     }
 
-#ifdef AERO_BUILD
-    fprintf (stderr, "Build Version: v2.1 \n");
-#else
-    fprintf(stderr, "Build Version:  %s \n", GIT_TAG);
-#endif
     fprintf(stderr, "MBElib Version: %s\n", versionstr);
 
     initOpts(&opts);

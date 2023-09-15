@@ -187,54 +187,6 @@ uninstall/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uninstall.dir/build.make CMakeFiles/uninstall.dir/build
 .PHONY : uninstall/fast
 
-git_ver.o: git_ver.c.o
-.PHONY : git_ver.o
-
-# target to build an object file
-git_ver.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/git_ver.c.o
-.PHONY : git_ver.c.o
-
-git_ver.i: git_ver.c.i
-.PHONY : git_ver.i
-
-# target to preprocess a source file
-git_ver.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/git_ver.c.i
-.PHONY : git_ver.c.i
-
-git_ver.s: git_ver.c.s
-.PHONY : git_ver.s
-
-# target to generate assembly for a file
-git_ver.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/git_ver.c.s
-.PHONY : git_ver.c.s
-
-src/Hamming.o: src/Hamming.cpp.o
-.PHONY : src/Hamming.o
-
-# target to build an object file
-src/Hamming.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o
-.PHONY : src/Hamming.cpp.o
-
-src/Hamming.i: src/Hamming.cpp.i
-.PHONY : src/Hamming.i
-
-# target to preprocess a source file
-src/Hamming.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/Hamming.cpp.i
-.PHONY : src/Hamming.cpp.i
-
-src/Hamming.s: src/Hamming.cpp.s
-.PHONY : src/Hamming.s
-
-# target to generate assembly for a file
-src/Hamming.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/Hamming.cpp.s
-.PHONY : src/Hamming.cpp.s
-
 src/bptc.o: src/bptc.c.o
 .PHONY : src/bptc.o
 
@@ -1089,12 +1041,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... uninstall"
 	@echo "... dsd-fme"
-	@echo "... git_ver.o"
-	@echo "... git_ver.i"
-	@echo "... git_ver.s"
-	@echo "... src/Hamming.o"
-	@echo "... src/Hamming.i"
-	@echo "... src/Hamming.s"
 	@echo "... src/bptc.o"
 	@echo "... src/bptc.i"
 	@echo "... src/bptc.s"

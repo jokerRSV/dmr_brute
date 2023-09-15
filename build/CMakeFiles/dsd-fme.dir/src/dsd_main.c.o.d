@@ -131,5 +131,4 @@ CMakeFiles/dsd-fme.dir/src/dsd_main.c.o: \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h /usr/include/unctrl.h \
  /usr/include/curses.h \
  /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/include/dmr_const.h \
- /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/include/git_ver.h \
  /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/include/pa_devs.h

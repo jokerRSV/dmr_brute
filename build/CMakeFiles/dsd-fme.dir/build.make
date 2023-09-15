@@ -69,24 +69,10 @@ include CMakeFiles/dsd-fme.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/dsd-fme.dir/flags.make
 
-CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o: CMakeFiles/dsd-fme.dir/flags.make
-CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o: ../src/Hamming.cpp
-CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o -MF CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o.d -o CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/Hamming.cpp
-
-CMakeFiles/dsd-fme.dir/src/Hamming.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dsd-fme.dir/src/Hamming.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/Hamming.cpp > CMakeFiles/dsd-fme.dir/src/Hamming.cpp.i
-
-CMakeFiles/dsd-fme.dir/src/Hamming.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dsd-fme.dir/src/Hamming.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/Hamming.cpp -o CMakeFiles/dsd-fme.dir/src/Hamming.cpp.s
-
 CMakeFiles/dsd-fme.dir/src/bptc.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/bptc.c.o: ../src/bptc.c
 CMakeFiles/dsd-fme.dir/src/bptc.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/dsd-fme.dir/src/bptc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/dsd-fme.dir/src/bptc.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/bptc.c.o -MF CMakeFiles/dsd-fme.dir/src/bptc.c.o.d -o CMakeFiles/dsd-fme.dir/src/bptc.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/bptc.c
 
 CMakeFiles/dsd-fme.dir/src/bptc.c.i: cmake_force
@@ -100,7 +86,7 @@ CMakeFiles/dsd-fme.dir/src/bptc.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_34.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_34.c.o: ../src/dmr_34.c
 CMakeFiles/dsd-fme.dir/src/dmr_34.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_34.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_34.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_34.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_34.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_34.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_34.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_34.c.i: cmake_force
@@ -114,7 +100,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_34.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_block.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_block.c.o: ../src/dmr_block.c
 CMakeFiles/dsd-fme.dir/src/dmr_block.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_block.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_block.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_block.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_block.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_block.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_block.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_block.c.i: cmake_force
@@ -128,7 +114,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_block.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o: ../src/dmr_bs.c
 CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_bs.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_bs.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_bs.c.i: cmake_force
@@ -142,7 +128,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_bs.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o: ../src/dmr_csbk.c
 CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_csbk.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.i: cmake_force
@@ -156,7 +142,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_csbk.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_data.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_data.c.o: ../src/dmr_data.c
 CMakeFiles/dsd-fme.dir/src/dmr_data.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_data.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_data.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_data.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_data.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_data.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_data.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_data.c.i: cmake_force
@@ -170,7 +156,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_data.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o: ../src/dmr_dburst.c
 CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_dburst.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.i: cmake_force
@@ -184,7 +170,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_dburst.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o: ../src/dmr_flco.c
 CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_flco.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_flco.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_flco.c.i: cmake_force
@@ -198,7 +184,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_flco.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_le.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_le.c.o: ../src/dmr_le.c
 CMakeFiles/dsd-fme.dir/src/dmr_le.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_le.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_le.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_le.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_le.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_le.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_le.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_le.c.i: cmake_force
@@ -212,7 +198,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_le.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o: ../src/dmr_ms.c
 CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_ms.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_ms.c.i: cmake_force
@@ -226,7 +212,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_ms.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o: ../src/dmr_pdu.c
 CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_pdu.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.i: cmake_force
@@ -240,7 +226,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_pdu.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o: ../src/dmr_pi.c
 CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_pi.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_pi.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_pi.c.i: cmake_force
@@ -254,7 +240,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_pi.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o: ../src/dmr_utils.c
 CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o -MF CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o.d -o CMakeFiles/dsd-fme.dir/src/dmr_utils.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dmr_utils.c
 
 CMakeFiles/dsd-fme.dir/src/dmr_utils.c.i: cmake_force
@@ -268,7 +254,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_utils.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o: ../src/dpmr_data.c
 CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o -MF CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o.d -o CMakeFiles/dsd-fme.dir/src/dpmr_data.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dpmr_data.c
 
 CMakeFiles/dsd-fme.dir/src/dpmr_data.c.i: cmake_force
@@ -282,7 +268,7 @@ CMakeFiles/dsd-fme.dir/src/dpmr_data.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o: ../src/dpmr_voice.c
 CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o -MF CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o.d -o CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dpmr_voice.c
 
 CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.i: cmake_force
@@ -296,7 +282,7 @@ CMakeFiles/dsd-fme.dir/src/dpmr_voice.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o: ../src/dsd_audio.c
 CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_audio.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_audio.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_audio.c.i: cmake_force
@@ -310,7 +296,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_audio.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o: ../src/dsd_dibit.c
 CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_dibit.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.i: cmake_force
@@ -324,7 +310,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_dibit.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_file.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_file.c.o: ../src/dsd_file.c
 CMakeFiles/dsd-fme.dir/src/dsd_file.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_file.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_file.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_file.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_file.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_file.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_file.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_file.c.i: cmake_force
@@ -338,7 +324,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_file.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o: ../src/dsd_filters.c
 CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_filters.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_filters.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_filters.c.i: cmake_force
@@ -352,7 +338,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_filters.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o: ../src/dsd_frame.c
 CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_frame.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_frame.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_frame.c.i: cmake_force
@@ -366,7 +352,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_frame.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o: ../src/dsd_frame_sync.c
 CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_frame_sync.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.i: cmake_force
@@ -380,7 +366,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_frame_sync.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_import.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_import.c.o: ../src/dsd_import.c
 CMakeFiles/dsd-fme.dir/src/dsd_import.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_import.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_import.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_import.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_import.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_import.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_import.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_import.c.i: cmake_force
@@ -394,7 +380,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_import.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_main.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_main.c.o: ../src/dsd_main.c
 CMakeFiles/dsd-fme.dir/src/dsd_main.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_main.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_main.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_main.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_main.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_main.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_main.c.i: cmake_force
@@ -408,7 +394,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_main.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o: ../src/dsd_mbe.c
 CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_mbe.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.i: cmake_force
@@ -422,7 +408,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_mbe.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o: ../src/dsd_reset.c
 CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_reset.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_reset.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_reset.c.i: cmake_force
@@ -436,7 +422,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_reset.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o: ../src/dsd_rigctl.c
 CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_rigctl.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.i: cmake_force
@@ -450,7 +436,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_rigctl.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o: ../src/dsd_serial.c
 CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_serial.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_serial.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_serial.c.i: cmake_force
@@ -464,7 +450,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_serial.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o: ../src/dsd_symbol.c
 CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_symbol.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.i: cmake_force
@@ -478,7 +464,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_symbol.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o: ../src/dsd_upsample.c
 CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o -MF CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o.d -o CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/dsd_upsample.c
 
 CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.i: cmake_force
@@ -492,7 +478,7 @@ CMakeFiles/dsd-fme.dir/src/dsd_upsample.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o: ../src/edacs-bch3.c
 CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o -MF CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o.d -o CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/edacs-bch3.c
 
 CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.i: cmake_force
@@ -506,7 +492,7 @@ CMakeFiles/dsd-fme.dir/src/edacs-bch3.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o: ../src/edacs-fme.c
 CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o -MF CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o.d -o CMakeFiles/dsd-fme.dir/src/edacs-fme.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/edacs-fme.c
 
 CMakeFiles/dsd-fme.dir/src/edacs-fme.c.i: cmake_force
@@ -520,7 +506,7 @@ CMakeFiles/dsd-fme.dir/src/edacs-fme.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/ez.cpp.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/ez.cpp.o: ../src/ez.cpp
 CMakeFiles/dsd-fme.dir/src/ez.cpp.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/dsd-fme.dir/src/ez.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/dsd-fme.dir/src/ez.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/ez.cpp.o -MF CMakeFiles/dsd-fme.dir/src/ez.cpp.o.d -o CMakeFiles/dsd-fme.dir/src/ez.cpp.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/ez.cpp
 
 CMakeFiles/dsd-fme.dir/src/ez.cpp.i: cmake_force
@@ -534,7 +520,7 @@ CMakeFiles/dsd-fme.dir/src/ez.cpp.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/fec.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/fec.c.o: ../src/fec.c
 CMakeFiles/dsd-fme.dir/src/fec.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/dsd-fme.dir/src/fec.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/dsd-fme.dir/src/fec.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/fec.c.o -MF CMakeFiles/dsd-fme.dir/src/fec.c.o.d -o CMakeFiles/dsd-fme.dir/src/fec.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/fec.c
 
 CMakeFiles/dsd-fme.dir/src/fec.c.i: cmake_force
@@ -548,7 +534,7 @@ CMakeFiles/dsd-fme.dir/src/fec.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/pa_devs.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/pa_devs.c.o: ../src/pa_devs.c
 CMakeFiles/dsd-fme.dir/src/pa_devs.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/dsd-fme.dir/src/pa_devs.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/dsd-fme.dir/src/pa_devs.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/pa_devs.c.o -MF CMakeFiles/dsd-fme.dir/src/pa_devs.c.o.d -o CMakeFiles/dsd-fme.dir/src/pa_devs.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/pa_devs.c
 
 CMakeFiles/dsd-fme.dir/src/pa_devs.c.i: cmake_force
@@ -562,7 +548,7 @@ CMakeFiles/dsd-fme.dir/src/pa_devs.c.s: cmake_force
 CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o: CMakeFiles/dsd-fme.dir/flags.make
 CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o: ../src/rs-12-9.c
 CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o -MF CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o.d -o CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/rs-12-9.c
 
 CMakeFiles/dsd-fme.dir/src/rs-12-9.c.i: cmake_force
@@ -573,23 +559,8 @@ CMakeFiles/dsd-fme.dir/src/rs-12-9.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/dsd-fme.dir/src/rs-12-9.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/src/rs-12-9.c -o CMakeFiles/dsd-fme.dir/src/rs-12-9.c.s
 
-CMakeFiles/dsd-fme.dir/git_ver.c.o: CMakeFiles/dsd-fme.dir/flags.make
-CMakeFiles/dsd-fme.dir/git_ver.c.o: git_ver.c
-CMakeFiles/dsd-fme.dir/git_ver.c.o: CMakeFiles/dsd-fme.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/dsd-fme.dir/git_ver.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/dsd-fme.dir/git_ver.c.o -MF CMakeFiles/dsd-fme.dir/git_ver.c.o.d -o CMakeFiles/dsd-fme.dir/git_ver.c.o -c /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/git_ver.c
-
-CMakeFiles/dsd-fme.dir/git_ver.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/dsd-fme.dir/git_ver.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/git_ver.c > CMakeFiles/dsd-fme.dir/git_ver.c.i
-
-CMakeFiles/dsd-fme.dir/git_ver.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/dsd-fme.dir/git_ver.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/git_ver.c -o CMakeFiles/dsd-fme.dir/git_ver.c.s
-
 # Object files for target dsd-fme
 dsd__fme_OBJECTS = \
-"CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o" \
 "CMakeFiles/dsd-fme.dir/src/bptc.c.o" \
 "CMakeFiles/dsd-fme.dir/src/dmr_34.c.o" \
 "CMakeFiles/dsd-fme.dir/src/dmr_block.c.o" \
@@ -624,13 +595,11 @@ dsd__fme_OBJECTS = \
 "CMakeFiles/dsd-fme.dir/src/ez.cpp.o" \
 "CMakeFiles/dsd-fme.dir/src/fec.c.o" \
 "CMakeFiles/dsd-fme.dir/src/pa_devs.c.o" \
-"CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o" \
-"CMakeFiles/dsd-fme.dir/git_ver.c.o"
+"CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o"
 
 # External object files for target dsd-fme
 dsd__fme_EXTERNAL_OBJECTS =
 
-dsd-fme: CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o
 dsd-fme: CMakeFiles/dsd-fme.dir/src/bptc.c.o
 dsd-fme: CMakeFiles/dsd-fme.dir/src/dmr_34.c.o
 dsd-fme: CMakeFiles/dsd-fme.dir/src/dmr_block.c.o
@@ -666,7 +635,6 @@ dsd-fme: CMakeFiles/dsd-fme.dir/src/ez.cpp.o
 dsd-fme: CMakeFiles/dsd-fme.dir/src/fec.c.o
 dsd-fme: CMakeFiles/dsd-fme.dir/src/pa_devs.c.o
 dsd-fme: CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o
-dsd-fme: CMakeFiles/dsd-fme.dir/git_ver.c.o
 dsd-fme: CMakeFiles/dsd-fme.dir/build.make
 dsd-fme: /usr/local/lib/libmbe.so
 dsd-fme: /usr/lib/x86_64-linux-gnu/libsndfile.so
@@ -674,7 +642,7 @@ dsd-fme: /usr/local/lib/libitpp.so
 dsd-fme: /usr/lib/x86_64-linux-gnu/libpulse-simple.so
 dsd-fme: /usr/lib/x86_64-linux-gnu/libncursesw.so
 dsd-fme: CMakeFiles/dsd-fme.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Linking CXX executable dsd-fme"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Linking CXX executable dsd-fme"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dsd-fme.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

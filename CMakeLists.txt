@@ -74,9 +74,6 @@ set(LIBS ${MBE_LIBRARY} ${LIBSNDFILE_LIBRARY} ${ITPP_LIBRARY} ${PULSEAUDIO_SIMPL
 FILE(GLOB SRCS src/*.c src/*.cpp)
 FILE(GLOB HEADERS include/*.h include/*.hpp)
 
-configure_file("src/git_ver.c.in" "${CMAKE_CURRENT_BINARY_DIR}/git_ver.c" @ONLY)
-list(APPEND SRCS "${CMAKE_CURRENT_BINARY_DIR}/git_ver.c")
-
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
 ADD_EXECUTABLE(dsd-fme ${SRCS} ${HEADERS})

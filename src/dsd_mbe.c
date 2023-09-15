@@ -168,13 +168,13 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                 pos = pos % 40;
                             }
 
-                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.wav", di[d], ji[j], ki[k],
-                                     li[l],
-                                     mi[m]);
-                            if (access(opts->wav_out_file, F_OK) == 0) {
-                                remove(opts->wav_out_file);
-                            }
-                            openWavOutFile(opts);
+//                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.wav", di[d], ji[j], ki[k],
+//                                     li[l],
+//                                     mi[m]);
+//                            if (access(opts->wav_out_file, F_OK) == 0) {
+//                                remove(opts->wav_out_file);
+//                            }
+//                            openWavOutFile(opts);
                             //play stored voice data
                             unsigned char ambe_d_copy[500][49];
                             for (int i = 0; i < 500; i++) {
@@ -198,13 +198,14 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                                          state->prev_mp_store[w],
                                                          1);
 //                                processAudio(opts, state);
-//                                writeSynthesizedVoiceToBuff(state);
-                                writeSynthesizedVoice(opts, state);
+                                writeSynthesizedVoiceToBuff(state);
+//                                writeSynthesizedVoice(opts, state);
 //                                playSynthesizedVoice(opts, state);
                             }
 
-                            sf_close(opts->wav_out_f);
+//                            sf_close(opts->wav_out_f);
 
+                            state->voice_buff_counter = 0;
                             if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
                                 goto exit;
                             }

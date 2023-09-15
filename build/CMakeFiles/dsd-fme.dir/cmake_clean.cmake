@@ -1,8 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/dsd-fme.dir/git_ver.c.o"
-  "CMakeFiles/dsd-fme.dir/git_ver.c.o.d"
-  "CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o"
-  "CMakeFiles/dsd-fme.dir/src/Hamming.cpp.o.d"
   "CMakeFiles/dsd-fme.dir/src/bptc.c.o"
   "CMakeFiles/dsd-fme.dir/src/bptc.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/dmr_34.c.o"
