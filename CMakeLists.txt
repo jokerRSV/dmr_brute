@@ -65,26 +65,14 @@ git_describe(GIT_TAG)
 find_package(LibSndFile REQUIRED)
 find_package(MBE REQUIRED)
 find_package(ITPP REQUIRED)
-find_package(RTLSDR)
-find_package(Curses REQUIRED) 
+find_package(Curses REQUIRED)
 find_package(PulseAudio REQUIRED)
 
 include_directories(SYSTEM ${LIBSNDFILE_INCLUDE_DIR} ${MBE_INCLUDE_DIR} ${ITPP_INCLUDE_DIR} ${PULSEAUDIO_INCLUDE_DIRS} ${CURSES_INCLUDE_DIR})
 set(LIBS ${MBE_LIBRARY} ${LIBSNDFILE_LIBRARY} ${ITPP_LIBRARY} ${PULSEAUDIO_SIMPLE_LIBRARY} ${CURSES_LIBRARY})
 
-if(RTLSDR_FOUND)
-    find_package(Threads)
-    include_directories(SYSTEM ${RTLSDR_INCLUDE_DIRS})
-    list(APPEND LIBS ${RTLSDR_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-    add_definitions(-DUSE_RTLSDR)
-endif(RTLSDR_FOUND)
-
 FILE(GLOB SRCS src/*.c src/*.cpp)
 FILE(GLOB HEADERS include/*.h include/*.hpp)
-
-if(NOT RTLSDR_FOUND)
-    list(REMOVE_ITEM SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/rtl_sdr_fm.cpp)
-endif(NOT RTLSDR_FOUND)
 
 configure_file("src/git_ver.c.in" "${CMAKE_CURRENT_BINARY_DIR}/git_ver.c" @ONLY)
 list(APPEND SRCS "${CMAKE_CURRENT_BINARY_DIR}/git_ver.c")

@@ -249,31 +249,3 @@ int UDPBind (char *hostname, int portno)
 
     return sockfd;
 }
-
-//going to leave this function available, even if completely switched over to rtl_dev_tune now, may be useful in the future
-void rtl_udp_tune(dsd_opts * opts, dsd_state * state, long int frequency) 
-{
-    int handle; 
-    unsigned short udp_port = opts->rtl_udp_port; 
-    char data[5] = {0}; //data buffer size is 5 for UDP frequency tuning
-    struct sockaddr_in address;
-
-    uint32_t new_freq = frequency;
-    opts->rtlsdr_center_freq = new_freq; //for ncurses terminal display after rtl is started up
-
-    handle = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-    data[0] = 0;
-    data[1] = new_freq & 0xFF;
-    data[2] = (new_freq >> 8) & 0xFF;
-    data[3] = (new_freq >> 16) & 0xFF;
-    data[4] = (new_freq >> 24) & 0xFF;
-
-    memset((char * ) & address, 0, sizeof(address));
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = inet_addr("127.0.0.1"); //make user configurable later
-    address.sin_port = htons(udp_port);
-    sendto(handle, data, 5, 0, (const struct sockaddr * ) & address, sizeof(struct sockaddr_in));
-
-    close (handle); //close socket after sending.
-}

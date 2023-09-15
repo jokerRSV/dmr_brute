@@ -110,9 +110,6 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
             }
             //rtl
             if (opts->audio_in_type == 3) {
-#ifdef USE_RTLSDR
-                rtl_dev_tune(opts, state->trunk_lcn_freq[state->lcn_freq_roll]);
-#endif
             }
 
             //print here not working as it should -- not always a -1 value on lastsynctype I presume
@@ -144,10 +141,6 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
             }
                 //rtl
             else if (opts->audio_in_type == 3) {
-#ifdef USE_RTLSDR
-                rtl_dev_tune(opts, state->p25_cc_freq);
-                state->dmr_rest_channel = -1;
-#endif
             }
 
             opts->p25_is_tuned = 0;
@@ -289,7 +282,7 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     state->HYTL = 0;
     state->HYTR = 0;
     state->DMRvcL = 0;
-    state->count = 0;
+//    state->count = 0;
 
     state->DMRvcR = 0;
     state->dropL = 256;
@@ -715,10 +708,14 @@ initState(dsd_state *state) {
             state->ambe_d[i][j] = 0;
         }
     }
-    for (i = 0; i < 100; i++) {
-            state->ring_buff_key[i].zero_num = 0;
-            state->ring_buff_key[i].key = 0;
+//    for (i = 0; i < SIZE_OF_BUFFER; i++) {
+//            state->key_buff_struct[i].zero_num = 0;
+//            state->key_buff_struct[i].key = 0;
+//    }
+    for (int k = 0; k < SIZE_OF_BUFFER; ++k) {
+        state->voice_buff[k] = 0;
     }
+    state->voice_buff_counter = 0;
     for (i = 0; i < 25; i++) {
         for (j = 0; j < 16; j++) {
             state->tg[i][j] = 48;
@@ -1061,20 +1058,6 @@ usage() {
     printf("  -V            Enable Audio Smoothing on Upsampled 48k/1 or 24k/2 Audio (Capital V)\n");
     printf("                 (Audio Smoothing is now disabled on all upsampled output by default -- fix crackle/buzz bug)\n");
     printf("  -z            Set TDMA Voice Slot Preference when using /dev/dsp audio output (prevent lag and stuttering)\n");
-    printf("\n");
-    printf("RTL-SDR options:\n");
-    printf(" Usage: rtl:dev:freq:gain:ppm:bw:sq:udp\n");
-    printf("  NOTE: all arguments after rtl are optional now for trunking, but user configuration is recommended\n");
-    printf("  dev  <num>    RTL-SDR Device Index Number\n");
-    printf("  freq <num>    RTL-SDR Frequency (851800000 or 851.8M) \n");
-    printf("  gain <num>    RTL-SDR Device Gain (0-49)(default = 0; Hardware AGC recommended)\n");
-    printf("  ppm  <num>    RTL-SDR PPM Error (default = 0)\n");
-    printf("  bw   <num>    RTL-SDR Bandwidth kHz (default = 12)(4, 6, 8, 12, 16, 24)  \n");
-    printf("  sq   <num>    RTL-SDR Squelch Level vs RMS Value (Optional)\n");
-    printf("  udp  <num>    RTL-SDR Legacy UDP Remote Port (Optional -- External Use Only)\n");
-    printf(" Example: dsd-fme -fs -i rtl -C cap_plus_channel.csv -T\n");
-    printf(" Example: dsd-fme -fp -i rtl:0:851.375M:22:-2:24:0:6021\n");
-    printf("\n");
     printf("Decoder options:\n");
     printf("  -fa           Legacy Auto Detection (old methods default)\n");
     printf("  -ft           XDMA P25 and DMR BS/MS frame types (new default)\n");
@@ -2144,63 +2127,6 @@ main(int argc, char **argv) {
     if ((strncmp(opts.audio_in_dev, "rtl", 3) == 0)) //rtl dongle input
     {
         uint8_t rtl_ok = 0;
-#ifdef USE_RTLSDR
-        fprintf(stderr, "RTL Input: ");
-        char *curr;
-
-        curr = strtok(opts.audio_in_dev, ":"); //should be 'rtl'
-        if (curr != NULL); //continue
-        else goto RTLEND; //end early with preset values
-
-        curr = strtok(NULL, ":"); //rtl device number "-D"
-        if (curr != NULL) opts.rtl_dev_index = atoi(curr);
-        else goto RTLEND;
-
-        curr = strtok(NULL, ":"); //rtl freq "-c"
-        if (curr != NULL) opts.rtlsdr_center_freq = (uint32_t) atofs(curr);
-        else goto RTLEND;
-
-        curr = strtok(NULL, ":"); //rtl gain value "-G"
-        if (curr != NULL) opts.rtl_gain_value = atoi(curr);
-        else goto RTLEND;
-
-        curr = strtok(NULL, ":"); //rtl ppm err "-P"
-        if (curr != NULL) opts.rtlsdr_ppm_error = atoi(curr);
-        else goto RTLEND;
-
-        curr = strtok(NULL, ":"); //rtl bandwidth "-Y"
-        if (curr != NULL) {
-            int bw = 0;
-            bw = atoi(curr);
-            //check for proper values (6,8,12,24)
-            if (bw == 4 || bw == 6 || bw == 8 || bw == 12 || bw == 16 ||
-                bw == 24) //testing 4 and 16 as well for weak and/or nxdn48 systems
-            {
-                opts.rtl_bandwidth = bw;
-            } else
-                opts.rtl_bandwidth = 12; //safe default -- provides best performance on most systems
-        } else goto RTLEND;
-
-        curr = strtok(NULL, ":"); //rtl squelch level "-L"
-        if (curr != NULL) opts.rtl_squelch_level = atoi(curr);
-        else goto RTLEND;
-
-        curr = strtok(NULL, ":"); //rtl udp port "-U"
-        if (curr != NULL) opts.rtl_udp_port = atoi(curr);
-        else goto RTLEND;
-
-        RTLEND:
-        fprintf(stderr, "Dev %d ", opts.rtl_dev_index);
-        fprintf(stderr, "Freq %d ", opts.rtlsdr_center_freq);
-        fprintf(stderr, "Gain %d ", opts.rtl_gain_value);
-        fprintf(stderr, "PPM %d ", opts.rtlsdr_ppm_error);
-        fprintf(stderr, "BW %d ", opts.rtl_bandwidth);
-        fprintf(stderr, "SQ %d ", opts.rtl_squelch_level);
-        fprintf(stderr, "UDP %d \n", opts.rtl_udp_port);
-        opts.audio_in_type = 3;
-        state.audio_smoothing = 0; //disable smoothing to prevent random crackling/buzzing
-        rtl_ok = 1;
-#endif
 
 #ifdef AERO_BUILD
         if (rtl_ok == 0) //not set, means rtl support isn't compiled/available

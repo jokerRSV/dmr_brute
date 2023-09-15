@@ -3,13 +3,13 @@
 
 # compile C with /usr/bin/cc
 # compile CXX with /usr/bin/c++
-C_DEFINES = -DPRETTY_COLORS -DUSE_RTLSDR
+C_DEFINES = -DPRETTY_COLORS
 
 C_INCLUDES = -I/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/include
 
 C_FLAGS = 
 
-CXX_DEFINES = -DPRETTY_COLORS -DUSE_RTLSDR
+CXX_DEFINES = -DPRETTY_COLORS
 
 CXX_INCLUDES = -I/media/rsv/ssd_common/projects/projects/c/dsd-fme_cut/include
 

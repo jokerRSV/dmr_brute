@@ -1075,30 +1075,6 @@ src/rs-12-9.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/rs-12-9.c.s
 .PHONY : src/rs-12-9.c.s
 
-src/rtl_sdr_fm.o: src/rtl_sdr_fm.cpp.o
-.PHONY : src/rtl_sdr_fm.o
-
-# target to build an object file
-src/rtl_sdr_fm.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/rtl_sdr_fm.cpp.o
-.PHONY : src/rtl_sdr_fm.cpp.o
-
-src/rtl_sdr_fm.i: src/rtl_sdr_fm.cpp.i
-.PHONY : src/rtl_sdr_fm.i
-
-# target to preprocess a source file
-src/rtl_sdr_fm.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/rtl_sdr_fm.cpp.i
-.PHONY : src/rtl_sdr_fm.cpp.i
-
-src/rtl_sdr_fm.s: src/rtl_sdr_fm.cpp.s
-.PHONY : src/rtl_sdr_fm.s
-
-# target to generate assembly for a file
-src/rtl_sdr_fm.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dsd-fme.dir/build.make CMakeFiles/dsd-fme.dir/src/rtl_sdr_fm.cpp.s
-.PHONY : src/rtl_sdr_fm.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1224,9 +1200,6 @@ help:
 	@echo "... src/rs-12-9.o"
 	@echo "... src/rs-12-9.i"
 	@echo "... src/rs-12-9.s"
-	@echo "... src/rtl_sdr_fm.o"
-	@echo "... src/rtl_sdr_fm.i"
-	@echo "... src/rtl_sdr_fm.s"
 .PHONY : help
 
 

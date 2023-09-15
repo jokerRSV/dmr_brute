@@ -65,15 +65,10 @@
 #define SAMPLE_RATE_IN 48000 //48000
 #define SAMPLE_RATE_OUT 48000 //8000,
 
-#ifdef USE_RTLSDR
-
-#include <rtl-sdr.h>
-
-#endif
-
 #include <locale.h>
 #include <ncurses.h>
 
+#define SIZE_OF_BUFFER 1000000
 extern volatile uint8_t exitflag; //fix for issue #136
 
 //group csv import struct
@@ -392,7 +387,9 @@ typedef struct {
     short audio_out[960];
     int DMRvcL;
     int DMRvcL_p[500];
-    key_state ring_buff_key[100];
+//    key_state key_buff_struct[SIZE_OF_BUFFER];
+    short voice_buff[SIZE_OF_BUFFER];
+    int voice_buff_counter;
     mbe_parms *cur_mp;
     mbe_parms *prev_mp;
     mbe_parms *prev_mp_enhanced;
@@ -819,6 +816,8 @@ void openPulseOutput(dsd_opts *opts);  //not sure if we need to just pass opts, 
 
 void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
 
+void writeSynthesizedVoiceToBuff(dsd_state *state);
+
 void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 
 void playSynthesizedVoice(dsd_opts *opts, dsd_state *state);
@@ -1098,20 +1097,6 @@ int csvKeyImportHex(dsd_opts *opts, dsd_state *state);
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#ifdef USE_RTLSDR
-
-void open_rtlsdr_stream(dsd_opts *opts);
-
-void get_rtlsdr_sample(int16_t *sample, dsd_opts *opts, dsd_state *state);
-
-void rtl_dev_tune(dsd_opts *opts, long int frequency);
-
-int rtl_return_rms();
-
-void rtl_clean_queue();
-
 #endif
 
 

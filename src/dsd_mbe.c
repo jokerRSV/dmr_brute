@@ -16,7 +16,6 @@
  */
 
 #include "dsd.h"
-#include <omp.h>
 
 //NOTE: I attempted to fix the atrocious tab/space alignnment issues that happened in this file,
 //it looks fine in VSCodium, but no telling how it will translate when pushed to Github or another editor
@@ -99,8 +98,8 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         ambe_d[i] = 0;
     }
     int start = 130;
-    int end = 100;
-    if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < start + end) {
+    int end = 200;
+    if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
         for (int j = 0; j < 49; ++j) {
@@ -116,8 +115,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
     if (state->audio_count == end) {
         int errs = 0;
         int errs2 = 0;
-        char err_str[64];
-//        memset(err_str, 0, 64 * sizeof(char));
+        char err_str[64] = {0};
         state->DMRvcL = 0;
 
         char buffer[30];
@@ -137,10 +135,10 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         for (int d = 0; d < 5; d++) {
             printf("%x\n", d);
             print_time(buffer, tv, d, 0, 0);
-#pragma omp parallel for
             for (int l = 0; l < 5; l++) {
                 for (int j = 0; j < 5; j++) {
                     for (int k = 0; k < 6; k++) {
+#pragma omp parallel for
                         for (int m = 0; m < 10; m++) {
                             unsigned long long int k1;
                             k1 = 0;
@@ -170,7 +168,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                 pos = pos % 40;
                             }
 
-                            snprintf(opts->wav_out_file, 22 + 4, "iii/sample_%x%x%x%x%x.wav", di[d], ji[j], ki[k],
+                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.wav", di[d], ji[j], ki[k],
                                      li[l],
                                      mi[m]);
                             if (access(opts->wav_out_file, F_OK) == 0) {
@@ -200,9 +198,11 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                                          state->prev_mp_store[w],
                                                          1);
 //                                processAudio(opts, state);
+//                                writeSynthesizedVoiceToBuff(state);
                                 writeSynthesizedVoice(opts, state);
 //                                playSynthesizedVoice(opts, state);
                             }
+
                             sf_close(opts->wav_out_f);
 
                             if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {

@@ -73,8 +73,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/dsd-fme.dir/src/pa_devs.c.o.d"
   "CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o"
   "CMakeFiles/dsd-fme.dir/src/rs-12-9.c.o.d"
-  "CMakeFiles/dsd-fme.dir/src/rtl_sdr_fm.cpp.o"
-  "CMakeFiles/dsd-fme.dir/src/rtl_sdr_fm.cpp.o.d"
   "dsd-fme"
   "dsd-fme.pdb"
 )

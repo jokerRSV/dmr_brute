@@ -125,8 +125,7 @@ CMakeFiles/dsd-fme.dir/src/dmr_ms.c.o: \
  /usr/include/asm-generic/param.h /usr/include/pulse/gccmacro.h \
  /usr/include/pulse/cdecl.h /usr/include/pulse/version.h \
  /usr/include/pulse/channelmap.h /usr/include/pulse/def.h \
- /usr/include/pulse/error.h /usr/include/rtl-sdr.h \
- /usr/include/rtl-sdr_export.h /usr/include/locale.h \
+ /usr/include/pulse/error.h /usr/include/locale.h \
  /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/curses.h \
  /usr/include/ncurses_dll.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h /usr/include/unctrl.h \
