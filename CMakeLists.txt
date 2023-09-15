@@ -59,8 +59,6 @@ if (ZDEV)
     add_definitions(-DZDEV_BUILD) 
 endif ()
 
-include(git_revision)
-git_describe(GIT_TAG)
 
 find_package(LibSndFile REQUIRED)
 find_package(MBE REQUIRED)

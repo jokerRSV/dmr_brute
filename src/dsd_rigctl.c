@@ -33,8 +33,7 @@ void error(char *msg) {
 //
 // Connect
 //
-int Connect (char *hostname, int portno)
-{
+int Connect(char *hostname, int portno) {
     int sockfd, n;
     struct sockaddr_in serveraddr;
     struct hostent *server;
@@ -42,17 +41,16 @@ int Connect (char *hostname, int portno)
 
     /* socket: create the socket */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0)
-    {
-      fprintf(stderr,"ERROR opening socket\n");
-      error("ERROR opening socket");
+    if (sockfd < 0) {
+        fprintf(stderr, "ERROR opening socket\n");
+        error("ERROR opening socket");
     }
-        
+
 
     /* gethostbyname: get the server's DNS entry */
     server = gethostbyname(hostname);
     if (server == NULL) {
-        fprintf(stderr,"ERROR, no such host as %s\n", hostname);
+        fprintf(stderr, "ERROR, no such host as %s\n", hostname);
         //exit(0);
         return (0); //return 0, check on other end and configure pulse input 
     }
@@ -60,43 +58,40 @@ int Connect (char *hostname, int portno)
     /* build the server's Internet address */
     bzero((char *) &serveraddr, sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr,
-	  (char *)&serveraddr.sin_addr.s_addr, server->h_length);
+    bcopy((char *) server->h_addr,
+          (char *) &serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_port = htons(portno);
 
     /* connect: create a connection with the server */
-    if (connect(sockfd, (const struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0)
-    {
-        fprintf(stderr,"ERROR opening socket\n");
+    if (connect(sockfd, (const struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0) {
+        fprintf(stderr, "ERROR opening socket\n");
         return (0);
-    }      
+    }
 
     return sockfd;
 }
 //
 // Send
 //
-bool Send(int sockfd, char *buf)
-{
+bool Send(int sockfd, char *buf) {
     int n;
 
     n = write(sockfd, buf, strlen(buf));
     if (n < 0)
-      error("ERROR writing to socket");
+        error("ERROR writing to socket");
     return true;
 }
 
 //
 // Recv
 //
-bool Recv(int sockfd, char *buf)
-{
+bool Recv(int sockfd, char *buf) {
     int n;
 
     n = read(sockfd, buf, BUFSIZE);
     if (n < 0)
-      error("ERROR reading from socket");
-    buf[n]= '\0';
+        error("ERROR reading from socket");
+    buf[n] = '\0';
     return true;
 }
 
@@ -104,96 +99,90 @@ bool Recv(int sockfd, char *buf)
 //
 // GQRX Protocol
 //
-long int GetCurrentFreq(int sockfd) 
-{
+long int GetCurrentFreq(int sockfd) {
     long int freq = 0;
     char buf[BUFSIZE];
-    char * ptr;
-    char * token;
+    char *ptr;
+    char *token;
 
     Send(sockfd, "f\n");
-    Recv(sockfd, buf); 
+    Recv(sockfd, buf);
 
-    if (strcmp(buf, "RPRT 1") == 0 ) 
+    if (strcmp(buf, "RPRT 1") == 0)
         return freq;
 
-    token = strtok (buf, "\n"); 
-    freq = strtol (token, &ptr, 10); 
+    token = strtok(buf, "\n");
+    freq = strtol(token, &ptr, 10);
     // fprintf (stderr, "\nRIGCTL VFO Freq: [%ld]\n", freq);
     return freq;
 }
 
-bool SetFreq(int sockfd, long int freq)
-{
+bool SetFreq(int sockfd, long int freq) {
     char buf[BUFSIZE];
 
-    sprintf (buf, "F %ld\n", freq); 
+    sprintf(buf, "F %ld\n", freq);
     Send(sockfd, buf);
     Recv(sockfd, buf);
 
-    if (strcmp(buf, "RPRT 1") == 0 )
+    if (strcmp(buf, "RPRT 1") == 0)
         return false;
 
     return true;
 }
 
-bool SetModulation(int sockfd, int bandwidth) 
-{
+bool SetModulation(int sockfd, int bandwidth) {
     char buf[BUFSIZE];
     //the bandwidth is now a user/system based configurable variable
-    sprintf (buf, "M FM %d\n", bandwidth); 
+    sprintf(buf, "M FM %d\n", bandwidth);
     Send(sockfd, buf);
     Recv(sockfd, buf);
 
-    if (strcmp(buf, "RPRT 1") == 0 )
+    if (strcmp(buf, "RPRT 1") == 0)
         return false;
 
     return true;
 }
 
-bool GetSignalLevel(int sockfd, double *dBFS)
-{
+bool GetSignalLevel(int sockfd, double *dBFS) {
     char buf[BUFSIZE];
 
     Send(sockfd, "l\n");
     Recv(sockfd, buf);
 
-    if (strcmp(buf, "RPRT 1") == 0 )
+    if (strcmp(buf, "RPRT 1") == 0)
         return false;
 
     sscanf(buf, "%lf", dBFS);
-    *dBFS = round((*dBFS) * 10)/10;
+    *dBFS = round((*dBFS) * 10) / 10;
 
     if (*dBFS == 0.0)
         return false;
     return true;
 }
 
-bool GetSquelchLevel(int sockfd, double *dBFS)
-{
+bool GetSquelchLevel(int sockfd, double *dBFS) {
     char buf[BUFSIZE];
 
     Send(sockfd, "l SQL\n");
     Recv(sockfd, buf);
 
-    if (strcmp(buf, "RPRT 1") == 0 )
+    if (strcmp(buf, "RPRT 1") == 0)
         return false;
 
     sscanf(buf, "%lf", dBFS);
-    *dBFS = round((*dBFS) * 10)/10;
+    *dBFS = round((*dBFS) * 10) / 10;
 
     return true;
 }
 
-bool SetSquelchLevel(int sockfd, double dBFS)
-{
+bool SetSquelchLevel(int sockfd, double dBFS) {
     char buf[BUFSIZE];
 
-    sprintf (buf, "L SQL %f\n", dBFS);
+    sprintf(buf, "L SQL %f\n", dBFS);
     Send(sockfd, buf);
     Recv(sockfd, buf);
 
-    if (strcmp(buf, "RPRT 1") == 0 )
+    if (strcmp(buf, "RPRT 1") == 0)
         return false;
 
     return true;
@@ -202,14 +191,12 @@ bool SetSquelchLevel(int sockfd, double dBFS)
 // GetSignalLevelEx
 // Get a bunch of sample with some delay and calculate the mean value
 //
-bool GetSignalLevelEx(int sockfd, double *dBFS, int n_samp)
-{
+bool GetSignalLevelEx(int sockfd, double *dBFS, int n_samp) {
     double temp_level;
     *dBFS = 0;
     int errors = 0;
-    for (int i = 0; i < n_samp; i++)
-    {
-        if ( GetSignalLevel(sockfd, &temp_level) )
+    for (int i = 0; i < n_samp; i++) {
+        if (GetSignalLevel(sockfd, &temp_level))
             *dBFS = *dBFS + temp_level;
         else
             errors++;
@@ -220,8 +207,7 @@ bool GetSignalLevelEx(int sockfd, double *dBFS, int n_samp)
 }
 
 //shoe in UDP input connection here...still having issues that I don't know how to resolve
-int UDPBind (char *hostname, int portno)
-{
+int UDPBind(char *hostname, int portno) {
     int sockfd, n;
     struct sockaddr_in serveraddr, client_addr;
     struct hostent *server;
@@ -230,10 +216,9 @@ int UDPBind (char *hostname, int portno)
     //UDP socket
     sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-    if (sockfd < 0)
-    {
-      fprintf(stderr,"ERROR opening UDP socket\n");
-      error("ERROR opening UDP socket");
+    if (sockfd < 0) {
+        fprintf(stderr, "ERROR opening UDP socket\n");
+        error("ERROR opening UDP socket");
     }
 
     /* build the server's Internet address */
@@ -243,9 +228,9 @@ int UDPBind (char *hostname, int portno)
     serveraddr.sin_port = htons(portno);
 
     //Bind socket to listening
-    if (bind(sockfd, (struct sockaddr *) &serveraddr,  sizeof(serveraddr)) < 0) { 
-		perror("ERROR on binding UDP Port");
-	}
+    if (bind(sockfd, (struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0) {
+        perror("ERROR on binding UDP Port");
+    }
 
     return sockfd;
 }
