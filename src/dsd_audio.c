@@ -347,6 +347,29 @@ void writeSynthesizedVoiceToBuff(dsd_state *state) {
     }
 }
 
+void writeW0(dsd_state *state) {
+    int n;
+    short aout_buf[160] = {0};
+
+    state->audio_out_temp_buf_p = state->audio_out_temp_buf;
+
+    for (n = 0; n < 160; n++) {
+        if (*state->audio_out_temp_buf_p > (float) 32767) {
+            *state->audio_out_temp_buf_p = (float) 32767;
+        } else if (*state->audio_out_temp_buf_p < (float) -32768) {
+            *state->audio_out_temp_buf_p = (float) -32768;
+        }
+
+        aout_buf[n] = (short) *state->audio_out_temp_buf_p;
+        state->audio_out_temp_buf_p++;
+    }
+
+    for (int i = 0; i < 160; ++i) {
+        state->voice_buff[state->voice_buff_counter] = aout_buf[i];
+        state->voice_buff_counter++;
+    }
+}
+
 void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state) {
     int n;
     short aout_buf[160];

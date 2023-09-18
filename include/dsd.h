@@ -818,6 +818,8 @@ void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
 
 void writeSynthesizedVoiceToBuff(dsd_state *state);
 
+void writeW0(dsd_state *state);
+
 void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 
 void playSynthesizedVoice(dsd_opts *opts, dsd_state *state);

@@ -189,18 +189,24 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                     ambe_d_copy[w][i] ^= pN[pos];
                                     pos++;
                                 }
+                                int b0, b1, b2, b3, b4, b5, b6, b7, b8;
 
-                                mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
-                                                         &errs, &errs2, err_str,
-                                                         ambe_d_copy[w],
-                                                         state->cur_mp_store[w],
-                                                         state->prev_mp_store[w],
-                                                         state->prev_mp_store[w],
-                                                         1);
-//                                processAudio(opts, state);
-//                                writeSynthesizedVoiceToBuff(state);
-                                writeSynthesizedVoice(opts, state);
-//                                playSynthesizedVoice(opts, state);
+                                b0 = 0;
+                                b0 |= ambe_d[0] << 6;
+                                b0 |= ambe_d[1] << 5;
+                                b0 |= ambe_d[2] << 4;
+                                b0 |= ambe_d[3] << 3;
+                                b0 |= ambe_d[37] << 2;
+                                b0 |= ambe_d[38] << 1;
+                                b0 |= ambe_d[39];
+
+                                b1 = 0;
+                                b1 |= ambe_d[4] << 4;
+                                b1 |= ambe_d[5] << 3;
+                                b1 |= ambe_d[6] << 2;
+                                b1 |= ambe_d[7] << 1;
+                                b1 |= ambe_d[35];
+                                writeW0(state);
                             }
 
                             sf_close(opts->wav_out_f);
