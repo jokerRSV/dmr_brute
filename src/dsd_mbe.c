@@ -127,19 +127,19 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         unsigned char ms = 0xa5;
         int di[] = {0x00, 0x11, 0x55, 0x34, ds};
         int ji[] = {0x00, 0x22, 0x55, 0xfe, js};
-        int ki[] = {0x00, 0x11, 0x22, 0x55, 0x92, ks};
+        int ki[] = {0x00, 0x11, 0x55, 0x92, ks};
         int li[] = {0x00, 0x11, 0x31, 0x55, ls};
-        int mi[] = {0x00, 0x11, 0x22, 0x33, 0x55, 0x66, 0x77, 0x40, 0xdf, ms};
+        int mi[] = {0x00, 0x11, 0x22, 0x33, 0x55, 0x66, 0x77, 0x40, ms};
 
 
-        for (int d = 0; d < 5; d++) {
+        for (int d = 2; d < 5; d++) {
             printf("%x\n", d);
             print_time(buffer, tv, d, 0, 0);
-            for (int l = 0; l < 5; l++) {
-                for (int j = 0; j < 5; j++) {
-                    for (int k = 0; k < 6; k++) {
+            for (int l = 3; l < 5; l++) {
+                for (int j = 3; j < 5; j++) {
+                    for (int k = 3; k < 5; k++) {
 #pragma omp parallel for
-                        for (int m = 0; m < 10; m++) {
+                        for (int m = 7; m < 9; m++) {
                             unsigned long long int k1;
                             k1 = 0;
                             k1 |= (unsigned long long) di[d] << 32;
@@ -168,13 +168,13 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                 pos = pos % 40;
                             }
 
-//                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.wav", di[d], ji[j], ki[k],
-//                                     li[l],
-//                                     mi[m]);
-//                            if (access(opts->wav_out_file, F_OK) == 0) {
-//                                remove(opts->wav_out_file);
-//                            }
-//                            openWavOutFile(opts);
+                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.wav", di[d], ji[j], ki[k],
+                                     li[l],
+                                     mi[m]);
+                            if (access(opts->wav_out_file, F_OK) == 0) {
+                                remove(opts->wav_out_file);
+                            }
+                            openWavOutFile(opts);
                             //play stored voice data
                             unsigned char ambe_d_copy[500][49];
                             for (int i = 0; i < 500; i++) {
@@ -198,12 +198,12 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                                          state->prev_mp_store[w],
                                                          1);
 //                                processAudio(opts, state);
-                                writeSynthesizedVoiceToBuff(state);
-//                                writeSynthesizedVoice(opts, state);
+//                                writeSynthesizedVoiceToBuff(state);
+                                writeSynthesizedVoice(opts, state);
 //                                playSynthesizedVoice(opts, state);
                             }
 
-//                            sf_close(opts->wav_out_f);
+                            sf_close(opts->wav_out_f);
 
                             state->voice_buff_counter = 0;
                             if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
