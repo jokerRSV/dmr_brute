@@ -248,17 +248,15 @@ void dmr_data_burst_handler(dsd_opts *opts, dsd_state *state, uint8_t info[196],
         CRCExtracted = CRCExtracted ^ crcmask;
 
         /* Check/correct the BPTC data and compute the Reed-Solomon (12,9) CRC */
-        if (is_lc) CRCCorrect = ComputeAndCorrectFullLinkControlCrc(BPTCDmrDataByte, &CRCComputed, crcmask);
-
+        if (is_lc) {
+            CRCCorrect = ComputeAndCorrectFullLinkControlCrc(BPTCDmrDataByte, &CRCComputed, crcmask);
             //set CRC to correct on unconfirmed 1/2 data blocks (for reporting due to no CRC available on these)
-        else if (state->data_conf_data[slot] == 0 && databurst == 0x7) {
+        } else if (state->data_conf_data[slot] == 0 && databurst == 0x7) {
             CRCComputed = 0;
             CRCExtracted = 0;
             CRCCorrect = 1;
-        }
-
             //run CRC9 on intermediate and last 1/2 confirmed data blocks
-        else if (state->data_conf_data[slot] == 1 && databurst == 0x7) {
+        } else if (state->data_conf_data[slot] == 1 && databurst == 0x7) {
             blockcounter = state->data_block_counter[slot]; //current block number according to the counter
             dbsn = (uint32_t) ConvertBitIntoBytes(&BPTCDmrDataBit[0], 7) + 1; //recover data block serial number
             CRCExtracted = (uint32_t) ConvertBitIntoBytes(&BPTCDmrDataBit[7], 9); //extract CRC from data
@@ -275,10 +273,8 @@ void dmr_data_burst_handler(dsd_opts *opts, dsd_state *state, uint8_t info[196],
                 state->data_block_crc_valid[slot][blockcounter] = 1;
             } else state->data_block_crc_valid[slot][blockcounter] = 0;
 
-        }
-
             //run CCITT on other data forms
-        else {
+        } else {
             CRCComputed = ComputeCrcCCITT(BPTCDmrDataBit);
             if (CRCComputed == CRCExtracted) CRCCorrect = 1;
             else CRCCorrect = 0;
