@@ -97,7 +97,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
     for (int i = 0; i < 49; i++) {
         ambe_d[i] = 0;
     }
-    int start = 1;
+    int start = 10;
     int end = 200;
     if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
@@ -121,14 +121,14 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         char buffer[30];
         struct timeval tv;
         unsigned char ds = 0x1a;
-        unsigned char js = 0xe2;
-        unsigned char ks = 0xac;
-        unsigned char ls = 0xa3;
+        unsigned char ls = 0xe2;
+        unsigned char js = 0xac;
+        unsigned char ks = 0xa3;
         unsigned char ms = 0xa5;
         int di[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x34, ds};
+        int li[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xff, ls};
         int ji[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xfe, js};
         int ki[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x92, ks};
-        int li[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xff, ls};
         int mi[] = {0x00, 0x11, 0x22, 0x33, 0x55, 0x66, 0x77, ms};
 
 //        for (int d = 0; d < 1; d++) {
@@ -141,18 +141,28 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                for (int j = 4; j < 5; j++) {
 //                    for (int k = 4; k < 5; k++) {
 //                        for (int m = 8; m < 9; m++) {
-        for (int d = 0; d < 8; d++) {
-            for (int l = 0; l < 8; l++) {
-                for (int j = 0; j < 8; j++) {
-                    for (int k = 0; k < 8; k++) {
-                        for (int m = 0; m < 8; m++) {
+//        for (int d = 0; d < 8; d++) {
+//            for (int l = 0; l < 8; l++) {
+//                for (int j = 0; j < 8; j++) {
+//                    for (int k = 0; k < 8; k++) {
+//                        for (int m = 0; m < 8; m++) {
+        for (int d = 0x10; d < 0x1a + 1; d++) {
+            for (int l = 0xe0; l < 0xe2 + 1; l++) {
+                for (int j = 0xa0; j < 0xac + 1; j++) {
+                    for (int k = 0xa0; k < 0xa3 + 1; k++) {
+                        for (int m = 0xa0; m < 0xa5 + 1; m++) {
                             unsigned long long int k1;
                             k1 = 0;
-                            k1 |= (unsigned long long) di[d] << 32;
-                            k1 |= (unsigned long long) ji[j] << 24;
-                            k1 |= (unsigned long long) ki[k] << 16;
-                            k1 |= (unsigned long long) li[l] << 8;
-                            k1 |= (unsigned long long) mi[m];
+//                            k1 |= (unsigned long long) di[d] << 32;
+//                            k1 |= (unsigned long long) li[l] << 24;
+//                            k1 |= (unsigned long long) ji[j] << 16;
+//                            k1 |= (unsigned long long) ki[k] << 8;
+//                            k1 |= (unsigned long long) mi[m];
+                            k1 |= (unsigned long long) d << 32;
+                            k1 |= (unsigned long long) l << 24;
+                            k1 |= (unsigned long long) j << 16;
+                            k1 |= (unsigned long long) k << 8;
+                            k1 |= (unsigned long long) m;
                             fprintf(stderr, "\n");
                             fprintf(stderr, "--- %02x ", (unsigned int) (k1 >> 32));
                             fprintf(stderr, "%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
@@ -174,9 +184,10 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                 pos = pos % 40;
                             }
 
-                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", di[d], ji[j], ki[k],
-                                     li[l],
-                                     mi[m]);
+//                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", di[d], ji[j], ki[k],
+//                                     li[l],
+//                                     mi[m]);
+                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", d, l, j, k, m);
                             if (access(opts->wav_out_file, F_OK) == 0) {
                                 remove(opts->wav_out_file);
                             }
@@ -222,7 +233,8 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                             fclose(pFile);
 
                             state->voice_buff_counter = 0;
-                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
+//                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
+                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
                                 goto exit;
                             }
                         }
