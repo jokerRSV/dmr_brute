@@ -20,50 +20,6 @@
 //NOTE: I attempted to fix the atrocious tab/space alignnment issues that happened in this file,
 //it looks fine in VSCodium, but no telling how it will translate when pushed to Github or another editor
 
-void keyring(dsd_opts *opts, dsd_state *state) {
-
-    if (state->currentslot == 0)
-        state->R = state->rkey_array[state->payload_keyid];
-
-    if (state->currentslot == 1)
-        state->RR = state->rkey_array[state->payload_keyidR];
-}
-
-void RC4(int drop, uint8_t keylength, uint8_t messagelength, uint8_t key[], uint8_t cipher[], uint8_t plain[]) {
-    int i, j, count;
-    uint8_t t, b;
-
-    //init Sbox
-    uint8_t S[256];
-    for (int i = 0; i < 256; i++) S[i] = i;
-
-    //Key Scheduling
-    j = 0;
-    for (i = 0; i < 256; i++) {
-        j = (j + S[i] + key[i % keylength]) % 256;
-        t = S[i];
-        S[i] = S[j];
-        S[j] = t;
-    }
-
-    //Drop Bytes and Cipher Byte XOR
-    i = j = 0;
-    for (count = 0; count < (messagelength + drop); count++) {
-        i = (i + 1) % 256;
-        j = (j + S[i]) % 256;
-        t = S[i];
-        S[i] = S[j];
-        S[j] = t;
-        b = S[(S[i] + S[j]) % 256];
-
-        //return mbe payload byte here
-        if (count >= drop)
-            plain[count - drop] = b ^ cipher[count - drop];
-
-    }
-
-}
-
 static double entropy(const char *f, int length) {
     int counts[256] = {0};
     double entropy = 0;
