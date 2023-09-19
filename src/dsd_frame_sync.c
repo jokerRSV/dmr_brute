@@ -165,21 +165,6 @@ getFrameSync(dsd_opts *opts, dsd_state *state) {
                 }
             }
         }
-        //check that we have a non zero value first, then tune next frequency
-        if (state->trunk_lcn_freq[state->lcn_freq_roll] != 0) {
-            //rigctl
-            if (opts->use_rigctl == 1) {
-                if (opts->setmod_bw != 0) SetModulation(opts->rigctl_sockfd, opts->setmod_bw);
-                SetFreq(opts->rigctl_sockfd, state->trunk_lcn_freq[state->lcn_freq_roll]);
-            }
-            //rtl
-            if (opts->audio_in_type == 3) {
-            }
-
-            fprintf(stderr, "Tuning to Frequency: %.06lf MHz\n",
-                    (double) state->trunk_lcn_freq[state->lcn_freq_roll] / 1000000);
-
-        }
         state->lcn_freq_roll++;
         state->last_cc_sync_time = time(NULL); //set again to give another x seconds
     }

@@ -900,9 +900,6 @@ typedef struct {
 
 void processAudio(dsd_opts *opts, dsd_state *state);
 
-void processAudioR(dsd_opts *opts, dsd_state *state);
-
-void openPulseInput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 void openPulseOutput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
 
 void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
@@ -910,8 +907,6 @@ void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
 void writeSynthesizedVoiceToBuff(dsd_state *state);
 
 void writeW0(dsd_state *state, dsd_opts *opts);
-
-void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 
 void playSynthesizedVoice(dsd_opts *opts, dsd_state *state);
 
@@ -926,7 +921,6 @@ int getDibit(dsd_opts *opts, dsd_state *state);
 int get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state);
 
 void skipDibit(dsd_opts *opts, dsd_state *state, int count);
-
 
 void processFrame(dsd_opts *opts, dsd_state *state);
 
@@ -952,8 +946,6 @@ void cleanupAndExit(dsd_opts *opts, dsd_state *state);
 int main(int argc, char **argv);
 
 void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]);
-
-void openSerial(dsd_opts *opts, dsd_state *state);
 
 int getSymbol(dsd_opts *opts, dsd_state *state, int have_sync);
 
@@ -1084,8 +1076,6 @@ bool Hamming_7_4_decode(unsigned char *rxBits);
 
 void Hamming_12_8_init();
 
-bool Hamming_12_8_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords);
-
 void Hamming_13_9_init();
 
 bool Hamming_13_9_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords);
@@ -1113,21 +1103,6 @@ void QR_16_7_6_init();
 bool QR_16_7_6_decode(unsigned char *rxBits);
 
 void InitAllFecFunction(void);
-
-//rigctl functions and TCP/UDP functions
-void error(char *msg);
-
-int Connect(char *hostname, int portno);
-
-bool Send(int sockfd, char *buf);
-
-bool Recv(int sockfd, char *buf);
-
-long int GetCurrentFreq(int sockfd);
-
-bool SetFreq(int sockfd, long int freq);
-
-bool SetModulation(int sockfd, int bandwidth);
 
 #ifdef __cplusplus
 extern "C" {

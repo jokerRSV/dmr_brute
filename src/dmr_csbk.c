@@ -237,25 +237,6 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                             }
                         }
 
-                        if (state->p25_cc_freq != 0 && opts->p25_trunk == 1 && (strcmp(mode, "B") != 0) &&
-                            (strcmp(mode, "DE") != 0)) {
-                            if (freq != 0) //if we have a valid frequency
-                            {
-                                //RIGCTL
-                                if (opts->use_rigctl == 1) {
-                                    if (opts->setmod_bw != 0) SetModulation(opts->rigctl_sockfd, opts->setmod_bw);
-                                    SetFreq(opts->rigctl_sockfd, freq);
-                                    state->p25_vc_freq[0] = state->p25_vc_freq[1] = freq;
-                                    opts->p25_is_tuned = 1; //set to 1 to set as currently tuned so we don't keep tuning nonstop
-                                    dmr_reset_blocks(opts, state); //reset all block gathering since we are tuning away
-                                }
-
-                                    //rtl
-                                else if (opts->audio_in_type == 3) {
-                                }
-
-                            }
-                        }
                     }
 
                 }
@@ -380,23 +361,6 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                             (site & sub_mask) + 1);
                 else sprintf(state->dmr_site_parms, "TIII - %s %d-%d ", model_str, net, site);
 
-                //if using rigctl we can set an unknown or updated cc frequency
-                //by polling rigctl for the current frequency
-                if (opts->use_rigctl == 1 && opts->p25_is_tuned == 0) //&& state->p25_cc_freq == 0
-                {
-                    ccfreq = GetCurrentFreq(opts->rigctl_sockfd);
-                    if (ccfreq != 0) state->p25_cc_freq = ccfreq;
-                }
-
-                //if using rtl input, we can ask for the current frequency tuned
-                if (opts->audio_in_type == 3 && opts->p25_is_tuned == 0) //&& state->p25_cc_freq == 0
-                {
-                    ccfreq = (long int) opts->rtlsdr_center_freq;
-                    if (ccfreq != 0) state->p25_cc_freq = ccfreq;
-                }
-
-                //nullify any previous branding sub (bugfix for bad assignments or system type switching)
-                //sprintf(state->dmr_branding_sub, "%s", "");
 
                 //debug print
                 uint16_t syscode = (uint16_t) ConvertBitIntoBytes(&cs_pdu_bits[40], 16);
@@ -990,53 +954,6 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                     //Test allowing a group in the white list to preempt a call in progress and tune to a white listed call
                     if (opts->trunk_use_allow_list == 1) state->last_vc_sync_time = 0;
 
-                    //don't tune if vc on the current channel
-                    if ((time(NULL) - state->last_vc_sync_time > 2)) {
-                        for (j = start;
-                             j < end; j++) //go through the channels stored looking for active ones to tune to
-                        {
-                            char mode[8]; //allow, block, digital, enc, etc
-
-                            //if we are using allow/whitelist mode, then write 'B' to mode for block
-                            //comparison below will look for an 'A' to write to mode if it is allowed
-                            if (opts->trunk_use_allow_list == 1) sprintf(mode, "%s", "B");
-
-                            for (int i = 0; i < state->group_tally; i++) {
-                                if (state->group_array[i].groupNumber == t_tg[j]) {
-                                    fprintf(stderr, " [%s]", state->group_array[i].groupName);
-                                    strcpy(mode, state->group_array[i].groupMode);
-                                }
-                            }
-
-                            //without priority, this will tune the first one it finds (if group isn't blocked)
-                            if (t_tg[j] != 0 && state->p25_cc_freq != 0 && opts->p25_trunk == 1 &&
-                                (strcmp(mode, "B") != 0) && (strcmp(mode, "DE") != 0)) {
-                                //debug print for tuning verification
-                                fprintf(stderr, "\n LSN/TG to tune to: %d - %d", j + 1, t_tg[j]);
-
-                                if (state->trunk_chan_map[j + 1] != 0) //if we have a valid frequency
-                                {
-                                    //RIGCTL
-                                    if (opts->use_rigctl == 1) {
-                                        if (opts->setmod_bw != 0) SetModulation(opts->rigctl_sockfd, opts->setmod_bw);
-                                        SetFreq(opts->rigctl_sockfd, state->trunk_chan_map[j + 1]);
-                                        state->p25_vc_freq[0] = state->p25_vc_freq[1] = state->trunk_chan_map[j + 1];
-                                        opts->p25_is_tuned = 1; //set to 1 to set as currently tuned so we don't keep tuning nonstop
-                                        dmr_reset_blocks(opts,
-                                                         state); //reset all block gathering since we are tuning away
-                                        j = 11; //break loop
-                                    }
-
-                                        //rtl
-                                    else if (opts->audio_in_type == 3) {
-                                    }
-
-                                }
-                            }
-
-                        }
-                    } //end tuning
-
                     SKIPCAP:;
                     //debug print
                     if (fl == 1 && opts->payload == 1) {
@@ -1101,19 +1018,6 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                 //Skip tuning group calls if group calls are disabled
                 if (opts->trunk_tune_group_calls == 0) goto SKIPCON;
 
-                //if using rigctl we can set an unknown or updated cc frequency
-                //by polling rigctl for the current frequency
-                if (opts->use_rigctl == 1 && opts->p25_is_tuned == 0) {
-                    ccfreq = GetCurrentFreq(opts->rigctl_sockfd);
-                    if (ccfreq != 0) state->p25_cc_freq = ccfreq;
-                }
-
-                //if using rtl input, we can ask for the current frequency tuned
-                if (opts->audio_in_type == 3 && opts->p25_is_tuned == 0) {
-                    ccfreq = (long int) opts->rtlsdr_center_freq;
-                    if (ccfreq != 0) state->p25_cc_freq = ccfreq;
-                }
-
                 //shim in here for ncurses freq display when not trunking (playback, not live)
                 if (opts->p25_trunk == 0 && state->trunk_chan_map[lcn] != 0) {
                     //just set to both for now, could go on tslot later
@@ -1131,33 +1035,6 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                     if (state->group_array[i].groupNumber == grpAddr) {
                         fprintf(stderr, " [%s]", state->group_array[i].groupName);
                         strcpy(mode, state->group_array[i].groupMode);
-                    }
-                }
-
-                //don't tune if currently a vc on the control channel
-                if ((opts->trunk_tune_group_calls == 1) && (time(NULL) - state->last_vc_sync_time > 2)) {
-
-                    if (state->p25_cc_freq != 0 && opts->p25_trunk == 1 && (strcmp(mode, "B") != 0) &&
-                        (strcmp(mode, "DE") != 0)) {
-                        if (state->trunk_chan_map[lcn] != 0) //if we have a valid frequency
-                        {
-                            //RIGCTL
-                            if (opts->use_rigctl == 1) {
-                                if (opts->setmod_bw != 0) SetModulation(opts->rigctl_sockfd, opts->setmod_bw);
-                                SetFreq(opts->rigctl_sockfd, state->trunk_chan_map[lcn]);
-                                state->p25_vc_freq[0] = state->p25_vc_freq[1] = state->trunk_chan_map[lcn];
-                                opts->p25_is_tuned = 1; //set to 1 to set as currently tuned so we don't keep tuning nonstop
-                                state->is_con_plus = 1; //flag on
-                                state->last_vc_sync_time = time(
-                                        NULL); //bugfix: set sync here so we don't immediately tune back to CC constantly.
-                                dmr_reset_blocks(opts, state); //reset all block gathering since we are tuning away
-                            }
-
-                                //rtl
-                            else if (opts->audio_in_type == 3) {
-                            }
-
-                        }
                     }
                 }
 
@@ -1268,25 +1145,6 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                 //assign to cc freq to follow during no sync
                 long int ccfreq = 0;
 
-                //if using rigctl we can set an unknown or updated cc frequency
-                if (opts->use_rigctl == 1) {
-                    ccfreq = GetCurrentFreq(opts->rigctl_sockfd);
-                    if (ccfreq != 0) {
-                        state->p25_cc_freq = ccfreq;
-                        opts->p25_is_tuned = 1;
-                    }
-                }
-
-                //if using rtl input, we can ask for the current frequency tuned
-                if (opts->audio_in_type == 3) {
-                    ccfreq = (long int) opts->rtlsdr_center_freq;
-                    if (ccfreq != 0) {
-                        state->p25_cc_freq = ccfreq;
-                        opts->p25_is_tuned = 1;
-                    }
-
-                }
-
                 //Skip tuning calls if group calls are disabled
                 if (opts->trunk_tune_group_calls == 0) goto SKIPXPT;
 
@@ -1311,35 +1169,6 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                             if (state->group_array[i].groupNumber == t_tg[j + xpt_bank]) {
                                 fprintf(stderr, " [%s]", state->group_array[i].groupName);
                                 strcpy(mode, state->group_array[i].groupMode);
-                            }
-                        }
-
-                        //without priority, this will tune the first one it finds (if group isn't blocked)
-                        if (t_tg[j + xpt_bank] != 0 && state->p25_cc_freq != 0 && opts->p25_trunk == 1 &&
-                            (strcmp(mode, "B") != 0) && (strcmp(mode, "DE") != 0)) {
-                            //debug print for tuning verification
-                            fprintf(stderr, "\n LSN/TG to tune to: %d - %d", j + xpt_bank + 1, t_tg[j + xpt_bank]);
-
-                            if (state->trunk_chan_map[j + xpt_bank + 1] != 0) //if we have a valid frequency
-                            {
-                                //RIGCTL
-                                if (opts->use_rigctl == 1) {
-                                    //debug
-                                    fprintf(stderr, " - Freq: %ld", state->trunk_chan_map[j + xpt_bank + 1]);
-
-                                    if (opts->setmod_bw != 0) SetModulation(opts->rigctl_sockfd, opts->setmod_bw);
-                                    SetFreq(opts->rigctl_sockfd, state->trunk_chan_map[j + xpt_bank + 1]);
-                                    state->p25_vc_freq[0] = state->p25_vc_freq[1] = state->trunk_chan_map[j + xpt_bank +
-                                                                                                          1];
-                                    opts->p25_is_tuned = 1; //set to 1 to set as currently tuned so we don't keep tuning nonstop
-                                    dmr_reset_blocks(opts, state); //reset all block gathering since we are tuning away
-                                    j = 11; //break loop
-                                }
-
-                                    //rtl
-                                else if (opts->audio_in_type == 3) {
-                                }
-
                             }
                         }
 

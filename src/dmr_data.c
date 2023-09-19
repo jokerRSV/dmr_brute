@@ -270,27 +270,4 @@ dmr_data_sync(dsd_opts *opts, dsd_state *state) {
     if (state->dmr_stereo == 0) {
         skipDibit(opts, state, 12 + 49 + 5);
     }
-
-    //if using con+ trunking and last voice observed more than x seconds ago, snap back to con+ cc
-    //con+ voice channels can have extremely long idle periods without properly tearing down
-    if (opts->p25_trunk == 1 && opts->p25_is_tuned == 1 && state->is_con_plus == 1) {
-        //bug fixed that caused hopping from CC to VC; decreased to 2 seconds.
-        if ((time(NULL) - state->last_vc_sync_time > 2)) {
-            if (opts->use_rigctl == 1) //rigctl tuning
-            {
-                if (opts->setmod_bw != 0) SetModulation(opts->rigctl_sockfd, opts->setmod_bw);
-                SetFreq(opts->rigctl_sockfd, state->p25_cc_freq);
-            } else if (opts->audio_in_type == 3) //rtl_fm tuning
-            {
-            }
-            opts->p25_is_tuned = 0;
-            //zero out vc frequencies
-            state->p25_vc_freq[0] = 0;
-            state->p25_vc_freq[1] = 0;
-            memset(state->active_channel, 0, sizeof(state->active_channel));
-            state->last_cc_sync_time = time(NULL);
-            state->is_con_plus = 0; //con+ flag off
-        }
-    }
-
-} 
+}

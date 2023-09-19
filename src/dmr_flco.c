@@ -860,13 +860,6 @@ void dmr_slco (dsd_opts * opts, dsd_state * state, uint8_t slco_bits[])
     if (n != 0) sprintf (state->dmr_site_parms, "TIII - %s %d-%d.%d ", model_str, net+1, (site>>n)+1, (site & sub_mask)+1 );
     else sprintf (state->dmr_site_parms, "TIII - %s %d-%d ", model_str, net, site);
 
-    //if using rigctl we can set an unknown cc frequency by polling rigctl for the current frequency
-    if (opts->use_rigctl == 1 && state->p25_cc_freq == 0) //if not set from channel map 0
-    {
-      ccfreq = GetCurrentFreq (opts->rigctl_sockfd);
-      if (ccfreq != 0) state->p25_cc_freq = ccfreq;
-    }
-
     //debug print
     uint16_t syscode = (uint16_t)ConvertBitIntoBytes(&slco_bits[4], 14);
     //fprintf (stderr, "\n  SYSCODE: %014b", syscode);
@@ -902,13 +895,6 @@ void dmr_slco (dsd_opts * opts, dsd_state * state, uint8_t slco_bits[])
   {
     fprintf (stderr, " SLCO Connect Plus Control Channel - Net ID: %d Site ID: %d", con_netid, con_siteid);
     sprintf (state->dmr_site_parms, "%d-%d ", con_netid, con_siteid);
-
-    //if using rigctl we can set an unknown cc frequency by polling rigctl for the current frequency
-    if (opts->use_rigctl == 1 && state->p25_cc_freq == 0) //if not set from channel map 0
-    {
-      ccfreq = GetCurrentFreq (opts->rigctl_sockfd);
-      if (ccfreq != 0) state->p25_cc_freq = ccfreq;
-    }
   }
    
   else if (slco == 0xF)
