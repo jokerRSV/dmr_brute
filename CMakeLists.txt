@@ -14,49 +14,49 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 option(AERO
     "Build for Aero Environments (Cygwin)" OFF)
 if (AERO)
-    add_definitions(-DAERO_BUILD) 
+    add_definitions(-DAERO_BUILD)
 endif ()
 
 #use cmake option -DCOLORS=OFF to disable color output
 option(COLORS
     "Build with Colors Enabled" ON)
 if (COLORS)
-    add_definitions(-DPRETTY_COLORS) 
+    add_definitions(-DPRETTY_COLORS)
 endif ()
 
 #use cmake option -DPVC=ON to enable Provoice Conventional Frame Sync
 option(PVC
     "Build with Provoice Conventional Frame Sync Enabled" OFF)
 if (PVC)
-    add_definitions(-DPVCONVENTIONAL) 
+    add_definitions(-DPVCONVENTIONAL)
 endif ()
 
 #use cmake option -DNXDN=ON to enable the old NXDN Sync Pattern
 option(NXDN
     "Build with Old NXDN Sync Pattern Enabled" OFF)
 if (NXDN)
-    add_definitions(-DNXDNOLDSYNC) 
+    add_definitions(-DNXDNOLDSYNC)
 endif ()
 
 #use cmake option -DLZ=ON to enable LimaZulu Requested NXDN Tweaks
 option(LZ
     "Build with new LimaZulu Requested NXDN Tweaks Enabled" OFF)
 if (LZ)
-    add_definitions(-DLIMAZULUTWEAKS) 
+    add_definitions(-DLIMAZULUTWEAKS)
 endif ()
 
 #use cmake option -DTONES to change default location of the tones.wav files (lwvmobile precompiled 'Aero' releases only)
 option(TN
     "Build with tone wav files in the dsd-fme folder and not in /usr/share/" OFF)
 if (TN)
-    add_definitions(-DTONES) 
+    add_definitions(-DTONES)
 endif ()
 
 #use cmake option -DZDEV to change designation of this build from MAIN to zDEV
 option(ZDEV
     "change designation of this build from MAIN to zDEV" OFF)
 if (ZDEV)
-    add_definitions(-DZDEV_BUILD) 
+    add_definitions(-DZDEV_BUILD)
 endif ()
 
 

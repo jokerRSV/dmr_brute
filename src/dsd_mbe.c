@@ -98,7 +98,7 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         ambe_d[i] = 0;
     }
     int start = 10;
-    int end = 200;
+    int end = 1000;
     if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
@@ -147,10 +147,11 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                    for (int k = 0; k < 8; k++) {
 //                        for (int m = 0; m < 8; m++) {
         for (int d = 0x10; d < 0x1a + 1; d++) {
-            for (int l = 0xe0; l < 0xe2 + 1; l++) {
+#pragma omp parallel for
+            for (int l = 0xda; l < 0xe2 + 1; l++) {
                 for (int j = 0xa0; j < 0xac + 1; j++) {
                     for (int k = 0xa0; k < 0xa3 + 1; k++) {
-                        for (int m = 0xa0; m < 0xa5 + 1; m++) {
+                        for (int m = 0x90; m < 0xa5 + 1; m++) {
                             unsigned long long int k1;
                             k1 = 0;
 //                            k1 |= (unsigned long long) di[d] << 32;
@@ -234,9 +235,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
                             state->voice_buff_counter = 0;
 //                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
-                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
-                                goto exit;
-                            }
+//                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
+//                                goto exit;
+//                            }
                         }
                     }
                 }
