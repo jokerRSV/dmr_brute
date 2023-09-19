@@ -145,19 +145,6 @@ dmr_filter(short sample)
 }
 
 short
-nxdn_filter(short sample)
-{
-    return dsd_input_filter(sample, 2); 
-}
-
-short
-dpmr_filter(short sample)
-{
-    return dsd_input_filter(sample, 4); 
-}
-
-
-short
 dsd_input_filter(short sample, int mode)
 {
   float sum; int i;

@@ -25,22 +25,11 @@
 void
 processFrame(dsd_opts *opts, dsd_state *state) {
 
-    int i, j, dibit;
     char duid[3];
     char nac[13];
 
-    char status_0;
-    char bch_code[63];
-    int index_bch_code;
-    unsigned char parity;
-    char v;
-    int new_nac;
-    char new_duid[3];
-    int check_result;
-
     nac[12] = 0;
     duid[2] = 0;
-    j = 0;
 
     if (state->rf_mod == 1) {
         state->maxref = (int) (state->max * 0.80F);
@@ -158,97 +147,11 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         return;
 
     } else if ((state->synctype == 22) || (state->synctype == 26)) {
-        /* dPMR Frame Sync 3 */
-        fprintf(stderr, "dPMR Frame Sync 3 ");
     } else if ((state->synctype == 23) || (state->synctype == 27)) {
-        /* dPMR Frame Sync 4 */
-        fprintf(stderr, "dPMR Frame Sync 4 ");
     }
         //dPMR
-    else //P25
-    {
-        // Read the NAC, 12 bits
-        j = 0;
-        index_bch_code = 0;
-        for (i = 0; i < 6; i++) {
-            dibit = getDibit(opts, state);
-
-            v = 1 & (dibit >> 1); // bit 1
-            nac[j] = v + '0';
-            j++;
-            bch_code[index_bch_code] = v;
-            index_bch_code++;
-
-            v = 1 & dibit;        // bit 0
-            nac[j] = v + '0';
-            j++;
-            bch_code[index_bch_code] = v;
-            index_bch_code++;
-        }
-        //this one setting bogus nac data
-        // state->nac = strtol (nac, NULL, 2);
-
-        // Read the DUID, 4 bits
-        for (i = 0; i < 2; i++) {
-            dibit = getDibit(opts, state);
-            duid[i] = dibit + '0';
-
-            bch_code[index_bch_code] = 1 & (dibit >> 1);  // bit 1
-            index_bch_code++;
-            bch_code[index_bch_code] = 1 & dibit;         // bit 0
-            index_bch_code++;
-        }
-
-        // Read the BCH data for error correction of NAC and DUID
-        for (i = 0; i < 3; i++) {
-            dibit = getDibit(opts, state);
-
-            bch_code[index_bch_code] = 1 & (dibit >> 1);  // bit 1
-            index_bch_code++;
-            bch_code[index_bch_code] = 1 & dibit;         // bit 0
-            index_bch_code++;
-        }
-        // Intermission: read the status dibit
-        status_0 = getDibit(opts, state) + '0';
-        // ... continue reading the BCH error correction data
-        for (i = 0; i < 20; i++) {
-            dibit = getDibit(opts, state);
-
-            bch_code[index_bch_code] = 1 & (dibit >> 1);  // bit 1
-            index_bch_code++;
-            bch_code[index_bch_code] = 1 & dibit;         // bit 0
-            index_bch_code++;
-        }
-
-        // Read the parity bit
-        dibit = getDibit(opts, state);
-        bch_code[index_bch_code] = 1 & (dibit >> 1);      // bit 1
-        parity = (1 & dibit);     // bit 0
-
-        // Check if the NID is correct
-        if (check_result) {
-            if (new_nac != state->nac) {
-                // NAC fixed by error correction
-                state->nac = new_nac;
-                if (state->p2_hardset == 0 && new_nac != 0) {
-                    state->p2_cc = new_nac;
-                }
-                state->debug_header_errors++;
-            }
-            if (strcmp(new_duid, duid) != 0) {
-                // DUID fixed by error correction
-                //fprintf (stderr,"Fixing DUID %s -> %s\n", duid, new_duid);
-                duid[0] = new_duid[0];
-                duid[1] = new_duid[1];
-                state->debug_header_errors++;
-            }
-        } else {
-            // Check of NID failed and unable to recover its value
-            //fprintf (stderr,"NID error\n");
-            duid[0] = 'E';
-            duid[1] = 'E';
-            state->debug_header_critical_errors++;
-        }
+        //P25
+    else {
     }
 
 }
