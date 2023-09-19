@@ -436,7 +436,6 @@ initOpts(dsd_opts *opts) {
     opts->mod_threshold = 26;
     opts->ssize = 128; //36 default, max is 128, much cleaner data decodes on Phase 2 cqpsk at max
     opts->msize = 1024; //15 default, max is 1024, much cleaner data decodes on Phase 2 cqpsk at max
-    opts->playfiles = 0;
     opts->delay = 0;
     opts->use_cosine_filter = 1;
     opts->unmute_encrypted_p25 = 0;
@@ -1959,15 +1958,6 @@ main(int argc, char **argv) {
                 fprintf(stderr, "Setting QPSK Min/Max buffer to %i\n", opts.msize);
                 break;
             case 'r':
-                opts.playfiles = 1;
-                opts.errorbars = 0;
-                opts.datascope = 0;
-                opts.pulse_digi_rate_out = 48000;
-                opts.pulse_digi_out_channels = 1;
-                opts.dmr_stereo = 0;
-                state.dmr_stereo = 0;
-                sprintf(opts.output_name, "MBE Playback");
-                state.optind = optind;
                 break;
             case 'l':
                 opts.use_cosine_filter = 0;
@@ -1978,244 +1968,17 @@ main(int argc, char **argv) {
         }
     }
 
-    if ((strncmp(opts.audio_in_dev, "tcp", 3) == 0)) //tcp socket input from SDR++ and others
-    {
-        fprintf(stderr, "TCP Direct Link: ");
-        char *curr;
-
-        curr = strtok(opts.audio_in_dev, ":"); //should be 'tcp'
-        if (curr != NULL); //continue
-        else goto TCPEND; //end early with preset values
-
-        curr = strtok(NULL, ":"); //host address
-        if (curr != NULL) {
-            strncpy(opts.tcp_hostname, curr, 1023);
-            //shim to tie the hostname of the tcp input to the rigctl hostname (probably covers a vast majority of use cases)
-            //in the future, I will rework part of this so that users can enter a hostname and port similar to how tcp and rtl strings work
-            memcpy(opts.rigctlhostname, opts.tcp_hostname, sizeof(opts.rigctlhostname));
-        }
-
-        curr = strtok(NULL, ":"); //host port
-        if (curr != NULL) opts.tcp_portno = atoi(curr);
-
-        TCPEND:
-        fprintf(stderr, "%s:", opts.tcp_hostname);
-        fprintf(stderr, "%d \n", opts.tcp_portno);
-        opts.tcp_sockfd = Connect(opts.tcp_hostname, opts.tcp_portno);
-        if (opts.tcp_sockfd != 0) {
-            opts.audio_in_type = 8;
-            state.audio_smoothing = 0; //disable smoothing to prevent random crackling/buzzing
-            fprintf(stderr, "TCP Connection Success!\n");
-            // openAudioInDevice(&opts); //do this to see if it makes it work correctly
-        } else {
-#ifdef AERO_BUILD
-            sprintf (opts.audio_in_dev, "%s", "/dev/dsp");
-            opts.audio_in_type = 5;
-#else
-            sprintf(opts.audio_in_dev, "%s", "pulse");
-            fprintf(stderr, "TCP Connection Failure - Using %s Audio Input.\n", opts.audio_in_dev);
-            opts.audio_in_type = 0;
-#endif
-        }
-
-    }
-
-    if (opts.use_rigctl == 1) {
-        opts.rigctl_sockfd = Connect(opts.rigctlhostname, opts.rigctlportno);
-        if (opts.rigctl_sockfd != 0) opts.use_rigctl = 1;
-        else {
-            fprintf(stderr, "RIGCTL Connection Failure - RIGCTL Features Disabled\n");
-            opts.use_rigctl = 0;
-        }
-    }
-
-    if ((strncmp(opts.audio_in_dev, "rtl", 3) == 0)) //rtl dongle input
-    {
-        uint8_t rtl_ok = 0;
-
-#ifdef AERO_BUILD
-        if (rtl_ok == 0) //not set, means rtl support isn't compiled/available
-        {
-          fprintf (stderr, "RTL Support not enabled/compiled, falling back to OSS /dev/dsp Audio Input.\n");
-          sprintf (opts.audio_in_dev, "%s", "/dev/dsp");
-          opts.audio_in_type = 5;
-        }
-#else
-        if (rtl_ok == 0) //not set, means rtl support isn't compiled/available
-        {
-            fprintf(stderr, "RTL Support not enabled/compiled, falling back to Pulse Audio Audio Input.\n");
-            sprintf(opts.audio_in_dev, "%s", "pulse");
-            opts.audio_in_type = 0;
-        }
-#endif
-    }
-
-    //doesn't work correctly, so just going to reroute to /dev/dsp instead
-    // if((strncmp(opts.audio_in_dev, "udp", 3) == 0)) //udp socket input from SDR++, GQRX, and others
-    // {
-    //   fprintf (stderr, "UDP Input not working, falling back to OSS /dev/dsp Audio Input.\n");
-    //   sprintf (opts.audio_in_dev, "%s", "/dev/dsp");
-    //   opts.audio_in_type = 5;
-    // }
 
     int fmt;
     int speed = 48000;
-
-    //NOTE: Both /dev/audio AND /dev/dsp randomly open multiple input streams in Linux under padsp wrapper
-    if ((strncmp(opts.audio_in_dev, "/dev/audio", 10) == 0)) {
-        sprintf(opts.audio_in_dev, "%s", "/dev/dsp");
-        fprintf(stderr, "Switching to /dev/dsp.\n");
-    }
-
-    if ((strncmp(opts.audio_in_dev, "pa", 2) == 0)) {
-        sprintf(opts.audio_in_dev, "%s", "/dev/dsp");
-        fprintf(stderr, "Switching to /dev/dsp.\n");
-    }
-
-    if ((strncmp(opts.audio_in_dev, "/dev/dsp", 8) == 0)) {
-        fprintf(stderr, "OSS Input %s.\n", opts.audio_in_dev);
-        opts.audio_in_fd = open(opts.audio_in_dev, O_RDWR);
-        if (opts.audio_in_fd == -1) {
-            fprintf(stderr, "Error, couldn't open %s\n", opts.audio_in_dev);
-            opts.audio_out = 0;
-        }
-
-        fmt = 0;
-        if (ioctl(opts.audio_in_fd, SNDCTL_DSP_RESET) < 0) {
-            fprintf(stderr, "ioctl reset error \n");
-        }
-        fmt = speed;
-        if (ioctl(opts.audio_in_fd, SNDCTL_DSP_SPEED, &fmt) < 0) {
-            fprintf(stderr, "ioctl speed error \n");
-        }
-        fmt = 0;
-        if (ioctl(opts.audio_in_fd, SNDCTL_DSP_STEREO, &fmt) < 0) {
-            fprintf(stderr, "ioctl stereo error \n");
-        }
-        fmt = AFMT_S16_LE;
-        if (ioctl(opts.audio_in_fd, SNDCTL_DSP_SETFMT, &fmt) < 0) {
-            fprintf(stderr, "ioctl setfmt error \n");
-        }
-
-        opts.audio_in_type = 5; //5 will become OSS input type
-    }
-
-    if ((strncmp(opts.audio_out_dev, "/dev/audio", 10) == 0)) {
-        sprintf(opts.audio_out_dev, "%s", "/dev/dsp");
-        fprintf(stderr, "Switching to /dev/dsp.\n");
-    }
-
-    if ((strncmp(opts.audio_out_dev, "pa", 2) == 0)) {
-        sprintf(opts.audio_out_dev, "%s", "/dev/dsp");
-        fprintf(stderr, "Switching to /dev/dsp.\n");
-    }
-
-    if ((strncmp(opts.audio_out_dev, "/dev/dsp", 8) == 0)) {
-        fprintf(stderr, "OSS Output %s.\n", opts.audio_out_dev);
-        opts.audio_out_fd = open(opts.audio_out_dev, O_RDWR);     //O_WRONLY
-        opts.audio_out_fdR = open(opts.audio_out_dev, O_RDWR);
-        if (opts.audio_out_fd == -1) {
-            fprintf(stderr, "Error, couldn't open #1 %s\n", opts.audio_out_dev);
-            opts.audio_out = 0;
-            exit(1);
-        }
-
-        if (opts.audio_out_fdR == -1) {
-            fprintf(stderr, "Error, couldn't open #2 %s\n", opts.audio_out_dev);
-            opts.audio_out = 0;
-            exit(1);
-        }
-        fmt = 0;
-        if (ioctl(opts.audio_out_fd, SNDCTL_DSP_RESET) < 0) {
-            fprintf(stderr, "ioctl reset error \n");
-        }
-        if (ioctl(opts.audio_out_fdR, SNDCTL_DSP_RESET) < 0) {
-            fprintf(stderr, "ioctl reset error \n");
-        }
-        fmt = speed;
-        if (ioctl(opts.audio_out_fd, SNDCTL_DSP_SPEED, &fmt) < 0) {
-            fprintf(stderr, "ioctl speed error \n");
-        }
-        if (ioctl(opts.audio_out_fdR, SNDCTL_DSP_SPEED, &fmt) < 0) {
-            fprintf(stderr, "ioctl speed error \n");
-        }
-        fmt = 0;
-        if (ioctl(opts.audio_out_fd, SNDCTL_DSP_STEREO, &fmt) < 0) {
-            fprintf(stderr, "ioctl stereo error \n");
-        }
-        if (ioctl(opts.audio_out_fdR, SNDCTL_DSP_STEREO, &fmt) < 0) {
-            fprintf(stderr, "ioctl stereo error \n");
-        }
-        fmt = AFMT_S16_LE;
-        if (ioctl(opts.audio_out_fd, SNDCTL_DSP_SETFMT, &fmt) < 0) {
-            fprintf(stderr, "ioctl setfmt error \n");
-        }
-        if (ioctl(opts.audio_out_fdR, SNDCTL_DSP_SETFMT, &fmt) < 0) {
-            fprintf(stderr, "ioctl setfmt error \n");
-        }
-
-        opts.audio_out_type = 5; //5 will become OSS output type
-    }
-
-    if ((strncmp(opts.audio_in_dev, "pulse", 5) == 0)) {
-        opts.audio_in_type = 0;
-    }
 
     if ((strncmp(opts.audio_out_dev, "pulse", 5) == 0)) {
         opts.audio_out_type = 0;
     }
 
-    if ((strncmp(opts.audio_out_dev, "null", 4) == 0)) {
-        opts.audio_out_type = 9; //9 for NULL, or mute output
-        opts.audio_out = 0; //turn off so we won't playSynthesized
-    }
-
-    if (opts.playfiles == 1) {
-        opts.split = 1;
-//        opts.playoffset = 0;
-//        opts.playoffsetR = 0;
-        opts.delay = 0;
-
-        //open wav file should be handled directly by the -w switch now
-        // if (strlen(opts.wav_out_file) > 0 && opts.dmr_stereo_wav == 0)
-        // {
-        //   openWavOutFile (&opts, &state);
-        // }
-
-        opts.pulse_digi_rate_out = 48000;
-        opts.pulse_digi_out_channels = 1;
-        if (opts.audio_out_type == 0) openPulseOutput(&opts);
-        if (opts.audio_out_type == 5) openAudioOutDevice(&opts, SAMPLE_RATE_OUT);
-    }
-
-        //this particular if-elseif-else could be rewritten to be a lot neater and simpler
-    else if (strcmp(opts.audio_in_dev, opts.audio_out_dev) != 0) {
-        opts.split = 1;
-//        opts.playoffset = 0;
-//        opts.playoffsetR = 0;
-        opts.delay = 0;
-
-        //open wav file should be handled directly by the -w switch now
-        // if (strlen(opts.wav_out_file) > 0 && opts.dmr_stereo_wav == 0)
-        //   openWavOutFile (&opts, &state);
-
-        // else
-
-        openAudioInDevice(&opts);
-
-        // fprintf (stderr,"Press CTRL + C to close.\n");
-    } else {
-        opts.split = 0;
-//        opts.playoffset = 0; //not sure what the playoffset actually does for us
-//        opts.playoffsetR = 0;
-        opts.delay = 0;
-        openAudioInDevice(&opts);
-        // opts.audio_out_fd = opts.audio_in_fd; //not sure that this really does much anymore, other than cause problems
-    }
-
+    opts.split = 1;
+    opts.delay = 0;
+    openAudioInDevice(&opts);
     liveScanner(&opts, &state);
-
-//    cleanupAndExit(&opts, &state);
-
     return (0);
 }

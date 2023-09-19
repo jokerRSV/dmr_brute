@@ -249,7 +249,6 @@ typedef struct {
     int mod_threshold;
     int ssize;
     int msize;
-    int playfiles;
     int delay;
     int use_cosine_filter;
     int unmute_encrypted_p25;
