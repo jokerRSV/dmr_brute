@@ -154,20 +154,7 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     }
         //dPMR
     else if ((state->synctype == 20) || (state->synctype == 24)) {
-        /* dPMR Frame Sync 1 */
-        fprintf(stderr, "dPMR Frame Sync 1 ");
     } else if ((state->synctype == 21) || (state->synctype == 25)) {
-        /* dPMR Frame Sync 2 */
-        fprintf(stderr, "dPMR Frame Sync 2 ");
-
-        state->nac = 0;
-        state->lastsrc = 0;
-        state->lasttg = 0;
-        state->nac = 0;
-
-        sprintf(state->fsubtype, " VOICE        ");
-        processdPMRvoice(opts, state);
-
         return;
 
     } else if ((state->synctype == 22) || (state->synctype == 26)) {

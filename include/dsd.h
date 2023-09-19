@@ -899,8 +899,6 @@ typedef struct {
  * function prototypes
  */
 
-void processdPMRvoice(dsd_opts *opts, dsd_state *state);
-
 void processAudio(dsd_opts *opts, dsd_state *state);
 
 void processAudioR(dsd_opts *opts, dsd_state *state);
@@ -964,26 +962,8 @@ void upsample(dsd_state *state, float invalue);
 
 short dmr_filter(short sample);
 
-short nxdn_filter(short sample);
-
-short dpmr_filter(short sample);
-
-int strncmperr(const char *s1, const char *s2, size_t size, int MaxErr);
-
 uint64_t ConvertBitIntoBytes(uint8_t *BufferIn, uint32_t BitLength);
 
-//dPMR functions
-void ScrambledPMRBit(uint32_t *LfsrValue, uint8_t *BufferIn, uint8_t *BufferOut, uint32_t NbOfBitToScramble);
-
-void DeInterleave6x12DPmrBit(uint8_t *BufferIn, uint8_t *BufferOut);
-
-uint8_t CRC7BitdPMR(uint8_t *BufferIn, uint32_t BitLength);
-
-void ConvertAirInterfaceID(uint32_t AI_ID, uint8_t ID[8]);
-
-int32_t GetdPmrColorCode(uint8_t ChannelCodeBit[24]);
-
-//BPTC (Block Product Turbo Code) functions
 void BPTCDeInterleaveDMRData(uint8_t *Input, uint8_t *Output);
 
 uint32_t BPTC_196x96_Extract_Data(uint8_t InputDeInteleavedData[196], uint8_t DMRDataExtracted[96], uint8_t R[3]);
