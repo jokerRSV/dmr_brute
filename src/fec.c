@@ -304,23 +304,6 @@ void Hamming_7_4_init() {
     Hamming_7_4_m_corr[0b001] = 6;
 }
 
-// Not very efficient but encode is used for unit testing only
-void Hamming_7_4_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-
-    memset(encodedBits, 0, 7);
-
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 7; j++) {
-            encodedBits[j] += origBits[i] * Hamming_7_4_m_G[7 * i + j];
-        }
-    }
-
-    for (i = 0; i < 7; i++) {
-        encodedBits[i] %= 2;
-    }
-}
-
 bool Hamming_7_4_decode(unsigned char *rxBits) // corrects in place
 {
     unsigned int syndromeI = 0; // syndrome index
@@ -375,23 +358,6 @@ void Hamming_12_8_init() {
     Hamming_12_8_m_corr[0b0001] = 11;
 }
 
-// Not very efficient but encode is used for unit testing only
-void Hamming_12_8_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-
-    memset(encodedBits, 0, 12);
-
-    for (i = 0; i < 8; i++) {
-        for (j = 0; j < 12; j++) {
-            encodedBits[j] += origBits[i] * Hamming_12_8_m_G[12 * i + j];
-        }
-    }
-
-    for (i = 0; i < 12; i++) {
-        encodedBits[i] %= 2;
-    }
-}
-
 void Hamming_13_9_init() {
     // correctable bit positions given syndrome bits as index (see above)
     memset(Hamming_13_9_m_corr, 0xFF, 16); // initialize with all invalid positions
@@ -408,22 +374,6 @@ void Hamming_13_9_init() {
     Hamming_13_9_m_corr[0b0100] = 10;
     Hamming_13_9_m_corr[0b0010] = 11;
     Hamming_13_9_m_corr[0b0001] = 12;
-}
-
-// Not very efficient but encode is used for unit testing only
-void Hamming_13_9_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-    memset(encodedBits, 0, 13);
-
-    for (i = 0; i < 9; i++) {
-        for (j = 0; j < 13; j++) {
-            encodedBits[j] += origBits[i] * Hamming_13_9_m_G[13 * i + j];
-        }
-    }
-
-    for (i = 0; i < 13; i++) {
-        encodedBits[i] %= 2;
-    }
 }
 
 bool Hamming_13_9_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords) {
@@ -496,22 +446,6 @@ void Hamming_15_11_init() {
     Hamming_15_11_m_corr[0b0100] = 12;
     Hamming_15_11_m_corr[0b0010] = 13;
     Hamming_15_11_m_corr[0b0001] = 14;
-}
-
-// Not very efficient but encode is used for unit testing only
-void Hamming_15_11_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-    memset(encodedBits, 0, 15);
-
-    for (i = 0; i < 11; i++) {
-        for (j = 0; j < 15; j++) {
-            encodedBits[j] += origBits[i] * Hamming_15_11_m_G[15 * i + j];
-        }
-    }
-
-    for (i = 0; i < 15; i++) {
-        encodedBits[i] %= 2;
-    }
 }
 
 bool Hamming_15_11_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords) {
@@ -587,22 +521,6 @@ void Hamming_16_11_4_init() {
     Hamming_16_11_4_m_corr[0b00100] = 13;
     Hamming_16_11_4_m_corr[0b00010] = 14;
     Hamming_16_11_4_m_corr[0b00001] = 15;
-}
-
-// Not very efficient but encode is used for unit testing only
-void Hamming_16_11_4_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-    memset(encodedBits, 0, 16);
-
-    for (i = 0; i < 11; i++) {
-        for (j = 0; j < 16; j++) {
-            encodedBits[j] += origBits[i] * Hamming_16_11_4_m_G[16 * i + j];
-        }
-    }
-
-    for (i = 0; i < 16; i++) {
-        encodedBits[i] %= 2;
-    }
 }
 
 bool Hamming_16_11_4_decode(unsigned char *rxBits, unsigned char *decodedBits, int nbCodewords) {
@@ -746,23 +664,6 @@ void Golay_20_8_init() {
                 Golay_20_8_m_corr[syndromeIP3][2] = 12 + ip3;
             }
         }
-    }
-}
-
-// Not very efficient but encode is used for unit testing only
-void Golay_20_8_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-
-    memset(encodedBits, 0, 20);
-
-    for (i = 0; i < 8; i++) {
-        for (j = 0; j < 20; j++) {
-            encodedBits[j] += origBits[i] * Golay_20_8_m_G[20 * i + j];
-        }
-    }
-
-    for (i = 0; i < 20; i++) {
-        encodedBits[i] %= 2;
     }
 }
 
@@ -919,79 +820,6 @@ void Golay_23_12_init() {
     }
 }
 
-// Not very efficient but encode is used for unit testing only
-void Golay_23_12_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-
-    memset(encodedBits, 0, 23);
-
-    for (i = 0; i < 12; i++) // orig bits
-    {
-        for (j = 0; j < 23; j++) // codeword bits
-        {
-            encodedBits[j] += origBits[i] * Golay_23_12_m_G[23 * i + j];
-        }
-    }
-
-    for (i = 0; i < 23; i++) {
-        encodedBits[i] %= 2;
-    }
-}
-
-bool Golay_23_12_decode(unsigned char *rxBits) {
-    unsigned int syndromeI = 0; // syndrome index
-    int is = 0;
-    int i = 0;
-
-    for (is = 0; is < 11; is++) {
-        syndromeI += (((rxBits[0] * Golay_23_12_m_H[23 * is + 0])
-                       + (rxBits[1] * Golay_23_12_m_H[23 * is + 1])
-                       + (rxBits[2] * Golay_23_12_m_H[23 * is + 2])
-                       + (rxBits[3] * Golay_23_12_m_H[23 * is + 3])
-                       + (rxBits[4] * Golay_23_12_m_H[23 * is + 4])
-                       + (rxBits[5] * Golay_23_12_m_H[23 * is + 5])
-                       + (rxBits[6] * Golay_23_12_m_H[23 * is + 6])
-                       + (rxBits[7] * Golay_23_12_m_H[23 * is + 7])
-                       + (rxBits[8] * Golay_23_12_m_H[23 * is + 8])
-                       + (rxBits[9] * Golay_23_12_m_H[23 * is + 9])
-                       + (rxBits[10] * Golay_23_12_m_H[23 * is + 10])
-                       + (rxBits[11] * Golay_23_12_m_H[23 * is + 11])
-                       + (rxBits[12] * Golay_23_12_m_H[23 * is + 12])
-                       + (rxBits[13] * Golay_23_12_m_H[23 * is + 13])
-                       + (rxBits[14] * Golay_23_12_m_H[23 * is + 14])
-                       + (rxBits[15] * Golay_23_12_m_H[23 * is + 15])
-                       + (rxBits[16] * Golay_23_12_m_H[23 * is + 16])
-                       + (rxBits[17] * Golay_23_12_m_H[23 * is + 17])
-                       + (rxBits[18] * Golay_23_12_m_H[23 * is + 18])
-                       + (rxBits[19] * Golay_23_12_m_H[23 * is + 19])
-                       + (rxBits[20] * Golay_23_12_m_H[23 * is + 20])
-                       + (rxBits[21] * Golay_23_12_m_H[23 * is + 21])
-                       + (rxBits[22] * Golay_23_12_m_H[23 * is + 22])) % 2) << (10 - is);
-    }
-
-    if (syndromeI > 0) {
-        i = 0;
-
-        for (; i < 3; i++) {
-            if (Golay_23_12_m_corr[syndromeI][i] == 0xFF) {
-                break;
-            } else {
-                rxBits[Golay_23_12_m_corr[syndromeI][i]] ^= 1; // flip bit
-            }
-        }
-
-        if (i == 0) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-
-// ========================================================================================
-
-
 void Golay_24_12_init() {
     int i1 = 0, i2 = 0, i3 = 0, ir = 0, ip = 0;
     int syndromeI = 0, syndromeIP = 0;
@@ -1080,24 +908,6 @@ void Golay_24_12_init() {
                 Golay_24_12_m_corr[syndromeIP3][2] = 12 + ip3;
             }
         }
-    }
-}
-
-// Not very efficient but encode is used for unit testing only
-void Golay_24_12_encode(unsigned char *origBits, unsigned char *encodedBits) {
-    int i = 0, j = 0;
-
-    memset(encodedBits, 0, 24);
-
-    for (i = 0; i < 12; i++) {
-        for (j = 0; j < 24; j++) {
-            encodedBits[j] += origBits[i] * Golay_24_12_m_G[24 * i + j];
-        }
-    }
-    // fprintf (stderr, "\n Inside Golay - Encoded Bits = "); //disable later on
-    for (i = 0; i < 24; i++) {
-        encodedBits[i] %= 2;
-        // fprintf (stderr, "%b", encodedBits[i]); //disable later on
     }
 }
 
