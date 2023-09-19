@@ -1178,11 +1178,6 @@ bool SetModulation(int sockfd, int bandwidth);
 //commands below unique to GQRX only, not usable on SDR++
 bool GetSignalLevel(int sockfd, double *dBFS);
 
-//EDACS
-void edacs(dsd_opts *opts, dsd_state *state);
-
-unsigned long long int edacs_bch(unsigned long long int message);
-
 //csv imports
 int csvGroupImport(dsd_opts *opts, dsd_state *state);
 

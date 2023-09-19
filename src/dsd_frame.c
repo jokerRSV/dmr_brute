@@ -152,8 +152,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     }
         //edacs
     else if ((state->synctype == 37) || (state->synctype == 38)) {
-        if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-        edacs(opts, state);
         return;
     }
         //ysf
