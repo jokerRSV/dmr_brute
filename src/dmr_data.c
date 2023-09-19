@@ -249,11 +249,6 @@ dmr_data_sync(dsd_opts *opts, dsd_state *state) {
     //don't run on MS Reverse Channel Data
     if (state->dmr_ms_rc == 0) dmr_data_burst_handler(opts, state, (uint8_t *) info, burst);
 
-    //don't run cach on simplex or mono
-    if (state->dmr_ms_mode == 0 && opts->dmr_mono == 0) {
-        cach_err = dmr_cach(opts, state, cachdata);
-    }
-
     //ending line break
     fprintf(stderr, "\n");
 
