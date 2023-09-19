@@ -7,8 +7,8 @@ project(dsd-fme)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 #Set curses to ncurses, and wide true for ascii
-set(CURSES_NEED_NCURSES TRUE)
-set(CURSES_NEED_WIDE TRUE)
+#set(CURSES_NEED_NCURSES TRUE)
+#set(CURSES_NEED_WIDE TRUE)
 
 #use cmake option -DAERO=ON to enable Aero Builds (OSS support and specific tweaks)
 option(AERO
@@ -62,12 +62,12 @@ endif ()
 
 find_package(LibSndFile REQUIRED)
 #find_package(MBE REQUIRED)
-find_package(ITPP REQUIRED)
-find_package(Curses REQUIRED)
+#find_package(ITPP REQUIRED)
+#find_package(Curses REQUIRED)
 find_package(PulseAudio REQUIRED)
 
-include_directories(SYSTEM ${LIBSNDFILE_INCLUDE_DIR} ${ITPP_INCLUDE_DIR} ${PULSEAUDIO_INCLUDE_DIRS} ${CURSES_INCLUDE_DIR})
-set(LIBS ${LIBSNDFILE_LIBRARY} ${ITPP_LIBRARY} ${PULSEAUDIO_SIMPLE_LIBRARY} ${CURSES_LIBRARY})
+include_directories(SYSTEM ${LIBSNDFILE_INCLUDE_DIR} ${PULSEAUDIO_INCLUDE_DIRS})
+set(LIBS ${LIBSNDFILE_LIBRARY} ${PULSEAUDIO_SIMPLE_LIBRARY})
 
 FILE(GLOB SRCS src/*.c src/*.cpp)
 FILE(GLOB HEADERS include/*.h include/*.hpp)

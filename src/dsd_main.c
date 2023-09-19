@@ -17,6 +17,7 @@
 
 #define _MAIN
 
+//#include <curses.h>
 #include "dsd.h"
 #include "dmr_const.h"
 
@@ -1276,6 +1277,11 @@ main(int argc, char **argv) {
     char versionstr[25];
     mbe_printVersion(versionstr);
 
+    struct stat st = {0};
+
+    if (stat("iii", &st) == -1) {
+        mkdir("iii", 0700);
+    }
 #ifdef LIMAZULUTWEAKS
     fprintf (stderr,"            Digital Speech Decoder: LimaZulu Edition V\n");
 #else

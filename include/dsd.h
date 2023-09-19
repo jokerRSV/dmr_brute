@@ -65,7 +65,9 @@
 #define SAMPLE_RATE_OUT 48000 //8000,
 
 #include <locale.h>
-#include <ncurses.h>
+//#include <ncurses.h>
+#include <stdbool.h>
+#define TRUE    1
 
 #define SIZE_OF_BUFFER 1000000
 extern volatile uint8_t exitflag; //fix for issue #136
