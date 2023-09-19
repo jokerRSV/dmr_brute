@@ -107,10 +107,10 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
 //        for (int d = 0x10; d < 0x1a + 1; d++) {
 //#pragma omp parallel for
-//        for (int l = 0xda; l < 0xe2 + 1; l++) {
-//            for (int j = 0xa0; j < 0xac + 1; j++) {
-//                for (int k = 0xa0; k < 0xa3 + 1; k++) {
-//                    for (int m = 0x90; m < 0xa5 + 1; m++) {
+//            for (int l = 0xda; l < 0xe2 + 1; l++) {
+//                for (int j = 0xa0; j < 0xac + 1; j++) {
+//                    for (int k = 0xa0; k < 0xa3 + 1; k++) {
+//                        for (int m = 0x90; m < 0xa5 + 1; m++) {
 
         for (int d = 0x1a; d < 0x1a + 1; d++) {
 #pragma omp parallel for
@@ -174,17 +174,17 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                     ambe_d_copy[w][i] ^= pN[pos];
                                     pos++;
                                 }
-                                mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
-                                                         &errs, &errs2, err_str,
-                                                         ambe_d_copy[w],
-                                                         state->cur_mp_store[w],
-                                                         state->prev_mp_store[w],
-                                                         state->prev_mp_store[w],
-                                                         1);
-                                processAudio(opts, state);
+//                                mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
+//                                                         &errs, &errs2, err_str,
+//                                                         ambe_d_copy[w],
+//                                                         state->cur_mp_store[w],
+//                                                         state->prev_mp_store[w],
+//                                                         state->prev_mp_store[w],
+//                                                         1);
+//                                processAudio(opts, state);
 //                                writeSynthesizedVoiceToBuff(state);
 //                                writeSynthesizedVoice(opts, state);
-                                playSynthesizedVoice(opts, state);
+//                                playSynthesizedVoice(opts, state);
                                 unsigned char b0 = 0;
                                 b0 |= ambe_d_copy[w][0] << 6;
                                 b0 |= ambe_d_copy[w][1] << 5;
@@ -201,9 +201,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
                             state->voice_buff_counter = 0;
 //                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
-//                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
-//                                goto exit;
-//                            }
+                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
+                                goto exit;
+                            }
                         }
                     }
                 }

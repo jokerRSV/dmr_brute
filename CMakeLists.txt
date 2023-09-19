@@ -4,7 +4,7 @@
 #Cygwin currently using 3.23.2 (or newer)
 cmake_minimum_required(VERSION 3.10.2)
 project(dsd-fme)
-set(CMAKE_C_STANDARD 99)
+#set(CMAKE_C_STANDARD 99)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 
