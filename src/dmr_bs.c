@@ -454,12 +454,8 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
 
     if (state->currentslot == 0) {
         sprintf(light, "%s", " [SLOT1]  slot2  ");
-        //open MBEout file - slot 1
-        if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) openMbeOutFile(opts, state);
     } else {
         sprintf(light, "%s", "  slot1  [SLOT2] ");
-        //open MBEout file - slot 2
-        if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_fR == NULL)) openMbeOutFileR(opts, state);
     }
     if (opts->inverted_dmr == 0) sprintf(polarity, "%s", "+");
     else sprintf(polarity, "%s", "-");

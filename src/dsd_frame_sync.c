@@ -1197,10 +1197,6 @@ getFrameSync(dsd_opts *opts, dsd_state *state) {
 
         } // t >= 10
 
-//        if (exitflag == 1) {
-//            cleanupAndExit(opts, state);
-//        }
-
         if (synctest_pos < 10200) {
             synctest_pos++;
             synctest_p++;

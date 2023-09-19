@@ -501,72 +501,18 @@ openAudioInDevice(dsd_opts *opts) {
         }
     } else if (strncmp(opts->audio_in_dev, "tcp", 3) == 0) {
         opts->audio_in_type = 8;
-        opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
-        opts->audio_in_file_info->samplerate = opts->wav_sample_rate;
-        opts->audio_in_file_info->channels = 1;
-        opts->audio_in_file_info->seekable = 0;
-        opts->audio_in_file_info->format = SF_FORMAT_RAW | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
-        opts->tcp_file_in = sf_open_fd(opts->tcp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
-        if (opts->tcp_file_in == NULL) {
-            fprintf(stderr, "Error, couldn't open TCP with libsndfile: %s\n", sf_strerror(NULL));
-            exit(1);
-        }
     } else if (strncmp(opts->audio_in_dev, "udp", 3) == 0) {
         opts->audio_in_type = 6;
-        opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
-        opts->audio_in_file_info->samplerate = opts->wav_sample_rate;
-        opts->audio_in_file_info->channels = 1;
-        opts->audio_in_file_info->seekable = 0;
-        opts->audio_in_file_info->format = SF_FORMAT_RAW | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
-        opts->udp_file_in = sf_open_fd(opts->udp_sockfd, SFM_READ, opts->audio_in_file_info, 0);
-
-        if (opts->udp_file_in == NULL) {
-            fprintf(stderr, "Error, couldn't open UDP with libsndfile: %s\n", sf_strerror(NULL));
-            exit(1);
-        }
     } else if (strncmp(opts->audio_in_dev, "rtl", 3) == 0) {
-#ifdef AERO_BUILD
-        opts->audio_in_type = 5;
-        sprintf (opts->audio_in_dev, "/dev/dsp");
-#else
         opts->audio_in_type = 0;
-        sprintf (opts->audio_in_dev, "pulse");
-#endif
     } else if (strncmp(opts->audio_in_dev, "pulse", 5) == 0) {
         opts->audio_in_type = 0;
     } else if ((strncmp(opts->audio_in_dev, "/dev/dsp", 8) == 0)) {
         opts->audio_in_type = 5;
-    }
-
-        //if no extension set, treat as named pipe or extensionless wav file -- bugfix for github issue #105
-    else if (extension == NULL) {
-        opts->audio_in_type = 2;
-        opts->audio_in_file_info = calloc(1, sizeof(SF_INFO));
-        opts->audio_in_file_info->samplerate = opts->wav_sample_rate;
-        opts->audio_in_file_info->channels = 1;
-        opts->audio_in_file_info->seekable = 0;
-        opts->audio_in_file_info->format = SF_FORMAT_RAW | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
-        opts->audio_in_file = sf_open(opts->audio_in_dev, SFM_READ, opts->audio_in_file_info);
-
-        if (opts->audio_in_file == NULL) {
-            fprintf(stderr, "Error, couldn't open file/pipe with libsndfile: %s\n", sf_strerror(NULL));
-            exit(1);
-        }
+    } else if (extension == NULL) {
     } else if (strncmp(extension, ".bin", 3) == 0) {
-        struct stat stat_buf;
-        if (stat(opts->audio_in_dev, &stat_buf) != 0) {
-            fprintf(stderr, "Error, couldn't open bin file %s\n", opts->audio_in_dev);
-            exit(1);
-        }
-        if (S_ISREG(stat_buf.st_mode)) {
-            opts->symbolfile = fopen(opts->audio_in_dev, "r");
-            opts->audio_in_type = 4; //symbol capture bin files
-        } else {
-            opts->audio_in_type = 0;
-        }
-    }
         //open as wav file as last resort, wav files subseptible to sample rate issues if not 48000
-    else {
+    } else {
         struct stat stat_buf;
         if (stat(opts->audio_in_dev, &stat_buf) != 0) {
             fprintf(stderr, "Error, couldn't open wav file %s\n", opts->audio_in_dev);

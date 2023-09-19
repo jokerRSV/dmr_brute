@@ -230,7 +230,6 @@ typedef struct {
     int serial_baud;
     char serial_dev[1024];
     int serial_fd;
-    int resume;
     int frame_dstar;
     int frame_x2tdma;
     int frame_p25p1;
@@ -931,31 +930,6 @@ int get_dibit_and_analog_signal(dsd_opts *opts, dsd_state *state);
 
 void skipDibit(dsd_opts *opts, dsd_state *state, int count);
 
-void closeMbeOutFile(dsd_opts *opts, dsd_state *state);
-
-void closeMbeOutFileR(dsd_opts *opts, dsd_state *state); //tdma slot 2
-void openMbeOutFile(dsd_opts *opts, dsd_state *state);
-
-void openMbeOutFileR(dsd_opts *opts, dsd_state *state); //tdma slot 2
-void openWavOutFile(dsd_opts *opts);
-
-void openWavOutFileL(dsd_opts *opts, dsd_state *state);
-
-void openWavOutFileR(dsd_opts *opts, dsd_state *state);
-
-void openSymbolOutFile(dsd_opts *opts, dsd_state *state);
-
-void closeSymbolOutFile(dsd_opts *opts, dsd_state *state);
-
-void closeWavOutFile(dsd_opts *opts, dsd_state *state);
-
-void closeWavOutFileL(dsd_opts *opts, dsd_state *state);
-
-void closeWavOutFileR(dsd_opts *opts, dsd_state *state);
-
-void closeWavOutFileRaw(dsd_opts *opts, dsd_state *state);
-
-//void printFrameInfo(dsd_opts *opts, dsd_state *state);
 
 void processFrame(dsd_opts *opts, dsd_state *state);
 

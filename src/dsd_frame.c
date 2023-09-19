@@ -102,12 +102,10 @@ processFrame(dsd_opts *opts, dsd_state *state) {
                 sprintf(state->slot1light, " slot1 ");
                 sprintf(state->slot2light, " slot2 ");
                 //we can safely open MBE on any MS or mono handling
-                if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) openMbeOutFile(opts, state);
                 if (opts->p25_trunk == 0) dmrMSBootstrap(opts, state);
             }
             if (opts->dmr_mono == 1 && state->synctype == 32) {
                 //we can safely open MBE on any MS or mono handling
-                if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) openMbeOutFile(opts, state);
                 if (opts->p25_trunk == 0) dmrMSBootstrap(opts, state);
             }
             //opts->dmr_stereo == 1
@@ -118,14 +116,9 @@ processFrame(dsd_opts *opts, dsd_state *state) {
             }
             //MS Data and RC data
         } else if ((state->synctype == 33) || (state->synctype == 34)) {
-            if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-            if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
             if (opts->p25_trunk == 0) dmrMSData(opts, state);
         } else {
             if (opts->dmr_stereo == 0) {
-                if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-                if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
-
                 state->err_str[0] = 0;
                 sprintf(state->slot1light, " slot1 ");
                 sprintf(state->slot2light, " slot2 ");
@@ -133,9 +126,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
             }
             //switch dmr_stereo to 0 when handling BS data frame syncs with processDMRdata
             if (opts->dmr_stereo == 1) {
-                if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-                if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
-
                 state->dmr_stereo = 0; //set the state to zero for handling pure data frames
                 sprintf(state->slot1light, " slot1 ");
                 sprintf(state->slot2light, " slot2 ");
@@ -166,7 +156,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     else if ((state->synctype == 20) || (state->synctype == 24)) {
         /* dPMR Frame Sync 1 */
         fprintf(stderr, "dPMR Frame Sync 1 ");
-        if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
     } else if ((state->synctype == 21) || (state->synctype == 25)) {
         /* dPMR Frame Sync 2 */
         fprintf(stderr, "dPMR Frame Sync 2 ");
@@ -176,9 +165,6 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         state->lasttg = 0;
         state->nac = 0;
 
-        if ((opts->mbe_out_dir[0] != 0) && (opts->mbe_out_f == NULL)) {
-            openMbeOutFile(opts, state);
-        }
         sprintf(state->fsubtype, " VOICE        ");
         processdPMRvoice(opts, state);
 
@@ -187,11 +173,9 @@ processFrame(dsd_opts *opts, dsd_state *state) {
     } else if ((state->synctype == 22) || (state->synctype == 26)) {
         /* dPMR Frame Sync 3 */
         fprintf(stderr, "dPMR Frame Sync 3 ");
-        if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
     } else if ((state->synctype == 23) || (state->synctype == 27)) {
         /* dPMR Frame Sync 4 */
         fprintf(stderr, "dPMR Frame Sync 4 ");
-        if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
     }
         //dPMR
     else //P25

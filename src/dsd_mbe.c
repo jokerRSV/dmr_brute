@@ -146,12 +146,18 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                for (int j = 0; j < 8; j++) {
 //                    for (int k = 0; k < 8; k++) {
 //                        for (int m = 0; m < 8; m++) {
-        for (int d = 0x10; d < 0x1a + 1; d++) {
+//        for (int d = 0x10; d < 0x1a + 1; d++) {
+//#pragma omp parallel for
+//            for (int l = 0xda; l < 0xe2 + 1; l++) {
+//                for (int j = 0xa0; j < 0xac + 1; j++) {
+//                    for (int k = 0xa0; k < 0xa3 + 1; k++) {
+//                        for (int m = 0x90; m < 0xa5 + 1; m++) {
+        for (int d = 0x1a; d < 0x1a + 1; d++) {
 #pragma omp parallel for
-            for (int l = 0xda; l < 0xe2 + 1; l++) {
-                for (int j = 0xa0; j < 0xac + 1; j++) {
-                    for (int k = 0xa0; k < 0xa3 + 1; k++) {
-                        for (int m = 0x90; m < 0xa5 + 1; m++) {
+            for (int l = 0xe2; l < 0xe2 + 1; l++) {
+                for (int j = 0xac; j < 0xac + 1; j++) {
+                    for (int k = 0xa3; k < 0xa3 + 1; k++) {
+                        for (int m = 0xa5; m < 0xa5 + 1; m++) {
                             unsigned long long int k1;
                             k1 = 0;
 //                            k1 |= (unsigned long long) di[d] << 32;
@@ -208,17 +214,17 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                                     ambe_d_copy[w][i] ^= pN[pos];
                                     pos++;
                                 }
-//                                mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
-//                                                         &errs, &errs2, err_str,
-//                                                         ambe_d_copy[w],
-//                                                         state->cur_mp_store[w],
-//                                                         state->prev_mp_store[w],
-//                                                         state->prev_mp_store[w],
-//                                                         1);
-//                                processAudio(opts, state);
+                                mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
+                                                         &errs, &errs2, err_str,
+                                                         ambe_d_copy[w],
+                                                         state->cur_mp_store[w],
+                                                         state->prev_mp_store[w],
+                                                         state->prev_mp_store[w],
+                                                         1);
+                                processAudio(opts, state);
 //                                writeSynthesizedVoiceToBuff(state);
 //                                writeSynthesizedVoice(opts, state);
-//                                playSynthesizedVoice(opts, state);
+                                playSynthesizedVoice(opts, state);
                                 unsigned char b0 = 0;
                                 b0 |= ambe_d_copy[w][0] << 6;
                                 b0 |= ambe_d_copy[w][1] << 5;

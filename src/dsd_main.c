@@ -17,51 +17,8 @@
 
 #define _MAIN
 
-//#include <curses.h>
 #include "dsd.h"
 #include "dmr_const.h"
-
-volatile uint8_t exitflag; //fix for issue #136
-
-int pretty_colors() {
-    fprintf(stderr, "%sred\n", KRED);
-    fprintf(stderr, "%sgreen\n", KGRN);
-    fprintf(stderr, "%syellow\n", KYEL);
-    fprintf(stderr, "%sblue\n", KBLU);
-    fprintf(stderr, "%smagenta\n", KMAG);
-    fprintf(stderr, "%scyan\n", KCYN);
-    fprintf(stderr, "%swhite\n", KWHT);
-    fprintf(stderr, "%snormal\n", KNRM);
-
-    return 0;
-}
-
-
-#include "pa_devs.h"
-
-#ifdef LIMAZULUTWEAKS
-char * FM_banner[9] = {
-  "                                                         ",
-  " ██████╗  ██████╗██████╗               ███╗     ███████╗",
-  " ██╔══██╗██╔════╝██╔══██╗              ███║     ╚════██║",
-  " ██║  ██║╚█████╗ ██║  ██║    Lima      ███║       ███╔═╝",
-  " ██║  ██║ ╚═══██╗██║  ██║    Zulu      ███║     ██╔══╝  ",
-  " ██████╔╝██████╔╝██████╔╝  Edition V   ████████╗███████╗",
-  " ╚═════╝ ╚═════╝ ╚═════╝               ╚═══════╝╚══════╝",
-  "                                                        "
-};
-#else
-char *FM_banner[9] = {
-        "                                                        ",
-        " ██████╗  ██████╗██████╗     ███████╗███╗   ███╗███████╗",
-        " ██╔══██╗██╔════╝██╔══██╗    ██╔════╝████╗ ████║██╔════╝",
-        " ██║  ██║╚█████╗ ██║  ██║    █████╗  ██╔████╔██║█████╗  ",
-        " ██║  ██║ ╚═══██╗██║  ██║    ██╔══╝  ██║╚██╔╝██║██╔══╝  ",
-        " ██████╔╝██████╔╝██████╔╝    ██║     ██║ ╚═╝ ██║███████╗",
-        " ╚═════╝ ╚═════╝ ╚═════╝     ╚═╝     ╚═╝     ╚═╝╚══════╝",
-        "                                                        "
-};
-#endif
 
 int comp(const void *a, const void *b) {
     if (*((const int *) a) == *((const int *) b))
@@ -82,13 +39,6 @@ char *pEnd; //bugfix
 
 void
 noCarrier(dsd_opts *opts, dsd_state *state) {
-
-    //only do it here on the tweaks
-#ifdef LIMAZULUTWEAKS
-    state->nxdn_last_ran = -1;
-    state->nxdn_last_rid = 0;
-    state->nxdn_last_tg = 0;
-#endif
 
     //experimental conventional frequency scanner mode
     if (opts->scanner_mode == 1 && ((time(NULL) - state->last_cc_sync_time) > opts->trunk_hangtime)) {
@@ -146,11 +96,6 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
             opts->p25_is_tuned = 0;
             state->edacs_tuned_lcn = -1;
 
-            //only for EDACS/PV
-            if (opts->p25_trunk == 1 && opts->frame_provoice == 1 && opts->wav_out_file != NULL) {
-                closeWavOutFile(opts, state);
-            }
-
             state->last_cc_sync_time = time(NULL);
             //test to switch back to 10/4 P1 QPSK for P25 FDMA CC
 
@@ -176,11 +121,6 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     state->dmr_payload_p = state->dibit_buf + 200;
     memset(state->dmr_payload_buf, 0, sizeof(int) * 200);
     //dmr buffer end
-
-    //close MBE out files
-    if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-    if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
-
     state->jitter = -1;
     state->lastsynctype = -1;
     state->carrier = 0;
@@ -477,7 +417,6 @@ initOpts(dsd_opts *opts) {
     //opts->wav_out_fd = -1;
     opts->serial_baud = 115200;
     sprintf(opts->serial_dev, "/dev/ttyUSB0");
-    opts->resume = 0;
     opts->frame_dstar = 0;
     opts->frame_x2tdma = 0;
     opts->frame_p25p1 = 1;
@@ -531,9 +470,6 @@ initOpts(dsd_opts *opts) {
     opts->use_ncurses_terminal = 0;
     opts->ncurses_compact = 0;
     opts->ncurses_history = 1;
-#ifdef LIMAZULUTWEAKS
-    opts->ncurses_compact = 1;
-#endif
     opts->payload = 0;
     opts->inverted_dpmr = 0;
     opts->dmr_mono = 0;
@@ -1211,28 +1147,7 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
 
 void cleanupAndExit(dsd_opts *opts, dsd_state *state) {
     noCarrier(opts, state);
-//    if (opts->coef_file != NULL) {
-//        fclose(opts->coef_file);
-//    }
-    if (opts->wav_out_f != NULL) {
-        closeWavOutFile(opts, state);
-    }
-    if (opts->wav_out_raw != NULL) {
-        closeWavOutFileRaw(opts, state);
-    }
-    if (opts->dmr_stereo_wav ==
-        1) //cause of crash on exit, need to check if NULL first, may need to set NULL when turning off in nterm
-    {
-        closeWavOutFileL(opts, state);
-        closeWavOutFileR(opts, state);
-    }
-    if (opts->symbol_out == 1) {
-        closeSymbolOutFile(opts, state);
-    }
-
-    //close MBE out files
-    if (opts->mbe_out_f != NULL) closeMbeOutFile(opts, state);
-    if (opts->mbe_out_fR != NULL) closeMbeOutFileR(opts, state);
+    //cause of crash on exit, need to check if NULL first, may need to set NULL when turning off in nterm
 
     fprintf(stderr, "\n");
     fprintf(stderr, "Total audio errors: %i\n", state->debug_audio_errors);
@@ -1282,14 +1197,23 @@ main(int argc, char **argv) {
     if (stat("iii", &st) == -1) {
         mkdir("iii", 0700);
     }
-#ifdef LIMAZULUTWEAKS
-    fprintf (stderr,"            Digital Speech Decoder: LimaZulu Edition V\n");
-#else
-    fprintf(stderr, "            Digital Speech Decoder: Florida Man Edition\n");
-#endif
-    for (short int i = 1; i < 7; i++) {
-        fprintf(stderr, "%s\n", FM_banner[i]);
-    }
+
+//    int sum = 0;
+//    for (int i = 0; i < 256; i++) {
+//#pragma omp parallel for
+//        printf("%x\n", i);
+//        for (int l = 0; l < 256; l++) {
+//            for (int j = 0; j < 256; j++) {
+//                for (int k = 0; k < 256; k++) {
+//                    for (int m = 0; m < 256; m++) {
+//                        sum = sum + i + m;
+////                        printf("%d", m);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    printf("%d", sum);
 
     fprintf(stderr, "MBElib Version: %s\n", versionstr);
 
@@ -1297,8 +1221,6 @@ main(int argc, char **argv) {
     initState(&state);
 
     InitAllFecFunction();
-
-    exitflag = 0;
 
     while ((c = getopt(argc, argv,
                        "haepPqs:t:v:z:i:o:d:c:g:nw:B:C:R:f:m:u:x:A:S:M:G:D:L:VU:YK:b:H:X:NQ:WrlZTF01:2:345:6:7:89Ek:")) !=
@@ -1571,8 +1493,6 @@ main(int argc, char **argv) {
                 sprintf(opts.wav_out_file, "./WAV/DSD-FME-X1.wav");
                 sprintf(opts.wav_out_fileR, "./WAV/DSD-FME-X2.wav");
                 opts.dmr_stereo_wav = 1;
-                openWavOutFileL(&opts, &state);
-                openWavOutFileR(&opts, &state);
                 break;
 
             case 'F':
@@ -1609,7 +1529,6 @@ main(int argc, char **argv) {
                 opts.symbol_out_file[1023] = '\0';
                 fprintf(stderr, "Writing + Appending symbol capture to file %s\n", opts.symbol_out_file);
                 opts.symbol_out = 1;
-                openSymbolOutFile(&opts, &state);
                 break;
 
             case 'g':
@@ -2071,10 +1990,6 @@ main(int argc, char **argv) {
                 usage();
                 exit(0);
         }
-    }
-
-    if (opts.resume > 0) {
-        openSerial(&opts, &state);
     }
 
     if ((strncmp(opts.audio_in_dev, "tcp", 3) == 0)) //tcp socket input from SDR++ and others
