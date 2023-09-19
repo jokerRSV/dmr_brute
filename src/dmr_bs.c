@@ -12,8 +12,7 @@
 //A subroutine for processing each TDMA frame individually to allow for
 //processing voice and/or data on both BS slots (channels) simultaneously
 void dmrBS(dsd_opts *opts, dsd_state *state) {
-    int i, j, k, l, dibit;
-    int *dibit_p;
+    int i, dibit;
 
     char ambe_fr[4][24];
     char ambe_fr2[4][24];
@@ -21,12 +20,6 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
 
     //redundancy check (carrier signal loss event)
     char redundancyA[36];
-    char redundancyB[36];
-
-    //memcpy of ambe_fr for late entry
-    char m1[4][24];
-    char m2[4][24];
-    char m3[4][24];
 
     const int *w, *x, *y, *z;
     char sync[25];
