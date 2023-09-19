@@ -14,17 +14,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-//UDP Specific
-#include <arpa/inet.h>
-
 #define BUFSIZE         1024
-#define FREQ_MAX        4096
-#define SAVED_FREQ_MAX  1000
-#define TAG_MAX         100
-
-//
-// error - wrapper for perror
-//
 void error(char *msg) {
     perror(msg);
     exit(0);
@@ -141,96 +131,4 @@ bool SetModulation(int sockfd, int bandwidth) {
         return false;
 
     return true;
-}
-
-bool GetSignalLevel(int sockfd, double *dBFS) {
-    char buf[BUFSIZE];
-
-    Send(sockfd, "l\n");
-    Recv(sockfd, buf);
-
-    if (strcmp(buf, "RPRT 1") == 0)
-        return false;
-
-    sscanf(buf, "%lf", dBFS);
-    *dBFS = round((*dBFS) * 10) / 10;
-
-    if (*dBFS == 0.0)
-        return false;
-    return true;
-}
-
-bool GetSquelchLevel(int sockfd, double *dBFS) {
-    char buf[BUFSIZE];
-
-    Send(sockfd, "l SQL\n");
-    Recv(sockfd, buf);
-
-    if (strcmp(buf, "RPRT 1") == 0)
-        return false;
-
-    sscanf(buf, "%lf", dBFS);
-    *dBFS = round((*dBFS) * 10) / 10;
-
-    return true;
-}
-
-bool SetSquelchLevel(int sockfd, double dBFS) {
-    char buf[BUFSIZE];
-
-    sprintf(buf, "L SQL %f\n", dBFS);
-    Send(sockfd, buf);
-    Recv(sockfd, buf);
-
-    if (strcmp(buf, "RPRT 1") == 0)
-        return false;
-
-    return true;
-}
-//
-// GetSignalLevelEx
-// Get a bunch of sample with some delay and calculate the mean value
-//
-bool GetSignalLevelEx(int sockfd, double *dBFS, int n_samp) {
-    double temp_level;
-    *dBFS = 0;
-    int errors = 0;
-    for (int i = 0; i < n_samp; i++) {
-        if (GetSignalLevel(sockfd, &temp_level))
-            *dBFS = *dBFS + temp_level;
-        else
-            errors++;
-        usleep(1000);
-    }
-    *dBFS = *dBFS / (n_samp - errors);
-    return true;
-}
-
-//shoe in UDP input connection here...still having issues that I don't know how to resolve
-int UDPBind(char *hostname, int portno) {
-    int sockfd, n;
-    struct sockaddr_in serveraddr, client_addr;
-    struct hostent *server;
-
-    /* socket: create the socket */
-    //UDP socket
-    sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-    if (sockfd < 0) {
-        fprintf(stderr, "ERROR opening UDP socket\n");
-        error("ERROR opening UDP socket");
-    }
-
-    /* build the server's Internet address */
-    bzero((char *) &serveraddr, sizeof(serveraddr));
-    serveraddr.sin_family = AF_INET;
-    serveraddr.sin_addr.s_addr = INADDR_ANY; //INADDR_ANY
-    serveraddr.sin_port = htons(portno);
-
-    //Bind socket to listening
-    if (bind(sockfd, (struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0) {
-        perror("ERROR on binding UDP Port");
-    }
-
-    return sockfd;
 }

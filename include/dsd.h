@@ -1129,17 +1129,6 @@ long int GetCurrentFreq(int sockfd);
 bool SetFreq(int sockfd, long int freq);
 
 bool SetModulation(int sockfd, int bandwidth);
-//commands below unique to GQRX only, not usable on SDR++
-bool GetSignalLevel(int sockfd, double *dBFS);
-
-//csv imports
-int csvGroupImport(dsd_opts *opts, dsd_state *state);
-
-int csvChanImport(dsd_opts *opts, dsd_state *state);
-
-int csvKeyImportDec(dsd_opts *opts, dsd_state *state);
-
-int csvKeyImportHex(dsd_opts *opts, dsd_state *state);
 
 #ifdef __cplusplus
 extern "C" {

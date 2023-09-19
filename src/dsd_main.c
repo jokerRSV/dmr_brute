@@ -1275,17 +1275,9 @@ main(int argc, char **argv) {
                 break;
 
             case 'k': //multi-key loader (dec)
-                strncpy(opts.key_in_file, optarg, 1023);
-                opts.key_in_file[1023] = '\0';
-                csvKeyImportDec(&opts, &state);
-                state.keyloader = 1;
                 break;
 
             case 'K': //multi-key loader (hex)
-                strncpy(opts.key_in_file, optarg, 1023);
-                opts.key_in_file[1023] = '\0';
-                csvKeyImportHex(&opts, &state);
-                state.keyloader = 1;
                 break;
 
             case 'Q': //'DSP' Structured Output file for OKDMRlib
@@ -1350,15 +1342,9 @@ main(int argc, char **argv) {
                 break;
 
             case 'C': //new letter assignment for Channel import, flow down to allow temp numbers
-                strncpy(opts.chan_in_file, optarg, 1023);
-                opts.chan_in_file[1023] = '\0';
-                csvChanImport(&opts, &state);
                 break;
 
             case 'G': //new letter assignment for group import, flow down to allow temp numbers
-                strncpy(opts.group_in_file, optarg, 1023);
-                opts.group_in_file[1023] = '\0';
-                csvGroupImport(&opts, &state);
                 break;
 
             case 'T': //new letter assignment for trunking, flow down to allow temp numbers
