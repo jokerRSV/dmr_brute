@@ -6,16 +6,6 @@ cmake_minimum_required(VERSION 3.10.2)
 project(dsd-fme)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
-#Set curses to ncurses, and wide true for ascii
-#set(CURSES_NEED_NCURSES TRUE)
-#set(CURSES_NEED_WIDE TRUE)
-
-#use cmake option -DAERO=ON to enable Aero Builds (OSS support and specific tweaks)
-option(AERO
-    "Build for Aero Environments (Cygwin)" OFF)
-if (AERO)
-    add_definitions(-DAERO_BUILD)
-endif ()
 
 #use cmake option -DCOLORS=OFF to disable color output
 option(COLORS
@@ -23,42 +13,6 @@ option(COLORS
 if (COLORS)
     add_definitions(-DPRETTY_COLORS)
 endif ()
-
-#use cmake option -DPVC=ON to enable Provoice Conventional Frame Sync
-option(PVC
-    "Build with Provoice Conventional Frame Sync Enabled" OFF)
-if (PVC)
-    add_definitions(-DPVCONVENTIONAL)
-endif ()
-
-#use cmake option -DNXDN=ON to enable the old NXDN Sync Pattern
-option(NXDN
-    "Build with Old NXDN Sync Pattern Enabled" OFF)
-if (NXDN)
-    add_definitions(-DNXDNOLDSYNC)
-endif ()
-
-#use cmake option -DLZ=ON to enable LimaZulu Requested NXDN Tweaks
-option(LZ
-    "Build with new LimaZulu Requested NXDN Tweaks Enabled" OFF)
-if (LZ)
-    add_definitions(-DLIMAZULUTWEAKS)
-endif ()
-
-#use cmake option -DTONES to change default location of the tones.wav files (lwvmobile precompiled 'Aero' releases only)
-option(TN
-    "Build with tone wav files in the dsd-fme folder and not in /usr/share/" OFF)
-if (TN)
-    add_definitions(-DTONES)
-endif ()
-
-#use cmake option -DZDEV to change designation of this build from MAIN to zDEV
-option(ZDEV
-    "change designation of this build from MAIN to zDEV" OFF)
-if (ZDEV)
-    add_definitions(-DZDEV_BUILD)
-endif ()
-
 
 find_package(LibSndFile REQUIRED)
 #find_package(MBE REQUIRED)
@@ -77,28 +31,4 @@ include_directories("${PROJECT_SOURCE_DIR}/include")
 ADD_EXECUTABLE(dsd-fme ${SRCS} ${HEADERS})
 TARGET_LINK_LIBRARIES(dsd-fme ${LIBS})
 
-include(GNUInstallDirs)
 install(TARGETS dsd-fme DESTINATION ${CMAKE_INSTALL_BINDIR})
-
-# man page
-find_program(HELP2MAN_FOUND help2man)
-if (HELP2MAN_FOUND)
-    add_custom_command(TARGET dsd-fme POST_BUILD
-        COMMAND help2man
-        ARGS -n "Digital Speech Decoder"
-            --version-string=${GIT_TAG}
-            -o ${CMAKE_CURRENT_BINARY_DIR}/dsd-fme.1
-            --no-info
-            $<TARGET_FILE:dsd-fme>
-    )
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/dsd-fme.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
-endif()
-
-# uninstall target
-configure_file(
-    "cmake/cmake_uninstall.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-    IMMEDIATE @ONLY)
-
-add_custom_target(uninstall
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)

@@ -295,13 +295,8 @@ initOpts(dsd_opts *opts) {
     opts->p25status = 0;
     opts->p25tg = 0;
     opts->scoperate = 15;
-#ifdef AERO_BUILD
-    sprintf (opts->audio_in_dev, "/dev/dsp");
-    sprintf (opts->audio_out_dev, "/dev/dsp");
-#else
     sprintf(opts->audio_in_dev, "pulse");
     sprintf(opts->audio_out_dev, "pulse");
-#endif
     opts->audio_in_fd = -1;
     opts->audio_out_fd = -1;
     opts->audio_out_fdR = -1;
@@ -402,13 +397,8 @@ initOpts(dsd_opts *opts) {
 
     //this may not matter so much, since its already checked later on
     //but better safe than sorry I guess
-#ifdef AERO_BUILD
-    opts->audio_in_type = 5;
-    opts->audio_out_type = 5;
-#else
     opts->audio_in_type = 0;
     opts->audio_out_type = 0;
-#endif
 
     opts->lrrp_file_output = 0;
 
@@ -877,13 +867,8 @@ usage() {
     printf("  -Z            Log MBE/PDU Payloads to console\n");
     printf("\n");
     printf("Input/Output options:\n");
-#ifdef AERO_BUILD
-    printf ("  -i <device>   Audio input device (default is /dev/dsp)\n");
-    printf ("                pulse for pulse audio (will require pactl running in Cygwin)\n");
-#else
     printf("  -i <device>   Audio input device (default is pulse)\n");
     printf("                /dev/dsp for OSS audio (Depreciated: Will require padsp wrapper in Linux) \n");
-#endif
     printf("                rtl for rtl dongle (Default Values -- see below)\n");
     printf("                rtl:dev:freq:gain:ppm:bw:sq:udp for rtl dongle (see below)\n");
     printf("                tcp for tcp client SDR++/GNURadio Companion/Other (Port 7355)\n");
@@ -891,20 +876,11 @@ usage() {
     printf("                filename.bin for OP25/FME capture bin files\n");
     printf("                filename.wav for 48K/1 wav files (SDR++, GQRX)\n");
     printf("                filename.wav -s 96000 for 96K/1 wav files (DSDPlus)\n");
-#ifdef AERO_BUILD
-    printf ("                (Use single quotes '\\directory\\audio file.wav' when directories/spaces are present)\n");
-#else
     printf("                (Use single quotes '/directory/audio file.wav' when directories/spaces are present)\n");
-#endif
     // printf ("                (Windows - '\directory\audio file.wav' backslash, not forward slash)\n");
     printf("  -s <rate>     Sample Rate of wav input files (48000 or 96000) Mono only!\n");
-#ifdef AERO_BUILD
-    printf ("  -o <device>   Audio output device (default is /dev/dsp)\n");
-    printf ("                pulse for pulse audio (will require pactl running in Cygwin)\n");
-#else
     printf("  -o <device>   Audio output device (default is pulse)\n");
     printf("                /dev/dsp for OSS audio (Depreciated: Will require padsp wrapper in Linux) \n");
-#endif
     printf("                null for no audio output\n");
     printf("  -d <dir>      Create mbe data files, use this directory (TDMA version is experimental)\n");
     printf("  -r <files>    Read/Play saved mbe data from file(s)\n");
