@@ -702,11 +702,15 @@ initState(dsd_state *state) {
     state->lastp25type = 0;
     state->offset = 0;
     state->carrier = 0;
-    for (i = 0; i < 500; i++) {
+    for (i = 0; i < SIZE_OF_STORE; i++) {
         for (j = 0; j < 49; j++) {
             state->ambe_d[i][j] = 0;
         }
     }
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
+        state->b0_arr[k] = 0;
+    }
+    state->b0_arr_count = 0;
 //    for (i = 0; i < SIZE_OF_BUFFER; i++) {
 //            state->key_buff_struct[i].zero_num = 0;
 //            state->key_buff_struct[i].key = 0;
@@ -750,23 +754,23 @@ initState(dsd_state *state) {
     sprintf(state->keyid, "________________");
     state->currentslot = 0;
     state->cur_mp = malloc(sizeof(mbe_parms));
-    for (int k = 0; k < 500; ++k) {
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
         state->cur_mp_store[k] = malloc(sizeof(mbe_parms));
     }
     state->prev_mp = malloc(sizeof(mbe_parms));
-    for (int k = 0; k < 500; ++k) {
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
         state->prev_mp_store[k] = malloc(sizeof(mbe_parms));
     }
     state->prev_mp_enhanced = malloc(sizeof(mbe_parms));
     state->cur_mp2 = malloc(sizeof(mbe_parms));
-    for (int k = 0; k < 500; ++k) {
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
         state->cur_mp2_store[k] = malloc(sizeof(mbe_parms));
     }
-    for (int k = 0; k < 500; ++k) {
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
         state->DMRvcL_p[k] = 0;
     }
     state->prev_mp2 = malloc(sizeof(mbe_parms));
-    for (int k = 0; k < 500; ++k) {
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
         state->prev_mp2_store[k] = malloc(sizeof(mbe_parms));
     }
     state->prev_mp_enhanced2 = malloc(sizeof(mbe_parms));

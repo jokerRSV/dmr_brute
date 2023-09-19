@@ -331,29 +331,7 @@ mbe_synthesizeSpeechf(float *aout_buf, mbe_parms *cur_mp, mbe_parms *prev_mp, in
                 *Ss = *Ss + C1 + C2;
                 Ss++;
             }
-        }
-/*
-      // expensive and unnecessary?
-      else if ((cur_mp->Vl[l] == 1) || (prev_mp->Vl[l] == 1))
-        {
-          Ss = aout_buf;
-          // eq 137
-          deltaphil = cur_mp->PHIl[l] - prev_mp->PHIl[l] - (((pw0 + cw0) * (float) (l * N)) / (float) 2);
-          // eq 138
-          deltawl = ((float) 1 / (float) N) * (deltaphil - ((float) 2 * M_PI * (int) ((deltaphil + M_PI) / (M_PI * (float) 2))));
-          for (n = 0; n < N; n++)
-            {
-              // eq 136
-              thetaln = prev_mp->PHIl[l] + ((pw0l + deltawl) * (float) n) + (((cw0 - pw0) * ((float) (l * n * n)) / (float) (2 * N)));
-              // eq 135
-              aln = prev_mp->Ml[l] + (((float) n / (float) N) * (cur_mp->Ml[l] - prev_mp->Ml[l]));
-              // eq 134
-              *Ss = *Ss + (aln * cosf (thetaln));
-              Ss++;
-            }
-        }
-*/
-        else {
+        } else {
             Ss = aout_buf;
             // init random phase
             for (i = 0; i < uvquality; i++) {

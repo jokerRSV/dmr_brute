@@ -472,10 +472,12 @@ void mbe_synthesizeSpeechf (float *aout_buf, mbe_parms * cur_mp, mbe_parms * pre
 void mbe_synthesizeSpeech (short *aout_buf, mbe_parms * cur_mp, mbe_parms * prev_mp, int uvquality);
 void mbe_floattoshort (float *float_buf, short *aout_buf);
 
+#define SIZE_OF_STORE 1000
+
 typedef struct {
     short audio_out[960];
     int DMRvcL;
-    int DMRvcL_p[500];
+    int DMRvcL_p[SIZE_OF_STORE];
 //    key_state key_buff_struct[SIZE_OF_BUFFER];
     short voice_buff[SIZE_OF_BUFFER];
     int voice_buff_counter;
@@ -483,13 +485,15 @@ typedef struct {
     mbe_parms *prev_mp;
     mbe_parms *prev_mp_enhanced;
     mbe_parms *cur_mp2;
-    mbe_parms *cur_mp2_store[500];
-    mbe_parms *cur_mp_store[500];
+    mbe_parms *cur_mp2_store[SIZE_OF_STORE];
+    mbe_parms *cur_mp_store[SIZE_OF_STORE];
     mbe_parms *prev_mp2;
-    mbe_parms *prev_mp2_store[500];
-    mbe_parms *prev_mp_store[500];
+    mbe_parms *prev_mp2_store[SIZE_OF_STORE];
+    mbe_parms *prev_mp_store[SIZE_OF_STORE];
     mbe_parms *prev_mp_enhanced2;
-    unsigned char ambe_d[500][49];
+    unsigned char ambe_d[SIZE_OF_STORE][49];
+    unsigned char b0_arr[SIZE_OF_STORE];
+    unsigned char b0_arr_count;
 
     int audio_count;
     int ambe_count;
@@ -907,7 +911,7 @@ void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
 
 void writeSynthesizedVoiceToBuff(dsd_state *state);
 
-void writeW0(dsd_state *state);
+void writeW0(dsd_state *state, dsd_opts *opts);
 
 void writeSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
 

@@ -347,7 +347,7 @@ void writeSynthesizedVoiceToBuff(dsd_state *state) {
     }
 }
 
-void writeW0(dsd_state *state) {
+void writeW0(dsd_state *state, dsd_opts *opts) {
     int n;
     short aout_buf[160] = {0};
 
