@@ -103,17 +103,19 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                    for (int k = 0; k < 8; k++) {
 //                        for (int m = 0; m < 8; m++) {
         int abort = 0;
+        double entropy_acc = 1;
+        unsigned long long int key;
         for (int d = 0x1a; d < 0x1a + 10; d++) {
             char buffer[30];
             struct timeval tv;
             print_time(buffer, tv, d, 0, 0);
-#pragma omp parallel for ordered shared(abort)
+#pragma omp parallel for ordered shared(abort, entropy_acc)
             for (int l = 0xda; l < 0xe2 + 10; l++) {
 #pragma omp flush(abort)
                 if (!abort) {
                     for (int j = 0xa0; j < 0xac + 10; j++) {
                         for (int k = 0xa0; k < 0xa3 + 10; k++) {
-                            for (int m = 0x80; m < 0xa5 + 10; m++) {
+                            for (int m = 0xa4; m < 0xa5 + 10; m++) {
 
 //        for (int d = 0x1a; d < 0x1a + 1; d++) {
 //#pragma omp parallel for
@@ -206,26 +208,30 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                            fclose(pFile);
 
                                 double entropy = calc_entropy(b0_arr, state->ambe_count);
-                                if (entropy <= 0.75308) {
-                                    printf("\n");
-                                    printf("--- %02x ===\n", (unsigned int) (k1 >> 32));
+                                if (entropy < entropy_acc) {
+                                    entropy_acc = entropy;
+                                    key = k1;
+                                }
+
+//                                if (entropy <= 0.75308) {
+//                                    printf("\n");
+//                                    printf("--- %02x ===\n", (unsigned int) (k1 >> 32));
 //                                    printf("%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
 //                                    printf("%02x ", (unsigned int) (((k1 << 16) & 0xff00000000) >> 32));
 //                                    printf("%02x ", (unsigned int) (((k1 << 24) & 0xff00000000) >> 32));
 //                                    printf("%02x === ", (unsigned int) (((k1 << 32) & 0xff00000000) >> 32));
-                                    abort = 1;
-                                }
-//                            state->voice_buff_counter = 0;
-//                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
-//                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
-//                                goto exit;
-//                            }
+//                                    abort = 1;
+//                                }
                             }
                         }
                     }
                 }
             }
         }
+        printf("\n");
+        printf("--- %f ===\n", entropy_acc);
+        printf("--- %02lx ===\n", (unsigned long) (key >> 24));
+
     }
 
     exit:
