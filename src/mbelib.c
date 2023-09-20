@@ -41,7 +41,7 @@ mbe_rand_phase() {
 
 void
 mbe_printVersion(char *str) {
-    sprintf(str, "%s", "11111");
+    sprintf(str, "%s", "0.2");
 }
 
 void

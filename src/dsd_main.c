@@ -558,9 +558,6 @@ initState(dsd_state *state) {
             state->ambe_d[i][j] = 0;
         }
     }
-    for (int k = 0; k < SIZE_OF_STORE; ++k) {
-        state->b0_arr[k] = 0;
-    }
     state->b0_arr_count = 0;
 //    for (i = 0; i < SIZE_OF_BUFFER; i++) {
 //            state->key_buff_struct[i].zero_num = 0;

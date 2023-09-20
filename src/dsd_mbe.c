@@ -20,12 +20,12 @@
 //NOTE: I attempted to fix the atrocious tab/space alignnment issues that happened in this file,
 //it looks fine in VSCodium, but no telling how it will translate when pushed to Github or another editor
 
-static double entropy(const char *f, int length) {
+static double calc_entropy(const unsigned char *f, int length) {
     int counts[256] = {0};
     double entropy = 0;
 
     for (int i = 0; i < length; ++i) {
-        counts[f[i] + 128]++;
+        counts[f[i]]++;
     }
     for (int i = 0; i < 256; ++i) {
         if (counts[i] != 0) {
@@ -53,9 +53,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
     for (int i = 0; i < 49; i++) {
         ambe_d[i] = 0;
     }
-    int start = 10;
-    int end = 1000;
-    if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < end) {
+    int start = 100;
+    int num = 1000;
+    if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < num + start) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
         mbe_eccAmbe3600x2450Data(ambe_fr, ambe_d);
         for (int j = 0; j < 49; ++j) {
@@ -68,14 +68,12 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
         state->DMRvcL++;
     }
 
-    if (state->audio_count == end) {
+    if (state->audio_count == num + start) {
         int errs = 0;
         int errs2 = 0;
         char err_str[64] = {0};
         state->DMRvcL = 0;
 
-        char buffer[30];
-        struct timeval tv;
         unsigned char ds = 0x1a;
         unsigned char ls = 0xe2;
         unsigned char js = 0xac;
@@ -104,15 +102,18 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                for (int j = 0; j < 8; j++) {
 //                    for (int k = 0; k < 8; k++) {
 //                        for (int m = 0; m < 8; m++) {
-
-        for (int d = 0x10; d < 0x1a + 10; d++) {
-        printf("%x\n", d);
-            for (int l = 0xda; l < 0xe2 + 1; l++) {
-        print_time(buffer, tv, d, l, 0);
-#pragma omp parallel for
-                for (int j = 0xa0; j < 0xac + 1; j++) {
-                    for (int k = 0xa0; k < 0xa3 + 1; k++) {
-                        for (int m = 0x90; m < 0xa5 + 1; m++) {
+        int abort = 0;
+        for (int d = 0x1a; d < 0x1a + 10; d++) {
+            char buffer[30];
+            struct timeval tv;
+            print_time(buffer, tv, d, 0, 0);
+#pragma omp parallel for ordered shared(abort)
+            for (int l = 0xda; l < 0xe2 + 10; l++) {
+#pragma omp flush(abort)
+                if (!abort) {
+                    for (int j = 0xa0; j < 0xac + 10; j++) {
+                        for (int k = 0xa0; k < 0xa3 + 10; k++) {
+                            for (int m = 0x80; m < 0xa5 + 10; m++) {
 
 //        for (int d = 0x1a; d < 0x1a + 1; d++) {
 //#pragma omp parallel for
@@ -120,18 +121,18 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                for (int j = 0xac; j < 0xac + 1; j++) {
 //                    for (int k = 0xa3; k < 0xa3 + 1; k++) {
 //                        for (int m = 0xa5; m < 0xa5 + 1; m++) {
-                            unsigned long long int k1;
-                            k1 = 0;
+                                unsigned long long int k1;
+                                k1 = 0;
 //                            k1 |= (unsigned long long) di[d] << 32;
 //                            k1 |= (unsigned long long) li[l] << 24;
 //                            k1 |= (unsigned long long) ji[j] << 16;
 //                            k1 |= (unsigned long long) ki[k] << 8;
 //                            k1 |= (unsigned long long) mi[m];
-                            k1 |= (unsigned long long) d << 32;
-                            k1 |= (unsigned long long) l << 24;
-                            k1 |= (unsigned long long) j << 16;
-                            k1 |= (unsigned long long) k << 8;
-                            k1 |= (unsigned long long) m;
+                                k1 |= (unsigned long long) d << 32;
+                                k1 |= (unsigned long long) l << 24;
+                                k1 |= (unsigned long long) j << 16;
+                                k1 |= (unsigned long long) k << 8;
+                                k1 |= (unsigned long long) m;
 //                            printf("\n");
 //                            printf("--- %02x ", (unsigned int) (k1 >> 32));
 //                            printf("%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
@@ -139,45 +140,46 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                            printf("%02x ", (unsigned int) (((k1 << 24) & 0xff00000000) >> 32));
 //                            printf("%02x === ", (unsigned int) (((k1 << 32) & 0xff00000000) >> 32));
 
-                            k1 = k1 << 24;
+                                k1 = k1 << 24;
 
-                            unsigned char T_Key[256] = {0};
-                            for (int i = 0; i < 64; i++) {
-                                T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
-                            }
+                                unsigned char T_Key[256] = {0};
+                                for (int i = 0; i < 64; i++) {
+                                    T_Key[i] = (char) (((k1 << i) & 0x8000000000000000) >> 63);
+                                }
 
-                            int pos = 0;
-                            unsigned char pN[882] = {0};
-                            for (int i = 0; i < 882; i++) {
-                                pN[i] = T_Key[pos++];
-                                pos = pos % 40;
-                            }
+                                int pos = 0;
+                                unsigned char pN[882] = {0};
+                                for (int i = 0; i < 882; i++) {
+                                    pN[i] = T_Key[pos++];
+                                    pos = pos % 40;
+                                }
 
 //                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", di[d], ji[j], ki[k],
 //                                     li[l],
 //                                     mi[m]);
-                            char wav_out_file[1024];
+//                            char wav_out_file[1024] = {0};
+//                            snprintf(wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", d, l, j, k, m);
+//                            if (access(wav_out_file, F_OK) == 0) {
+//                                remove(wav_out_file);
+//                            }
+//                            FILE *pFile = fopen(wav_out_file, "w");
 
-                            snprintf(wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", d, l, j, k, m);
-                            if (access(wav_out_file, F_OK) == 0) {
-                                remove(wav_out_file);
-                            }
-                            FILE *pFile = fopen(wav_out_file, "w");
-
-                            //play stored voice data
-                            unsigned char ambe_d_copy[1000][49];
-                            for (int i = 0; i < 1000; i++) {
-                                for (int u = 0; u < 49; u++) {
-                                    ambe_d_copy[i][u] = state->ambe_d[i][u];
+                                //play stored voice data
+                                unsigned char ambe_d_copy[1000][49];
+                                for (int i = 0; i < 1000; i++) {
+                                    for (int u = 0; u < 49; u++) {
+                                        ambe_d_copy[i][u] = state->ambe_d[i][u];
+                                    }
                                 }
-                            }
 
-                            for (int w = 0; w < state->ambe_count; ++w) {
-                                pos = state->DMRvcL_p[w];
-                                for (int i = 0; i < 49; i++) {
-                                    ambe_d_copy[w][i] ^= pN[pos];
-                                    pos++;
-                                }
+                                unsigned char b0_arr[1000];
+
+                                for (int w = 0; w < state->ambe_count; ++w) {
+                                    pos = state->DMRvcL_p[w];
+                                    for (int i = 0; i < 49; i++) {
+                                        ambe_d_copy[w][i] ^= pN[pos];
+                                        pos++;
+                                    }
 //                                mbe_processAmbe2450Dataf(state->audio_out_temp_buf,
 //                                                         &errs, &errs2, err_str,
 //                                                         ambe_d_copy[w],
@@ -189,25 +191,36 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                                writeSynthesizedVoiceToBuff(state);
 //                                writeSynthesizedVoice(opts, state);
 //                                playSynthesizedVoice(opts, state);
-                                unsigned char b0 = 0;
-                                b0 |= ambe_d_copy[w][0] << 6;
-                                b0 |= ambe_d_copy[w][1] << 5;
-                                b0 |= ambe_d_copy[w][2] << 4;
-                                b0 |= ambe_d_copy[w][3] << 3;
-                                b0 |= ambe_d_copy[w][37] << 2;
-                                b0 |= ambe_d_copy[w][38] << 1;
-                                b0 |= ambe_d_copy[w][39];
-                                state->b0_arr[w] = b0;
-                            }
+                                    unsigned char b0 = 0;
+                                    b0 |= ambe_d_copy[w][0] << 6;
+                                    b0 |= ambe_d_copy[w][1] << 5;
+                                    b0 |= ambe_d_copy[w][2] << 4;
+                                    b0 |= ambe_d_copy[w][3] << 3;
+                                    b0 |= ambe_d_copy[w][37] << 2;
+                                    b0 |= ambe_d_copy[w][38] << 1;
+                                    b0 |= ambe_d_copy[w][39];
+                                    b0_arr[w] = b0;
+                                }
 
-                            fwrite(state->b0_arr, sizeof state->b0_arr[0], state->ambe_count, pFile);
-                            fclose(pFile);
+//                            fwrite(b0_arr, sizeof b0_arr[0], state->ambe_count, pFile);
+//                            fclose(pFile);
 
-                            state->voice_buff_counter = 0;
+                                double entropy = calc_entropy(b0_arr, state->ambe_count);
+                                if (entropy <= 0.75308) {
+                                    printf("\n");
+                                    printf("--- %02x ===\n", (unsigned int) (k1 >> 32));
+//                                    printf("%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
+//                                    printf("%02x ", (unsigned int) (((k1 << 16) & 0xff00000000) >> 32));
+//                                    printf("%02x ", (unsigned int) (((k1 << 24) & 0xff00000000) >> 32));
+//                                    printf("%02x === ", (unsigned int) (((k1 << 32) & 0xff00000000) >> 32));
+                                    abort = 1;
+                                }
+//                            state->voice_buff_counter = 0;
 //                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
 //                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
 //                                goto exit;
 //                            }
+                            }
                         }
                     }
                 }
