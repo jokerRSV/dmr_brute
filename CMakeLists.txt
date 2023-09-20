@@ -6,6 +6,16 @@ cmake_minimum_required(VERSION 3.10.2)
 project(dsd-fme)
 #set(CMAKE_C_STANDARD 99)
 
+#include(FindOpenMP)
+#find_package(OpenMP)
+#if(OPENMP_FOUND)
+#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+#else(OPENMP_FOUND)
+#    message("ERROR: OpenMP could not be found.")
+#endif(OPENMP_FOUND)
+
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 
 #use cmake option -DCOLORS=OFF to disable color output
@@ -16,13 +26,9 @@ if (COLORS)
 endif ()
 
 find_package(LibSndFile REQUIRED)
-#find_package(MBE REQUIRED)
-#find_package(ITPP REQUIRED)
-#find_package(Curses REQUIRED)
-find_package(PulseAudio REQUIRED)
 
-include_directories(SYSTEM ${LIBSNDFILE_INCLUDE_DIR} ${PULSEAUDIO_INCLUDE_DIRS})
-set(LIBS ${LIBSNDFILE_LIBRARY} ${PULSEAUDIO_SIMPLE_LIBRARY})
+include_directories(SYSTEM ${LIBSNDFILE_INCLUDE_DIR})
+set(LIBS ${LIBSNDFILE_LIBRARY})
 
 FILE(GLOB SRCS src/*.c src/*.cpp)
 FILE(GLOB HEADERS include/*.h include/*.hpp)

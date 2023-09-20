@@ -1008,10 +1008,10 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
 //    char *file_name = "coef_file.txt";
 //    opts->coef_file = fopen(file_name, "a");
 
-    if (opts->audio_out_type == 0) {
+//    if (opts->audio_out_type == 0) {
         // openPulseInput(opts); //test to see if we still randomly hang up in ncurses and tcp input if we open this and leave it opened
-        openPulseOutput(opts);
-    }
+//        openPulseOutput(opts);
+//    }
 
     while (1) {
 

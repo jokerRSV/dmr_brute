@@ -53,18 +53,8 @@
 
 #include <math.h>
 #include <sndfile.h>
-
-//OSS support
-#include <sys/soundcard.h>
-
-#include <pulse/simple.h>     //PULSE AUDIO
-#include <pulse/error.h>      //PULSE AUDIO
-
-#define SAMPLE_RATE_IN 48000 //48000
-#define SAMPLE_RATE_OUT 48000 //8000,
-
+#include <omp.h>
 #include <locale.h>
-//#include <ncurses.h>
 #include <stdbool.h>
 #define TRUE    1
 
@@ -269,11 +259,6 @@ typedef struct {
     int pulse_digi_in_channels;
     int pulse_digi_out_channels;
     int pulse_flush;
-    pa_simple *pulse_raw_dev_in;
-    pa_simple *pulse_raw_dev_out;
-    pa_simple *pulse_digi_dev_in;
-    pa_simple *pulse_digi_dev_out;
-    pa_simple *pulse_digi_dev_outR;
     int use_ncurses_terminal;
     int ncurses_compact;
     int ncurses_history;
@@ -407,18 +392,6 @@ int mbe_hamming1511 (char *in, char *out);
 int mbe_7100x4400hamming1511 (char *in, char *out);
 
 /*
- * Prototypes from ambe3600x2400.c
- */
-int mbe_eccAmbe3600x2400C0 (char ambe_fr[4][24]);
-int mbe_eccAmbe3600x2400Data (char ambe_fr[4][24], char *ambe_d);
-int mbe_decodeAmbe2400Parms (char *ambe_d, mbe_parms * cur_mp, mbe_parms * prev_mp);
-void mbe_demodulateAmbe3600x2400Data (char ambe_fr[4][24]);
-void mbe_processAmbe2400Dataf (float *aout_buf, int *errs, int *errs2, char *err_str, char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processAmbe2400Data (short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processAmbe3600x2400Framef (float *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processAmbe3600x2400Frame (short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-
-/*
  * Prototypes from ambe3600x2450.c
  */
 int mbe_eccAmbe3600x2450C0 (char ambe_fr[4][24]);
@@ -429,33 +402,6 @@ void mbe_processAmbe2450Dataf (float *aout_buf, int *errs, int *errs2, char *err
 void mbe_processAmbe2450Data (short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
 void mbe_processAmbe3600x2450Framef (float *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
 void mbe_processAmbe3600x2450Frame (short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-
-/*
- * Prototypes from imbe7200x4400.c
- */
-void mbe_dumpImbe4400Data (char *imbe_d);
-void mbe_dumpImbe7200x4400Data (char *imbe_d);
-void mbe_dumpImbe7200x4400Frame (char imbe_fr[8][23]);
-int mbe_eccImbe7200x4400C0 (char imbe_fr[8][23]);
-int mbe_eccImbe7200x4400Data (char imbe_fr[8][23], char *imbe_d);
-int mbe_decodeImbe4400Parms (char *imbe_d, mbe_parms * cur_mp, mbe_parms * prev_mp);
-void mbe_demodulateImbe7200x4400Data (char imbe[8][23]);
-void mbe_processImbe4400Dataf (float *aout_buf, int *errs, int *errs2, char *err_str, char imbe_d[88], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processImbe4400Data (short *aout_buf, int *errs, int *errs2, char *err_str, char imbe_d[88], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processImbe7200x4400Framef (float *aout_buf, int *errs, int *errs2, char *err_str, char imbe_fr[8][23], char imbe_d[88], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processImbe7200x4400Frame (short *aout_buf, int *errs, int *errs2, char *err_str, char imbe_fr[8][23], char imbe_d[88], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-
-/*
- * Prototypes from imbe7100x4400.c
- */
-void mbe_dumpImbe7100x4400Data (char *imbe_d);
-void mbe_dumpImbe7100x4400Frame (char imbe_fr[7][24]);
-int mbe_eccImbe7100x4400C0 (char imbe_fr[7][24]);
-int mbe_eccImbe7100x4400Data (char imbe_fr[7][24], char *imbe_d);
-void mbe_demodulateImbe7100x4400Data (char imbe[7][24]);
-void mbe_convertImbe7100to7200 (char *imbe_d);
-void mbe_processImbe7100x4400Framef (float *aout_buf, int *errs, int *errs2, char *err_str, char imbe_fr[7][24], char imbe_d[88], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processImbe7100x4400Frame (short *aout_buf, int *errs, int *errs2, char *err_str, char imbe_fr[7][24], char imbe_d[88], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
 
 /*
  * Prototypes from mbelib.c
@@ -897,22 +843,6 @@ typedef struct {
  * function prototypes
  */
 
-void processAudio(dsd_opts *opts, dsd_state *state);
-
-void openPulseOutput(dsd_opts *opts);  //not sure if we need to just pass opts, or opts and state yet
-
-void writeSynthesizedVoice(dsd_opts *opts, dsd_state *state);
-
-void writeSynthesizedVoiceToBuff(dsd_state *state);
-
-void writeW0(dsd_state *state, dsd_opts *opts);
-
-void playSynthesizedVoice(dsd_opts *opts, dsd_state *state);
-
-void playSynthesizedVoiceR(dsd_opts *opts, dsd_state *state);
-
-void openAudioOutDevice(dsd_opts *opts, int speed);
-
 void openAudioInDevice(dsd_opts *opts);
 
 int getDibit(dsd_opts *opts, dsd_state *state);
@@ -947,8 +877,6 @@ int main(int argc, char **argv);
 void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]);
 
 int getSymbol(dsd_opts *opts, dsd_state *state, int have_sync);
-
-void upsample(dsd_state *state, float invalue);
 
 short dmr_filter(short sample);
 

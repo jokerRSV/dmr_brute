@@ -105,19 +105,21 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                    for (int k = 0; k < 8; k++) {
 //                        for (int m = 0; m < 8; m++) {
 
-//        for (int d = 0x10; d < 0x1a + 1; d++) {
-//#pragma omp parallel for
-//            for (int l = 0xda; l < 0xe2 + 1; l++) {
-//                for (int j = 0xa0; j < 0xac + 1; j++) {
-//                    for (int k = 0xa0; k < 0xa3 + 1; k++) {
-//                        for (int m = 0x90; m < 0xa5 + 1; m++) {
-
-        for (int d = 0x1a; d < 0x1a + 1; d++) {
+        for (int d = 0x10; d < 0x1a + 10; d++) {
+        printf("%x\n", d);
+            for (int l = 0xda; l < 0xe2 + 1; l++) {
+        print_time(buffer, tv, d, l, 0);
 #pragma omp parallel for
-            for (int l = 0xe2; l < 0xe2 + 1; l++) {
-                for (int j = 0xac; j < 0xac + 1; j++) {
-                    for (int k = 0xa3; k < 0xa3 + 1; k++) {
-                        for (int m = 0xa5; m < 0xa5 + 1; m++) {
+                for (int j = 0xa0; j < 0xac + 1; j++) {
+                    for (int k = 0xa0; k < 0xa3 + 1; k++) {
+                        for (int m = 0x90; m < 0xa5 + 1; m++) {
+
+//        for (int d = 0x1a; d < 0x1a + 1; d++) {
+//#pragma omp parallel for
+//            for (int l = 0xe2; l < 0xe2 + 1; l++) {
+//                for (int j = 0xac; j < 0xac + 1; j++) {
+//                    for (int k = 0xa3; k < 0xa3 + 1; k++) {
+//                        for (int m = 0xa5; m < 0xa5 + 1; m++) {
                             unsigned long long int k1;
                             k1 = 0;
 //                            k1 |= (unsigned long long) di[d] << 32;
@@ -130,12 +132,12 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
                             k1 |= (unsigned long long) j << 16;
                             k1 |= (unsigned long long) k << 8;
                             k1 |= (unsigned long long) m;
-                            fprintf(stderr, "\n");
-                            fprintf(stderr, "--- %02x ", (unsigned int) (k1 >> 32));
-                            fprintf(stderr, "%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
-                            fprintf(stderr, "%02x ", (unsigned int) (((k1 << 16) & 0xff00000000) >> 32));
-                            fprintf(stderr, "%02x ", (unsigned int) (((k1 << 24) & 0xff00000000) >> 32));
-                            fprintf(stderr, "%02x === ", (unsigned int) (((k1 << 32) & 0xff00000000) >> 32));
+//                            printf("\n");
+//                            printf("--- %02x ", (unsigned int) (k1 >> 32));
+//                            printf("%02x ", (unsigned int) (((k1 << 8) & 0xff00000000) >> 32));
+//                            printf("%02x ", (unsigned int) (((k1 << 16) & 0xff00000000) >> 32));
+//                            printf("%02x ", (unsigned int) (((k1 << 24) & 0xff00000000) >> 32));
+//                            printf("%02x === ", (unsigned int) (((k1 << 32) & 0xff00000000) >> 32));
 
                             k1 = k1 << 24;
 
@@ -154,11 +156,13 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 //                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", di[d], ji[j], ki[k],
 //                                     li[l],
 //                                     mi[m]);
-                            snprintf(opts->wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", d, l, j, k, m);
-                            if (access(opts->wav_out_file, F_OK) == 0) {
-                                remove(opts->wav_out_file);
+                            char wav_out_file[1024];
+
+                            snprintf(wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", d, l, j, k, m);
+                            if (access(wav_out_file, F_OK) == 0) {
+                                remove(wav_out_file);
                             }
-                            FILE *pFile = fopen(opts->wav_out_file, "w");
+                            FILE *pFile = fopen(wav_out_file, "w");
 
                             //play stored voice data
                             unsigned char ambe_d_copy[1000][49];
@@ -201,9 +205,9 @@ void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]) {
 
                             state->voice_buff_counter = 0;
 //                            if (di[d] == 0x1a && ji[j] == 0xe2 && ki[k] == 0xac && li[l] == 0xa3 && mi[m] == 0xa5) {
-                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
-                                goto exit;
-                            }
+//                            if (d == 0x1a && l == 0xe2 && j == 0xac && k == 0xa3 && m == 0xa5) {
+//                                goto exit;
+//                            }
                         }
                     }
                 }
