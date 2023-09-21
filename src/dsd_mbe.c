@@ -36,23 +36,25 @@ static double calc_entropy(const unsigned char *f, int length) {
     return entropy;
 }
 
-void print_time(char *buffer, struct timeval tv, int i, int j, int k) {
+void print_time(int i, int j, int k) {
+    struct timeval tv;
+    char buffer[30];
     time_t curtime;
 
     gettimeofday(&tv, NULL);
     curtime = tv.tv_sec;
     printf("%x %x %x === ", i, j, k);
     strftime(buffer, 30, "%T.", localtime(&curtime));
-    printf("%s%ld\n", buffer, tv.tv_usec);
+    printf("%s%ld", buffer, tv.tv_usec);
     fflush(stdout);
 }
 
 void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
     unsigned char ambe_d[49];
 
-    for (int i = 0; i < 49; i++) {
-        ambe_d[i] = 0;
-    }
+//    for (int i = 0; i < 49; i++) {
+//        ambe_d[i] = 0;
+//    }
     int start = 100;
     int num = 150;
     if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < num + start) {
@@ -76,41 +78,32 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
         //ac == 172
         //a3 == 163
         //a5 == 165
-        int abort = 0;
         double entropy_acc = 1;
         unsigned long key;
-//        for (int d = 0x10; d < 0x1a + 10; d++) {
-//            char buffer[30];
-//            struct timeval tv;
-//            print_time(buffer, tv, d, 0, 0);
-//#pragma omp parallel for ordered shared(abort, entropy_acc)
-//            for (int l = 0xda; l < 0xe2 + 10; l++) {
-//#pragma omp flush(abort)
-//                if (!abort) {
-//                    for (int j = 0xa0; j < 0xac + 10; j++) {
-//                        for (int k = 0xa0; k < 0xa3 + 10; k++) {
-//                            for (int m = 0x90; m < 0xa5 + 10; m++) {
 
-//        for (int d = 10; d < 30; d++) {
-//            char buffer[30];
-//            struct timeval tv;
-//            print_time(buffer, tv, d, 0, 0);
-//#pragma omp parallel for schedule(guided) shared(entropy_acc)
-//            for (int l = 200; l < 0x256; l++) {
+        for (int d = 0; d < 256; d++) {
+            print_time(d, 0, 0);
+            printf("    --- %f ===", entropy_acc);
+            printf("--- %02lx ===\n", key);
+#pragma omp parallel for schedule(static) shared(entropy_acc)
+            for (int l = 0; l < 256; l++) {
 //                if (l == 0) {
 //                    printf("num proc: %d, num threads: %d\n", omp_get_num_procs(), omp_get_num_threads());
 //                }
-//                for (int j = 150; j < 200; j++) {
-//                    for (int k = 150; k < 170; k++) {
-//                        for (int m = 0; m < 256; m++) {
-//                        int m = 123;
+                for (int j = 0; j < 256; j++) {
+                    for (int k = 0; k < 256; k++) {
+                        for (int m = 0; m < 256; m++) {
+//                        int m = 00;
 
-        for (int d = 0x1a; d < 0x1a + 1; d++) {
+//        for (int d = 0x1a - 10; d < 0x1a + 10; d++) {
+//            print_time(d, 0, 0);
+//            printf("    --- %f ===", entropy_acc);
+//            printf("--- %02lx ===\n", key);
 //#pragma omp parallel for
-            for (int l = 0xe2; l < 0xe2 + 1; l++) {
-                for (int j = 0xac; j < 0xac + 1; j++) {
-                    for (int k = 0xa3; k < 0xa3 + 1; k++) {
-                        for (int m = 0xa5; m < 0xa5 + 1; m++) {
+//            for (int l = 0xe2 - 20; l < 0xe2 + 10; l++) {
+//                for (int j = 0xac - 20; j < 0xac + 10; j++) {
+//                    for (int k = 0xa3 - 20; k < 0xa3 + 10; k++) {
+//                        for (int m = 0xa5 - 20; m < 0xa5 + 10; m++) {
                             unsigned long k1;
                             k1 = 0;
                             k1 |= (unsigned long long) d << 32;
@@ -119,26 +112,26 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
                             k1 |= (unsigned long long) k << 8;
                             k1 |= (unsigned long long) m;
 
-                            unsigned char T_Key[256] = {0};
+                            unsigned char T_Key[256];
                             for (int i = 0; i < 64; i++) {
                                 T_Key[i] = (unsigned char) (((k1 << i) & 0x8000000000) >> 39);
                             }
 
                             int pos = 0;
-                            unsigned char pN[882] = {0};
+                            unsigned char pN[882];
                             for (int i = 0; i < 882; i++) {
                                 pN[i] = T_Key[pos++];
                                 pos = pos % 40;
                             }
 
-                            unsigned char ambe_d_copy[1000][49];
-                            for (int i = 0; i < 1000; i++) {
+                            unsigned char ambe_d_copy[num][49];
+                            for (int i = 0; i < num; i++) {
                                 for (int u = 0; u < 49; u++) {
                                     ambe_d_copy[i][u] = state->ambe_d[i][u];
                                 }
                             }
 
-                            unsigned char b0_arr[1000];
+                            unsigned char b0_arr[num];
 
                             for (int w = 0; w < state->ambe_count; ++w) {
                                 pos = state->DMRvcL_p[w];
@@ -170,6 +163,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
         printf("\n");
         printf("--- %f ===\n", entropy_acc);
         printf("--- %02lx ===\n", key);
-K    }
+    }
+
     state->audio_count++;
 }
