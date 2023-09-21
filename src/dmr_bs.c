@@ -453,7 +453,7 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     if (opts->inverted_dmr == 0) sprintf(polarity, "%s", "+");
     else sprintf(polarity, "%s", "-");
 
-    fprintf(stderr, "Sync: %sDMR %s| Color Code=%02d | VC1*", polarity, light, state->dmr_color_code);
+//    fprintf(stderr, "Sync: %sDMR %s| Color Code=%02d | VC1*", polarity, light, state->dmr_color_code);
 
     dmr_alg_reset(opts, state);
 

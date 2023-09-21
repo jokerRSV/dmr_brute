@@ -52,9 +52,6 @@ void print_time(int i, int j, int k) {
 void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
     unsigned char ambe_d[49];
 
-//    for (int i = 0; i < 49; i++) {
-//        ambe_d[i] = 0;
-//    }
     int start = 100;
     int num = 150;
     if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < num + start) {
@@ -79,31 +76,31 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
         //a3 == 163
         //a5 == 165
         double entropy_acc = 1;
-        unsigned long key;
+        unsigned long key = 0;
 
-        for (int d = 0; d < 256; d++) {
-            print_time(d, 0, 0);
-            printf("    --- %f ===", entropy_acc);
-            printf("--- %02lx ===\n", key);
-#pragma omp parallel for schedule(static) shared(entropy_acc)
-            for (int l = 0; l < 256; l++) {
-//                if (l == 0) {
-//                    printf("num proc: %d, num threads: %d\n", omp_get_num_procs(), omp_get_num_threads());
-//                }
-                for (int j = 0; j < 256; j++) {
-                    for (int k = 0; k < 256; k++) {
-                        for (int m = 0; m < 256; m++) {
-//                        int m = 00;
-
-//        for (int d = 0x1a - 10; d < 0x1a + 10; d++) {
+//        for (int d = 0; d < 256; d++) {
 //            print_time(d, 0, 0);
 //            printf("    --- %f ===", entropy_acc);
 //            printf("--- %02lx ===\n", key);
-//#pragma omp parallel for
-//            for (int l = 0xe2 - 20; l < 0xe2 + 10; l++) {
-//                for (int j = 0xac - 20; j < 0xac + 10; j++) {
-//                    for (int k = 0xa3 - 20; k < 0xa3 + 10; k++) {
-//                        for (int m = 0xa5 - 20; m < 0xa5 + 10; m++) {
+//#pragma omp parallel for schedule(static) shared(entropy_acc)
+//            for (int l = 0; l < 256; l++) {
+//                for (int j = 0; j < 256; j++) {
+//                    for (int k = 0; k < 256; k++) {
+//                        for (int m = 0; m < 256; m++) {
+
+        for (int d = 0; d < 0x1a + 10; d++) {
+            print_time(d, 0, 0);
+            printf("    --- %f ===", entropy_acc);
+            printf(" --- %02x ", (unsigned int) ((key & 0xff00000000) >> 32));
+            printf("%02x ", (unsigned int) (((key << 8) & 0xff00000000) >> 32));
+            printf("%02x ", (unsigned int) (((key << 16) & 0xff00000000) >> 32));
+            printf("%02x ", (unsigned int) (((key << 24) & 0xff00000000) >> 32));
+            printf("%02x === \n", (unsigned int) (((key << 32) & 0xff00000000) >> 32));
+#pragma omp parallel for
+            for (int l = 0xe2 - 10; l < 0xe2 + 10; l++) {
+                for (int j = 0xac - 10; j < 0xac + 10; j++) {
+                    for (int k = 0xa3 - 10; k < 0xa3 + 10; k++) {
+                        for (int m = 0xa5 - 10; m < 0xa5 + 10; m++) {
                             unsigned long k1;
                             k1 = 0;
                             k1 |= (unsigned long long) d << 32;
