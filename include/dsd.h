@@ -406,7 +406,6 @@ void mbe_processAmbe3600x2450Frame (short *aout_buf, int *errs, int *errs2, char
 /*
  * Prototypes from mbelib.c
  */
-void mbe_printVersion (char *str);
 void mbe_moveMbeParms (mbe_parms * cur_mp, mbe_parms * prev_mp);
 void mbe_useLastMbeParms (mbe_parms * cur_mp, mbe_parms * prev_mp);
 void mbe_initMbeParms (mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced);
@@ -873,7 +872,7 @@ void cleanupAndExit(dsd_opts *opts, dsd_state *state);
 // void sigfun (int sig); //not necesary
 int main(int argc, char **argv);
 
-void processMbeFrame(dsd_opts *opts, dsd_state *state, char ambe_fr[4][24]);
+void processMbeFrame(dsd_state *state, char ambe_fr[4][24]);
 
 int getSymbol(dsd_opts *opts, dsd_state *state, int have_sync);
 

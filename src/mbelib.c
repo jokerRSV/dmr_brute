@@ -40,11 +40,6 @@ mbe_rand_phase() {
 }
 
 void
-mbe_printVersion(char *str) {
-    sprintf(str, "%s", "0.3");
-}
-
-void
 mbe_moveMbeParms(mbe_parms *cur_mp, mbe_parms *prev_mp) {
 
     int l;
