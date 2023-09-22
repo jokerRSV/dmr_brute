@@ -1087,7 +1087,7 @@ main(int argc, char **argv) {
     dsd_opts opts;
     dsd_state state;
     char versionstr[25];
-    sprintf(versionstr, "%s", "0.5");
+    sprintf(versionstr, "%s", "0.7");
 
     struct stat st = {0};
 

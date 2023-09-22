@@ -75,8 +75,8 @@ void
 printFrameSync(dsd_opts *opts, dsd_state *state, char *frametype, int offset, char *modulation) {
 
     if (opts->verbose > 0) {
-        fprintf(stderr, "%s ", getTime());
-        fprintf(stderr, "Sync: %s ", frametype);
+//        fprintf(stderr, "%s ", getTime());
+//        fprintf(stderr, "Sync: %s ", frametype);
     }
     if (opts->verbose > 2) {
         //fprintf (stderr,"o: %4i ", offset);
