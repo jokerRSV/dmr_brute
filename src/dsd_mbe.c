@@ -165,7 +165,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
 #pragma omp flush
 #pragma omp atomic write
                             key = k1;
-//#pragma omp flush
+#pragma omp flush
 //                            printf(" --- %02lx ---- ", k1);
 //                            printf(" --- %f === \n", local_entropy);
                         }
