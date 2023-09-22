@@ -1089,11 +1089,10 @@ main(int argc, char **argv) {
     char versionstr[25];
     sprintf(versionstr, "%s", "0.7");
 
-    struct stat st = {0};
-
-    if (stat("iii", &st) == -1) {
-        mkdir("iii", 0700);
-    }
+//    struct stat st = {0};
+//    if (stat("iii", &st) == -1) {
+//        mkdir("iii", 0700);
+//    }
 
 //    int sum = 0;
 //    for (int i = 0; i < 256; i++) {
