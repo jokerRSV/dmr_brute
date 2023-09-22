@@ -64,7 +64,7 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
         result = sf_read_short(opts->audio_in_file, &sample, 1);
         if (result == 0) {
             sf_close(opts->audio_in_file);
-            fprintf(stderr, "\n\nEnd of .wav file.\n");
+            fprintf(stderr, "\nEnd of .wav file.\n");
             cleanupAndExit(opts, state);
 //            int ii = fclose(pFile);
 //            fprintf (stderr, "exit11111 %d ", ii);

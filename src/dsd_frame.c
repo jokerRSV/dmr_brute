@@ -88,8 +88,8 @@ processFrame(dsd_opts *opts, dsd_state *state) {
 
             sprintf(state->fsubtype, " VOICE        ");
             if (opts->dmr_stereo == 0 && state->synctype < 32) {
-                sprintf(state->slot1light, " slot1 ");
-                sprintf(state->slot2light, " slot2 ");
+//                sprintf(state->slot1light, " slot1 ");
+//                sprintf(state->slot2light, " slot2 ");
                 //we can safely open MBE on any MS or mono handling
                 if (opts->p25_trunk == 0) dmrMSBootstrap(opts, state);
             }
@@ -109,15 +109,15 @@ processFrame(dsd_opts *opts, dsd_state *state) {
         } else {
             if (opts->dmr_stereo == 0) {
                 state->err_str[0] = 0;
-                sprintf(state->slot1light, " slot1 ");
-                sprintf(state->slot2light, " slot2 ");
+//                sprintf(state->slot1light, " slot1 ");
+//                sprintf(state->slot2light, " slot2 ");
                 dmr_data_sync(opts, state);
             }
             //switch dmr_stereo to 0 when handling BS data frame syncs with processDMRdata
             if (opts->dmr_stereo == 1) {
                 state->dmr_stereo = 0; //set the state to zero for handling pure data frames
-                sprintf(state->slot1light, " slot1 ");
-                sprintf(state->slot2light, " slot2 ");
+//                sprintf(state->slot1light, " slot1 ");
+//                sprintf(state->slot2light, " slot2 ");
                 dmr_data_sync(opts, state);
             }
         }

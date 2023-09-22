@@ -117,7 +117,7 @@ void dmr_late_entry_mi (dsd_opts * opts, dsd_state * state)
       if (state->payload_algid != 0x21)
       {
         LFSR64 (state);
-        fprintf (stderr, "\n");
+//        fprintf (stderr, "\n");
       } 
     }
     if (slot == 1 && state->payload_algidR != 0)
@@ -136,7 +136,7 @@ void dmr_late_entry_mi (dsd_opts * opts, dsd_state * state)
       if (state->payload_algidR != 0x21)
       {
         LFSR64 (state);
-        fprintf (stderr, "\n");
+//        fprintf (stderr, "\n");
       } 
     }
 
@@ -158,7 +158,7 @@ void dmr_alg_refresh (dsd_opts * opts, dsd_state * state)
     if (state->payload_algid == 0x21)
     {
       LFSR (state);
-      fprintf (stderr, "\n");
+//      fprintf (stderr, "\n");
     }
     //LFSR64 carried out after LE verification in order to keep it from constantly resetting the MI to the previous value
 
@@ -175,7 +175,7 @@ void dmr_alg_refresh (dsd_opts * opts, dsd_state * state)
     if (state->payload_algidR == 0x21)
     {
       LFSR (state);
-      fprintf (stderr, "\n");
+//      fprintf (stderr, "\n");
     }
     //LFSR64 carried out after LE verification in order to keep it from constantly resetting the MI to the previous value
 
@@ -286,7 +286,7 @@ void dmr_sbrc (dsd_opts * opts, dsd_state * state, uint8_t power)
     //   fprintf (stderr, " CRC EXT %02X, CRC CMP %02X", crc_extracted, crc_computed);
     // }
 
-    fprintf (stderr, "\n");
+//    fprintf (stderr, "\n");
   }
   
   uint8_t sbrc_opcode = sbrc_hex & 0x7; //opcode and alg the same bits, but the alg is present when CRC is bad (I know they are limited on bits, but I hate that idea)

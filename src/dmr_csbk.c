@@ -67,7 +67,7 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                 // if (state->p25_cc_freq == 0 && state->trunk_chan_map[0] != 0) state->p25_cc_freq = state->trunk_chan_map[0];
 
                 //initial line break
-                fprintf(stderr, "\n");
+//                fprintf(stderr, "\n");
 
                 long int freq = 0;
 
@@ -120,10 +120,10 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                 uint16_t mbc_abs_rx_int = 0;
                 uint16_t mbc_abs_rx_step = 0;
 
-                fprintf(stderr, "\n");
+//                fprintf(stderr, "\n");
                 //added my best guess as to how dsdplus arrives at a dmr channel value (seems pretty consistent) as C+
-                fprintf(stderr, "  Ch [%03X] Cd [%04d] C+ [%04d] - TS [%d] - Target [%08d] - Source [%08d]", lpchannum,
-                        lpchannum, pluschannum, lcn, target, source);
+//                fprintf(stderr, "  Ch [%03X] Cd [%04d] C+ [%04d] - TS [%d] - Target [%08d] - Source [%08d]", lpchannum,
+//                        lpchannum, pluschannum, lcn, target, source);
 
                 if (st2) fprintf(stderr, " Emergency");
 
@@ -152,9 +152,9 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
 
                         //tx_int (Mhz) + (tx_step * 125) = tx_freq
                         //rx_int (Mhz) + (rx_step * 125) = rx_freq
-                        fprintf(stderr, "\n");
-                        fprintf(stderr, "  ABS-CHAN [%03X][%04d] - RX INT [%d][%X] - RX STEP [%d][%X]", mbc_lpchannum,
-                                mbc_lpchannum, mbc_abs_rx_int, mbc_abs_rx_int, mbc_abs_rx_step, mbc_abs_rx_step);
+//                        fprintf(stderr, "\n");
+//                        fprintf(stderr, "  ABS-CHAN [%03X][%04d] - RX INT [%d][%X] - RX STEP [%d][%X]", mbc_lpchannum,
+//                                mbc_lpchannum, mbc_abs_rx_int, mbc_abs_rx_int, mbc_abs_rx_step, mbc_abs_rx_step);
                         //The Frequency we want to tune is the RX Frequency
                         freq = (mbc_abs_rx_int * 1000000) + (mbc_abs_rx_step * 125);
                     } else
@@ -255,7 +255,7 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
             //Aloha
             if (csbk_o == 25) {
                 //initial line break
-                fprintf(stderr, "\n");
+//                fprintf(stderr, "\n");
                 uint8_t reserved = cs_pdu_bits[16];
                 uint8_t tsccas = cs_pdu_bits[17];
                 uint8_t sync = cs_pdu_bits[18];
@@ -689,8 +689,8 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
             if (csbk_o == 0x3E) {
 
                 //initial line break
-                fprintf(stderr, "\n");
-                fprintf(stderr, "%s", KYEL);
+//                fprintf(stderr, "\n");
+//                fprintf(stderr, "%s", KYEL);
 
                 uint8_t fl = (uint8_t) ConvertBitIntoBytes(&cs_pdu_bits[16], 2);
                 uint8_t ts = cs_pdu_bits[18];  //timeslot this PDU occurs in
@@ -963,7 +963,7 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                         for (i = 0; i < (10 + (block_num * 7)); i++) {
                             fl_bytes = (uint8_t) ConvertBitIntoBytes(&state->cap_plus_csbk_bits[ts][i * 8], 8);
                             fprintf(stderr, "[%02X]", fl_bytes);
-                            if (i == 17 || i == 35) fprintf(stderr, "\n  ");
+//                            if (i == 17 || i == 35) fprintf(stderr, "\n  ");
                         }
                         fprintf(stderr, "%s", KNRM);
                     }
@@ -1051,8 +1051,8 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
             //XPT Site Status
             if (csbk_o == 0x0A) {
                 //initial line break
-                fprintf(stderr, "\n");
-                fprintf(stderr, "%s", KYEL);
+//                fprintf(stderr, "\n");
+//                fprintf(stderr, "%s", KYEL);
 
                 uint8_t xpt_ch[6]; //one tg/call per LSN
                 uint16_t tg = 0;  //8-bit TG value or TGT hash
@@ -1089,7 +1089,7 @@ void dmr_cspdu(dsd_opts *opts, dsd_state *state, uint8_t cs_pdu_bits[], uint8_t 
                 for (i = 0; i < 6; i++) {
                     //add LCN value for each LSN pair to help users differentiate between the two when seeing LCN on FLC
                     if (i == 0 || i == 2 || i == 4) {
-                        fprintf(stderr, "\n LCN %d - ", xpt_lcn);
+//                        fprintf(stderr, "\n LCN %d - ", xpt_lcn);
                         xpt_lcn++;
                     }
 

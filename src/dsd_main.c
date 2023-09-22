@@ -1046,7 +1046,7 @@ void cleanupAndExit(dsd_opts *opts, dsd_state *state) {
     noCarrier(opts, state);
     //cause of crash on exit, need to check if NULL first, may need to set NULL when turning off in nterm
 
-    fprintf(stderr, "\n");
+//    fprintf(stderr, "\n");
     fprintf(stderr, "Total audio errors: %i\n", state->debug_audio_errors);
     fprintf(stderr, "Total header errors: %i\n", state->debug_header_errors);
     fprintf(stderr, "Total irrecoverable header errors: %i\n", state->debug_header_critical_errors);

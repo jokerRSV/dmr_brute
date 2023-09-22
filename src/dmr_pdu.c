@@ -321,7 +321,7 @@ void dmr_lrrp(dsd_opts *opts, dsd_state *state, uint8_t block_len, uint8_t DMR_P
 
             }
             if (lat) {
-                fprintf(stderr, "\n");
+//                fprintf(stderr, "\n");
                 //need to check these new calcs for accuracy accross the globe, both lat and lon
 
                 //two's compliment-ish testing on these bytes
@@ -372,7 +372,7 @@ void dmr_lrrp(dsd_opts *opts, dsd_state *state, uint8_t block_len, uint8_t DMR_P
 
             //close open file
             if (opts->lrrp_file_output == 1) {
-                fprintf(pFile, "\n");
+//                fprintf(pFile, "\n");
                 fclose(pFile);
             }
 

@@ -37,7 +37,7 @@ void dmr_pi (dsd_opts * opts, dsd_state * state, uint8_t PI_BYTE[], uint32_t CRC
         fprintf (stderr, "%s ", KNRM);
         if (state->payload_algid != 0x21)
         {
-          fprintf (stderr, "\n");
+//          fprintf (stderr, "\n");
           LFSR64 (state);
         } 
       }
@@ -72,7 +72,7 @@ void dmr_pi (dsd_opts * opts, dsd_state * state, uint8_t PI_BYTE[], uint32_t CRC
         fprintf (stderr, "%s ", KNRM);
         if (state->payload_algidR != 0x21)
         {
-          fprintf (stderr, "\n");
+//          fprintf (stderr, "\n");
           LFSR64 (state);
         } 
       }

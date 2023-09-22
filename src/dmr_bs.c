@@ -44,8 +44,8 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
     memset(dummy_bits, 0, sizeof(dummy_bits));
 
     //Init slot lights
-    sprintf(state->slot1light, " slot1 ");
-    sprintf(state->slot2light, " slot2 ");
+//    sprintf(state->slot1light, " slot1 ");
+//    sprintf(state->slot2light, " slot2 ");
 
     //Init the color code status
     state->color_code_ok = 0;
@@ -446,9 +446,9 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     char light[18];
 
     if (state->currentslot == 0) {
-        sprintf(light, "%s", " [SLOT1]  slot2  ");
+//        sprintf(light, "%s", " [SLOT1]  slot2  ");
     } else {
-        sprintf(light, "%s", "  slot1  [SLOT2] ");
+//        sprintf(light, "%s", "  slot1  [SLOT2] ");
     }
     if (opts->inverted_dmr == 0) sprintf(polarity, "%s", "+");
     else sprintf(polarity, "%s", "-");

@@ -176,11 +176,11 @@ dmr_data_sync(dsd_opts *opts, dsd_state *state) {
 
     if ((strcmp(sync, DMR_BS_DATA_SYNC) == 0)) {
         if (state->currentslot == 0) {
-            sprintf(state->slot1light, "[slot1]");
-            sprintf(state->slot2light, " slot2 ");
+//            sprintf(state->slot1light, "[slot1]");
+//            sprintf(state->slot2light, " slot2 ");
         } else {
-            sprintf(state->slot1light, " slot1 ");
-            sprintf(state->slot2light, "[slot2]");
+//            sprintf(state->slot1light, " slot1 ");
+//            sprintf(state->slot2light, "[slot2]");
         }
     } else if (strcmp(sync, DMR_DIRECT_MODE_TS1_DATA_SYNC) == 0) {
         state->currentslot = 0;
@@ -250,7 +250,7 @@ dmr_data_sync(dsd_opts *opts, dsd_state *state) {
     if (state->dmr_ms_rc == 0) dmr_data_burst_handler(opts, state, (uint8_t *) info, burst);
 
     //ending line break
-    fprintf(stderr, "\n");
+//    fprintf(stderr, "\n");
 
     END:
     if (SlotTypeOk == 0 || cach_okay != 1) {

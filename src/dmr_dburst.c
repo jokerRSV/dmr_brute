@@ -203,8 +203,8 @@ void dmr_data_burst_handler(dsd_opts *opts, dsd_state *state, uint8_t info[196],
         state->data_p_head[slot] = 0;
 
     if (databurst != 0xEB) {
-        if (state->dmr_ms_mode == 0) fprintf(stderr, "| Color Code=%02d ", state->dmr_color_code);
-        fprintf(stderr, "|%s", state->fsubtype);
+//        if (state->dmr_ms_mode == 0) fprintf(stderr, "| Color Code=%02d ", state->dmr_color_code);
+//        fprintf(stderr, "|%s", state->fsubtype);
 
     }
 
