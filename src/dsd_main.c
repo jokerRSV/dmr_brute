@@ -402,9 +402,6 @@ initOpts(dsd_opts *opts) {
 
     opts->lrrp_file_output = 0;
 
-    opts->dmr_mute_encL = 1;
-    opts->dmr_mute_encR = 1;
-
     opts->monitor_input_audio = 0;
 
     opts->inverted_p2 = 0;
@@ -1087,31 +1084,14 @@ main(int argc, char **argv) {
     dsd_opts opts;
     dsd_state state;
     char versionstr[25];
-    sprintf(versionstr, "%s", "0.7");
+    sprintf(versionstr, "%s", "0.9");
 
-//    struct stat st = {0};
-//    if (stat("iii", &st) == -1) {
-//        mkdir("iii", 0700);
-//    }
+    struct stat st = {0};
+    if (stat("iii", &st) == -1) {
+        mkdir("iii", 0700);
+    }
 
-//    int sum = 0;
-//    for (int i = 0; i < 256; i++) {
-//#pragma omp parallel for
-//        printf("%x\n", i);
-//        for (int l = 0; l < 256; l++) {
-//            for (int j = 0; j < 256; j++) {
-//                for (int k = 0; k < 256; k++) {
-//                    for (int m = 0; m < 256; m++) {
-//                        sum = sum + i + m;
-////                        printf("%d", m);
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    printf("%d", sum);
-
-    fprintf(stderr, "MBElib Version: %s\n", versionstr);
+    fprintf(stderr, "Version: %s\n", versionstr);
 
     initOpts(&opts);
     initState(&state);
@@ -1292,12 +1272,6 @@ main(int argc, char **argv) {
                 if (state.K > 256) {
                     state.K = 256;
                 }
-                opts.dmr_mute_encL = 0;
-                opts.dmr_mute_encR = 0;
-                if (state.K == 0) {
-                    opts.dmr_mute_encL = 1;
-                    opts.dmr_mute_encR = 1;
-                }
                 break;
 
             case 'R':
@@ -1316,14 +1290,7 @@ main(int argc, char **argv) {
                 state.K2 = strtoull(pEnd, &pEnd, 16);
                 state.K3 = strtoull(pEnd, &pEnd, 16);
                 state.K4 = strtoull(pEnd, &pEnd, 16);
-                fprintf(stderr, "**tera Key = %016llX %016llX %016llX %016llX\n", state.K1, state.K2, state.K3,
-                        state.K4);
-                opts.dmr_mute_encL = 0;
-                opts.dmr_mute_encR = 0;
-                if (state.K1 == 0 && state.K2 == 0 && state.K3 == 0 && state.K4 == 0) {
-                    opts.dmr_mute_encL = 1;
-                    opts.dmr_mute_encR = 1;
-                }
+                fprintf(stderr, "**tera Key = %016llX\n", state.K1);
                 state.H = state.K1; //shim still required?
                 break;
 

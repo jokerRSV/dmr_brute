@@ -275,8 +275,6 @@ typedef struct {
     short int dmr_stereo;
     short int lrrp_file_output;
 
-    short int dmr_mute_encL;
-    short int dmr_mute_encR;
 
     int frame_ysf;
     int inverted_ysf;

@@ -75,14 +75,13 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
         //ac == 172
         //a3 == 163
         //a5 == 165
-        volatile double entropy_acc = 1;
-        volatile unsigned long key = 0;
+        double entropy_acc = 1;
+        unsigned long key = 0;
 
         int d, l, j, k, m;
 
         d = 0;
-//        for (d = 0; d < 256; d++) {
-//        for (l = 0; l < 256; l++) {
+//        for (l = 0; l < 256; ++l) {
 //            print_time(d, l, 0);
 //            printf("    --- %f ===", entropy_acc);
 //            printf(" --- %02x ", (unsigned int) ((key & 0xff00000000) >> 32));
@@ -91,12 +90,11 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
 //            printf("%02x ", (unsigned int) (((key << 24) & 0xff00000000) >> 32));
 //            printf("%02x === \n", (unsigned int) (((key << 32) & 0xff00000000) >> 32));
 //#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key)
-//            for (j = 0; j < 256; j++) {
-//                for (k = 0; k < 256; k++) {
-//                    for (m = 0; m < 256; m++) {
+//            for (j = 0; j < 256; ++j) {
+//                for (k = 0; k < 256; ++k) {
+//                    for (m = 0; m < 256; ++m) {
 
-//        for (d = 10; d < 0x1a + 20; d++) {
-        for (l = 0xe2 - 10; l < 0xe2 + 20; l++) {
+        for (l = 0xe2; l < 0xe2 + 1; l++) {
             print_time(d, l, 0);
             printf("    --- %f ===", entropy_acc);
             printf(" --- %02x ", (unsigned int) ((key & 0xff00000000) >> 32));
@@ -105,9 +103,9 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
             printf("%02x ", (unsigned int) (((key << 24) & 0xff00000000) >> 32));
             printf("%02x === \n", (unsigned int) (((key << 32) & 0xff00000000) >> 32));
 #pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key)
-            for (j = 0xac - 10; j < 0xac + 20; j++) {
-                for (k = 0xa3 - 10; k < 0xa3 + 20; k++) {
-                    for (m = 0xa5 - 10; m < 0xa5 + 20; m++) {
+            for (j = 0xac; j < 0xac + 1; j++) {
+                for (k = 0xa3; k < 0xa3 + 1; k++) {
+                    for (m = 0xa5; m < 0xa5 + 1; m++) {
                         unsigned long k1;
                         k1 = 0;
                         k1 |= (unsigned long long) d << 32;
@@ -127,6 +125,14 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
                             pN[i] = T_Key[pos++];
                             pos = pos % 40;
                         }
+
+                        char wav_out_file[1024];
+
+                        snprintf(wav_out_file, 4 + 22, "iii/sample_%x%x%x%x%x.txt", d, l, j, k, m);
+                        if (access(wav_out_file, F_OK) == 0) {
+                            remove(wav_out_file);
+                        }
+                        FILE *pFile = fopen(wav_out_file, "w");
 
                         unsigned char ambe_d_copy[num][49];
                         for (int i = 0; i < num; i++) {
@@ -154,20 +160,19 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24]) {
                             b0_arr[w] = b0;
                         }
 
+                        fwrite(b0_arr, sizeof b0_arr[0], state->ambe_count, pFile);
+                        fclose(pFile);
+
                         double entropy = calc_entropy(b0_arr, state->ambe_count);
-                        double local_entropy;
 #pragma omp flush
-#pragma omp atomic read
-                        local_entropy = entropy_acc;
-                        if (entropy < local_entropy) {
-#pragma omp atomic write
-                            entropy_acc = entropy;
-#pragma omp flush
-#pragma omp atomic write
-                            key = k1;
-#pragma omp flush
-//                            printf(" --- %02lx ---- ", k1);
-//                            printf(" --- %f === \n", local_entropy);
+#pragma omp critical
+                        {
+                            if (entropy < entropy_acc) {
+                                entropy_acc = entropy;
+                                key = k1;
+                                printf(" --- %02lx ---- ", k1);
+                                printf(" --- %f === \n", entropy_acc);
+                            }
                         }
                     }
                 }
