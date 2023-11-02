@@ -57,8 +57,8 @@ void addToKeyBuff(dsd_state *state, unsigned long key) {
 void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
     char ambe_d[49];
 
-    int start = 120;
-    const int num = 150;
+    const int start = opts->startFrame;
+    const int num = opts->frameSize;
 //    char ambe_d_flat[num] = {0};
     if (state->currentslot == 0 && state->audio_count >= start && state->audio_count < num + start) {
         mbe_demodulateAmbe3600x2450Data(ambe_fr);
@@ -86,8 +86,6 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         int d, l, j, k, m;
         int mod_div = opts->mod_div;
         int lastKeys = opts->lastKeys;
-        printf("mod division number: %d\n", mod_div);
-        printf("last keys to print num: %d\n", lastKeys);
 
 //        for (d = 0; d < 256; ++d) {
 //            for (l = 0; l < 256; ++l) {

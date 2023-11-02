@@ -237,6 +237,10 @@ typedef struct {
     int inverted_dmr;
     int mod_threshold;
     int ssize;
+    int mod_div;
+    int lastKeys;
+    int startFrame;
+    int frameSize;
     int msize;
     int delay;
     int use_cosine_filter;
@@ -286,8 +290,6 @@ typedef struct {
     //rigctl opt
     int rigctl_sockfd;
     int use_rigctl;
-    int mod_div;
-    int lastKeys;
     char rigctlhostname[1024];
 
     //udp socket for GQRX, SDR++, etc

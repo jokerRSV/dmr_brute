@@ -355,6 +355,10 @@ initOpts(dsd_opts *opts) {
     opts->inverted_dmr = 0;       // most transmitter + scanner + sound card combinations show non-inverted signals for this
     opts->mod_threshold = 26;
     opts->ssize = 128; //36 default, max is 128, much cleaner data decodes on Phase 2 cqpsk at max
+    opts->startFrame = 100;
+    opts->frameSize = 150;
+    opts->mod_div = 1;
+    opts->lastKeys = 20;
     opts->msize = 1024; //15 default, max is 1024, much cleaner data decodes on Phase 2 cqpsk at max
     opts->delay = 0;
     opts->use_cosine_filter = 1;
@@ -412,8 +416,6 @@ initOpts(dsd_opts *opts) {
     //rigctl options
     opts->use_rigctl = 0;
     opts->rigctl_sockfd = 0;
-    opts->mod_div = 1;
-    opts->lastKeys = 20;
     sprintf(opts->rigctlhostname, "%s", "localhost");
 
     //udp input options
@@ -856,147 +858,19 @@ void
 usage() {
 
     printf("\n");
-    printf("Usage: dsd-fme [options]            Decoder/Trunking Mode\n");
-    printf("  or:  dsd-fme [options] -r <files> Read/Play saved mbe data from file(s)\n");
-    printf("  or:  dsd-fme -h                   Show help\n");
-    printf("\n");
-    printf("Display Options:\n");
-    printf("  -N            Use NCurses Terminal\n");
-    printf("                 dsd-fme -N 2> log.ans \n");
-    printf("  -Z            Log MBE/PDU Payloads to console\n");
-    printf("\n");
     printf("Input/Output options:\n");
     printf("  -i <device>   Audio input device (default is pulse)\n");
-    printf("                /dev/dsp for OSS audio (Depreciated: Will require padsp wrapper in Linux) \n");
-    printf("                rtl for rtl dongle (Default Values -- see below)\n");
-    printf("                rtl:dev:freq:gain:ppm:bw:sq:udp for rtl dongle (see below)\n");
-    printf("                tcp for tcp client SDR++/GNURadio Companion/Other (Port 7355)\n");
-    printf("                tcp:192.168.7.5:7355 for custom address and port \n");
-    printf("                filename.bin for OP25/FME capture bin files\n");
-    printf("                filename.wav for 48K/1 wav files (SDR++, GQRX)\n");
-    printf("                filename.wav -s 96000 for 96K/1 wav files (DSDPlus)\n");
+    printf("                filename.wav\n");
     printf("                (Use single quotes '/directory/audio file.wav' when directories/spaces are present)\n");
-    // printf ("                (Windows - '\directory\audio file.wav' backslash, not forward slash)\n");
-    printf("  -s <rate>     Sample Rate of wav input files (48000 or 96000) Mono only!\n");
-    printf("  -o <device>   Audio output device (default is pulse)\n");
-    printf("                /dev/dsp for OSS audio (Depreciated: Will require padsp wrapper in Linux) \n");
-    printf("                null for no audio output\n");
-    printf("  -d <dir>      Create mbe data files, use this directory (TDMA version is experimental)\n");
-    printf("  -r <files>    Read/Play saved mbe data from file(s)\n");
-    printf("  -g <num>      Audio output gain (default = 0 = auto, disable = -1)\n");
-    printf("  -w <file>     Output synthesized speech to a .wav file, legacy auto modes only.\n");
-    printf("  -P            Enable Per Call WAV file saving in XDMA and NXDN decoding classes\n");
-    printf("                 (Per Call can only be used in Ncurses Terminal!)\n");
-    printf("                 (Running in console will use static wav files)\n");
-    printf("  -a            Enable Call Alert Beep (NCurses Terminal Only)\n");
-    printf("                 (Warning! Might be annoying.)\n");
-    printf("  -L <file>     Specify Filename for LRRP Data Output.\n");
-    printf("  -Q <file>     Specify Filename for OK-DMRlib Structured File Output. (placed in DSP folder)\n");
-    printf("  -c <file>     Output symbol capture to .bin file\n");
-    printf("  -q            Reverse Mute - Mute Unencrypted Voice and Unmute Encrypted Voice\n");
-    printf("  -V            Enable Audio Smoothing on Upsampled 48k/1 or 24k/2 Audio (Capital V)\n");
-    printf("                 (Audio Smoothing is now disabled on all upsampled output by default -- fix crackle/buzz bug)\n");
-    printf("  -z            Set TDMA Voice Slot Preference when using /dev/dsp audio output (prevent lag and stuttering)\n");
     printf("Decoder options:\n");
-    printf("  -fa           Legacy Auto Detection (old methods default)\n");
-    printf("  -ft           XDMA P25 and DMR BS/MS frame types (new default)\n");
     printf("  -fs           DMR Stereo BS and MS Simplex\n");
-    printf("  -f1           Decode only P25 Phase 1\n");
-    printf("  -f2           Decode only P25 Phase 2 (6000 sps) **\n");
-    printf("  -fd           Decode only D-STAR\n");
-    printf("  -fx           Decode only X2-TDMA\n");
-    printf("  -fi             Decode only NXDN48* (6.25 kHz) / IDAS*\n");
-    printf("  -fn             Decode only NXDN96* (12.5 kHz)\n");
-    printf("  -fp             Decode only EDACS/ProVoice*\n");
-    printf("  -fm             Decode only dPMR*\n");
-    printf("  -l            Disable DMR, dPMR, and NXDN input filtering\n");
-    printf("  -u <num>      Unvoiced speech quality (default=3)\n");
-    printf("  -xx           Expect non-inverted X2-TDMA signal\n");
-    printf("  -xr           Expect inverted DMR signal\n");
-    printf("  -xd           Expect inverted ICOM dPMR signal\n");
     printf("\n");
-    printf("  * denotes frame types that cannot be auto-detected.\n");
-    printf("  ** Phase 2 Single Frequency may require user to manually set WACN/SYSID/CC parameters if MAC_SIGNAL not present.\n");
-    printf("\n");
-    printf("Advanced Decoder options:\n");
-    printf("  -X <hex>      Manually Set P2 Parameters (WACN, SYSID, CC/NAC)\n");
-    printf("                 (-X BEE00ABC123)\n");
-    printf("  -D <dec>      Manually Set TIII DMR Location Area n bit len (0-10)(10 max)\n");
-    printf("                 (Value defaults to max n bit value for site model size)\n");
-    printf("                 (Setting 0 will show full Site ID, no area/subarea)\n");
-    printf("\n");
-    printf("  -A <num>      QPSK modulation auto detection threshold (default=26)\n");
-    printf("  -S <num>      Symbol buffer size for QPSK decision point tracking\n");
-    printf("                 (default=36)\n");
-    printf("  -M <num>      Min/Max buffer size for QPSK decision point tracking\n");
-    printf("                 (default=15)\n");
-    printf("  -ma           Auto-select modulation optimizations (default)\n");
-    printf("  -mc           Use only C4FM modulation optimizations\n");
     printf("  -mg           Use only GFSK modulation optimizations\n");
-    printf("  -mq           Use only QPSK modulation optimizations\n");
-    printf("  -m2           Use P25p2 6000 sps QPSK modulation optimizations\n");
-    //printf ("                 (4 Level, not 8 Level LSM) (this is honestly unknown since I can't verify what local systems are using)\n");
-    printf("  -F            Relax P25 Phase 2 MAC_SIGNAL CRC Checksum Pass/Fail\n");
-    printf("                 Use this feature to allow MAC_SIGNAL even if CRC errors.\n");
-    printf("  -F            Relax DMR RAS/CRC CSBK/DATA Pass/Fail\n");
-    printf("                 Enabling on some systems could lead to bad channel assignments/site data decoding if bad or marginal signal\n");
-    printf("  -F            Relax NXDN SACCH/FACCH/CAC/F2U CRC Pass/Fail\n");
-    printf("                 Not recommended on NXDN, but can be bypassed if desired.\n");
     printf("\n");
-    printf("  -b <dec>      Manually Enter Basic Privacy Key (Decimal Value of Key Number)\n");
-    printf("                 (NOTE: This used to be the 'K' option! \n");
-    printf("\n");
-    printf("  -H <hex>      Manually Enter **tera 10/32/64 Char Basic Privacy Hex Key (see example below)\n");
-    printf("                 Encapulate in Single Quotation Marks; Space every 16 chars.\n");
-    printf("                 -H 0B57935150 \n");
-    printf("                 -H '736B9A9C5645288B 243AD5CB8701EF8A' \n");
-    printf("                 -H '20029736A5D91042 C923EB0697484433 005EFC58A1905195 E28E9C7836AA2DB8' \n");
-    printf("\n");
-    printf("  -R <dec>      Manually Enter dPMR or NXDN EHR Scrambler Key Value (Decimal Value)\n");
-    printf("                 \n");
-    printf("  -1 <hex>      Manually Enter RC4 Key Value (DMR, P25) (Hex Value) \n");
-    printf("                 \n");
-    printf("  -k <file>     Import Key List from csv file (Decimal Format) -- Lower Case 'k'.\n");
-    printf("                  Only supports NXDN, DMR Basic Privacy (decimal value). \n");
-    printf("                  (dPMR and **tera 32/64 char not supported, DMR uses TG value as key id -- EXPERIMENTAL!!). \n");
-    printf("                 \n");
-    printf("  -K <file>     Import Key List from csv file (Hexidecimal Format) -- Capital 'K'.\n");
-    printf("                  Use for Hex Value **tera 10-char BP keys and RC4 10-Char Hex Keys. \n");
-    printf("                 \n");
-    printf("  -4            Force Privacy Key over Encryption Identifiers (DMR BP and NXDN Scrambler) \n");
-    printf("                 \n");
-    printf("  -0            Force RC4 Key over Missing PI header/LE Encryption Identifiers (DMR) \n");
-    printf("                 \n");
-    printf("  -3            Disable DMR Late Entry Encryption Identifiers (VC6 Single Burst) \n");
-    printf("                  Note: Disable this if false positives on Voice ENC occur. \n");
-    // printf ("  -3            Enable DMR Late Entry Encryption Identifiers (VC6 Single Burst) \n");
-    // printf ("                  Note: This is experimental and may produce false positives depending on system type, notably TXI. \n");
-    // printf ("                  Use -0 or -4 options above instead if needed. \n");
-    printf("\n");
-    printf(" Trunking Options:\n");
-    printf("  -C <file>     Import Channel to Frequency Map (channum, freq) from csv file. (Capital C)                   \n");
-    printf("                 (See channel_map.csv for example)\n");
-    printf("  -G <file>     Import Group List Allow/Block and Label from csv file.\n");
-    printf("                 (See group.csv for example)\n");
-    printf("  -T            Enable Trunking Features (NXDN/P25/EDACS/DMR) with RIGCTL/TCP or RTL Input\n");
-    printf("  -Y            Enable Fast Scanning Mode with RIGCTL/TCP or RTL Input (Lower z) \n");
-    printf("                 Experimental -- Can only scan for sync with enabled decoders, don't mix NXDN and DMR/P25!\n");
-    printf("                 This is not a Trunking Feature, just scans through conventional frequencies fast!\n");
-    printf("  -W            Use Imported Group List as a Trunking Allow/White List -- Only Tune with Mode A\n");
-    printf("  -p            Disable Tune to Private Calls (DMR TIII, P25, NXDN Type-C and Type-D)\n");
-    printf("  -E            Disable Tune to Group Calls (DMR TIII, Con+, Cap+, P25, NXDN Type-C, and Type-D)\n");
-    printf("  -e            Enable Tune to Data Calls (DMR TIII, Cap+, NXDN Type-C)\n");
-    printf("                 (NOTE: No Clear Distinction between Cap+ Private Voice Calls and Data Calls -- Both enabled with Data Calls \n");
-    printf("                 (NOTE: P25 Data Channels Not Enabled (no handling) \n");
-    printf("  -U <port>     Enable RIGCTL/TCP; Set TCP Port for RIGCTL. (4532 on SDR++)\n");
-    printf("  -B <Hertz>    Set RIGCTL Setmod Bandwidth in Hertz (0 - default - OFF)\n");
-    printf("                 P25 - 7000-12000; P25 (QPSK) - 12000; NXDN48 - 7000; NXDN96: 9000; DMR - 7000; EDACS/PV - 12500;\n");
-    printf("                 May vary based on system stregnth, etc.\n");
-    printf("  -t <secs>     Set Trunking or Fast Scan VC/sync loss hangtime in seconds. (default = 1 second)\n");
-    printf("  -9            Force Enable EDACS Standard or Networked Mode on Systems without a netcmd (temp fix) \n");
-    printf("\n");
-    printf(" Trunking Example TCP: dsd-fme -fs -i tcp -U 4532 -T -C dmr_t3_chan.csv -G group.csv -N 2> log.ans\n");
-    printf(" Trunking Example RTL: dsd-fme -fs -i rtl:0:450M:26:-2:8 -T -C connect_plus_chan.csv -G group.csv -N 2> log.ans\n");
+    printf("  U <number>   Division number, default = 1\n");
+    printf("  t <number>   Last keys number to print, default = 20\n");
+    printf("  s <number>   From what frame to start, default = 100\n");
+    printf("  A <number>   Frames number to process, default = 150\n");
     printf("\n");
     exit(0);
 }
@@ -1085,7 +959,6 @@ int
 main(int argc, char **argv) {
     int c;
     extern char *optarg;
-    int last;
     extern int optind, opterr, optopt;
     dsd_opts opts;
     dsd_state state;
@@ -1226,16 +1099,6 @@ main(int argc, char **argv) {
             case 'G': //new letter assignment for group import, flow down to allow temp numbers
                 break;
 
-
-            case 'U':
-                sscanf(optarg, "%d", &opts.mod_div);
-                break;
-
-            case 't':
-                sscanf(optarg, "%d", &last);
-                opts.lastKeys = last;
-                break;
-
             case 'q': //New letter assignment for Reverse Mute, flow down to allow temp numbers
                 opts.reverse_mute = 1;
                 fprintf(stderr, "Reverse Mute\n");
@@ -1246,12 +1109,12 @@ main(int argc, char **argv) {
                 if (opts.setmod_bw > 25000) opts.setmod_bw = 25000; //not too high
                 break;
 
-            case 's':
-                sscanf(optarg, "%d", &opts.wav_sample_rate);
-                opts.wav_interpolator = opts.wav_sample_rate / opts.wav_decimator;
-                state.samplesPerSymbol = state.samplesPerSymbol * opts.wav_interpolator;
-                state.symbolCenter = state.symbolCenter * opts.wav_interpolator;
-                break;
+//            case 's':
+//                sscanf(optarg, "%d", &opts.wav_sample_rate);
+//                opts.wav_interpolator = opts.wav_sample_rate / opts.wav_decimator;
+//                state.samplesPerSymbol = state.samplesPerSymbol * opts.wav_interpolator;
+//                state.symbolCenter = state.symbolCenter * opts.wav_interpolator;
+//                break;
 
                 // case 'v':
                 //   sscanf (optarg, "%d", &opts.verbose);
@@ -1794,18 +1657,24 @@ main(int argc, char **argv) {
                     fprintf(stderr, "Expecting inverted ICOM dPMR signals.\n");
                 }
                 break;
-            case 'A':
-                sscanf(optarg, "%i", &opts.mod_threshold);
-                fprintf(stderr, "Setting C4FM/QPSK auto detection threshold to %i\n", opts.mod_threshold);
-            case 'S':
-                sscanf(optarg, "%i", &opts.ssize);
-                if (opts.ssize > 128) {
-                    opts.ssize = 128;
-                } else if (opts.ssize < 1) {
-                    opts.ssize = 1;
-                }
-                fprintf(stderr, "Setting QPSK symbol buffer to %i\n", opts.ssize);
+
+            case 'U':
+                sscanf(optarg, "%d", &opts.mod_div);
+                printf("mod division number: %d\n", opts.mod_div);
                 break;
+            case 't':
+                sscanf(optarg, "%d", &opts.lastKeys);
+                printf("last keys to print num: %d\n", opts.lastKeys);
+                break;
+            case 's':
+                sscanf(optarg, "%d", &opts.startFrame);
+                printf("start frame: %d\n", opts.startFrame);
+                break;
+            case 'A':
+                sscanf(optarg, "%d", &opts.frameSize);
+                printf("frame numbers: %d\n", opts.frameSize);
+                break;
+
             case 'M':
                 sscanf(optarg, "%i", &opts.msize);
                 if (opts.msize > 1024) {
