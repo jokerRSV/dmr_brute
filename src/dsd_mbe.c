@@ -90,7 +90,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 //        for (d = 0; d < 256; ++d) {
 //            for (l = 0; l < 256; ++l) {
 //                print_time(d, l, 0);
-//                printf("    --- %f ===", entropy_acc);
+//                printf("    --- %lf ===", entropy_acc);
 //                printf(" --- %02x ", (int) (key >> 32) & 0xff);
 //                printf("%02x ", (int) (key >> 24) & 0xff);
 //                printf("%02x ", (int) (key >> 16) & 0xff);
@@ -187,6 +187,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         for (int i = lastNums; i < state->key_buff_count; ++i) {
             printf("%02lx\n", state->key_buff[i]);
         }
+
     }
 
     state->audio_count++;
