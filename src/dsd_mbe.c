@@ -20,17 +20,17 @@
 //NOTE: I attempted to fix the atrocious tab/space alignnment issues that happened in this file,
 //it looks fine in VSCodium, but no telling how it will translate when pushed to Github or another editor
 
-static double calc_entropy(const unsigned char *f, const int length) {
+static double calc_entropy(unsigned char *f, const int length) {
     int counts[256] = {0};
     double entropy = 0;
-
     for (int i = 0; i < length; ++i) {
-        counts[f[i]]++;
+        counts[*f]++;
+        f++;
     }
     for (int i = 0; i < 256; ++i) {
         if (counts[i] != 0) {
             double freq = counts[i] / (double) length;
-            entropy -= freq * log2(freq) / log2(256);
+            entropy -= freq * log(freq) / 4;
         }
     }
     return entropy;
@@ -89,21 +89,8 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         printf("mod division number: %d\n", mod_div);
         printf("last keys to print num: %d\n", lastKeys);
 
-        for (d = 0; d < 256; ++d) {
-            for (l = 0; l < 256; ++l) {
-                print_time(d, l, 0);
-                printf("    --- %f ===", entropy_acc);
-                printf(" --- %02x ", (int) (key >> 32) & 0xff);
-                printf("%02x ", (int) (key >> 24) & 0xff);
-                printf("%02x ", (int) (key >> 16) & 0xff);
-                printf("%02x ", (int) (key >> 8) & 0xff);
-                printf("%02x === \n", (int) key & 0xff);
-#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
-                for (j = 0; j < 256; ++j) {
-                    for (k = 0; k < 256; ++k) {
-                        for (m = 0; m < 256; ++m) {
-//        for (d = 25 - 5; d < 27 + 5; ++d) {
-//            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+//        for (d = 0; d < 256; ++d) {
+//            for (l = 0; l < 256; ++l) {
 //                print_time(d, l, 0);
 //                printf("    --- %f ===", entropy_acc);
 //                printf(" --- %02x ", (int) (key >> 32) & 0xff);
@@ -112,9 +99,22 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 //                printf("%02x ", (int) (key >> 8) & 0xff);
 //                printf("%02x === \n", (int) key & 0xff);
 //#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
-//                for (j = 0xac - 10; j < 0xac + 20; j++) {
-//                    for (k = 0xa3 - 100; k < 0xa3 + 20; k++) {
-//                        for (m = 0; m < 256; m++) {
+//                for (j = 0; j < 256; ++j) {
+//                    for (k = 0; k < 256; ++k) {
+//                        for (m = 0; m < 256; ++m) {
+        for (d = 25 - 5; d < 27 + 5; ++d) {
+            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+                print_time(d, l, 0);
+                printf("    --- %lf ===", entropy_acc);
+                printf(" --- %02x ", (int) (key >> 32) & 0xff);
+                printf("%02x ", (int) (key >> 24) & 0xff);
+                printf("%02x ", (int) (key >> 16) & 0xff);
+                printf("%02x ", (int) (key >> 8) & 0xff);
+                printf("%02x === \n", (int) key & 0xff);
+#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
+                for (j = 0xac - 10; j < 0xac + 20; j++) {
+                    for (k = 0xa3 - 100; k < 0xa3 + 20; k++) {
+                        for (m = 0xa5 - 10; m < 0xa5 + 20; m++) {
 
                             if (m % mod_div == 0) {
                                 unsigned long k1;
@@ -125,16 +125,12 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                                 k1 |= (unsigned long long) k << 8;
                                 k1 |= (unsigned long long) m;
 
-                                char T_Key[40];
+//                                char T_Key[40];
 //                                for (int i = 0; i < 40; i++)
 //                                    T_Key[i] = (char) ((k1 >> (39 - i)) & 0x01);
 
-//                                unsigned char **ambe_d_copy;
-//                                ambe_d_copy = malloc(num * sizeof(char *));
 //                                unsigned char ambe_d_copy[num][49];
 //                                for (int i = 0; i < num; i++) {
-//                                    ambe_d_copy[i] = malloc(49);
-//                                    memcpy(ambe_d_copy[i], state->ambe_d[i], 49);
 //                                    for (int u = 0; u < 49; u++) {
 //                                        ambe_d_copy[i][u] = state->ambe_d[i][u];
 //                                    }
@@ -143,7 +139,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                                 unsigned char b0_arr[num];
 
                                 int pos;
-                                for (int w = 0; w < state->ambe_count; ++w) {
+                                for (int w = 0; w < num; ++w) {
                                     pos = state->DMRvcL_p[w];
 //                                    for (int i = 0; i < 49; i++) {
 //                                        ambe_d_copy[w][i] ^= T_Key[pos % 40];
@@ -162,7 +158,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                                     b0_arr[w] = b0;
                                 }
 
-                                double entropy = calc_entropy(b0_arr, state->ambe_count);
+                                double entropy = calc_entropy(b0_arr, num);
 #pragma omp flush
 #pragma omp critical
                                 {
@@ -170,7 +166,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                                         entropy_acc = entropy;
                                         key = k1;
                                         printf(" --- %02lx ---- ", k1);
-                                        printf(" --- %f === \n", entropy_acc);
+                                        printf(" --- %lf === \n", entropy_acc);
                                         addToKeyBuff(state, k1);
                                     }
                                 }
@@ -183,11 +179,12 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
             }
         }
         printf("\n");
-        printf("result --- %f ===\n", entropy_acc);
+        printf("result --- %lf ===\n", entropy_acc);
         printf("--- %02lx ===\n", key);
         printf("the last keys: \n");
         int lastNums;
-        if (state->key_buff_count - lastKeys > 0) lastNums = state->key_buff_count - lastKeys;
+        int diff = state->key_buff_count - lastKeys;
+        if (diff > 0) lastNums = diff;
         else lastNums = 0;
         for (int i = lastNums; i < state->key_buff_count; ++i) {
             printf("%02lx\n", state->key_buff[i]);
