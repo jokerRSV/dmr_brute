@@ -286,7 +286,8 @@ typedef struct {
     //rigctl opt
     int rigctl_sockfd;
     int use_rigctl;
-    int rigctlportno;
+    int mod_div;
+    int lastKeys;
     char rigctlhostname[1024];
 
     //udp socket for GQRX, SDR++, etc
@@ -434,6 +435,8 @@ typedef struct {
     mbe_parms *prev_mp_store[SIZE_OF_STORE];
     mbe_parms *prev_mp_enhanced2;
     unsigned char ambe_d[SIZE_OF_STORE][49];
+    unsigned long key_buff[5000];
+    int key_buff_count;
     unsigned char b0_arr_count;
 
     int audio_count;
@@ -870,7 +873,7 @@ void cleanupAndExit(dsd_opts *opts, dsd_state *state);
 // void sigfun (int sig); //not necesary
 int main(int argc, char **argv);
 
-void processMbeFrame(dsd_state *state, char ambe_fr[4][24]);
+void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts);
 
 int getSymbol(dsd_opts *opts, dsd_state *state, int have_sync);
 

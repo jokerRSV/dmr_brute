@@ -412,7 +412,8 @@ initOpts(dsd_opts *opts) {
     //rigctl options
     opts->use_rigctl = 0;
     opts->rigctl_sockfd = 0;
-    opts->rigctlportno = 4532; //TCP Port Number; GQRX - 7356; SDR++ - 4532
+    opts->mod_div = 1;
+    opts->lastKeys = 20;
     sprintf(opts->rigctlhostname, "%s", "localhost");
 
     //udp input options
@@ -555,6 +556,10 @@ initState(dsd_state *state) {
             state->ambe_d[i][j] = 0;
         }
     }
+    for (int k = 0; k < 5000; ++k) {
+        state->key_buff[k] = 0;
+    }
+    state->key_buff_count = 0;
     state->b0_arr_count = 0;
 //    for (i = 0; i < SIZE_OF_BUFFER; i++) {
 //            state->key_buff_struct[i].zero_num = 0;
@@ -1003,7 +1008,7 @@ liveScanner(dsd_opts *opts, dsd_state *state) {
 //    opts->coef_file = fopen(file_name, "a");
 
 //    if (opts->audio_out_type == 0) {
-        // openPulseInput(opts); //test to see if we still randomly hang up in ncurses and tcp input if we open this and leave it opened
+    // openPulseInput(opts); //test to see if we still randomly hang up in ncurses and tcp input if we open this and leave it opened
 //        openPulseOutput(opts);
 //    }
 
@@ -1044,10 +1049,10 @@ void cleanupAndExit(dsd_opts *opts, dsd_state *state) {
     //cause of crash on exit, need to check if NULL first, may need to set NULL when turning off in nterm
 
 //    fprintf(stderr, "\n");
-    fprintf(stderr, "Total audio errors: %i\n", state->debug_audio_errors);
-    fprintf(stderr, "Total header errors: %i\n", state->debug_header_errors);
-    fprintf(stderr, "Total irrecoverable header errors: %i\n", state->debug_header_critical_errors);
-    fprintf(stderr, "Exiting.\n");
+//    fprintf(stderr, "Total audio errors: %i\n", state->debug_audio_errors);
+//    fprintf(stderr, "Total header errors: %i\n", state->debug_header_errors);
+//    fprintf(stderr, "Total irrecoverable header errors: %i\n", state->debug_header_critical_errors);
+//    fprintf(stderr, "Exiting.\n");
     exit(0);
 }
 
@@ -1224,13 +1229,11 @@ main(int argc, char **argv) {
                 break;
 
             case 'T': //new letter assignment for trunking, flow down to allow temp numbers
-                opts.p25_trunk = 1;
-                opts.scanner_mode = 0; //turn off scanner mode if user enabled it
+                sscanf(optarg, "%d", &opts.lastKeys);
                 break;
 
-            case 'U': //New letter assignment for RIGCTL TCP port, flow down to allow temp numbers
-                sscanf(optarg, "%d", &opts.rigctlportno);
-                if (opts.rigctlportno != 0) opts.use_rigctl = 1;
+            case 'U': //mod division numger
+                sscanf(optarg, "%d", &opts.mod_div);
                 break;
 
                 //NOTE: I changed trunk_hangtime to a float, BUT! time(NULL) returns in second whole numbers

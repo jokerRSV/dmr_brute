@@ -3,7 +3,7 @@
 #Arch currently on 3.26.3
 #Cygwin currently using 3.23.2 (or newer)
 cmake_minimum_required(VERSION 3.10.2)
-project(dsd-fme)
+project(brute)
 #set(CMAKE_C_STANDARD 99)
 
 include(FindOpenMP)
@@ -35,7 +35,7 @@ FILE(GLOB HEADERS include/*.h include/*.hpp)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-ADD_EXECUTABLE(dsd-fme ${SRCS} ${HEADERS})
-TARGET_LINK_LIBRARIES(dsd-fme ${LIBS})
+ADD_EXECUTABLE(brute ${SRCS} ${HEADERS})
+TARGET_LINK_LIBRARIES(brute ${LIBS})
 
-install(TARGETS dsd-fme DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS brute DESTINATION ${CMAKE_INSTALL_BINDIR})

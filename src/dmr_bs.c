@@ -234,9 +234,9 @@ void dmrBS(dsd_opts *opts, dsd_state *state) {
             char light[18];
             uint8_t vc;
 
-            processMbeFrame(state, ambe_fr);
-            processMbeFrame(state, ambe_fr2);
-            processMbeFrame(state, ambe_fr3);
+            processMbeFrame(state, ambe_fr, opts);
+            processMbeFrame(state, ambe_fr2, opts);
+            processMbeFrame(state, ambe_fr3, opts);
 
             //run sbrc here to look for the late entry key and alg after we observe potential errors in VC6
             if (internalslot == 0 && vc1 == 6) dmr_sbrc(opts, state, power);
@@ -458,9 +458,9 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     dmr_alg_reset(opts, state);
 
     if (opts->payload == 1) fprintf(stderr, "\n"); //extra line break necessary here
-    processMbeFrame(state, ambe_fr);
-    processMbeFrame(state, ambe_fr2);
-    processMbeFrame(state, ambe_fr3);
+    processMbeFrame(state, ambe_fr, opts);
+    processMbeFrame(state, ambe_fr2, opts);
+    processMbeFrame(state, ambe_fr3, opts);
 
     if (opts->payload == 0) fprintf(stderr, "\n");
 

@@ -197,12 +197,12 @@ void dmr_flco(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[], uint32_t CRCC
             for (int i = 0; i < 16; i++) target_hash[i] = lc_bits[32 + i];
             tg_hash = crc8(target_hash, 16);
 
-            fprintf(stderr, "%s \n", KGRN);
-            fprintf(stderr, " SLOT %d ", state->currentslot + 1);
-            if (opts->payload == 1) fprintf(stderr, "FLCO=0x%02X FID=0x%02X ", flco, fid);
-            fprintf(stderr, "TGT=%u SRC=%u ", target, source);
+//            fprintf(stderr, "%s \n", KGRN);
+//            fprintf(stderr, " SLOT %d ", state->currentslot + 1);
+//            if (opts->payload == 1) fprintf(stderr, "FLCO=0x%02X FID=0x%02X ", flco, fid);
+//            fprintf(stderr, "TGT=%u SRC=%u ", target, source);
 
-            fprintf(stderr, "Hytera XPT ");
+//            fprintf(stderr, "Hytera XPT ");
 
             //Group ID ranges from 1 to 240; emergency group call ID ranges from 250 to 254; all call ID is 255.
             if (reserved == 1) {
@@ -335,7 +335,7 @@ void dmr_flco(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[], uint32_t CRCC
             }
         }
 
-        if (type == 1) fprintf(stderr, "%s \n", KGRN);
+        /*if (type == 1) fprintf(stderr, "%s \n", KGRN);
         if (type == 2) fprintf(stderr, "%s \n", KRED);
         if (type == 3) fprintf(stderr, "%s", KGRN);
 
@@ -390,7 +390,7 @@ void dmr_flco(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[], uint32_t CRCC
 
         //Motorola FID 0x10 Only
         if (fid == 0x10) {
-            /* Check the "Service Option" bits */
+            *//* Check the "Service Option" bits *//*
             if (so & 0x20) {
                 //REMUS! Uncomment Line Below if desired
                 // strcat (state->call_string[slot], " TXI");
@@ -425,7 +425,7 @@ void dmr_flco(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[], uint32_t CRCC
                     //REMUS! Uncomment Line Below if desired
                     // strcat (state->call_string[slot], "-P3");
                     fprintf(stderr, "Priority 3 ");
-                } else /* We should never go here */
+                } else *//* We should never go here *//*
                 {
                     //REMUS! Uncomment Line Below if desired
                     // strcat (state->call_string[slot], "  ");
@@ -507,7 +507,7 @@ void dmr_flco(dsd_opts *opts, dsd_state *state, uint8_t lc_bits[], uint32_t CRCC
             fprintf(stderr, "%s", KYEL);
             fprintf(stderr, "Key %010llX ", state->RR);
             fprintf(stderr, "%s ", KNRM);
-        }
+        }*/
 
     }
 
