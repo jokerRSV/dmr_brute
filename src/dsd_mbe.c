@@ -89,21 +89,8 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         printf("mod division number: %d\n", mod_div);
         printf("last keys to print num: %d\n", lastKeys);
 
-//        for (d = 0; d < 256; ++d) {
-//            for (l = 0; l < 256; ++l) {
-//                print_time(d, l, 0);
-//                printf("    --- %f ===", entropy_acc);
-//                printf(" --- %02x ", (int) (key >> 32) & 0xff);
-//                printf("%02x ", (int) (key >> 24) & 0xff);
-//                printf("%02x ", (int) (key >> 16) & 0xff);
-//                printf("%02x ", (int) (key >> 8) & 0xff);
-//                printf("%02x === \n", (int) key & 0xff);
-//#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div, lastKeys)
-//                for (j = 0; j < 256; ++j) {
-//                    for (k = 0; k < 256; ++k) {
-//                        for (m = 0; m < 256; ++m) {
-        for (d = 25; d < 27; ++d) {
-            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+        for (d = 0; d < 256; ++d) {
+            for (l = 0; l < 256; ++l) {
                 print_time(d, l, 0);
                 printf("    --- %f ===", entropy_acc);
                 printf(" --- %02x ", (int) (key >> 32) & 0xff);
@@ -112,9 +99,22 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                 printf("%02x ", (int) (key >> 8) & 0xff);
                 printf("%02x === \n", (int) key & 0xff);
 #pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
-                for (j = 0xac - 10; j < 0xac + 20; j++) {
-                    for (k = 0xa3 - 10; k < 0xa3 + 20; k++) {
-                        for (m = 0xa5 - 10; m < 0xa5 + 20; m++) {
+                for (j = 0; j < 256; ++j) {
+                    for (k = 0; k < 256; ++k) {
+                        for (m = 0; m < 256; ++m) {
+//        for (d = 25 - 5; d < 27 + 5; ++d) {
+//            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+//                print_time(d, l, 0);
+//                printf("    --- %f ===", entropy_acc);
+//                printf(" --- %02x ", (int) (key >> 32) & 0xff);
+//                printf("%02x ", (int) (key >> 24) & 0xff);
+//                printf("%02x ", (int) (key >> 16) & 0xff);
+//                printf("%02x ", (int) (key >> 8) & 0xff);
+//                printf("%02x === \n", (int) key & 0xff);
+//#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
+//                for (j = 0xac - 10; j < 0xac + 20; j++) {
+//                    for (k = 0xa3 - 100; k < 0xa3 + 20; k++) {
+//                        for (m = 0; m < 256; m++) {
 
                             if (m % mod_div == 0) {
                                 unsigned long k1;
@@ -126,8 +126,8 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                                 k1 |= (unsigned long long) m;
 
                                 char T_Key[40];
-                                for (int i = 0; i < 40; i++)
-                                    T_Key[i] = (char) ((k1 >> (39 - i)) & 0x01);
+//                                for (int i = 0; i < 40; i++)
+//                                    T_Key[i] = (char) ((k1 >> (39 - i)) & 0x01);
 
 //                                unsigned char **ambe_d_copy;
 //                                ambe_d_copy = malloc(num * sizeof(char *));
@@ -150,13 +150,15 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 //                                        pos++;
 //                                    }
                                     unsigned char b0 = 0;
-                                    b0 |= (state->ambe_d[w][0] ^ T_Key[pos % 40]) << 6;
-                                    b0 |= (state->ambe_d[w][1] ^ T_Key[(pos + 1) % 40]) << 5;
-                                    b0 |= (state->ambe_d[w][2] ^ T_Key[(pos + 2) % 40]) << 4;
-                                    b0 |= (state->ambe_d[w][3] ^ T_Key[(pos + 3) % 40]) << 3;
-                                    b0 |= (state->ambe_d[w][37] ^ T_Key[(pos + 37) % 40]) << 2;
-                                    b0 |= (state->ambe_d[w][38] ^ T_Key[(pos + 38) % 40]) << 1;
-                                    b0 |= (state->ambe_d[w][39] ^ T_Key[(pos + 39) % 40]);
+                                    b0 |= (state->ambe_d[w][0] ^ (char) ((k1 >> (39 - (pos % 40))) & 0x01)) << 6;
+                                    b0 |= (state->ambe_d[w][1] ^ (char) ((k1 >> (39 - ((pos + 1) % 40))) & 0x01)) << 5;
+                                    b0 |= (state->ambe_d[w][2] ^ (char) ((k1 >> (39 - ((pos + 2) % 40))) & 0x01)) << 4;
+                                    b0 |= (state->ambe_d[w][3] ^ (char) ((k1 >> (39 - ((pos + 3) % 40))) & 0x01)) << 3;
+                                    b0 |= (state->ambe_d[w][37] ^ (char) ((k1 >> (39 - ((pos + 37) % 40))) & 0x01))
+                                            << 2;
+                                    b0 |= (state->ambe_d[w][38] ^ (char) ((k1 >> (39 - ((pos + 38) % 40))) & 0x01))
+                                            << 1;
+                                    b0 |= (state->ambe_d[w][39] ^ (char) ((k1 >> (39 - ((pos + 39) % 40))) & 0x01));
                                     b0_arr[w] = b0;
                                 }
 
