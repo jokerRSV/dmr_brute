@@ -1085,11 +1085,12 @@ int
 main(int argc, char **argv) {
     int c;
     extern char *optarg;
+    int last;
     extern int optind, opterr, optopt;
     dsd_opts opts;
     dsd_state state;
     char versionstr[25];
-    sprintf(versionstr, "%s", "0.9");
+    sprintf(versionstr, "%s", "0.10 ");
 
     struct stat st = {0};
     if (stat("iii", &st) == -1) {
@@ -1222,27 +1223,17 @@ main(int argc, char **argv) {
                 fprintf(stderr, "DMRLA n value set to %d. \n", opts.dmr_dmrla_n);
                 break;
 
-            case 'C': //new letter assignment for Channel import, flow down to allow temp numbers
-                break;
-
             case 'G': //new letter assignment for group import, flow down to allow temp numbers
                 break;
 
-            case 'T': //new letter assignment for trunking, flow down to allow temp numbers
-                sscanf(optarg, "%d", &opts.lastKeys);
-                break;
 
-            case 'U': //mod division numger
+            case 'U':
                 sscanf(optarg, "%d", &opts.mod_div);
                 break;
 
-                //NOTE: I changed trunk_hangtime to a float, BUT! time(NULL) returns in second whole numbers
-                //so using anything but whole numbers won't affect the outcome (rounded up?), in the future though,
-                //may change to a different return on sync times and this will matter!
-
-            case 't': //New letter assignment for Trunk Hangtime, flow down to allow temp numbers
-                sscanf(optarg, "%f", &opts.trunk_hangtime); //updated for float/decimal values
-                fprintf(stderr, "Trunking or Fast Scanner Hang Time set to: %.02f sec\n", opts.trunk_hangtime);
+            case 't':
+                sscanf(optarg, "%d", &last);
+                opts.lastKeys = last;
                 break;
 
             case 'q': //New letter assignment for Reverse Mute, flow down to allow temp numbers
