@@ -127,7 +127,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 
                                 char T_Key[40];
                                 for (int i = 0; i < 40; i++)
-                                    T_Key[i] = (char) ((state->K1 >> (39 - i)) & 0x01);
+                                    T_Key[i] = (char) ((k1 >> (39 - i)) & 0x01);
 
 //                                unsigned char **ambe_d_copy;
 //                                ambe_d_copy = malloc(num * sizeof(char *));
