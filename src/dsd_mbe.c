@@ -30,7 +30,7 @@ static double calc_entropy(unsigned char *f, const int length) {
     for (int i = 0; i < 256; ++i) {
         if (counts[i] != 0) {
             double freq = counts[i] / (double) length;
-            entropy -= freq * log(freq) / 4;
+            entropy -= freq * log(freq) / 8;
         }
     }
     return entropy;
@@ -87,21 +87,8 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         int mod_div = opts->mod_div;
         int lastKeys = opts->lastKeys;
 
-//        for (d = 0; d < 256; ++d) {
-//            for (l = 0; l < 256; ++l) {
-//                print_time(d, l, 0);
-//                printf("    --- %lf ===", entropy_acc);
-//                printf(" --- %02x ", (int) (key >> 32) & 0xff);
-//                printf("%02x ", (int) (key >> 24) & 0xff);
-//                printf("%02x ", (int) (key >> 16) & 0xff);
-//                printf("%02x ", (int) (key >> 8) & 0xff);
-//                printf("%02x === \n", (int) key & 0xff);
-//#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
-//                for (j = 0; j < 256; ++j) {
-//                    for (k = 0; k < 256; ++k) {
-//                        for (m = 0; m < 256; ++m) {
-        for (d = 25 - 5; d < 27 + 5; ++d) {
-            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+        for (d = 0; d < 256; ++d) {
+            for (l = 0; l < 256; ++l) {
                 print_time(d, l, 0);
                 printf("    --- %lf ===", entropy_acc);
                 printf(" --- %02x ", (int) (key >> 32) & 0xff);
@@ -110,9 +97,22 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                 printf("%02x ", (int) (key >> 8) & 0xff);
                 printf("%02x === \n", (int) key & 0xff);
 #pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
-                for (j = 0xac - 10; j < 0xac + 20; j++) {
-                    for (k = 0xa3 - 100; k < 0xa3 + 20; k++) {
-                        for (m = 0xa5 - 10; m < 0xa5 + 20; m++) {
+                for (j = 0; j < 256; ++j) {
+                    for (k = 0; k < 256; ++k) {
+                        for (m = 0; m < 256; ++m) {
+//        for (d = 25 - 5; d < 27 + 5; ++d) {
+//            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+//                print_time(d, l, 0);
+//                printf("    --- %lf ===", entropy_acc);
+//                printf(" --- %02x ", (int) (key >> 32) & 0xff);
+//                printf("%02x ", (int) (key >> 24) & 0xff);
+//                printf("%02x ", (int) (key >> 16) & 0xff);
+//                printf("%02x ", (int) (key >> 8) & 0xff);
+//                printf("%02x === \n", (int) key & 0xff);
+//#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
+//                for (j = 0xac - 10; j < 0xac + 20; j++) {
+//                    for (k = 0xa3 - 100; k < 0xa3 + 20; k++) {
+//                        for (m = 0xa5 - 10; m < 0xa5 + 20; m++) {
 
                             if (m % mod_div == 0) {
                                 unsigned long k1;
@@ -187,7 +187,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         for (int i = lastNums; i < state->key_buff_count; ++i) {
             printf("%02lx\n", state->key_buff[i]);
         }
-
+        printf("buff counter: %d", state->key_buff_count);
     }
 
     state->audio_count++;
