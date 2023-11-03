@@ -139,12 +139,6 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         int mod_div = opts->mod_div;
         int lastKeys = opts->lastKeys;
 
-        unsigned char ambe_d_copy[num][49];
-        for (int i = 0; i < num; i++) {
-            for (int u = 0; u < 49; u++) {
-                ambe_d_copy[i][u] = state->ambe_d[i][u];
-            }
-        }
 
         if (state->dmr_fid == 0x10 && state->dmr_so == 0x60) {
             if (state->payload_algid == 0x21) {
@@ -157,7 +151,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                         printf("%02x ", (int) (key >> 16) & 0xff);
                         printf("%02x ", (int) (key >> 8) & 0xff);
                         printf("%02x === \n", (int) key & 0xff);
-#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div, ambe_d_copy)
+#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
                         for (j = 0x57 - 2; j < 0x57 + 2; j++) {
                             for (k = 0x2d - 2; k < 0x2d + 2; k++) {
                                 for (m = 0xcb - 2; m < 0xcb + 2; m++) {
@@ -236,13 +230,13 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 
                                         for (int w = 0; w < num; ++w) {
                                             unsigned char b0 = 0;
-                                            b0 |= (ambe_d_copy[w][0]) << 6;
-                                            b0 |= (ambe_d_copy[w][1]) << 5;
-                                            b0 |= (ambe_d_copy[w][2]) << 4;
-                                            b0 |= (ambe_d_copy[w][3]) << 3;
-                                            b0 |= (ambe_d_copy[w][37]) << 2;
-                                            b0 |= (ambe_d_copy[w][38]) << 1;
-                                            b0 |= (ambe_d_copy[w][39]);
+                                            b0 |= (ambe_d_copy_m[w][0]) << 6;
+                                            b0 |= (ambe_d_copy_m[w][1]) << 5;
+                                            b0 |= (ambe_d_copy_m[w][2]) << 4;
+                                            b0 |= (ambe_d_copy_m[w][3]) << 3;
+                                            b0 |= (ambe_d_copy_m[w][37]) << 2;
+                                            b0 |= (ambe_d_copy_m[w][38]) << 1;
+                                            b0 |= (ambe_d_copy_m[w][39]);
                                             b0_arr[w] = b0;
                                         }
 
@@ -268,7 +262,14 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                 }
             }
         } else {
-        for (d = 0; d < 256; ++d) {
+            unsigned char ambe_d_copy[num][49];
+            for (int i = 0; i < num; i++) {
+                for (int u = 0; u < 49; u++) {
+                    ambe_d_copy[i][u] = state->ambe_d[i][u];
+                }
+            }
+
+            for (d = 0; d < 256; ++d) {
             for (l = 0; l < 256; ++l) {
                 print_time(d, l, 0);
                 printf("    --- %lf ===", entropy_acc);
@@ -380,7 +381,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 
         clock_t end = clock();
         double time_spent = (double) (end - begin) / CLOCKS_PER_SEC;
-        printf("%f", time_spent);
+        printf("execution time: %lf sec\n", time_spent);
 
     }
 
