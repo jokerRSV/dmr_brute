@@ -74,6 +74,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
     }
 
     if (state->audio_count == num + start) {
+        clock_t begin = clock();
 
         //1a == 26
         //e2 == 226
@@ -87,21 +88,14 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         int mod_div = opts->mod_div;
         int lastKeys = opts->lastKeys;
 
-        for (d = 0; d < 256; ++d) {
-            for (l = 0; l < 256; ++l) {
-                print_time(d, l, 0);
-                printf("    --- %lf ===", entropy_acc);
-                printf(" --- %02x ", (int) (key >> 32) & 0xff);
-                printf("%02x ", (int) (key >> 24) & 0xff);
-                printf("%02x ", (int) (key >> 16) & 0xff);
-                printf("%02x ", (int) (key >> 8) & 0xff);
-                printf("%02x === \n", (int) key & 0xff);
-#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
-                for (j = 0; j < 256; ++j) {
-                    for (k = 0; k < 256; ++k) {
-                        for (m = 0; m < 256; ++m) {
-//        for (d = 25 - 5; d < 27 + 5; ++d) {
-//            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+        unsigned char ambe_d_copy[num][49];
+        for (int i = 0; i < num; i++) {
+            for (int u = 0; u < 49; u++) {
+                ambe_d_copy[i][u] = state->ambe_d[i][u];
+            }
+        }
+//        for (d = 0; d < 256; ++d) {
+//            for (l = 0; l < 256; ++l) {
 //                print_time(d, l, 0);
 //                printf("    --- %lf ===", entropy_acc);
 //                printf(" --- %02x ", (int) (key >> 32) & 0xff);
@@ -110,9 +104,22 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 //                printf("%02x ", (int) (key >> 8) & 0xff);
 //                printf("%02x === \n", (int) key & 0xff);
 //#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div)
-//                for (j = 0xac - 10; j < 0xac + 20; j++) {
-//                    for (k = 0xa3 - 100; k < 0xa3 + 20; k++) {
-//                        for (m = 0xa5 - 10; m < 0xa5 + 20; m++) {
+//                for (j = 0; j < 256; ++j) {
+//                    for (k = 0; k < 256; ++k) {
+//                        for (m = 0; m < 256; ++m) {
+        for (d = 25 - 5; d < 27 + 5; ++d) {
+            for (l = 0xe2 - 5; l < 0xe2 + 5; l++) {
+                print_time(d, l, 0);
+                printf("    --- %lf ===", entropy_acc);
+                printf(" --- %02x ", (int) (key >> 32) & 0xff);
+                printf("%02x ", (int) (key >> 24) & 0xff);
+                printf("%02x ", (int) (key >> 16) & 0xff);
+                printf("%02x ", (int) (key >> 8) & 0xff);
+                printf("%02x === \n", (int) key & 0xff);
+#pragma omp parallel for default(none) schedule(static) private(j, k, m) shared(d, l, num, state, entropy_acc, key, mod_div, ambe_d_copy)
+                for (j = 0xac - 10; j < 0xac + 20; j++) {
+                    for (k = 0xa3 - 100; k < 0xa3 + 20; k++) {
+                        for (m = 0xa5 - 10; m < 0xa5 + 20; m++) {
 
                             if (m % mod_div == 0) {
                                 unsigned long k1;
@@ -144,15 +151,15 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 //                                        pos++;
 //                                    }
                                     unsigned char b0 = 0;
-                                    b0 |= (state->ambe_d[w][0] ^ (char) ((k1 >> (39 - (pos % 40))) & 0x01)) << 6;
-                                    b0 |= (state->ambe_d[w][1] ^ (char) ((k1 >> (39 - ((pos + 1) % 40))) & 0x01)) << 5;
-                                    b0 |= (state->ambe_d[w][2] ^ (char) ((k1 >> (39 - ((pos + 2) % 40))) & 0x01)) << 4;
-                                    b0 |= (state->ambe_d[w][3] ^ (char) ((k1 >> (39 - ((pos + 3) % 40))) & 0x01)) << 3;
-                                    b0 |= (state->ambe_d[w][37] ^ (char) ((k1 >> (39 - ((pos + 37) % 40))) & 0x01))
+                                    b0 |= (ambe_d_copy[w][0] ^ (char) ((k1 >> (39 - (pos % 40))) & 0x01)) << 6;
+                                    b0 |= (ambe_d_copy[w][1] ^ (char) ((k1 >> (39 - ((pos + 1) % 40))) & 0x01)) << 5;
+                                    b0 |= (ambe_d_copy[w][2] ^ (char) ((k1 >> (39 - ((pos + 2) % 40))) & 0x01)) << 4;
+                                    b0 |= (ambe_d_copy[w][3] ^ (char) ((k1 >> (39 - ((pos + 3) % 40))) & 0x01)) << 3;
+                                    b0 |= (ambe_d_copy[w][37] ^ (char) ((k1 >> (39 - ((pos + 37) % 40))) & 0x01))
                                             << 2;
-                                    b0 |= (state->ambe_d[w][38] ^ (char) ((k1 >> (39 - ((pos + 38) % 40))) & 0x01))
+                                    b0 |= (ambe_d_copy[w][38] ^ (char) ((k1 >> (39 - ((pos + 38) % 40))) & 0x01))
                                             << 1;
-                                    b0 |= (state->ambe_d[w][39] ^ (char) ((k1 >> (39 - ((pos + 39) % 40))) & 0x01));
+                                    b0 |= (ambe_d_copy[w][39] ^ (char) ((k1 >> (39 - ((pos + 39) % 40))) & 0x01));
                                     b0_arr[w] = b0;
                                 }
 
@@ -187,7 +194,12 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
         for (int i = lastNums; i < state->key_buff_count; ++i) {
             printf("%02lx\n", state->key_buff[i]);
         }
-        printf("buff counter: %d", state->key_buff_count);
+        printf("buff counter: %d\n", state->key_buff_count);
+
+        clock_t end = clock();
+        double time_spent = (double) (end - begin) / CLOCKS_PER_SEC;
+        printf("%f", time_spent);
+
     }
 
     state->audio_count++;
