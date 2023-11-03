@@ -57,7 +57,7 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     sprintf(state->fsubtype, "              ");
     sprintf(state->ftype, "             ");
     state->errs = 0;
-    state->audio_count = 0;
+//    state->audio_count = 0;
     state->ambe_count = 0;
     state->errs2 = 0;
 
@@ -78,29 +78,12 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
         //zero out nxdn site/srv/cch info if not trunking
         state->nxdn_location_site_code = 0;
         state->nxdn_location_sys_code = 0;
-        sprintf(state->nxdn_location_category, "%s", " ");
 
         //channel access information
         state->nxdn_rcn = 0;
         state->nxdn_base_freq = 0;
         state->nxdn_step = 0;
         state->nxdn_bw = 0;
-
-        //dmr mfid branding and site parms
-        sprintf(state->dmr_branding_sub, "%s", "");
-        sprintf(state->dmr_branding, "%s", "");
-        sprintf(state->dmr_site_parms, "%s", "");
-    }
-
-    //zero out after x second hangtime when trunking to prevent premature zeroing on these variables
-    //mainly bugfix for ncurses and per call wavs (edacs) and also signal fade, etc
-    if (opts->p25_trunk == 1 && opts->p25_is_tuned == 1 &&
-        time(NULL) - state->last_cc_sync_time > opts->trunk_hangtime) {
-        state->lasttg = 0;
-        state->lastsrc = 0;
-        state->lasttgR = 0;
-        state->lastsrcR = 0;
-
     }
 
     state->lastp25type = 0;
@@ -250,19 +233,12 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
 
     // memset(state->active_channel, 0, sizeof(state->active_channel));
 
-    //REMUS! multi-purpose call_string
-    sprintf(state->call_string[0], "%s", "                     "); //21 spaces
-    sprintf(state->call_string[1], "%s", "                     "); //21 spaces
-
     if (time(NULL) - state->last_cc_sync_time > 10) //ten seconds of no carrier
     {
         state->dmr_rest_channel = -1;
         state->p25_vc_freq[0] = 0;
         state->p25_vc_freq[1] = 0;
         state->dmr_mfid = -1;
-        sprintf(state->dmr_branding_sub, "%s", "");
-        sprintf(state->dmr_branding, "%s", "");
-        sprintf(state->dmr_site_parms, "%s", "");
         opts->p25_is_tuned = 0;
         memset(state->active_channel, 0, sizeof(state->active_channel));
     }
@@ -274,10 +250,6 @@ noCarrier(dsd_opts *opts, dsd_state *state) {
     memset(state->dPMRVoiceFS2Frame.CalledID, 0, 8);
     memset(state->dPMRVoiceFS2Frame.CallingID, 0, 8);
     memset(state->dPMRVoiceFS2Frame.Version, 0, 8);
-
-    sprintf(state->dpmr_caller_id, "%s", "      ");
-    sprintf(state->dpmr_target_id, "%s", "      ");
-
 } //nocarrier
 
 void
@@ -543,8 +515,6 @@ initState(dsd_state *state) {
     state->midx = 0;
     state->err_str[0] = 0;
     state->err_strR[0] = 0;
-    sprintf(state->fsubtype, "              ");
-    sprintf(state->ftype, "             ");
     state->symbolcnt = 0;
     state->symbolc = 0; //
     state->rf_mod = 0;
@@ -588,8 +558,6 @@ initState(dsd_state *state) {
     state->optind = 0;
     state->numtdulc = 0;
     state->firstframe = 0;
-    sprintf(state->slot1light, "%s", "");
-    sprintf(state->slot2light, "%s", "");
     state->aout_gain = 0;
     state->aout_gainR = 0;
     memset(state->aout_max_buf, 0, sizeof(float) * 200);
@@ -647,7 +615,6 @@ initState(dsd_state *state) {
     state->nxdn_last_tg = 0;
     state->nxdn_cipher_type = 0;
     state->nxdn_key = 0;
-    sprintf(state->nxdn_call_type, "%s", "");
     state->payload_miN = 0;
 
     state->dpmr_color_code = -1;
@@ -796,7 +763,6 @@ initState(dsd_state *state) {
     //site/srv/cch info
     state->nxdn_location_site_code = 0;
     state->nxdn_location_sys_code = 0;
-    sprintf(state->nxdn_location_category, "%s", " ");
 
     //channel access information
     state->nxdn_rcn = 0;
@@ -811,10 +777,6 @@ initState(dsd_state *state) {
     //Remus DMR End Call Alert Beep
     state->dmr_end_alert[0] = 0;
     state->dmr_end_alert[1] = 0;
-
-    sprintf(state->dmr_branding, "%s", "");
-    sprintf(state->dmr_branding_sub, "%s", "");
-    sprintf(state->dmr_site_parms, "%s", "");
 
     //initialize unified dmr pdu 'superframe'
     memset(state->dmr_pdu_sf, 0, sizeof(state->dmr_pdu_sf));
@@ -842,11 +804,6 @@ initState(dsd_state *state) {
     memset(state->dmr_lrrp_gps, 0, sizeof(state->dmr_lrrp_gps));
     memset(state->active_channel, 0, sizeof(state->active_channel));
 
-    //REMUS! multi-purpose call_string
-    sprintf(state->call_string[0], "%s", "                     "); //21 spaces
-    sprintf(state->call_string[1], "%s", "                     "); //21 spaces
-
-    //late entry mi fragments
     memset(state->late_entry_mi_fragment, 0, sizeof(state->late_entry_mi_fragment));
 
     state->dPMRVoiceFS2Frame.CalledIDOk = 0;
@@ -854,10 +811,6 @@ initState(dsd_state *state) {
     memset(state->dPMRVoiceFS2Frame.CalledID, 0, 8);
     memset(state->dPMRVoiceFS2Frame.CallingID, 0, 8);
     memset(state->dPMRVoiceFS2Frame.Version, 0, 8);
-
-    sprintf(state->dpmr_caller_id, "%s", "      ");
-    sprintf(state->dpmr_target_id, "%s", "      ");
-
 } //init_state
 
 void

@@ -211,7 +211,7 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
                                             for (short p = 0; p < 6; p++) {
                                                 //convert bytes back to bits and load into ambe_d array.
                                                 for (short o = 0; o < 8; o++) {
-                                                    ambe_d_copy_m[i][kk] = ((plain[p] >> (7 - o)) & 0xff);
+                                                    ambe_d_copy_m[i][kk] = ((plain[p] >> (7 - o)) & 0x01);
                                                     kk++;
                                                     if (kk == 49) {
                                                         break;

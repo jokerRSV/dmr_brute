@@ -4,23 +4,28 @@
 #Cygwin currently using 3.23.2 (or newer)
 cmake_minimum_required(VERSION 3.10.2)
 project(brute)
+#enable_language(ASM_NASM)
+#set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
 #set(CMAKE_C_STANDARD 99)
+#set(CMAKE_ASM_FLAGS "${CFLAGS} -x assembler-with-cpp")
+#set(CMAKE_ASM_NASM_COMPILE_OBJECT "<CMAKE_ASM_NASM_COMPILER> <INCLUDES> <FLAGS> -f ${CMAKE_ASM_NASM_OBJECT_FORMAT} -o <OBJECT> <SOURCE>")
+#set_source_files_properties(src/*.asm PROPERTIES COMPILE_FLAGS "-g -Fdwarf")
 
 include(FindOpenMP)
 find_package(OpenMP)
-if(OPENMP_FOUND)
+if (OPENMP_FOUND)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-else(OPENMP_FOUND)
+else (OPENMP_FOUND)
     message("ERROR: OpenMP could not be found.")
-endif(OPENMP_FOUND)
+endif (OPENMP_FOUND)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 
 #use cmake option -DCOLORS=OFF to disable color output
 option(COLORS
-    "Build with Colors Enabled" ON)
+        "Build with Colors Enabled" ON)
 if (COLORS)
     add_definitions(-DPRETTY_COLORS)
 endif ()
@@ -30,6 +35,7 @@ find_package(LibSndFile REQUIRED)
 include_directories(SYSTEM ${LIBSNDFILE_INCLUDE_DIR})
 set(LIBS ${LIBSNDFILE_LIBRARY})
 
+#FILE(GLOB SRCS src /*.s src/*.c src/*.cpp)
 FILE(GLOB SRCS src/*.c src/*.cpp)
 FILE(GLOB HEADERS include/*.h include/*.hpp)
 

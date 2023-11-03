@@ -65,6 +65,7 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
         if (result == 0) {
             sf_close(opts->audio_in_file);
 //            fprintf(stderr, "\nEnd of .wav file.\n");
+            printf("number of counts all: %d", state->audio_count);
             cleanupAndExit(opts, state);
 //            int ii = fclose(pFile);
 //            fprintf (stderr, "exit11111 %d ", ii);
