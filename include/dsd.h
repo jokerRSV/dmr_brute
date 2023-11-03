@@ -423,6 +423,7 @@ typedef struct {
     short audio_out[960];
     int DMRvcL;
     int DMRvcL_p[SIZE_OF_STORE];
+    int dropL_p[SIZE_OF_STORE];
 //    key_state key_buff_struct[SIZE_OF_BUFFER];
     short voice_buff[SIZE_OF_BUFFER];
     int voice_buff_counter;
@@ -534,6 +535,7 @@ typedef struct {
     int payload_mfid;
     int payload_mfidR;
     int payload_mi;
+    int payload_mi_p[SIZE_OF_STORE];
     int payload_miR;
     unsigned long long int payload_miN;
     unsigned long long int payload_miP;

@@ -289,7 +289,7 @@ void dmrMS(dsd_opts *opts, dsd_state *state) {
             //check the single burst/reverse channel opportunity
             dmr_sbrc(opts, state, power);
 
-            fprintf(stderr, "\n");
+//            fprintf(stderr, "\n");
             dmr_alg_refresh(opts, state);
         }
 

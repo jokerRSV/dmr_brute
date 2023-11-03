@@ -751,6 +751,6 @@ void dmr_reset_blocks(dsd_opts *opts, dsd_state *state) {
     //reset some strings -- resetting call string here causes random blink on ncurses terminal (cap+)
     // sprintf (state->call_string[0], "%s", "                     "); //21 spaces
     // sprintf (state->call_string[1], "%s", "                     "); //21 spaces
-    sprintf(state->dmr_lrrp_gps[0], "%s", "");
-    sprintf(state->dmr_lrrp_gps[1], "%s", "");
+//    sprintf(state->dmr_lrrp_gps[0], "%s", "");
+//    sprintf(state->dmr_lrrp_gps[1], "%s", "");
 }

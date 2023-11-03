@@ -450,19 +450,19 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     } else {
 //        sprintf(light, "%s", "  slot1  [SLOT2] ");
     }
-    if (opts->inverted_dmr == 0) sprintf(polarity, "%s", "+");
-    else sprintf(polarity, "%s", "-");
+//    if (opts->inverted_dmr == 0) sprintf(polarity, "%s", "+");
+//    else sprintf(polarity, "%s", "-");
 
 //    fprintf(stderr, "Sync: %sDMR %s| Color Code=%02d | VC1*", polarity, light, state->dmr_color_code);
 
     dmr_alg_reset(opts, state);
 
-    if (opts->payload == 1) fprintf(stderr, "\n"); //extra line break necessary here
+//    if (opts->payload == 1) fprintf(stderr, "\n"); //extra line break necessary here
     processMbeFrame(state, ambe_fr, opts);
     processMbeFrame(state, ambe_fr2, opts);
     processMbeFrame(state, ambe_fr3, opts);
 
-    if (opts->payload == 0) fprintf(stderr, "\n");
+//    if (opts->payload == 0) fprintf(stderr, "\n");
 
     //update voice sync time for trunking purposes (particularly Con+)
     if (opts->p25_is_tuned == 1) state->last_vc_sync_time = time(NULL);
@@ -471,11 +471,11 @@ void dmrBSBootstrap(dsd_opts *opts, dsd_state *state) {
     END:
     //if we have a tact err, then produce sync pattern/err message
     if (tact_okay != 1 || sync_okay != 1) {
-        fprintf(stderr, "Sync:  DMR                  ");
-        fprintf(stderr, "%s", KRED);
-        fprintf(stderr, "| VOICE CACH/SYNC ERR");
-        fprintf(stderr, "%s", KNRM);
-        fprintf(stderr, "\n");
+//        fprintf(stderr, "Sync:  DMR                  ");
+//        fprintf(stderr, "%s", KRED);
+//        fprintf(stderr, "| VOICE CACH/SYNC ERR");
+//        fprintf(stderr, "%s", KNRM);
+//        fprintf(stderr, "\n");
         //run refresh if either slot had an active MI in it.
         if (state->payload_algid >= 0x21) {
             state->currentslot = 0;

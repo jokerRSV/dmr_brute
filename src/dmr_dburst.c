@@ -546,33 +546,33 @@ void dmr_data_burst_handler(dsd_opts *opts, dsd_state *state, uint8_t info[196],
 
     //print whether or not the 'RAS Field' bits are set to indicate RAS enabled (to be verified)
     if (is_ras == 1) {
-        fprintf(stderr, "%s", KRED);
-        fprintf(stderr, " -RAS ");
+//        fprintf(stderr, "%s", KRED);
+//        fprintf(stderr, " -RAS ");
         //the value of this field seems to always, or usually, be 4, or just R[2] bit is set
-        if (opts->payload == 1) fprintf(stderr, "%X ", BPTCReservedBits);
-        fprintf(stderr, "%s", KNRM);
+//        if (opts->payload == 1) fprintf(stderr, "%X ", BPTCReservedBits);
+//        fprintf(stderr, "%s", KNRM);
     }
 
     if (IrrecoverableErrors == 0 && CRCCorrect == 0 && is_ras == 0 && databurst != 0x09 && databurst != 0x05) {
-        fprintf(stderr, "%s", KRED);
-        fprintf(stderr, " (CRC ERR) ");
-        fprintf(stderr, "%s", KNRM);
+//        fprintf(stderr, "%s", KRED);
+//        fprintf(stderr, " (CRC ERR) ");
+//        fprintf(stderr, "%s", KNRM);
     }
 
     //print the unified PDU format here, if not slot idle
     if (opts->payload == 1 && databurst != 0x09) {
-        fprintf(stderr, "\n");
-        fprintf(stderr, "%s", KCYN);
-        fprintf(stderr, " DMR PDU Payload ");
-        for (i = 0; i < pdu_len; i++) {
-            fprintf(stderr, "[%02X]", DMR_PDU[i]);
-        }
+//        fprintf(stderr, "\n");
+//        fprintf(stderr, "%s", KCYN);
+//        fprintf(stderr, " DMR PDU Payload ");
+//        for (i = 0; i < pdu_len; i++) {
+//            fprintf(stderr, "[%02X]", DMR_PDU[i]);
+//        }
 
         //debug print
         // if (dbsn) fprintf (stderr, " SN %X", dbsn);
         // fprintf (stderr, " CRC - EXT %X CMP %X", CRCExtracted, CRCComputed);
 
-        fprintf(stderr, "%s", KNRM);
+//        fprintf(stderr, "%s", KNRM);
 
     }
 

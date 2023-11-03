@@ -92,11 +92,11 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
                     state->jitter = i;
                 }
                 if ((opts->symboltiming == 1) && (have_sync == 0) && (state->lastsynctype != -1)) {
-                    fprintf(stderr, "O");
+//                    fprintf(stderr, "O");
                 }
             } else {
                 if ((opts->symboltiming == 1) && (have_sync == 0) && (state->lastsynctype != -1)) {
-                    fprintf(stderr, "+");
+//                    fprintf(stderr, "+");
                 }
                 if ((state->jitter < 0) && (state->lastsample < state->center) &&
                     (state->rf_mod != 1)) {               // first transition edge
@@ -115,11 +115,11 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
                     state->jitter = i;
                 }
                 if ((opts->symboltiming == 1) && (have_sync == 0) && (state->lastsynctype != -1)) {
-                    fprintf(stderr, "X");
+//                    fprintf(stderr, "X");
                 }
             } else {
                 if ((opts->symboltiming == 1) && (have_sync == 0) && (state->lastsynctype != -1)) {
-                    fprintf(stderr, "-");
+//                    fprintf(stderr, "-");
                 }
                 if ((state->jitter < 0) && (state->lastsample > state->center) &&
                     (state->rf_mod != 1)) {               // first transition edge
@@ -174,9 +174,9 @@ getSymbol(dsd_opts *opts, dsd_state *state, int have_sync) {
 
     if ((opts->symboltiming == 1) && (have_sync == 0) && (state->lastsynctype != -1)) {
         if (state->jitter >= 0) {
-            fprintf(stderr, " %i\n", state->jitter);
+//            fprintf(stderr, " %i\n", state->jitter);
         } else {
-            fprintf(stderr, "\n");
+//            fprintf(stderr, "\n");
         }
     }
 

@@ -105,13 +105,13 @@ void dmr_late_entry_mi (dsd_opts * opts, dsd_state * state)
     {
       if (state->payload_mi != mi_final) 
       {
-        fprintf (stderr, "%s", KCYN);
-        fprintf (stderr, " Slot 1 PI/LFSR and Late Entry MI Mismatch - %08X : %08X ", state->payload_mi, mi_final);
+//        fprintf (stderr, "%s", KCYN);
+//        fprintf (stderr, " Slot 1 PI/LFSR and Late Entry MI Mismatch - %08X : %08X ", state->payload_mi, mi_final);
         state->payload_mi = mi_final;
-        if (mi_crc_ok == 1) fprintf (stderr, "(CRC OK)");
-        else fprintf (stderr, "(CRC ERR)");
-        fprintf (stderr, "\n");
-        fprintf (stderr, "%s", KNRM);
+//        if (mi_crc_ok == 1) fprintf (stderr, "(CRC OK)");
+//        else fprintf (stderr, "(CRC ERR)");
+//        fprintf (stderr, "\n");
+//        fprintf (stderr, "%s", KNRM);
       }
       //run afterwards, or le verification won't match up properly
       if (state->payload_algid != 0x21)
@@ -124,13 +124,13 @@ void dmr_late_entry_mi (dsd_opts * opts, dsd_state * state)
     {
       if (state->payload_miR != mi_final)
       {
-        fprintf (stderr, "%s", KCYN);
-        fprintf (stderr, " Slot 2 PI/LFSR and Late Entry MI Mismatch - %08X : %08X ", state->payload_miR, mi_final);
+//        fprintf (stderr, "%s", KCYN);
+//        fprintf (stderr, " Slot 2 PI/LFSR and Late Entry MI Mismatch - %08X : %08X ", state->payload_miR, mi_final);
         state->payload_miR = mi_final;
-        if (mi_crc_ok == 1) fprintf (stderr, "(CRC OK)");
-        else fprintf (stderr, "(CRC ERR)");
-        fprintf (stderr, "\n");
-        fprintf (stderr, "%s", KNRM);
+//        if (mi_crc_ok == 1) fprintf (stderr, "(CRC OK)");
+//        else fprintf (stderr, "(CRC ERR)");
+//        fprintf (stderr, "\n");
+//        fprintf (stderr, "%s", KNRM);
       }
       //run afterwards, or le verification won't match up properly
       if (state->payload_algidR != 0x21)
@@ -270,13 +270,13 @@ void dmr_sbrc (dsd_opts * opts, dsd_state * state, uint8_t power)
 
   if (opts->payload == 1) //hide the sb/rc behind the payload printer, won't be useful to most people
   {
-    fprintf (stderr, "%s", KCYN);
-    if (power == 0) fprintf (stderr, " SB: ");
-    if (power == 1) fprintf (stderr, " RC: ");
-    for(i = 0; i < 11; i++)
-      fprintf (stderr, "%d", sbrc_return[i]);
-    fprintf (stderr, " - %03X; ", sbrc_hex);
-    fprintf (stderr, "%s", KNRM);
+//    fprintf (stderr, "%s", KCYN);
+//    if (power == 0) fprintf (stderr, " SB: ");
+//    if (power == 1) fprintf (stderr, " RC: ");
+//    for(i = 0; i < 11; i++)
+//      fprintf (stderr, "%d", sbrc_return[i]);
+//    fprintf (stderr, " - %03X; ", sbrc_hex);
+//    fprintf (stderr, "%s", KNRM);
     
     // if (crc_okay == 0) //forego this since the crc can vary or not be used at all
     // {
@@ -302,7 +302,7 @@ void dmr_sbrc (dsd_opts * opts, dsd_state * state, uint8_t power)
 
   if (opts->dmr_le == 1) //this will now require a user to switch it on or off until more testing/figuring can be done
   {
-    if (irr_err != 0) fprintf (stderr, "\n%s SLOT %d SB/RC (FEC ERR) %d %s \n", KRED, slot, irr_err, KNRM);
+//    if (irr_err != 0) fprintf (stderr, "\n%s SLOT %d SB/RC (FEC ERR) %d %s \n", KRED, slot, irr_err, KNRM);
     if (irr_err == 0)
     {
       if (sbrc_hex == 0) ; //NULL, do nothing
@@ -321,26 +321,26 @@ void dmr_sbrc (dsd_opts * opts, dsd_state * state, uint8_t power)
       else if (crc3_okay == 1 && (sbrc_opcode == 0 || sbrc_opcode == 3) )
       {
         //opcodes -- 0 (NULL), BR Delay (3)
-        if (opts->payload == 0) fprintf (stderr, "\n");
-        fprintf (stderr, "%s", KCYN);
-        fprintf (stderr, " TXI Op: %X -", sbrc_opcode);
-        if      (sbrc_opcode == 0) fprintf (stderr, " Null; ");
-        else if (sbrc_opcode == 3) 
-        {
-          if (txi_delay != 0)
-            fprintf (stderr, " BR Delay: %d - %d ms;", txi_delay, txi_delay * 30); //could also indicate number of superframes until next VC6 pre-emption
-          else fprintf (stderr, "BR Delay: Irrelevant / Send at any time;");
+//        if (opts->payload == 0) fprintf (stderr, "\n");
+//        fprintf (stderr, "%s", KCYN);
+//        fprintf (stderr, " TXI Op: %X -", sbrc_opcode);
+//        if      (sbrc_opcode == 0) fprintf (stderr, " Null; ");
+//        else if (sbrc_opcode == 3)
+//        {
+//          if (txi_delay != 0)
+//            fprintf (stderr, " BR Delay: %d - %d ms;", txi_delay, txi_delay * 30); //could also indicate number of superframes until next VC6 pre-emption
+//          else fprintf (stderr, "BR Delay: Irrelevant / Send at any time;");
 
           //alignment of inbound backwards channel and outbound burst
-          if (txi_delay == 2) fprintf (stderr, " SF3, Burst E;"); //E is inbound
-          if (txi_delay == 4) fprintf (stderr, " SF3, Burst D;"); //D is inbound
-          if (txi_delay == 6) fprintf (stderr, " SF3, Burst C;"); //C is inbound
-          if (txi_delay == 8) fprintf (stderr, " SF3, Burst B;"); //B is inbound
-        }
-        else fprintf (stderr, " Unk; ");
-        fprintf (stderr, "%s", KNRM);
+//          if (txi_delay == 2) fprintf (stderr, " SF3, Burst E;"); //E is inbound
+//          if (txi_delay == 4) fprintf (stderr, " SF3, Burst D;"); //D is inbound
+//          if (txi_delay == 6) fprintf (stderr, " SF3, Burst C;"); //C is inbound
+//          if (txi_delay == 8) fprintf (stderr, " SF3, Burst B;"); //B is inbound
+//        }
+//        else fprintf (stderr, " Unk; ");
+//        fprintf (stderr, "%s", KNRM);
 
-        if (opts->payload == 1) fprintf (stderr, "\n"); //only during payload
+//        if (opts->payload == 1) fprintf (stderr, "\n"); //only during payload
 
       }
 
@@ -354,12 +354,12 @@ void dmr_sbrc (dsd_opts * opts, dsd_state * state, uint8_t power)
             //if we aren't forcing a particular alg or privacy key set
             if (state->M == 0)
             {
-              fprintf (stderr, "\n");
-              fprintf (stderr, "%s", KCYN);
-              fprintf (stderr, " Slot 1");
-              fprintf (stderr, " DMR LE SB ALG ID: 0x%02X KEY ID: 0x%02X", alg + 0x20, key);
-              fprintf (stderr, "%s ", KNRM);
-              if (opts->payload == 1) fprintf (stderr, "\n");
+//              fprintf (stderr, "\n");
+//              fprintf (stderr, "%s", KCYN);
+//              fprintf (stderr, " Slot 1");
+//              fprintf (stderr, " DMR LE SB ALG ID: 0x%02X KEY ID: 0x%02X", alg + 0x20, key);
+//              fprintf (stderr, "%s ", KNRM);
+//              if (opts->payload == 1) fprintf (stderr, "\n");
               state->payload_keyid = key;
               state->payload_algid = alg + 0x20; //assuming DMRA approved alg values (moto patent)
             }
@@ -374,12 +374,12 @@ void dmr_sbrc (dsd_opts * opts, dsd_state * state, uint8_t power)
             //if we aren't forcing a particular alg or privacy key set
             if (state->M == 0)
             {
-              fprintf (stderr, "\n");
-              fprintf (stderr, "%s", KCYN);
-              fprintf (stderr, " Slot 2");
-              fprintf (stderr, " DMR LE SB ALG ID: 0x%02X KEY ID: 0x%02X", alg + 0x20, key);
-              fprintf (stderr, "%s ", KNRM);
-              if (opts->payload == 1) fprintf (stderr, "\n");
+//              fprintf (stderr, "\n");
+//              fprintf (stderr, "%s", KCYN);
+//              fprintf (stderr, " Slot 2");
+//              fprintf (stderr, " DMR LE SB ALG ID: 0x%02X KEY ID: 0x%02X", alg + 0x20, key);
+//              fprintf (stderr, "%s ", KNRM);
+//              if (opts->payload == 1) fprintf (stderr, "\n");
               state->payload_keyidR = key;
               state->payload_algidR = alg + 0x20; //assuming DMRA approved alg values (moto patent)
             }
@@ -399,13 +399,13 @@ void dmr_sbrc (dsd_opts * opts, dsd_state * state, uint8_t power)
   {
     FILE * pFile; //file pointer
     pFile = fopen (opts->dsp_out_file, "a");
-    fprintf (pFile, "\n%d 99 ", slot+1); //'99' is RC designation value
+//    fprintf (pFile, "\n%d 99 ", slot+1); //'99' is RC designation value
     int k = 0;
     for (i = 0; i < 24; i++) //12 bytes, SB or RC
     {
       //check to see if k++ starts at zero, or at 1
       int sbrc_nib = (state->dmr_embedded_signalling[slot][5][k++] << 3) | (state->dmr_embedded_signalling[slot][5][k++] << 2) | (state->dmr_embedded_signalling[slot][5][k++] << 1) | (state->dmr_embedded_signalling[slot][5][k++] << 0);
-      fprintf (pFile, "%X", sbrc_nib);
+//      fprintf (pFile, "%X", sbrc_nib);
     }
     fclose (pFile);
   } 

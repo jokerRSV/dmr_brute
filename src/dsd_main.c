@@ -621,6 +621,12 @@ initState(dsd_state *state) {
     for (int k = 0; k < SIZE_OF_STORE; ++k) {
         state->DMRvcL_p[k] = 0;
     }
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
+        state->payload_mi_p[k] = 0;
+    }
+    for (int k = 0; k < SIZE_OF_STORE; ++k) {
+        state->dropL_p[k] = 0;
+    }
     state->prev_mp2 = malloc(sizeof(mbe_parms));
     for (int k = 0; k < SIZE_OF_STORE; ++k) {
         state->prev_mp2_store[k] = malloc(sizeof(mbe_parms));
