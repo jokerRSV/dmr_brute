@@ -12,7 +12,9 @@ project(brute)
 #set_source_files_properties(src/*.asm PROPERTIES COMPILE_FLAGS "-g -Fdwarf")
 
 include(FindOpenMP)
-find_package(OpenMP)
+find_package(OpenMP REQUIRED)
+find_package(OpenCL REQUIRED)
+
 if (OPENMP_FOUND)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
@@ -41,7 +43,8 @@ FILE(GLOB HEADERS include/*.h include/*.hpp)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-ADD_EXECUTABLE(brute ${SRCS} ${HEADERS})
-TARGET_LINK_LIBRARIES(brute ${LIBS})
+add_executable(brute ${SRCS} ${HEADERS})
+target_link_libraries(brute PRIVATE OpenCL::OpenCL ${LIBS})
+#target_link_libraries(${PROJECT_NAME} PRIVATE OpenCL::OpenCL)
 
 install(TARGETS brute DESTINATION ${CMAKE_INSTALL_BINDIR})

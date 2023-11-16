@@ -56,6 +56,7 @@
 #include <omp.h>
 #include <locale.h>
 #include <stdbool.h>
+
 #define TRUE    1
 
 #define SIZE_OF_BUFFER 1000000
@@ -367,8 +368,7 @@ typedef struct {
     int zero_num;
 } key_state;
 
-struct mbe_parameters
-{
+struct mbe_parameters {
     float w0;
     int L;
     int K;
@@ -387,35 +387,57 @@ typedef struct mbe_parameters mbe_parms;
 /*
  * Prototypes from ecc.c
  */
-void mbe_checkGolayBlock (long int *block);
-int mbe_golay2312 (char *in, char *out);
-int mbe_hamming1511 (char *in, char *out);
-int mbe_7100x4400hamming1511 (char *in, char *out);
+void mbe_checkGolayBlock(long int *block);
+
+int mbe_golay2312(char *in, char *out);
+
+int mbe_hamming1511(char *in, char *out);
+
+int mbe_7100x4400hamming1511(char *in, char *out);
 
 /*
  * Prototypes from ambe3600x2450.c
  */
-int mbe_eccAmbe3600x2450C0 (char ambe_fr[4][24]);
-int mbe_eccAmbe3600x2450Data (char ambe_fr[4][24], char *ambe_d);
-int mbe_decodeAmbe2450Parms (char *ambe_d, mbe_parms * cur_mp, mbe_parms * prev_mp);
-void mbe_demodulateAmbe3600x2450Data (char ambe_fr[4][24]);
-void mbe_processAmbe2450Dataf (float *aout_buf, int *errs, int *errs2, char *err_str, char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processAmbe2450Data (short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processAmbe3600x2450Framef (float *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
-void mbe_processAmbe3600x2450Frame (short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced, int uvquality);
+int mbe_eccAmbe3600x2450C0(char ambe_fr[4][24]);
+
+int mbe_eccAmbe3600x2450Data(char ambe_fr[4][24], char *ambe_d);
+
+int mbe_decodeAmbe2450Parms(char *ambe_d, mbe_parms *cur_mp, mbe_parms *prev_mp);
+
+void mbe_demodulateAmbe3600x2450Data(char ambe_fr[4][24]);
+
+void mbe_processAmbe2450Dataf(float *aout_buf, int *errs, int *errs2, char *err_str, char ambe_d[49], mbe_parms *cur_mp, mbe_parms *prev_mp,
+                              mbe_parms *prev_mp_enhanced, int uvquality);
+
+void mbe_processAmbe2450Data(short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_d[49], mbe_parms *cur_mp, mbe_parms *prev_mp,
+                             mbe_parms *prev_mp_enhanced, int uvquality);
+
+void mbe_processAmbe3600x2450Framef(float *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms *cur_mp,
+                                    mbe_parms *prev_mp, mbe_parms *prev_mp_enhanced, int uvquality);
+
+void mbe_processAmbe3600x2450Frame(short *aout_buf, int *errs, int *errs2, char *err_str, char ambe_fr[4][24], char ambe_d[49], mbe_parms *cur_mp,
+                                   mbe_parms *prev_mp, mbe_parms *prev_mp_enhanced, int uvquality);
 
 /*
  * Prototypes from mbelib.c
  */
-void mbe_moveMbeParms (mbe_parms * cur_mp, mbe_parms * prev_mp);
-void mbe_useLastMbeParms (mbe_parms * cur_mp, mbe_parms * prev_mp);
-void mbe_initMbeParms (mbe_parms * cur_mp, mbe_parms * prev_mp, mbe_parms * prev_mp_enhanced);
-void mbe_spectralAmpEnhance (mbe_parms * cur_mp);
-void mbe_synthesizeSilencef (float *aout_buf);
-void mbe_synthesizeSilence (short *aout_buf);
-void mbe_synthesizeSpeechf (float *aout_buf, mbe_parms * cur_mp, mbe_parms * prev_mp, int uvquality);
-void mbe_synthesizeSpeech (short *aout_buf, mbe_parms * cur_mp, mbe_parms * prev_mp, int uvquality);
-void mbe_floattoshort (float *float_buf, short *aout_buf);
+void mbe_moveMbeParms(mbe_parms *cur_mp, mbe_parms *prev_mp);
+
+void mbe_useLastMbeParms(mbe_parms *cur_mp, mbe_parms *prev_mp);
+
+void mbe_initMbeParms(mbe_parms *cur_mp, mbe_parms *prev_mp, mbe_parms *prev_mp_enhanced);
+
+void mbe_spectralAmpEnhance(mbe_parms *cur_mp);
+
+void mbe_synthesizeSilencef(float *aout_buf);
+
+void mbe_synthesizeSilence(short *aout_buf);
+
+void mbe_synthesizeSpeechf(float *aout_buf, mbe_parms *cur_mp, mbe_parms *prev_mp, int uvquality);
+
+void mbe_synthesizeSpeech(short *aout_buf, mbe_parms *cur_mp, mbe_parms *prev_mp, int uvquality);
+
+void mbe_floattoshort(float *float_buf, short *aout_buf);
 
 #define SIZE_OF_STORE 1000
 

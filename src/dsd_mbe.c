@@ -322,20 +322,12 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
 //                                    }
                                         unsigned char b0 = 0;
                                         b0 |= (ambe_d_copy[w][0] ^ (char) ((k1 >> (39 - (pos % 40))) & 0x01)) << 6;
-                                        b0 |= (ambe_d_copy[w][1] ^ (char) ((k1 >> (39 - ((pos + 1) % 40))) & 0x01))
-                                                << 5;
-                                        b0 |= (ambe_d_copy[w][2] ^ (char) ((k1 >> (39 - ((pos + 2) % 40))) & 0x01))
-                                                << 4;
-                                        b0 |= (ambe_d_copy[w][3] ^ (char) ((k1 >> (39 - ((pos + 3) % 40))) & 0x01))
-                                                << 3;
-                                        b0 |= (ambe_d_copy[w][37] ^
-                                               (char) ((k1 >> (39 - ((pos + 37) % 40))) & 0x01))
-                                                << 2;
-                                        b0 |= (ambe_d_copy[w][38] ^
-                                               (char) ((k1 >> (39 - ((pos + 38) % 40))) & 0x01))
-                                                << 1;
-                                        b0 |= (ambe_d_copy[w][39] ^
-                                               (char) ((k1 >> (39 - ((pos + 39) % 40))) & 0x01));
+                                        b0 |= (ambe_d_copy[w][1] ^ (char) ((k1 >> (39 - ((pos + 1) % 40))) & 0x01)) << 5;
+                                        b0 |= (ambe_d_copy[w][2] ^ (char) ((k1 >> (39 - ((pos + 2) % 40))) & 0x01)) << 4;
+                                        b0 |= (ambe_d_copy[w][3] ^ (char) ((k1 >> (39 - ((pos + 3) % 40))) & 0x01)) << 3;
+                                        b0 |= (ambe_d_copy[w][37] ^ (char) ((k1 >> (39 - ((pos + 37) % 40))) & 0x01)) << 2;
+                                        b0 |= (ambe_d_copy[w][38] ^ (char) ((k1 >> (39 - ((pos + 38) % 40))) & 0x01)) << 1;
+                                        b0 |= (ambe_d_copy[w][39] ^ (char) ((k1 >> (39 - ((pos + 39) % 40))) & 0x01));
                                         b0_arr[w] = b0;
                                     }
 
