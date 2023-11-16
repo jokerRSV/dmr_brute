@@ -125,6 +125,46 @@ void processMbeFrame(dsd_state *state, char ambe_fr[4][24], dsd_opts *opts) {
     }
 
     if (state->audio_count == num + start) {
+        FILE *fp;
+        char *source_str;
+        size_t source_size;
+
+        fp = fopen("/media/rsv/ssd_common/projects/projects/c/test_parallel/vector_add_kernel.cl", "r");
+        if (!fp) {
+            fprintf(stderr, "Failed to load kernel.\n");
+            exit(1);
+        }
+        source_str = (char *) malloc(MAX_SOURCE_SIZE);
+        source_size = fread(source_str, 1, MAX_SOURCE_SIZE, fp);
+        fclose(fp);
+        printf("kernel loading done\n");
+
+
+        cl_int err;
+        cl_uint numPlatforms = 2;
+        err = clGetPlatformIDs(0, NULL, &numPlatforms);
+        printf("err at %d is %d\n", __LINE__, err);
+
+        cl_device_id device_id = NULL;
+        cl_uint ret_num_devices;
+        cl_uint ret_num_platforms;
+        cl_int ret = clGetPlatformIDs(1, NULL, &ret_num_platforms);
+        printf("ret at %d is %d\n", __LINE__, ret);
+        cl_platform_id platforms[5] = {0};
+        ret = clGetPlatformIDs(ret_num_platforms, platforms, &numPlatforms);
+        printf("ret at %d is %d\n", __LINE__, ret);
+        printf("numPlatforms at %d is %d\n", __LINE__, numPlatforms);
+        ret = clGetDeviceIDs(platforms[0], CL_DEVICE_TYPE_ALL, 1, &device_id, &ret_num_devices);
+        printf("ret at %d is %d\n", __LINE__, ret);
+
+        cl_context context = clCreateContext(NULL, 1, &device_id, NULL, NULL, &ret);
+        printf("ret at %d is %d\n", __LINE__, ret);
+
+        cl_command_queue command_queue = clCreateCommandQueueWithProperties(context, device_id, 0, &ret);
+        printf("ret at %d is %d\n", __LINE__, ret);
+
+
+
         clock_t begin = clock();
 
         //1a == 26

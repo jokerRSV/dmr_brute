@@ -60,7 +60,18 @@
 #define TRUE    1
 
 #define SIZE_OF_BUFFER 1000000
+#define MAX_SOURCE_SIZE (0x100000)
+#define CL_TARGET_OPENCL_VERSION 220
 extern volatile uint8_t exitflag; //fix for issue #136
+
+#include <CL/cl.h>
+#include <stdio.h>
+#include <string.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <time.h>
+#include <math.h>
 
 //group csv import struct
 typedef struct {
